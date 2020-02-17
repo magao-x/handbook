@@ -1,13 +1,11 @@
-# Packing the MagAO-X Table at LCO for Shipment 
+# Packing the MagAO-X Table at LCO for Shipment
 
 This procedure describes how to pack MagAO-X optical table for shipment.
 
-Estimate Time to Complete:  2 hrs
-
-This document can be dowloaded as pdf:
+Estimated Time to Complete:  2 hrs
 
 ```eval_rst
-:download:`MagAO-X Table Packing at LCO <instrument_packing.pdf>`
+This document can be downloaded as a PDF: :static:`Instrument Rack Packing at LCO <handling/instrument_packing.pdf>`
 ```
 
 ## Initial Conditions
@@ -30,16 +28,19 @@ This document can be dowloaded as pdf:
 
 - [ ] Move the empty box and shipping frame into the unpacking room with the forklift, placing it on 4 furniture dollies.
 
-![ ](figures/box_forking.jpg)
-<br />*The instrument box is brought to the unpacking area with the forklift.*
+    ![ ](figures/box_forking.jpg)
 
-![ ](figures/box_dollies.jpg)
-<br />*The instrument box being set down on dollies with the fork lift.  Note the placement and orientation of the dollies.*
+    *The instrument box is brought to the unpacking area with the forklift.*
+
+    ![ ](figures/box_dollies.jpg)
+
+    *The instrument box being set down on dollies with the fork lift.  Note the placement and orientation of the dollies.*
 
 - [ ] Move the box towards the inside garage door, and stage 4 more dollies to accept the lid.
 
-![ ](figures/box_for_lid_removal.jpg)
-<br />*Box in position to have the lid removed.*
+    ![ ](figures/box_for_lid_removal.jpg)
+
+    *Box in position to have the lid removed.*
 
 - [ ] Remove the front panel from the box, place out of the way (e.g. outside).
 
@@ -47,12 +48,13 @@ This document can be dowloaded as pdf:
 
 - [ ] Place the straight extension on the lifting fixture, and place it in the box-lid position.
 
-- [ ] Attach the lifting fixture to the lid.  
+- [ ] Attach the lifting fixture to the lid.
 
 - [ ] Lift the lid with the crane, and set it down on the dollies.
 
-![ ](figures/lid_off.jpg)
-<br />*Box lid off, on dollies.*
+    ![ ](figures/lid_off.jpg)
+
+    *Box lid off, on dollies.*
 
 - [ ] Move the pallet into the cleanroom to make room to maneuver the lid.
 
@@ -64,32 +66,36 @@ This document can be dowloaded as pdf:
 
 - [ ] Bring the instrument and cart out of the cleanroom.
 
-<b> NOTE: position the cart so that the taller heavier side of the instrument will set down on the side of the frame with the most wire-rope isolators. </b>m
+    **NOTE: position the cart so that the taller heavier side of the instrument will set down on the side of the frame with the most wire-rope isolators.**
 
 - [ ] Install the scale between the load spreader and the crane, and place the lifting fixture in the instrument+cart position.
 
 - [ ] Install the triangle stabilizing rope ratchets, leaving them loose.
 
-![ ](figures/lifting_fixture_install.png)
-<br />*Preparation of the lifting fixture.*
+    ![ ](figures/lifting_fixture_install.png)
+
+    *Preparation of the lifting fixture.*
 
 
 - [ ] With the crane, carefully position the load spreader over the table.
 
-<b> NOTE: be sure to guidee both ends of the load spreader so it does not contact the instrument </b>
+    **NOTE: be sure to guide both ends of the load spreader so it does not contact the instrument**
 
 - [ ] Attach the load spreader to the cart.  Two shackles are used to extend the length.  The hooks should be placed opening up.
 
-![ ](figures/cart_lift_extensions.jpg)
-<br />*Use two shackles for correct length.*
+    ![ ](figures/cart_lift_extensions.jpg)
 
-![ ](figures/cart_hooks_up.png)
-<br />*Hooks must open up on the cart to get the correct length.*
+    *Use two shackles for correct length.*
 
-- [ ] Lift the instrument+cart, which weigh <b>1920 lbs</b>, until all 4 wheels are off the ground.  If it is out of balance, it will be necessary to manually correct.
+    ![ ](figures/cart_hooks_up.png)
 
-![ ](figures/inst_cart_lift.jpg)
-<br />*Lifting the instrument on its cart.*
+    *Hooks must open up on the cart to get the correct length.*
+
+- [ ] Lift the instrument+cart, which weigh **1920 lbs**, until all 4 wheels are off the ground.  If it is out of balance, it will be necessary to manually correct.
+
+    ![ ](figures/inst_cart_lift.jpg)
+
+    *Lifting the instrument on its cart.*
 
 - [ ] Adjust the load spread to find the best balance.
 
@@ -101,8 +107,9 @@ This document can be dowloaded as pdf:
 
 - [ ] Lower the instrument slowly to just touch the frame, but do not unload the crane.
 
-![ ](figures/inst_on_frame.jpg)
-<br />*The instrument on the frame.*
+    ![ ](figures/inst_on_frame.jpg)
+
+    *The instrument on the frame.*
 
 - [ ] While the instrument is still supported by the crane, start bolts at each corner to guide the instrument down.
 
@@ -110,19 +117,21 @@ This document can be dowloaded as pdf:
 
 - [ ] Start all bolts, including installation of the Emerson Clamp base plates.
 
-- [ ] Fully lower the instrument, such that the crane is still supporting the cart weight of <b>320 lbs </b>
+- [ ] Fully lower the instrument, such that the crane is still supporting the cart weight of **320 lbs**
 
 - [ ] Tighten all bolts holding the instrument to the shipping frame.
 
-![ ](figures/bolt_tightening.jpg)
-<br />*Tightening the bolts.*
+    ![ ](figures/bolt_tightening.jpg)
+
+    *Tightening the bolts.*
 
 - [ ] Remove the 8 bolts holding the cart to the table.
 
 - [ ] Lower the cart so that it rests on the pallet.
 
-![ ](figures/cart_on_pallet.jpg)
-<br />*The cart lowered onto the pallet.*
+    ![ ](figures/cart_on_pallet.jpg)
+
+    *The cart lowered onto the pallet.*
 
 - [ ] Disassemble the cart, moving the pieces to storage area.
 
@@ -132,7 +141,7 @@ This document can be dowloaded as pdf:
 
 ## Install the Lid and Door
 
-- [ ] Move the pallet and instrument on the dollies back into the cleanroom to make space for the lid 
+- [ ] Move the pallet and instrument on the dollies back into the cleanroom to make space for the lid
 
 - [ ] Bring the lid back into the unpacking area and position it to be lifted on.  The open side goes towards the MagAO-X label on the instrument.
 
@@ -142,8 +151,9 @@ This document can be dowloaded as pdf:
 
 - [ ] Set the lid down on the pallet
 
-![ ](figures/inst_inside_box.jpg)
-<br />*MagAO-X on the shipping frame inside the box.*
+    ![ ](figures/inst_inside_box.jpg)
+
+    *MagAO-X on the shipping frame inside the box.*
 
 - [ ] Install the bolts along the bottom of the lid, securing it to the pallet.
 
