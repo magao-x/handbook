@@ -1,13 +1,11 @@
-# Removing MagAO-X From The Telescope
+# Removing MagAO-X from the Telescope
 
 This procedure describes how to remove the MagAO-X instrument on the Magellan Clay Telescope.
 
-Estimate Time to Complete: 2 hours
-
-This document can be dowloaded as pdf:
+Estimated Time to Complete: 2 hours
 
 ```eval_rst
-:download:`Telescope Removal Proecedure <telescope_remove.pdf>`
+This document can be downloaded as a PDF: :static:`Removing MagAO-X from the Telescope <handling/telescope_removal.pdf>`
 ```
 
 ## Initial Conditions
@@ -26,7 +24,7 @@ This document can be dowloaded as pdf:
 - [ ] Electronics Rack
   + [ ] Ensure that roll-out shelves are restrained
   + [ ] Close and lock doors
-  + [ ] Tape keys down 
+  + [ ] Tape keys down
 
 - [ ] Instrument
   + [ ] Remove eyepiece
@@ -50,30 +48,34 @@ This document can be dowloaded as pdf:
 - [ ] Lower table legs onto the casters by turning the 16 leveling bolts, and remove the metal pads
 
 - [ ] Roll the instrument away from the telescope
-   **NOTE:** At least 4 people required, 2 to push, 2 to hold the cleanroom sides open
+
+    **NOTE:** At least 4 people required, 2 to push, 2 to hold the cleanroom sides open
 
 - [ ] Move the cart, currently with 3 sides, around the legs
-  - **CAUTION:** be careful to not bump the legs with the cart
+
+    - **CAUTION:** be careful to not bump the legs with the cart
 
 - [ ] Attach the 4th side of the cart
 
 - [ ] Ensure that the 8 large bolts on the cart are snug but not tight
 
-- [ ] Attach the lifting wire-harnass to each side of the cart
+- [ ] Attach the lifting wire-harness to each side of the cart
 
 - [ ] Attach the load spreader with straight extensions to the crane, using a crane scale
 
-![ ](figures/load_spreader_attach.jpg)
-<br />*The load spreader attached to the crane for lifting the cart*
+    ![ ](figures/load_spreader_attach.jpg)
+
+    *The load spreader attached to the crane for lifting the cart*
 
 - [ ] Place the load spreader in the center position (the cart is symmetric)
 
 - [ ] Lift the load spreader, and position it over the instrument
 
-- [ ] Being careful to not bump the instrument, lower the load spreader and attach the lifting harnass D rings.  Use 2x shackles to extend the length to reach the cart on the floor.
+- [ ] Being careful to not bump the instrument, lower the load spreader and attach the lifting harness D rings.  Use 2x shackles to extend the length to reach the cart on the floor.
 
-![ ](figures/cart_lift_extensions.jpg)
-<br />*Lifting harnasses attached with shackle extensions*
+    ![ ](figures/cart_lift_extensions.jpg)
+
+    *Lifting harnesses attached with shackle extensions*
 
 - [ ] Position a person at each corner of the cart
 
@@ -81,8 +83,9 @@ This document can be dowloaded as pdf:
 
 - [ ] Slowly lift the cart (**320 lbs**) until it is touching the bottom of the table
 
-![ ](figures/cart_lift_tofrom_table.jpg)
-<br />*The cart being lifted to the bottom of the table.*
+    ![ ](figures/cart_lift_tofrom_table.jpg)
+
+    *The cart being lifted to the bottom of the table.*
 
 - [ ] Install the 8 bolts attaching the cart to the table.  Loosen bolts on the cart as needed.
 
@@ -90,16 +93,17 @@ This document can be dowloaded as pdf:
 
 - [ ] Install the triangle stabilizing ropes between the crane hook and the lifting fixture IAW the below figure.  Tighten, but do not cause them to pick the load.
 
-![ ](figures/stabilizers.jpg)
-<br />*The triangle stabilizing ropes should be tight, but not become the lifting point for the load.
+    ![ ](figures/stabilizers.jpg)
 
-**CAUTION:** be sure that the load spread does not hit the cart when being repositioned.
+    *The triangle stabilizing ropes should be tight, but not become the lifting point for the load.*
+
+    **CAUTION:** be sure that the load spread does not hit the cart when being repositioned.
+
 - [ ] Reposition the load spreader center to the instrument + cart position marked on it.
-
 
 - [ ] Ensure that there is room to move the legs out from under the table, opening the garage door into the cleanroom if necessary.
 
-- [ ] Position a person at each corner of the cart to stabilize it during the lift.  
+- [ ] Position a person at each corner of the cart to stabilize it during the lift.
 
 - [ ] Position two people to remove the legs from under the table
 
@@ -107,8 +111,9 @@ This document can be dowloaded as pdf:
 
 - [ ] Move the legs out from under the table.
 
-![ ](figures/cart_lift_legs_ready.jpg)
-<br />*The cart and instrument ready to be set down on the wheels, with legs out of the way.*
+    ![ ](figures/cart_lift_legs_ready.jpg)
+
+    *The cart and instrument ready to be set down on the wheels, with legs out of the way.*
 
 - [ ] Set the cart down on its wheels.
 
@@ -118,21 +123,23 @@ This document can be dowloaded as pdf:
 
 ## Transport MagAO-X To The Clean room
 
-- [ ] Ensure that the lift gate at the summit has been adjusted for slow smooth operation as is done for the asm 
+- [ ] Ensure that the lift gate at the summit has been adjusted for slow smooth operation as is done for the asm
 
 - [ ] Push MagAO-X onto the lift-gate
 
-- [ ] Raise the lift-gate to the height of the flatbed truck 
+- [ ] Raise the lift-gate to the height of the flatbed truck
 
 - [ ] Move MagAO-X onto the truck, using the come-along
 
-![ ](figures/asm_backed_up.jpg)
-<br />*MagAO-X will be loaded at the telescope using the lift gate, adjusted for slow operation as it is for the ASM.*
+    ![ ](figures/asm_backed_up.jpg)
 
-- [ ] Secure the instrument by strapping the cart down at 4 points as illustrated in the below figure. 
+    *MagAO-X will be loaded at the telescope using the lift gate, adjusted for slow operation as it is for the ASM.*
 
-![ ](figures/asm_truck_strapped.jpg)
-<br />*MagAO-X will be strapped to the Isuzu similarly to how the ASM is transported.*
+- [ ] Secure the instrument by strapping the cart down at 4 points as illustrated in the below figure.
+
+    ![ ](figures/asm_truck_strapped.jpg)
+
+    *MagAO-X will be strapped to the Isuzu similarly to how the ASM is transported.*
 
 - [ ] Slowly drive the truck to the cleanroom
 
@@ -146,19 +153,21 @@ This document can be dowloaded as pdf:
 
 ## Transport Electronics
 
-- [ ] remove the earthquake bar 
+- [ ] remove the earthquake bar
 
 - [ ] Move the rack to the lift gate, and load it on the pickup.
 
 - [ ] place foam between the rack side and the truck to protect cable connectors
 
-![ ](figures/rack_connectors.jpg)
-<br />*The electronics rack has many delicate connectors on the side.*
+    ![ ](figures/rack_connectors.jpg)
+
+    *The electronics rack has many delicate connectors on the side.*
 
 - [ ] strap the rack securely to the truck
 
-![ ](figures/rack_truck.jpg)
-<br />*The rack on a truck for transport.*
+    ![ ](figures/rack_truck.jpg)
+
+    *The rack on a truck for transport.*
 
 - [ ] drive the truck to the cleanroom
 

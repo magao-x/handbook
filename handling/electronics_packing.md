@@ -2,12 +2,10 @@
 
 This procedure describes how to pack the MagAO-X electronics rack at LCO.
 
-Estimate Time to Complete:  2 hrs
-
-This document can be dowloaded as pdf:
+Estimated Time to Complete:  2 hrs
 
 ```eval_rst
-:download:`Electronics Rack Packing at LCO <electronics_packing.pdf>`
+This document can be downloaded as a PDF: :static:`Electronics Rack Packing at LCO <handling/electronics_packing.pdf>`
 ```
 
 ## Initial Conditions
@@ -27,7 +25,7 @@ This document can be dowloaded as pdf:
 
 - [ ] Check that all components are secure and shelves are restrained.
 
-- [ ] Ensure that the side panels are tightly fasteneded
+- [ ] Ensure that the side panels are tightly fastened
 
 - [ ] Close and lock the doors
 
@@ -39,27 +37,30 @@ This document can be dowloaded as pdf:
 
 ## Prepare Box For Loading
 
-- [ ] Install and bolt on the Lid and end-piece with lifting eyes
+- [ ] Install and bolt on the lid and end-piece with lifting eyes
 
 - [ ] Install the T-ended lifting fixture extensions
 
-- [ ] Raise the lifting fixture with the crane, and attach it to the box end with two short straps in double pass.
+- [ ] Raise the lifting fixture with the crane, and attach it to the box end with two short saps in double pass.
 
-![ ](figures/ebox_lift_attach.jpg)
-<br />*Attaching the lifting fixture for lifting the box.  Note that the staps are in double pass to be short enough.*
+   ![ ](figures/ebox_lift_attach.jpg)
+
+   *Attaching the lifting fixture for lifting the box.  Note that the staps are in double pass to be short enough.*
 
 
 - [ ] Begin lifting the box into loading position with the crane.
 
-![ ](figures/ebox_lift.jpg)
-<br />*The electronicx box being lifted into loading position*
+    ![ ](figures/ebox_lift.jpg)
+
+    *The electronicx box being lifted into loading position*
 
 - [ ] As the box lifts, move the crane forward so that it is pivoting the box on the diagonal skid.
 
 - [ ] When the box is upright, remove the lid (now a side) and the end-piece (now the top).  Remove the end piece form the crane.
 
-![ ](figures/ebox_end.jpg)
-<br />*The electronicx box end-piece is removed and set aside*
+    ![ ](figures/ebox_end.jpg)
+
+    *The electronics box end-piece is removed and set aside*
 
 
 - [ ] Place the top foam to the side.
@@ -68,22 +69,23 @@ This document can be dowloaded as pdf:
 
 - [ ] Attach the lifting fixture to the rack lifting eyes with 2 shackles as shown below.
 
-![ ](figures/erack_lift.jpg)
-<br />*The electronicx box rack being lifted.*
+    ![ ](figures/erack_lift.jpg)
+
+    *The electronics box rack being lifted.*
 
 - [ ] Lift the rack and move the crane to place the rack in the box.  The side with the instrument cables should be facing out so it is on top when the box is layed down. 2 people will be needed to guide the rack into the foam.
 
+    ![ ](figures/erack_in_box.jpg)
 
-![ ](figures/erack_in_box.jpg)
-<br />*The electronicx box rack in the shipping box.*
+    *The electronics box rack in the shipping box.*
 
-<b> NOTE: Leave the rack attached to and supported by the crane until the lid (currently a side) is installed.  This is to prevent the rack from tipping out of the box. </b>
-
+    **NOTE: Leave the rack attached to and supported by the crane until the lid (currently a side) is installed.  This is to prevent the rack from tipping out of the box.**
 
 - [ ] Place the foam pieces over the side of the rack
 
-![ ](figures/erack_foam_top.jpg)
-<br />*The electronicx box foam top in place before the lid is installed.*
+    ![ ](figures/erack_foam_top.jpg)
+
+    *The electronics box foam top in place before the lid is installed.*
 
 - [ ] Install the lid (currently a side) and bolt on
 
@@ -91,24 +93,28 @@ This document can be dowloaded as pdf:
 
 - [ ] Wrap 2x ratchet straps around the box as shown.
 
-## Lower The Box Into Shipping Position
 
-![ ](figures/ebox_straps.jpg)
-<br />*Tightly wrap the box with ratchet straps to provide extra support.*
+    ![ ](figures/ebox_straps.jpg)
+
+    *Tightly wrap the box with ratchet straps to provide extra support.*
+
+## Lower The Box Into Shipping Position
 
 - [ ] If necessary reposition using a pallet jack.
 
-<b> NOTE: DO NOT LIFT THE BOX WITH THE CRANE WITH THE RACK INSIDE </b>
+    **NOTE: DO NOT LIFT THE BOX WITH THE CRANE WITH THE RACK INSIDE**
 
-![ ](figures/ebox_pallet_jack.jpg)
-<br />*Reposition the box with a pallet jack. <b> DO NOT LIFT WITH CRANE</b>*
+    ![ ](figures/ebox_pallet_jack.jpg)
+
+    *Reposition the box with a pallet jack.* **DO NOT LIFT WITH CRANE**
 
 - [ ] Using the crane for support begin tipping the box, conducting the reverse of the lifting process shown above.
 
 - [ ] Move the crane so as to slowly lower the box.
 
-![ ](figures/ebox_lowering.jpg)
-<br />*Lowering the electronics box.*
+    ![ ](figures/ebox_lowering.jpg)
+
+    *Lowering the electronics box.*
 
 - [ ] Once the box is on the skid, remove the ratchet straps
 

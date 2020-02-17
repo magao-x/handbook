@@ -64,14 +64,50 @@ html_logo = '_static/magao-x_logo_white.png'
 # so a file named "default.css" will overwrite the builtin "default.css".
 html_static_path = ['_static']
 
-# Enable reCommonMark extensions to Markdown syntax
-# see https://recommonmark.readthedocs.io/en/latest/auto_structify.html
+# -- Options for LaTeX output
 
+latex_documents = [
+    # (startdocname, targetname, title, author, documentclass, toctree_only)
+    ('handling/electronics_packing', 'electronics_packing.tex', 'Packing the MagAO-X Electronics at LCO', author, 'howto', False),
+    ('handling/instrument_packing', 'instrument_packing.tex', 'Packing the MagAO-X Table at LCO for Shipment', author, 'howto', False),
+    ('handling/telescope_install', 'telescope_install.tex', 'Installing MagAO-X on the Telescope', author, 'howto', False),
+    ('handling/telescope_removal', 'telescope_removal.tex', 'Removing MagAO-X from the Telescope', author, 'howto', False),
+]
+
+#   - Disable page-clearing for chapter titles
+#   - Enforces a maximum width on images included as a brute force
+#     method of making more content fit on a page.
+_latex_preamble = r'''
+
+\usepackage{etoolbox}
+\makeatletter
+\patchcmd{\chapter}{\if@openright\cleardoublepage\else\clearpage\fi}{}{}{}
+\makeatother
+
+
+\usepackage{letltxmacro}
+\LetLtxMacro{\oldincludegraphics}{\includegraphics}
+
+\newlength\MaxWidth \newsavebox\IBox
+\MaxWidth=300pt
+
+\renewcommand*\includegraphics[2][]{%
+  \sbox\IBox{\oldincludegraphics[#1]{#2}}%
+  \ifdim\wd\IBox>\MaxWidth \resizebox{\MaxWidth}{!}{\usebox\IBox}%
+  \else\usebox\IBox\fi}
+'''
+latex_elements = {
+    'preamble': _latex_preamble,
+}
 
 def setup(app):
+    # Enable reCommonMark extensions to Markdown syntax
+    # see https://recommonmark.readthedocs.io/en/latest/auto_structify.html
     app.add_config_value('recommonmark_config', {
         'enable_auto_toc_tree': True,
         'auto_toc_tree_section': 'Contents',
     }, True)
     app.add_transform(AutoStructify)
+
+    # Add Matomo analytics
     app.add_javascript('stats.js')
