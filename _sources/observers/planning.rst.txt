@@ -15,10 +15,6 @@ Science
 =============================
 Filters in the science cameras.
 
-:static:`ref/filters/magaox_sci-halpha-cont_bs-halpha-ir_atm.dat`
-
-:static:`atm <ref/filters/magaox_sci-halpha-cont_bs-halpha-ir_atm.dat>`
-
 camsci1
 --------------------
 
