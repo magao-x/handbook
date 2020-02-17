@@ -93,7 +93,8 @@
 <li class="toctree-l1 current"><a class="reference internal" href="index.html">Appendices</a><ul class="current">
 <li class="toctree-l2 current"><a class="current reference internal" href="#">Documenting MagAO-X</a><ul>
 <li class="toctree-l3"><a class="reference internal" href="#where-the-documentation-lives">Where the documentation lives</a></li>
-<li class="toctree-l3"><a class="reference internal" href="#how-to-make-changes">How to make changes</a><ul>
+<li class="toctree-l3"><a class="reference internal" href="#how-to-make-changes-in-brief-e-g-for-typo-corrections">How to make changes: in brief (e.g. for typo corrections)</a></li>
+<li class="toctree-l3"><a class="reference internal" href="#how-to-make-bigger-changes">How to make bigger changes</a><ul>
 <li class="toctree-l4"><a class="reference internal" href="#installing-the-required-software">Installing the required software</a></li>
 <li class="toctree-l4"><a class="reference internal" href="#creating-a-brand-new-document">Creating a brand new document</a></li>
 <li class="toctree-l4"><a class="reference internal" href="#edit-and-publish">Edit and publish</a></li>
@@ -101,7 +102,8 @@
 <li class="toctree-l4"><a class="reference internal" href="#linking">Linking</a></li>
 <li class="toctree-l4"><a class="reference internal" href="#code-samples">Code samples</a></li>
 <li class="toctree-l4"><a class="reference internal" href="#math">Math</a></li>
-<li class="toctree-l4"><a class="reference internal" href="#external-files">External files</a></li>
+<li class="toctree-l4"><a class="reference internal" href="#static-files">Static files</a></li>
+<li class="toctree-l4"><a class="reference internal" href="#downloadable-files">Downloadable files</a></li>
 <li class="toctree-l4"><a class="reference internal" href="#images">Images</a></li>
 </ul>
 </li>
@@ -185,8 +187,29 @@
 <p>This source code for this documentation lives in the <a class="reference external" href="https://github.com/magao-x/handbook">magao-x/handbook</a> repository. Parts of the documentation pertaining to the core C++ code are generated from the code in <a class="reference external" href="https://github.com/magao-x/MagAOX">magao-x/MagAOX</a>, which is documented in Doxygen. (TODO: explain how to make cross-references.)</p>
 <p>The built copy of this documentation is hosted at <a class="reference external" href="https://magao-x.github.io/handbook/">https://magao-x.github.io/handbook/</a> via <a class="reference external" href="https://pages.github.com/">GitHub Pages free hosting</a>. When changes are pushed to the <code class="docutils literal notranslate"><span class="pre">master</span></code> branch of <a class="reference external" href="https://github.com/magao-x/handbook">magao-x/handbook</a>, a CircleCI job builds and updates the <code class="docutils literal notranslate"><span class="pre">gh-pages</span></code> branch of the repository, with changes reflected on the GitHub Pages site 1-15 minutes later.</p>
 </div>
-<div class="section" id="how-to-make-changes">
-<h2>How to make changes<a class="headerlink" href="#how-to-make-changes" title="Permalink to this headline">¶</a></h2>
+<div class="section" id="how-to-make-changes-in-brief-e-g-for-typo-corrections">
+<h2>How to make changes: in brief (e.g. for typo corrections)<a class="headerlink" href="#how-to-make-changes-in-brief-e-g-for-typo-corrections" title="Permalink to this headline">¶</a></h2>
+<p>If you need to make an edit on the fly, without installing any software, it is best to simply edit the file directly on GitHub.</p>
+<ol>
+<li><p>Go to https://github.com/magao-x/handbook and browse to the source for the document you want to edit (e.g. <a class="reference external" href="https://github.com/magao-x/handbook/blob/master/appendices/documenting">this document</a>)</p></li>
+<li><p>Click the pencil icon</p>
+<ul>
+<li><p>If you are allowed to edit directly, you will see this:</p>
+<p><img alt="../_images/edit_on_github_authorized.png" src="../_images/edit_on_github_authorized.png" /></p>
+</li>
+<li><p>If not, you will instead see this:</p>
+<p><img alt="../_images/edit_on_github_unauthorized.png" src="../_images/edit_on_github_unauthorized.png" /></p>
+</li>
+</ul>
+</li>
+<li><p>Make your changes, optionally previewing them with the “Preview changes” tab</p></li>
+<li><p>Scroll town to the “Commit changes” or “Propose changes” form (below the main editor) and fill in a brief description of what you changed.</p></li>
+<li><p>Click “Commit changes” or “Propose change”</p></li>
+<li><p>If you committed directly, your changes will be live in 5-15 minutes. If you proposed a change, someone else will have to merge it first.</p></li>
+</ol>
+</div>
+<div class="section" id="how-to-make-bigger-changes">
+<h2>How to make bigger changes<a class="headerlink" href="#how-to-make-bigger-changes" title="Permalink to this headline">¶</a></h2>
 <div class="section" id="installing-the-required-software">
 <h3>Installing the required software<a class="headerlink" href="#installing-the-required-software" title="Permalink to this headline">¶</a></h3>
 <p>You will need Python 3.5 or newer (with <code class="docutils literal notranslate"><span class="pre">pip</span></code>) and a recent version of <code class="docutils literal notranslate"><span class="pre">git</span></code>.</p>
@@ -310,9 +333,22 @@ cd &quot;$DIR&quot;
 <div class="math notranslate nohighlight">
 \[\mu = m - M = 5 \log_{10}\left(\frac{d}{10\,\mathrm{pc}}\right)\]</div>
 </div>
-<div class="section" id="external-files">
-<h3>External files<a class="headerlink" href="#external-files" title="Permalink to this headline">¶</a></h3>
-<p>If you want to include a downloadable file (e.g. filter transmission curve table, PDF document, etc.) you will have to dip your toes into the <a class="reference external" href="https://recommonmark.readthedocs.io/en/latest/auto_structify.html#embed-restructuredtext">“embedded reST”</a> feature of reCommonMark.</p>
+<div class="section" id="static-files">
+<h3>Static files<a class="headerlink" href="#static-files" title="Permalink to this headline">¶</a></h3>
+<p>If you want to include a static file from the <code class="docutils literal notranslate"><span class="pre">_static</span></code> directory (e.g. filter transmission curve table, PDF document, etc.) you will have to dip your toes into the <a class="reference external" href="https://recommonmark.readthedocs.io/en/latest/auto_structify.html#embed-restructuredtext">“embedded reST”</a> feature of reCommonMark. <em>(Alternatively, you can simply write the whole document in reStructuredText as in the <a class="reference internal" href="pdr/index.html"><span class="doc">Preliminary design review</span></a> page.)</em></p>
+<p>The example shows a link to <code class="docutils literal notranslate"><span class="pre">_static/ref/filters/magaox_sci-halpha_bs-halpha-ir_atm.dat</span></code>, which will get copied to <code class="docutils literal notranslate"><span class="pre">https://magao-x.org/docs/handbook/_static/ref/filters/magaox_sci-halpha_bs-halpha-ir_atm.dat</span></code>. (You <em>could</em> use a full URL and the normal link syntax, but the link would only work after publication.)</p>
+<p><strong>Example markup:</strong></p>
+<div class="highlight-default notranslate"><div class="highlight"><pre><span></span>```eval_rst
+:static:`Click here to download some filter curve &lt;ref/filters/magaox_sci-halpha_bs-halpha-ir_atm.dat&gt;`
+```
+</pre></div>
+</div>
+<p><strong>Output:</strong></p>
+<p><a class="reference external" href="../_static/ref/filters/magaox_sci-halpha_bs-halpha-ir_atm.dat">Click here to download some filter curve </a></p>
+</div>
+<div class="section" id="downloadable-files">
+<h3>Downloadable files<a class="headerlink" href="#downloadable-files" title="Permalink to this headline">¶</a></h3>
+<p>Downloadable files are similar to static files, but the filename is given relative to the current document. For instance, if you had <code class="docutils literal notranslate"><span class="pre">mydoc.md</span></code> in a folder with <code class="docutils literal notranslate"><span class="pre">mini-star.png</span></code>:</p>
 <p><strong>Example markup:</strong></p>
 <div class="highlight-default notranslate"><div class="highlight"><pre><span></span>```eval_rst
 :download:`Click here to download the star logo &lt;mini-star.png&gt;`
