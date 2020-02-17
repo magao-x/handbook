@@ -29,9 +29,14 @@ author = 'Extreme Wavefront Control Lab, The University of Arizona'
 # extensions coming with Sphinx (named 'sphinx.ext.*') or your custom
 # ones.
 
+
+import sys, os.path
+sys.path.append(os.path.abspath('.')) # Make xsphinx.py discoverable
+
 extensions = [
     'sphinx_markdown_tables',
     'recommonmark',
+    'xsphinx',
 ]
 
 # Add any paths that contain templates here, relative to this directory.

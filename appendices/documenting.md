@@ -6,7 +6,24 @@ This source code for this documentation lives in the [magao-x/handbook](https://
 
 The built copy of this documentation is hosted at [https://magao-x.github.io/handbook/](https://magao-x.github.io/handbook/) via [GitHub Pages free hosting](https://pages.github.com/). When changes are pushed to the `master` branch of [magao-x/handbook](https://github.com/magao-x/handbook), a CircleCI job builds and updates the `gh-pages` branch of the repository, with changes reflected on the GitHub Pages site 1-15 minutes later.
 
-## How to make changes
+## How to make changes: in brief (e.g. for typo corrections)
+
+If you need to make an edit on the fly, without installing any software, it is best to simply edit the file directly on GitHub.
+
+1. Go to https://github.com/magao-x/handbook and browse to the source for the document you want to edit (e.g. [this document](https://github.com/magao-x/handbook/blob/master/appendices/documenting.md))
+2. Click the pencil icon
+    - If you are allowed to edit directly, you will see this:
+
+        ![](edit_on_github_authorized.png)
+    - If not, you will instead see this:
+
+        ![](edit_on_github_unauthorized.png)
+3. Make your changes, optionally previewing them with the "Preview changes" tab
+4. Scroll town to the "Commit changes" or "Propose changes" form (below the main editor) and fill in a brief description of what you changed.
+5. Click "Commit changes" or "Propose change"
+6. If you committed directly, your changes will be live in 5-15 minutes. If you proposed a change, someone else will have to merge it first.
+
+## How to make bigger changes
 
 ### Installing the required software
 
@@ -143,9 +160,30 @@ Equations can be inserted as a special variety of code block.
 \mu = m - M = 5 \log_{10}\left(\frac{d}{10\,\mathrm{pc}}\right)
 ```
 
-### External files
+### Static files
 
-If you want to include a downloadable file (e.g. filter transmission curve table, PDF document, etc.) you will have to dip your toes into the ["embedded reST"](https://recommonmark.readthedocs.io/en/latest/auto_structify.html#embed-restructuredtext) feature of reCommonMark.
+If you want to include a static file from the `_static` directory (e.g. filter transmission curve table, PDF document, etc.) you will have to dip your toes into the ["embedded reST"](https://recommonmark.readthedocs.io/en/latest/auto_structify.html#embed-restructuredtext) feature of reCommonMark. *(Alternatively, you can simply write the whole document in reStructuredText as in the [Preliminary design review](pdr/index) page.)*
+
+The example shows a link to `_static/ref/filters/magaox_sci-halpha_bs-halpha-ir_atm.dat`, which will get copied to `https://magao-x.org/docs/handbook/_static/ref/filters/magaox_sci-halpha_bs-halpha-ir_atm.dat`. (You *could* use a full URL and the normal link syntax, but the link would only work after publication.)
+
+**Example markup:**
+
+~~~
+```eval_rst
+:static:`Click here to download some filter curve <ref/filters/magaox_sci-halpha_bs-halpha-ir_atm.dat>`
+```
+~~~
+
+**Output:**
+
+```eval_rst
+:static:`Click here to download some filter curve <ref/filters/magaox_sci-halpha_bs-halpha-ir_atm.dat>`
+```
+
+
+### Downloadable files
+
+Downloadable files are similar to static files, but the filename is given relative to the current document. For instance, if you had `mydoc.md` in a folder with `mini-star.png`:
 
 **Example markup:**
 
