@@ -20,7 +20,7 @@ camsci1
 
 .. list-table::
    :header-rows: 1
-
+   
    * - Filter
      - WFS B/S
      - Sci BS
@@ -36,53 +36,53 @@ camsci1
      - 0.009
      - 0.22
      - :math:`3.8\times10^{9}`
-     - :static:`atm <magaox_sci1-halpha-cont_bs-halpha-ir_scibs-halpha.dat>`
-       :static:`noatm <magaox_sci1-halpha-cont_bs-halpha-ir_scibs-halpha_atm.dat>`
+     - :static:`atm <ref/filters/magaox_sci1-halpha-cont_bs-halpha-ir_scibs-halpha_atm.dat>`
+       :static:`noatm <ref/filters/magaox_sci1-halpha-cont_bs-halpha-ir_scibs-halpha.dat>`
    * - ip
      - 65/35
      - ri
      - 0.764
-     - 0.124
+     - 0.120
      - 0.11
      - :math:`2.1\times10^{10}`
-     - :static:`atm <magaox_sci1-ip_bs-65-35_scibs-ri.dat>`
-       :static:`noatm <magaox_sci1-ip_bs-65-35_scibs-ri_atm.dat>`
+     - :static:`atm <ref/filters/magaox_sci1-ip_bs-65-35_scibs-ri_atm.dat>`
+       :static:`noatm <ref/filters/magaox_sci1-ip_bs-65-35_scibs-ri.dat>`
    * - zp
      - 65/35
      - ri
-     - 0.910
-     - 0.141
+     - 0.908
+     - 0.130
      - 0.08
      - :math:`1.3\times10^{10}`
-     - :static:`atm <magaox_sci1-zp_bs-65-35_scibs-ri.dat>`
-       :static:`noatm <magaox_sci1-zp_bs-65-35_scibs-ri_atm.dat>`
+     - :static:`atm <ref/filters/magaox_sci1-zp_bs-65-35_scibs-ri_atm.dat>`
+       :static:`noatm <ref/filters/magaox_sci1-zp_bs-65-35_scibs-ri.dat>`
    * - rp
      - 65/35
      - open
      - 0.615
-     - 0.111
+     - 0.110
      - 0.23
-     - :math:`6.2\times10^{10}`
-     - :static:`atm <magaox_sci1-rp_bs-65-35_scibs-open.dat>`
-       :static:`noatm <magaox_sci1-rp_bs-65-35_scibs-open_atm.dat>`
+     - :math:`6.1\times10^{10}`
+     - :static:`atm <ref/filters/magaox_sci1-rp_bs-65-35_scibs-open_atm.dat>`
+       :static:`noatm <ref/filters/magaox_sci1-rp_bs-65-35_scibs-open.dat>`
    * - ip
      - 65/35
      - open
      - 0.762
-     - 0.130
+     - 0.126
      - 0.11
-     - :math:`2.3\times10^{10}`
-     - :static:`atm <magaox_sci1-ip_bs-65-35_scibs-open.dat>`
-       :static:`noatm <magaox_sci1-ip_bs-65-35_scibs-open_atm.dat>`
+     - :math:`2.2\times10^{10}`
+     - :static:`atm <ref/filters/magaox_sci1-ip_bs-65-35_scibs-open_atm.dat>`
+       :static:`noatm <ref/filters/magaox_sci1-ip_bs-65-35_scibs-open.dat>`
    * - zp
      - 65/35
      - open
-     - 0.910
-     - 0.141
+     - 0.908
+     - 0.131
      - 0.09
-     - :math:`1.4\times10^{10}`
-     - :static:`atm <magaox_sci1-zp_bs-65-35_scibs-open.dat>`
-       :static:`noatm <magaox_sci1-zp_bs-65-35_scibs-open_atm.dat>`
+     - :math:`1.3\times10^{10}`
+     - :static:`atm <ref/filters/magaox_sci1-zp_bs-65-35_scibs-open_atm.dat>`
+       :static:`noatm <ref/filters/magaox_sci1-zp_bs-65-35_scibs-open.dat>`
    * - CH4
      - 65/35
      - 50/50
@@ -90,8 +90,8 @@ camsci1
      - 0.026
      - 0.04
      - :math:`1.3\times10^{9}`
-     - :static:`atm <magaox_sci1-ch4_bs-65-35_scibs-5050.dat>`
-       :static:`noatm <magaox_sci1-ch4_bs-65-35_scibs-5050_atm.dat>`
+     - :static:`atm <ref/filters/magaox_sci1-ch4_bs-65-35_scibs-5050_atm.dat>`
+       :static:`noatm <ref/filters/magaox_sci1-ch4_bs-65-35_scibs-5050.dat>`
    * - rp
      - 65/35
      - 50/50
@@ -99,26 +99,27 @@ camsci1
      - 0.112
      - 0.11
      - :math:`2.9\times10^{10}`
-     - :static:`atm <magaox_sci1-rp_bs-65-35_scibs-5050.dat>`
-       :static:`noatm <magaox_sci1-rp_bs-65-35_scibs-5050_atm.dat>`
+     - :static:`atm <ref/filters/magaox_sci1-rp_bs-65-35_scibs-5050_atm.dat>`
+       :static:`noatm <ref/filters/magaox_sci1-rp_bs-65-35_scibs-5050.dat>`
    * - ip
      - 65/35
      - 50/50
      - 0.762
-     - 0.129
+     - 0.126
      - 0.06
      - :math:`1.1\times10^{10}`
-     - :static:`atm <magaox_sci1-ip_bs-65-35_scibs-5050.dat>`
-       :static:`noatm <magaox_sci1-ip_bs-65-35_scibs-5050_atm.dat>`
+     - :static:`atm <ref/filters/magaox_sci1-ip_bs-65-35_scibs-5050_atm.dat>`
+       :static:`noatm <ref/filters/magaox_sci1-ip_bs-65-35_scibs-5050.dat>`
    * - zp
      - 65/35
      - 50/50
-     - 0.910
-     - 0.140
+     - 0.908
+     - 0.130
      - 0.04
-     - :math:`6.7\times10^{9}`
-     - :static:`atm <magaox_sci1-zp_bs-65-35_scibs-5050.dat>`
-       :static:`noatm <magaox_sci1-zp_bs-65-35_scibs-5050_atm.dat>`
+     - :math:`6.3\times10^{9}`
+     - :static:`atm <ref/filters/magaox_sci1-zp_bs-65-35_scibs-5050_atm.dat>`
+       :static:`noatm <ref/filters/magaox_sci1-zp_bs-65-35_scibs-5050.dat>`
+
        
 camsci2
 ----------------
@@ -141,17 +142,17 @@ camsci2
      - 0.009
      - 0.23
      - :math:`3.5\times10^{9}`
-     - :static:`atm <magaox_sci2-halpha_bs-halpha-ir_scibs-halpha.dat>`
-       :static:`noatm <magaox_sci2-halpha_bs-halpha-ir_scibs-halpha_atm.dat>`
+     - :static:`atm <ref/filters/magaox_sci2-halpha_bs-halpha-ir_scibs-halpha_atm.dat>`
+       :static:`noatm <ref/filters/magaox_sci2-halpha_bs-halpha-ir_scibs-halpha.dat>`
    * - gp
      - 65/35
      - ri
-     - 0.507
-     - 0.061
+     - 0.527
+     - 0.041
      - 0.24
-     - :math:`5.0\times10^{10}`
-     - :static:`atm <magaox_sci2-gp_bs-65-35_scibs-ri.dat>`
-       :static:`noatm <magaox_sci2-gp_bs-65-35_scibs-ri_atm.dat>`
+     - :math:`3.1\times10^{10}`
+     - :static:`atm <ref/filters/magaox_sci2-gp_bs-65-35_scibs-ri_atm.dat>`
+       :static:`noatm <ref/filters/magaox_sci2-gp_bs-65-35_scibs-ri.dat>`
    * - rp
      - 65/35
      - ri
@@ -159,53 +160,53 @@ camsci2
      - 0.106
      - 0.23
      - :math:`5.9\times10^{10}`
-     - :static:`atm <magaox_sci2-rp_bs-65-35_scibs-ri.dat>`
-       :static:`noatm <magaox_sci2-rp_bs-65-35_scibs-ri_atm.dat>`
+     - :static:`atm <ref/filters/magaox_sci2-rp_bs-65-35_scibs-ri_atm.dat>`
+       :static:`noatm <ref/filters/magaox_sci2-rp_bs-65-35_scibs-ri.dat>`
    * - CH4 Cont.
      - 65/35
      - 50/50
-     - 0.924
-     - 0.025
+     - 0.923
+     - 0.023
      - 0.04
-     - :math:`1.1\times10^{9}`
-     - :static:`atm <magaox_sci2-ch4-cont_bs-65-35_scibs-5050.dat>`
-       :static:`noatm <magaox_sci2-ch4-cont_bs-65-35_scibs-5050_atm.dat>`
+     - :math:`9.6\times10^{8}`
+     - :static:`atm <ref/filters/magaox_sci2-ch4-cont_bs-65-35_scibs-5050_atm.dat>`
+       :static:`noatm <ref/filters/magaox_sci2-ch4-cont_bs-65-35_scibs-5050.dat>`
    * - gp
      - 65/35
      - 50/50
-     - 0.497
-     - 0.080
+     - 0.525
+     - 0.044
      - 0.13
-     - :math:`3.8\times10^{10}`
-     - :static:`atm <magaox_sci2-gp_bs-65-35_scibs-5050.dat>`
-       :static:`noatm <magaox_sci2-gp_bs-65-35_scibs-5050_atm.dat>`
+     - :math:`1.9\times10^{10}`
+     - :static:`atm <ref/filters/magaox_sci2-gp_bs-65-35_scibs-5050_atm.dat>`
+       :static:`noatm <ref/filters/magaox_sci2-gp_bs-65-35_scibs-5050.dat>`
    * - rp
      - 65/35
      - 50/50
      - 0.614
-     - 0.110
+     - 0.109
      - 0.12
      - :math:`3.3\times10^{10}`
-     - :static:`atm <magaox_sci2-rp_bs-65-35_scibs-5050.dat>`
-       :static:`noatm <magaox_sci2-rp_bs-65-35_scibs-5050_atm.dat>`
+     - :static:`atm <ref/filters/magaox_sci2-rp_bs-65-35_scibs-5050_atm.dat>`
+       :static:`noatm <ref/filters/magaox_sci2-rp_bs-65-35_scibs-5050.dat>`
    * - ip
      - 65/35
      - 50/50
      - 0.762
-     - 0.130
+     - 0.126
      - 0.06
-     - :math:`1.2\times10^{10}`
-     - :static:`atm <magaox_sci2-ip_bs-65-35_scibs-5050.dat>`
-       :static:`noatm <magaox_sci2-ip_bs-65-35_scibs-5050_atm.dat>`
+     - :math:`1.1\times10^{10}`
+     - :static:`atm <ref/filters/magaox_sci2-ip_bs-65-35_scibs-5050_atm.dat>`
+       :static:`noatm <ref/filters/magaox_sci2-ip_bs-65-35_scibs-5050.dat>`
    * - zp
      - 65/35
      - 50/50
-     - 0.911
-     - 0.142
-     - 0.05
-     - :math:`7.3\times10^{9}`
-     - :static:`atm <magaox_sci2-zp_bs-65-35_scibs-5050.dat>`
-       :static:`noatm <magaox_sci2-zp_bs-65-35_scibs-5050_atm.dat>`
+     - 0.909
+     - 0.132
+     - 0.04
+     - :math:`6.7\times10^{9}`
+     - :static:`atm <ref/filters/magaox_sci2-zp_bs-65-35_scibs-5050_atm.dat>`
+       :static:`noatm <ref/filters/magaox_sci2-zp_bs-65-35_scibs-5050.dat>`
    
 WFS
 =================
@@ -228,16 +229,16 @@ Filters in the main WFS.
      - 0.205
      - 0.20
      - :math:`5.3 \times 10^{10}`
-     - :static:`atm <ref/filters/magaox_wfs_bs-halpha-ir_atm.dat>`
-       :static:`noatm <ref/filters/filters/magaox_wfs_bs-halpha-ir.dat>`
+     - :static:`noatm <ref/filters/magaox_wfs_bs-halpha-ir_atm.dat>`
+       :static:`atm <ref/filters/filters/magaox_wfs_bs-halpha-ir.dat>`
    * - 65/35
      - open
      - 0.791
      - 0.296
      - 0.08
      - :math:`4.2 \times 10^{10}`
-     - :static:`atm <ref/filters/magaox_wfs-open_bs-65-35.dat>`
-       :static:`noatm <ref/filters/filters/magaox_wfs-open_bs-65-35_atm.dat>`
+     - :static:`noatm <ref/filters/magaox_wfs-open_bs-65-35.dat>`
+       :static:`atm <ref/filters/magaox_wfs-open_bs-65-35_atm.dat>`
        
 
 LOWFS
