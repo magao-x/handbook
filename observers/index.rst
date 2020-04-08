@@ -5,5 +5,6 @@ Information For Observers
    :maxdepth: 1
 
    capabilities
+   usepolicy
    planning
    reduction

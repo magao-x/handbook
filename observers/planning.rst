@@ -2,6 +2,7 @@
 Planning your observations
 ******************************
 
+
 Filters and Throughputs
 =============================
 
@@ -11,9 +12,9 @@ The atmosphere is included in the numbers presented in the table below.  BTRAM w
 
 None of these values have been validated.  They should be used for planning purposes only.
 
-Science
+Visible Science Cameras
 =============================
-Filters in the science cameras.
+Filters in the visible science cameras.
 
 camsci1
 --------------------
