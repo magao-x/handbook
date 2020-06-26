@@ -59,6 +59,16 @@ Don't be alarmed by the output from `vagrant up`. Provisioning is very noisy, an
 Provisioning complete
 ```
 
+### What to do if you don't see `Provisioning complete`
+
+Most likely that means an error occurred running the provisioning scripts and they did not finish. That can happen if a big download gets interrupted, for example. It's always safe to run `vagrant provision` and it'll re-run only necessary steps, which may be enough to get you to `Provisioning complete`.
+
+If that doesn't resolve the issue, you'll need the complete provisioning output to get help. The following command will save it to a file `provision.log`, which you can then email or Slack to someone who can help.
+
+```
+$ vagrant provision | tee provision.log
+```
+
 ## Usage
 
 ### Connecting
