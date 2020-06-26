@@ -99,7 +99,10 @@
 <li class="toctree-l4"><a class="reference internal" href="#additional-notes-for-windows-users">Additional notes for Windows users</a></li>
 </ul>
 </li>
-<li class="toctree-l3"><a class="reference internal" href="#setup">Setup</a></li>
+<li class="toctree-l3"><a class="reference internal" href="#setup">Setup</a><ul>
+<li class="toctree-l4"><a class="reference internal" href="#what-to-do-if-you-don-t-see-provisioning-complete">What to do if you don’t see <code class="docutils literal notranslate"><span class="pre">Provisioning</span> <span class="pre">complete</span></code></a></li>
+</ul>
+</li>
 <li class="toctree-l3"><a class="reference internal" href="#usage">Usage</a><ul>
 <li class="toctree-l4"><a class="reference internal" href="#connecting">Connecting</a></li>
 <li class="toctree-l4"><a class="reference internal" href="#running-magao-x">Running MagAO-X</a></li>
@@ -237,6 +240,14 @@ $ cd MagAOX
 <p>Don’t be alarmed by the output from <code class="docutils literal notranslate"><span class="pre">vagrant</span> <span class="pre">up</span></code>. Provisioning is very noisy, and messages in red aren’t necessarily errors. Successful provisioning will end with the message</p>
 <div class="highlight-default notranslate"><div class="highlight"><pre><span></span><span class="n">Provisioning</span> <span class="n">complete</span>
 </pre></div>
+</div>
+<div class="section" id="what-to-do-if-you-don-t-see-provisioning-complete">
+<h3>What to do if you don’t see <code class="docutils literal notranslate"><span class="pre">Provisioning</span> <span class="pre">complete</span></code><a class="headerlink" href="#what-to-do-if-you-don-t-see-provisioning-complete" title="Permalink to this headline">¶</a></h3>
+<p>Most likely that means an error occurred running the provisioning scripts and they did not finish. That can happen if a big download gets interrupted, for example. It’s always safe to run <code class="docutils literal notranslate"><span class="pre">vagrant</span> <span class="pre">provision</span></code> and it’ll re-run only necessary steps, which may be enough to get you to <code class="docutils literal notranslate"><span class="pre">Provisioning</span> <span class="pre">complete</span></code>.</p>
+<p>If that doesn’t resolve the issue, you’ll need the complete provisioning output to get help. The following command will save it to a file <code class="docutils literal notranslate"><span class="pre">provision.log</span></code>, which you can then email or Slack to someone who can help.</p>
+<div class="highlight-default notranslate"><div class="highlight"><pre><span></span>$ vagrant provision | tee provision.log
+</pre></div>
+</div>
 </div>
 </div>
 <div class="section" id="usage">
