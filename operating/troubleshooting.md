@@ -42,7 +42,7 @@ The script is saved at `/opt/MagAOX/config/initialize_alpao.sh`, if you want to 
 
 ### DM Latency and Communication Troubleshooting
 
-There are various ways that the shared memory interprocess communication between the deformable mirrors, loop control(s), and the hardwre control processes can stop functioning properly.
+There are various ways that the shared memory interprocess communication between the deformable mirrors, loop control(s), and the hardware control processes can stop functioning properly.
 
 #### Examples with known fixes:
 
