@@ -258,11 +258,11 @@ $ cd MagAOX
 </div>
 <div class="section" id="running-magao-x">
 <h3>Running MagAO-X<a class="headerlink" href="#running-magao-x" title="Permalink to this headline">¶</a></h3>
-<p>The <code class="docutils literal notranslate"><span class="pre">magaox</span></code> script is installed during provisioning, and a default set of (non-hardware-interfacing) apps is configured to run on <code class="docutils literal notranslate"><span class="pre">magaox</span> <span class="pre">startup</span></code>.</p>
+<p>The <code class="docutils literal notranslate"><span class="pre">xctrl</span></code> script is installed during provisioning, and a default set of (non-hardware-interfacing) apps is configured to run on <code class="docutils literal notranslate"><span class="pre">xctrl</span> <span class="pre">startup</span></code>.</p>
 <p>The proclist for VM usage is in <a class="reference external" href="https://github.com/magao-x/config/blob/master/proclist_vm.txt">magao-x/config/proclist_vm.txt</a>.</p>
-<p>Once <code class="docutils literal notranslate"><span class="pre">magaox</span> <span class="pre">startup</span></code> finishes, you can use <code class="docutils literal notranslate"><span class="pre">getINDI</span></code> to see the current set of properties from the INDI drivers started in the VM.</p>
+<p>Once <code class="docutils literal notranslate"><span class="pre">xctrl</span> <span class="pre">startup</span></code> finishes, you can use <code class="docutils literal notranslate"><span class="pre">getINDI</span></code> to see the current set of properties from the INDI drivers started in the VM.</p>
 <p>Try it and see:</p>
-<div class="highlight-text notranslate"><div class="highlight"><pre><span></span>$ magaox startup
+<div class="highlight-text notranslate"><div class="highlight"><pre><span></span>$ xctrl startup
 
 Session isVM does not exist
 Created tmux session &#39;isVM&#39;
@@ -284,15 +284,15 @@ maths_y.maths.sqr=0
 <h3>Network access<a class="headerlink" href="#network-access" title="Permalink to this headline">¶</a></h3>
 <p>Aside from SSH, which is usually accomplished with <code class="docutils literal notranslate"><span class="pre">vagrant</span> <span class="pre">ssh</span></code> on the host (see <a class="reference external" href="https://www.vagrantup.com/docs/cli/ssh.html">their docs</a>), there is also access to the VM on these ports:</p>
 <ul class="simple">
-<li><p>7624 — INDI</p></li>
-<li><p>8080 — HTTP (reserved for web UI, maps to guest port 80)</p></li>
-<li><p>9999 — HTTP (JupyterLab)</p></li>
+<li><p>localhost:7625 — INDI (maps to guest port 7624)</p></li>
+<li><p>http://localhost:8001 — Web UI (maps to guest port 8001)</p></li>
+<li><p>http://localhost:9990 — JupyterLab (maps to guest port 9999)</p></li>
 </ul>
 <p>These ports on <code class="docutils literal notranslate"><span class="pre">localhost</span></code> in the host OS are forwarded to their counterparts on the guest VM. (In other words, to connect to the INDI server on the VM port 7624, you connect to <code class="docutils literal notranslate"><span class="pre">localhost:7624</span></code> on the host OS.)</p>
 </div>
 <div class="section" id="jupyterlab">
 <h3>JupyterLab<a class="headerlink" href="#jupyterlab" title="Permalink to this headline">¶</a></h3>
-<p>The VM automatically starts a JupyterLab instance on port 9999, running as the <code class="docutils literal notranslate"><span class="pre">vagrant</span></code> user. So, to quickly run Python code in the VM, open a browser in your host OS and enter <code class="docutils literal notranslate"><span class="pre">http://localhost:9999</span></code>. (The password is <code class="docutils literal notranslate"><span class="pre">extremeAO!</span></code>.)</p>
+<p>The VM automatically starts a JupyterLab instance as the <code class="docutils literal notranslate"><span class="pre">vagrant</span></code> user. So, to quickly run Python code in the VM, open a browser in your host OS and enter <code class="docutils literal notranslate"><span class="pre">http://localhost:9990</span></code>. (The password is <code class="docutils literal notranslate"><span class="pre">extremeAO!</span></code>.)</p>
 <p>This JupyterLab instance runs in the <code class="docutils literal notranslate"><span class="pre">py37</span></code> conda environment created from the recipe in <a class="reference external" href="https://github.com/magao-x/config/blob/master/conda_env_py37.yml">conda_env_py37.yml</a> and instructions in <a class="reference external" href="https://github.com/magao-x/MagAOX/blob/master/setup/steps/create_conda_envs.sh">create_conda_envs.sh</a>. So, you should have packages like <code class="docutils literal notranslate"><span class="pre">purepyindi</span></code> and <code class="docutils literal notranslate"><span class="pre">ImageStreamIOWrap</span></code> already. (If you need a package that’s not there, <code class="docutils literal notranslate"><span class="pre">sudo</span> <span class="pre">-i</span> <span class="pre">conda</span> <span class="pre">install</span> <span class="pre">NameOfPackage</span></code> should fix it. Note the <code class="docutils literal notranslate"><span class="pre">-i</span></code>!)</p>
 </div>
 <div class="section" id="using-guis-in-the-vm">
@@ -308,15 +308,71 @@ maths_y.maths.sqr=0
 +------------------------------------------+
 </pre></div>
 </div>
-<p>So, to start the <code class="docutils literal notranslate"><span class="pre">pwr</span></code> GUI, you could do…</p>
+<p>So, to start the <code class="docutils literal notranslate"><span class="pre">pwrGUI</span></code>, you could do…</p>
 <div class="highlight-default notranslate"><div class="highlight"><pre><span></span>host$ vagrant ssh
-vm$ cd /opt/MagAOX/source/MagAOX/gui/apps/pwr
-vm$ make
-vm$ ./bin/pwr
+vm$ pwrGUI
 </pre></div>
 </div>
-<p>…and the power GUI will come up like any other window on your host machine.</p>
+<p>…and the power GUI will come up like any other window on your host machine. Unfortunately, it won’t be very useful without a real instrument to control. (See the next section.)</p>
 <p>The additional dependencies of the GUIs are tracked in <a class="reference external" href="https://github.com/magao-x/MagAOX/blob/master/setup/steps/install_gui_dependencies.sh">magao-x/MagAOX/setup/steps/install_gui_dependencies.sh</a> for both CentOS and Ubuntu, and are installed automatically when you provision the VM. (Something missing? Add the package name to the script and run <code class="docutils literal notranslate"><span class="pre">vagrant</span> <span class="pre">provision</span></code> from the host!)</p>
+<div class="section" id="doing-something-useful-with-the-guis">
+<h4>Doing something useful with the GUIs<a class="headerlink" href="#doing-something-useful-with-the-guis" title="Permalink to this headline">¶</a></h4>
+<p>The GUIs need to talk to an INDI server with access to the MagAO-X instrument, but the INDI server you can start within the VM doesn’t have any real hardware to control.</p>
+<p>If you can SSH to the instrument’s AOC, you can set up a tunnel from the VM to AOC. This is a little mind-bend-y, so bear with me. You <code class="docutils literal notranslate"><span class="pre">ssh</span></code> in to the VM, then the VM <code class="docutils literal notranslate"><span class="pre">ssh</span></code>es to the AOC, and forwards traffic back and forth to the INDI server in exao1.</p>
+<div class="highlight-text notranslate"><div class="highlight"><pre><span></span>        +-------------------------+
+        | exao1.magao-x.org (AOC) |
+        +-----------\/------------+
+                    ||
+                    ||
++-------------------||---------------------+
+|               +---||--------------------+|
+|    Host OS    |   ||       VM           ||
+|               |   /\                    ||
+|               |  ssh -L7624:localhos... ||
+|               +-------------------------+|
++------------------------------------------+
+</pre></div>
+</div>
+<ol>
+<li><p>Copy the <em>private half</em> of the SSH key you use from <code class="docutils literal notranslate"><span class="pre">~/.ssh/id_ecdsa</span></code> (or how ever it’s named on your computer) on the <em>host</em> to <code class="docutils literal notranslate"><span class="pre">~/.ssh/id_ecdsa</span></code> in the VM.</p>
+<div class="highlight-default notranslate"><div class="highlight"><pre><span></span>host$ cp ~/.ssh/id_ecdsa ./vm/id_ecdsa
+host$ vagrant ssh
+vm$ mv /vagrant/vm/id_ecdsa ~/.ssh/id_ecdsa
+vm$ chmod 600 ~/.ssh/id_ecdsa
+</pre></div>
+</div>
+</li>
+<li><p>The copy of the MagAO-X software system in the VM should be shut down, so that the INDI port is free:</p>
+<div class="highlight-default notranslate"><div class="highlight"><pre><span></span>vm$ xctrl shutdown
+</pre></div>
+</div>
+</li>
+<li><p>From the terminal opened on the VM with <code class="docutils literal notranslate"><span class="pre">vagrant</span> <span class="pre">ssh</span></code>, verify you can connect to AOC</p>
+<div class="highlight-default notranslate"><div class="highlight"><pre><span></span>vm$ ssh myusername@exao1.magao-x.org
+The authenticity of host &#39;exao1.magao-x.org (128.196.208.35)&#39; can&#39;t be established.
+ECDSA key fingerprint is SHA256:NZB0hJzTYb5+g6JH/mrLdC7PNB1h8UTb74bStipmfDE.
+ECDSA key fingerprint is MD5:c8:b0:9c:ee:bb:b0:c3:9f:f3:13:f3:dc:36:8a:a9:dc.
+Are you sure you want to continue connecting (yes/no)? yes
+Warning: Permanently added &#39;exao1.magao-x.org,128.196.208.35&#39; (ECDSA) to the list of known hosts.
+aoc$
+</pre></div>
+</div>
+<p>If you get a prompt on AOC, you can just <code class="docutils literal notranslate"><span class="pre">exit</span></code>. If you get <code class="docutils literal notranslate"><span class="pre">Permission</span> <span class="pre">denied</span> <span class="pre">(publickey,gssapi-keyex,gssapi-with-mic).</span></code>, you may need to copy a different key file (i.e. <code class="docutils literal notranslate"><span class="pre">id_rsa</span></code> instead of <code class="docutils literal notranslate"><span class="pre">id_ecdsa</span></code>) and try again.</p>
+</li>
+<li><p>Finally, we can make the tunnel:</p>
+<div class="highlight-default notranslate"><div class="highlight"><pre><span></span>vm$ ssh -L7624:localhost:7624 myusername@exao1.magao-x.org
+</pre></div>
+</div>
+</li>
+<li><p>To verify that the tunnel is working, open another terminal and <code class="docutils literal notranslate"><span class="pre">vagrant</span> <span class="pre">ssh</span></code> into the VM to run</p>
+<div class="highlight-default notranslate"><div class="highlight"><pre><span></span>vm$ pwrGUI
+</pre></div>
+</div>
+<p>If everything worked, you’ll get a forwarded X11 window:</p>
+<p><img alt="MagAO-X Power GUI" src="../_images/example_power_gui.png" /></p>
+</li>
+</ol>
+</div>
 </div>
 <div class="section" id="simulating-image-data-streams">
 <h3>Simulating image data streams<a class="headerlink" href="#simulating-image-data-streams" title="Permalink to this headline">¶</a></h3>
