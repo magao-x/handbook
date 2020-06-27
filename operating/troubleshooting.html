@@ -93,6 +93,11 @@
 <li class="toctree-l3"><a class="reference internal" href="#missing-gpus-on-rtc">Missing GPUs on RTC</a></li>
 <li class="toctree-l3"><a class="reference internal" href="#ocam-connectivity-bad-data">OCAM connectivity / bad data</a></li>
 <li class="toctree-l3"><a class="reference internal" href="#alpao-dm-not-responding">Alpao DM not responding</a></li>
+<li class="toctree-l3"><a class="reference internal" href="#dm-latency-and-communication-troubleshooting">DM Latency and Communication Troubleshooting</a><ul>
+<li class="toctree-l4"><a class="reference internal" href="#examples-with-known-fixes">Examples with known fixes:</a></li>
+<li class="toctree-l4"><a class="reference internal" href="#general-troubleshooting">General Troubleshooting</a></li>
+</ul>
+</li>
 <li class="toctree-l3"><a class="reference internal" href="#troubleshooting-a-magao-x-app-that-won-t-start">Troubleshooting a MagAO-X app that won’t start</a></li>
 <li class="toctree-l3"><a class="reference internal" href="#edt-framegrabber-problems-camwfs-and-camlowfs">EDT Framegrabber Problems (camwfs and camlowfs)</a></li>
 <li class="toctree-l3"><a class="reference internal" href="#killing-indi-zombies">killing indi zombies</a></li>
@@ -210,6 +215,92 @@ Sep 29 11:18:35 exao3.as.arizona.edu initialize_alpao.sh[4449]: ================
 </pre></div>
 </div>
 <p>The script is saved at <code class="docutils literal notranslate"><span class="pre">/opt/MagAOX/config/initialize_alpao.sh</span></code>, if you want to see what it’s doing. Note that executing it again will appear to fail with a message about not finding cards to initialize if the cards have been previously initialized.</p>
+</div>
+<div class="section" id="dm-latency-and-communication-troubleshooting">
+<h2>DM Latency and Communication Troubleshooting<a class="headerlink" href="#dm-latency-and-communication-troubleshooting" title="Permalink to this headline">¶</a></h2>
+<p>There are various ways that the shared memory interprocess communication between the deformable mirrors, loop control(s), and the hardwre control processes can stop functioning properly.</p>
+<div class="section" id="examples-with-known-fixes">
+<h3>Examples with known fixes:<a class="headerlink" href="#examples-with-known-fixes" title="Permalink to this headline">¶</a></h3>
+<ul class="simple">
+<li><p>Inability to set or zero flat or test from the dm control gui</p>
+<ul>
+<li><p>This likely points to a bad semaphore.  Simply release DM, then re-initialize, and it usually clears.  If not, go to more general steps below.</p></li>
+</ul>
+</li>
+<li><p>Excessive latency, occurs especially for ALPAOs</p>
+<ul>
+<li><p>This usually requires a power cycle of the driver itself.  Release the DM, then use the power control GUI to turn off, then on the DM driver.</p></li>
+</ul>
+</li>
+<li><p>Skipped commands</p>
+<ul>
+<li><p>This is possibly caused by collisions on a semaphore, meaning more than one process is monitoring a given semaphore.  This can be diagnosed with <code class="docutils literal notranslate"><span class="pre">streamCTRL</span></code>. If this is not the case, a full software shutdown (both cacao and magao-x) and clearing the /milk/shm and /dev/shm directories (rm *), then restarting, should clear the problem. See step 5 below.</p></li>
+</ul>
+</li>
+</ul>
+</div>
+<div class="section" id="general-troubleshooting">
+<h3>General Troubleshooting<a class="headerlink" href="#general-troubleshooting" title="Permalink to this headline">¶</a></h3>
+<p>General troubleshooting steps, in order of severity (try the lower ones first if you don’t have a clear idea what the problem is):</p>
+<ol>
+<li><p>release, then initialize from the dmCtrl GUI</p></li>
+<li><p>release, then restart the DM controller software
+e.g. for the woofer:</p>
+<div class="highlight-default notranslate"><div class="highlight"><pre><span></span>[xsup@exao2 ~] $ tmux a -t dmwoofer
+ ctrl-c
+[xsup@exao2 ~] $ alpaoCtrl -n dmwoofer
+</pre></div>
+</div>
+</li>
+<li><p>restart the dmcomb process:</p>
+<ul class="simple">
+<li><p>first stop the DM controller (see above)</p></li>
+<li><p>restart dmcomb using fpsCTRL (to be documented)</p></li>
+<li><p>restart the DM controller (see above)</p></li>
+<li><p>this may cause problems in some other processes due to shmim recreation.</p></li>
+</ul>
+</li>
+<li><p>Power cycle the DM</p>
+<ul class="simple">
+<li><p>release from the dmCtrl GUI</p></li>
+<li><p>turn off the power with the pwrCtrl GUI, then turn it back on</p></li>
+<li><p>if it doesn’t happen automatically, initialize the DM from the GUI when it has power</p></li>
+<li><p>if this does not fix the problem, try steps 1-3 again.</p></li>
+</ul>
+</li>
+<li><p>Full Software Restart</p>
+<ul>
+<li><p>Place all hardware controlled from this computer in a safe condition</p>
+<ul class="simple">
+<li><p>rest modttm and ttmpupil</p></li>
+<li><p>start camera warmup (in case you can’t get software back up)</p></li>
+<li><p>release all DMs controlled from this computer</p></li>
+</ul>
+</li>
+<li><p>Shutdown all software with:</p>
+<div class="highlight-default notranslate"><div class="highlight"><pre><span></span> <span class="p">[</span><span class="n">xsup</span><span class="nd">@exao2</span> <span class="o">~</span><span class="p">]</span> <span class="n">tmux</span> <span class="n">kill</span><span class="o">-</span><span class="n">server</span>
+</pre></div>
+</div>
+</li>
+<li><p>Clear all shared memory:</p>
+<div class="highlight-default notranslate"><div class="highlight"><pre><span></span> <span class="p">[</span><span class="n">xsup</span><span class="nd">@exao2</span> <span class="o">~</span><span class="p">]</span> <span class="n">cd</span> <span class="o">/</span><span class="n">milk</span><span class="o">/</span><span class="n">shm</span> 
+ <span class="p">[</span><span class="n">xsup</span><span class="nd">@exao2</span> <span class="o">~</span><span class="p">]</span> <span class="n">sudo</span> <span class="n">rm</span> <span class="o">*</span>
+ <span class="p">[</span><span class="n">xsup</span><span class="nd">@exao2</span> <span class="o">~</span><span class="p">]</span> <span class="n">cd</span> <span class="o">/</span><span class="n">dev</span><span class="o">/</span><span class="n">shm</span> 
+ <span class="p">[</span><span class="n">xsup</span><span class="nd">@exao2</span> <span class="o">~</span><span class="p">]</span> <span class="n">sudo</span> <span class="n">rm</span> <span class="o">*</span>
+</pre></div>
+</div>
+</li>
+<li><p>Now restart software and restore hardware to operating condition</p></li>
+</ul>
+</li>
+<li><p>Reboot</p>
+<ul class="simple">
+<li><p>This is a last resort.  This may be necessary if a problem has developed in the device driver for instance.</p></li>
+<li><p>Follow procedure for computer reboot.  Ensure all hardware is in a safe condition, including powered-off if needed, before rebooting.</p></li>
+</ul>
+</li>
+</ol>
+</div>
 </div>
 <div class="section" id="troubleshooting-a-magao-x-app-that-won-t-start">
 <h2>Troubleshooting a MagAO-X app that won’t start<a class="headerlink" href="#troubleshooting-a-magao-x-app-that-won-t-start" title="Permalink to this headline">¶</a></h2>

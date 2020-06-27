@@ -13,6 +13,8 @@ Once the hardware has been connected up, setup proceeds as follows.
 
 ## BIOS
 
+For a new main board, the BIOS should be updated to the latest version.  This is necessary to ensure that the USB ports behave properly, as well as to ensure that the iKVM module works.
+
 ### For all of AOC/ICC/RTC
 
 ```
@@ -23,13 +25,14 @@ Boot
 
 Advanced
 |
- -- APM
-   |
-    -- Restore AC Power Loss [Power OFF]
  -- ACPI Settings
    |
     -- Enable Hibernation [Disabled]
     -- ACPI Suspend State [Suspend Disabled]
+ -- APM
+   |
+    -- Restore AC Power Loss [Power OFF]
+
 ```
 
 (Note that the BIOS likes to reshuffle boot order when drives appear and disappear in testing or RAID swapping. Disabling non-boot drives ensures it doesn't accidentally try to boot from them.)

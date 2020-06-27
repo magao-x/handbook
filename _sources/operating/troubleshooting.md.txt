@@ -40,6 +40,74 @@ Sep 29 11:18:35 exao3.as.arizona.edu initialize_alpao.sh[4449]: ================
 
 The script is saved at `/opt/MagAOX/config/initialize_alpao.sh`, if you want to see what it's doing. Note that executing it again will appear to fail with a message about not finding cards to initialize if the cards have been previously initialized.
 
+### DM Latency and Communication Troubleshooting
+
+There are various ways that the shared memory interprocess communication between the deformable mirrors, loop control(s), and the hardwre control processes can stop functioning properly.
+
+#### Examples with known fixes:
+
+* Inability to set or zero flat or test from the dm control gui
+
+    * This likely points to a bad semaphore.  Simply release DM, then re-initialize, and it usually clears.  If not, go to more general steps below.
+
+    
+* Excessive latency, occurs especially for ALPAOs
+
+    * This usually requires a power cycle of the driver itself.  Release the DM, then use the power control GUI to turn off, then on the DM driver.
+
+* Skipped commands
+
+    * This is possibly caused by collisions on a semaphore, meaning more than one process is monitoring a given semaphore.  This can be diagnosed with `streamCTRL`. If this is not the case, a full software shutdown (both cacao and magao-x) and clearing the /milk/shm and /dev/shm directories (rm *), then restarting, should clear the problem. See step 5 below.
+
+#### General Troubleshooting
+
+General troubleshooting steps, in order of severity (try the lower ones first if you don't have a clear idea what the problem is):
+1) release, then initialize from the dmCtrl GUI
+2) release, then restart the DM controller software
+    e.g. for the woofer:
+    ```
+    [xsup@exao2 ~] $ tmux a -t dmwoofer
+     ctrl-c
+    [xsup@exao2 ~] $ alpaoCtrl -n dmwoofer
+    ```
+
+
+3) restart the dmcomb process:
+    * first stop the DM controller (see above)
+    * restart dmcomb using fpsCTRL (to be documented)
+    * restart the DM controller (see above)
+    * this may cause problems in some other processes due to shmim recreation.
+
+4) Power cycle the DM
+    * release from the dmCtrl GUI
+    * turn off the power with the pwrCtrl GUI, then turn it back on
+    * if it doesn't happen automatically, initialize the DM from the GUI when it has power
+    * if this does not fix the problem, try steps 1-3 again.
+
+5) Full Software Restart 
+    * Place all hardware controlled from this computer in a safe condition
+         * rest modttm and ttmpupil
+         * start camera warmup (in case you can't get software back up)
+         * release all DMs controlled from this computer
+    * Shutdown all software with:
+      ```
+       [xsup@exao2 ~] tmux kill-server
+      ```
+    * Clear all shared memory:
+      ```
+       [xsup@exao2 ~] cd /milk/shm 
+       [xsup@exao2 ~] sudo rm *
+       [xsup@exao2 ~] cd /dev/shm 
+       [xsup@exao2 ~] sudo rm *
+      ```
+    * Now restart software and restore hardware to operating condition
+
+6) Reboot
+    * This is a last resort.  This may be necessary if a problem has developed in the device driver for instance.
+    * Follow procedure for computer reboot.  Ensure all hardware is in a safe condition, including powered-off if needed, before rebooting.
+
+    
+    
 ### Troubleshooting a MagAO-X app that won't start
 
 The typical MagAO-X app is started by `magaox startup` based on a line in a config file in `/opt/MagAOX/config/proclist_$MAGAOX_ROLE.txt`. This proclist determines which application to start and which config file from `/opt/MagAOX/config` should be supplied as the `-n` option (see [Standard options](#standard-options)). It also uses `sudo` to run the process as user `xsup`, regardless of which user called `magaox startup`.
