@@ -77,16 +77,16 @@ To connect to the VM, use `vagrant ssh`. You'll be logged in as user `vagrant` w
 
 ### Running MagAO-X
 
-The `magaox` script is installed during provisioning, and a default set of (non-hardware-interfacing) apps is configured to run on `magaox startup`.
+The `xctrl` script is installed during provisioning, and a default set of (non-hardware-interfacing) apps is configured to run on `xctrl startup`.
 
 The proclist for VM usage is in [magao-x/config/proclist_vm.txt](https://github.com/magao-x/config/blob/master/proclist_vm.txt).
 
-Once `magaox startup` finishes, you can use `getINDI` to see the current set of properties from the INDI drivers started in the VM.
+Once `xctrl startup` finishes, you can use `getINDI` to see the current set of properties from the INDI drivers started in the VM.
 
 Try it and see:
 
 ```text
-$ magaox startup
+$ xctrl startup
 
 Session isVM does not exist
 Created tmux session 'isVM'
@@ -107,15 +107,15 @@ maths_y.maths.sqr=0
 
 Aside from SSH, which is usually accomplished with `vagrant ssh` on the host (see [their docs](https://www.vagrantup.com/docs/cli/ssh.html)), there is also access to the VM on these ports:
 
-  * 7624 — INDI
-  * 8080 — HTTP (reserved for web UI, maps to guest port 80)
-  * 9999 — HTTP (JupyterLab)
+  * localhost:7625 — INDI (maps to guest port 7624)
+  * http://localhost:8001 — Web UI (maps to guest port 8001)
+  * http://localhost:9990 — JupyterLab (maps to guest port 9999)
 
 These ports on `localhost` in the host OS are forwarded to their counterparts on the guest VM. (In other words, to connect to the INDI server on the VM port 7624, you connect to `localhost:7624` on the host OS.)
 
 ### JupyterLab
 
-The VM automatically starts a JupyterLab instance on port 9999, running as the `vagrant` user. So, to quickly run Python code in the VM, open a browser in your host OS and enter `http://localhost:9999`. (The password is `extremeAO!`.)
+The VM automatically starts a JupyterLab instance as the `vagrant` user. So, to quickly run Python code in the VM, open a browser in your host OS and enter `http://localhost:9990`. (The password is `extremeAO!`.)
 
 This JupyterLab instance runs in the `py37` conda environment created from the recipe in [conda_env_py37.yml](https://github.com/magao-x/config/blob/master/conda_env_py37.yml) and instructions in [create_conda_envs.sh](https://github.com/magao-x/MagAOX/blob/master/setup/steps/create_conda_envs.sh). So, you should have packages like `purepyindi` and `ImageStreamIOWrap` already. (If you need a package that's not there, `sudo -i conda install NameOfPackage` should fix it. Note the `-i`!)
 
@@ -135,18 +135,79 @@ If you're unfamiliar with SSH X forwarding, the short version is that the app ru
 +------------------------------------------+
 ```
 
-So, to start the `pwr` GUI, you could do...
+So, to start the `pwrGUI`, you could do...
 
 ```
 host$ vagrant ssh
-vm$ cd /opt/MagAOX/source/MagAOX/gui/apps/pwr
-vm$ make
-vm$ ./bin/pwr
+vm$ pwrGUI
 ```
 
-...and the power GUI will come up like any other window on your host machine.
+...and the power GUI will come up like any other window on your host machine. Unfortunately, it won't be very useful without a real instrument to control. (See the next section.)
 
 The additional dependencies of the GUIs are tracked in [magao-x/MagAOX/setup/steps/install_gui_dependencies.sh](https://github.com/magao-x/MagAOX/blob/master/setup/steps/install_gui_dependencies.sh) for both CentOS and Ubuntu, and are installed automatically when you provision the VM. (Something missing? Add the package name to the script and run `vagrant provision` from the host!)
+
+#### Doing something useful with the GUIs
+
+The GUIs need to talk to an INDI server with access to the MagAO-X instrument, but the INDI server you can start within the VM doesn't have any real hardware to control.
+
+If you can SSH to the instrument's AOC, you can set up a tunnel from the VM to AOC. This is a little mind-bend-y, so bear with me. You `ssh` in to the VM, then the VM `ssh`es to the AOC, and forwards traffic back and forth to the INDI server in exao1.
+
+```text
+        +-------------------------+
+        | exao1.magao-x.org (AOC) |
+        +-----------\/------------+
+                    ||
+                    ||
++-------------------||---------------------+
+|               +---||--------------------+|
+|    Host OS    |   ||       VM           ||
+|               |   /\                    ||
+|               |  ssh -L7624:localhos... ||
+|               +-------------------------+|
++------------------------------------------+
+```
+
+1. Copy the *private half* of the SSH key you use from `~/.ssh/id_ecdsa` (or how ever it's named on your computer) on the *host* to `~/.ssh/id_ecdsa` in the VM.
+
+    ```
+    host$ cp ~/.ssh/id_ecdsa ./vm/id_ecdsa
+    host$ vagrant ssh
+    vm$ mv /vagrant/vm/id_ecdsa ~/.ssh/id_ecdsa
+    vm$ chmod 600 ~/.ssh/id_ecdsa
+    ```
+2. The copy of the MagAO-X software system in the VM should be shut down, so that the INDI port is free:
+
+    ```
+    vm$ xctrl shutdown
+    ```
+1. From the terminal opened on the VM with `vagrant ssh`, verify you can connect to AOC
+
+    ```
+    vm$ ssh myusername@exao1.magao-x.org
+    The authenticity of host 'exao1.magao-x.org (128.196.208.35)' can't be established.
+    ECDSA key fingerprint is SHA256:NZB0hJzTYb5+g6JH/mrLdC7PNB1h8UTb74bStipmfDE.
+    ECDSA key fingerprint is MD5:c8:b0:9c:ee:bb:b0:c3:9f:f3:13:f3:dc:36:8a:a9:dc.
+    Are you sure you want to continue connecting (yes/no)? yes
+    Warning: Permanently added 'exao1.magao-x.org,128.196.208.35' (ECDSA) to the list of known hosts.
+    aoc$
+    ```
+
+    If you get a prompt on AOC, you can just `exit`. If you get `Permission denied (publickey,gssapi-keyex,gssapi-with-mic).`, you may need to copy a different key file (i.e. `id_rsa` instead of `id_ecdsa`) and try again.
+2. Finally, we can make the tunnel:
+
+    ```
+    vm$ ssh -L7624:localhost:7624 myusername@exao1.magao-x.org
+    ```
+
+3. To verify that the tunnel is working, open another terminal and `vagrant ssh` into the VM to run
+
+    ```
+    vm$ pwrGUI
+    ```
+
+    If everything worked, you'll get a forwarded X11 window:
+
+    ![MagAO-X Power GUI](./example_power_gui.png)
 
 
 ### Simulating image data streams
