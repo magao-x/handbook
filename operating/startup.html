@@ -1,0 +1,335 @@
+
+
+<!DOCTYPE html>
+<!--[if IE 8]><html class="no-js lt-ie9" lang="en" > <![endif]-->
+<!--[if gt IE 8]><!--> <html class="no-js" lang="en" > <!--<![endif]-->
+<head>
+  <meta charset="utf-8">
+  
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  
+  <title>System startup &mdash; MagAO-X Instrument Handbook  documentation</title>
+  
+
+  
+  
+  
+  
+
+  
+  <script type="text/javascript" src="../_static/js/modernizr.min.js"></script>
+  
+    
+      <script type="text/javascript" id="documentation_options" data-url_root="../" src="../_static/documentation_options.js"></script>
+        <script src="../_static/jquery.js"></script>
+        <script src="../_static/underscore.js"></script>
+        <script src="../_static/doctools.js"></script>
+        <script src="../_static/language_data.js"></script>
+        <script src="../_static/stats.js"></script>
+        <script async="async" src="https://cdnjs.cloudflare.com/ajax/libs/mathjax/2.7.5/latest.js?config=TeX-AMS-MML_HTMLorMML"></script>
+    
+    <script type="text/javascript" src="../_static/js/theme.js"></script>
+
+    
+
+  
+  <link rel="stylesheet" href="../_static/css/theme.css" type="text/css" />
+  <link rel="stylesheet" href="../_static/pygments.css" type="text/css" />
+    <link rel="index" title="Index" href="../genindex.html" />
+    <link rel="search" title="Search" href="../search.html" />
+    <link rel="next" title="System shutdown" href="shutdown.html" />
+    <link rel="prev" title="xctrl" href="xctrl.html" /> 
+</head>
+
+<body class="wy-body-for-nav">
+
+   
+  <div class="wy-grid-for-nav">
+    
+    <nav data-toggle="wy-nav-shift" class="wy-nav-side">
+      <div class="wy-side-scroll">
+        <div class="wy-side-nav-search" >
+          
+
+          
+            <a href="../index.html">
+          
+
+          
+            
+            <img src="../_static/magao-x_logo_white.png" class="logo" alt="Logo"/>
+          
+          </a>
+
+          
+            
+            
+          
+
+          
+<div role="search">
+  <form id="rtd-search-form" class="wy-form" action="../search.html" method="get">
+    <input type="text" name="q" placeholder="Search docs" />
+    <input type="hidden" name="check_keywords" value="yes" />
+    <input type="hidden" name="area" value="default" />
+  </form>
+</div>
+
+          
+        </div>
+
+        <div class="wy-menu wy-menu-vertical" data-spy="affix" role="navigation" aria-label="main navigation">
+          
+            
+            
+              
+            
+            
+              <ul class="current">
+<li class="toctree-l1"><a class="reference internal" href="../observers/index.html">Information For Observers</a></li>
+<li class="toctree-l1 current"><a class="reference internal" href="index.html">Operation of the MagAO-X instrument</a><ul class="current">
+<li class="toctree-l2"><a class="reference internal" href="xctrl.html">xctrl</a></li>
+<li class="toctree-l2 current"><a class="current reference internal" href="#">System startup</a></li>
+<li class="toctree-l2"><a class="reference internal" href="shutdown.html">System shutdown</a></li>
+<li class="toctree-l2"><a class="reference internal" href="software/index.html">Instrument Software</a></li>
+<li class="toctree-l2"><a class="reference internal" href="troubleshooting.html">Troubleshooting</a></li>
+</ul>
+</li>
+<li class="toctree-l1"><a class="reference internal" href="../handling/index.html">Handling Procedures</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../compute/index.html">Compute System</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../appendices/index.html">Appendices</a></li>
+</ul>
+
+            
+          
+        </div>
+      </div>
+    </nav>
+
+    <section data-toggle="wy-nav-shift" class="wy-nav-content-wrap">
+
+      
+      <nav class="wy-nav-top" aria-label="top navigation">
+        
+          <i data-toggle="wy-nav-top" class="fa fa-bars"></i>
+          <a href="../index.html">MagAO-X Instrument Handbook</a>
+        
+      </nav>
+
+
+      <div class="wy-nav-content">
+        
+        <div class="rst-content">
+        
+          
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+<div role="navigation" aria-label="breadcrumbs navigation">
+
+  <ul class="wy-breadcrumbs">
+    
+      <li><a href="../index.html">Docs</a> &raquo;</li>
+        
+          <li><a href="index.html">Operation of the MagAO-X instrument</a> &raquo;</li>
+        
+      <li>System startup</li>
+    
+    
+      <li class="wy-breadcrumbs-aside">
+        
+            
+            <a href="../_sources/operating/startup.md.txt" rel="nofollow"> View page source</a>
+          
+        
+      </li>
+    
+  </ul>
+
+  
+  <hr/>
+</div>
+          <div role="main" class="document" itemscope="itemscope" itemtype="http://schema.org/Article">
+           <div itemprop="articleBody">
+            
+  <div class="section" id="system-startup">
+<h1>System startup<a class="headerlink" href="#system-startup" title="Permalink to this headline">¶</a></h1>
+<p>Once the instrument has been unpacked and cabled, the power-up process begins. Subsequent startup will look the same, with the exception of step 3 (devices that should stay on).</p>
+<p>The following assumes you’re sitting at the AOC workstation, but it could be done anywhere with appropriate network tunnels. When one must SSH to different hosts, the one where the command should be run will be indicated before the prompt, like <code class="docutils literal notranslate"><span class="pre">aoc$</span> <span class="pre">ls</span></code> to run <code class="docutils literal notranslate"><span class="pre">ls</span></code> on AOC. (Don’t type the <code class="docutils literal notranslate"><span class="pre">host$</span></code> prefix, or any comment lines starting with <code class="docutils literal notranslate"><span class="pre">#</span></code>.)</p>
+<p>For simplicity, it’s easiest to run these commands as the user <code class="docutils literal notranslate"><span class="pre">xsup</span></code> to ensure you can read shared memory images (shmims) and <code class="docutils literal notranslate"><span class="pre">ssh</span></code> around to RTC and ICC.</p>
+<ol>
+<li><p>Ensure the MagAO-X apps are started on AOC to get power control (see the <a class="reference internal" href="xctrl.html"><span class="doc">guide to xctrl</span></a> for more detail)</p>
+<div class="highlight-default notranslate"><div class="highlight"><pre><span></span>aoc$ xctrl startup
+# you&#39;ll see some output as the processes start, wait a little bit
+aoc$ xctrl status
+# verify processes are all green/running
+</pre></div>
+</div>
+</li>
+<li><p>You should have power control now. AOC talks over the instrument internal LAN to network-controlled power strips (PDUs), which you can control over INDI via several different interfaces: <code class="docutils literal notranslate"><span class="pre">sup</span></code>, <code class="docutils literal notranslate"><span class="pre">cursesINDI</span></code>, or <code class="docutils literal notranslate"><span class="pre">pwrGUI</span></code>.</p>
+<p>Since you’re sitting at AOC, it’s simplest to open <code class="docutils literal notranslate"><span class="pre">pwrGUI</span></code>. You should see switches appear.</p>
+<div class="highlight-default notranslate"><div class="highlight"><pre><span></span>aoc$ pwrGUI &amp;
+# window should pop open with switches
+</pre></div>
+</div>
+</li>
+<li><p>(Initial startup only) The following devices should be powered up, and never powered off (unless you know what you’re doing):</p>
+<ul class="simple">
+<li><p>swinst</p></li>
+<li><p>compicc</p></li>
+<li><p>comprtc</p></li>
+<li><p>dcpwr</p></li>
+<li><p>usbdu0</p></li>
+<li><p>blower</p></li>
+<li><p>fan1</p></li>
+<li><p>fan2</p></li>
+<li><p>instcool</p></li>
+</ul>
+</li>
+<li><p>If the tweeter is going to be used, turn on the dry air supply (N2 bottle for now) and wait for the relative humidity to drop below 15%. This will take a while, but while you wait…</p></li>
+<li><p>Ensure MagAO-X processes are started on ICC and RTC</p>
+<div class="highlight-default notranslate"><div class="highlight"><pre><span></span>aoc$ ssh icc
+icc$ xctrl startup
+icc$ xctrl status
+# verify processes are all green/running
+icc$ exit
+aoc$ ssh rtc
+rtc$ xctrl startup
+rtc$ xctrl status
+# verify processes are all green/running
+rtc$ exit
+</pre></div>
+</div>
+</li>
+<li><p>Power up the necessary components for what you want to do, e.g. for lab work using AO + camsci1:</p>
+<ul class="simple">
+<li><p>pdu0: source (calibration light source)</p></li>
+<li><p>pdu1: ttmmod (pyramid modulation mirror), ttmpupil (pupil tracking mirror), dmwoofer (low order upstream DM), dmncpc (low order non-common-path DM)</p></li>
+<li><p>pdu2: camsci1</p></li>
+<li><p>dcdu1: shsci1 (camera shutter)</p></li>
+<li><p>usbdu0: camtip (Basler viewing pyramid tip)</p></li>
+</ul>
+<p>This is a minimal list. To adjust focus and filters on camsci1, you’ll also need:</p>
+<ul class="simple">
+<li><p>pdu2 and usbdu0: stagezaber</p></li>
+<li><p>usbdu0 and dcdu0: fwscind</p></li>
+<li><p>dcdu0: fwpupil, fwsci1</p></li>
+<li><p>dcdu1: fwbs</p></li>
+</ul>
+<p>With even more things to power up for camsci2, etc. Be sure to home stages that need it before use! (They’ll appear as <code class="docutils literal notranslate"><span class="pre">NOTHOMED</span></code> in their <code class="docutils literal notranslate"><span class="pre">fsm</span></code> INDI property.)</p>
+</li>
+<li><p>Launch dmCtrlGUI, hit “reload flat” and “set flat” to flatten the DMs</p>
+<div class="highlight-default notranslate"><div class="highlight"><pre><span></span>aoc$ dmCtrlGUI dmncpc &amp;
+aoc$ dmCtrlGUI dmwoofer &amp;
+</pre></div>
+</div>
+</li>
+<li><p>Launch camera viewers, e.g. for <code class="docutils literal notranslate"><span class="pre">camtip</span></code> and <code class="docutils literal notranslate"><span class="pre">camsci1</span></code>:</p>
+<div class="highlight-default notranslate"><div class="highlight"><pre><span></span>aoc$ rtimv camsci1 &amp;
+aoc$ rtimv camtip &amp;
+</pre></div>
+</div>
+<p><strong>Note:</strong> This needs to read shmims, and should be run as <code class="docutils literal notranslate"><span class="pre">xsup</span></code> if you’re not logged in as <code class="docutils literal notranslate"><span class="pre">xsup</span></code> already (i.e. <code class="docutils literal notranslate"><span class="pre">su</span> <span class="pre">xsup</span></code> before running <code class="docutils literal notranslate"><span class="pre">rtimv</span></code>).</p>
+</li>
+<li><p>Launch <code class="docutils literal notranslate"><span class="pre">pupilGuideGUI</span></code></p>
+<div class="highlight-default notranslate"><div class="highlight"><pre><span></span>aoc$ pupilGuideGUI
+</pre></div>
+</div>
+<p>Now <code class="docutils literal notranslate"><span class="pre">Set</span></code> the pupil TTM and <code class="docutils literal notranslate"><span class="pre">Set</span></code> the pyramid modulator TTM. If the PSF isn’t centered on camtip, use the arrows (bottom left of pupilGuideGUI interface) to change the voltage bias. The central button changes the voltage step size.</p>
+</li>
+<li><p><strong>Once the tweeter relative humidity is less than 15%</strong>, power it on (it’s on pdu1)</p></li>
+<li><p>Start dmCtrlGUI for <code class="docutils literal notranslate"><span class="pre">dmtweeter</span></code>:</p>
+<div class="highlight-default notranslate"><div class="highlight"><pre><span></span>aoc$ dmCtrlGUI dmtweeter
+</pre></div>
+</div>
+<p>Now <code class="docutils literal notranslate"><span class="pre">Reload</span> <span class="pre">flat</span></code> and <code class="docutils literal notranslate"><span class="pre">Set</span> <span class="pre">flat</span></code>.</p>
+</li>
+<li><p>Optimize PSF quality with <a class="reference external" href="eyedoctor">The Eye Doctor</a>, starting with the <code class="docutils literal notranslate"><span class="pre">camtip</span></code> PSF</p>
+<div class="highlight-default notranslate"><div class="highlight"><pre><span></span>aoc$ ssh icc
+icc$ dm_eye_doctor 7626 wooferModes camtip 10 2 1.0
+icc$ dm_eye_doctor 7626 wooferModes camtip 10 2...10 0.5
+icc$ dm_eye_doctor 7626 wooferModes camtip 10 2...35 0.05
+</pre></div>
+</div>
+<p>If you want to save this optimized woofer flat, you can do that on RTC:</p>
+<div class="highlight-default notranslate"><div class="highlight"><pre><span></span>aoc$ ssh rtc
+rtc$ dm_eye_doctor_update_flat dmwoofer
+</pre></div>
+</div>
+</li>
+<li><p>Optimize the non-common-path correction with The Eye Doctor and <code class="docutils literal notranslate"><span class="pre">camsci1</span></code></p>
+<div class="highlight-default notranslate"><div class="highlight"><pre><span></span>icc$ dm_eye_doctor 7624 ncpcModes camsci1 5 2 1.0
+icc$ dm_eye_doctor 7624 ncpcModes camsci1 5 2…10 0.5
+icc$ dm_eye_doctor 7624 ncpcModes camsci1 5 2...35 0.05
+# note: still on icc
+icc$ dm_eye_doctor_update_flat dmncpc
+</pre></div>
+</div>
+</li>
+</ol>
+<p>Now you’re ready to do things with the instrument!</p>
+<p>Open http://localhost:8000/ (or tunnel it to your computer from AOC) to use the web UI for filter wheels, stage positions, streamwriter and shutter toggles, etc. You can also control the instrument via the AOC indiserver on port 7624 with your favorite tool (<code class="docutils literal notranslate"><span class="pre">cursesINDI</span></code>, <a class="reference external" href="https://github.com/magao-x/purepyindi">PurePyINDI</a>, or what have you).</p>
+</div>
+
+
+           </div>
+           
+          </div>
+          <footer>
+  
+    <div class="rst-footer-buttons" role="navigation" aria-label="footer navigation">
+      
+        <a href="shutdown.html" class="btn btn-neutral float-right" title="System shutdown" accesskey="n" rel="next">Next <span class="fa fa-arrow-circle-right"></span></a>
+      
+      
+        <a href="xctrl.html" class="btn btn-neutral float-left" title="xctrl" accesskey="p" rel="prev"><span class="fa fa-arrow-circle-left"></span> Previous</a>
+      
+    </div>
+  
+
+  <hr/>
+
+  <div role="contentinfo">
+    <p>
+        &copy; Copyright 2019, Extreme Wavefront Control Lab, The University of Arizona
+
+    </p>
+  </div>
+  Built with <a href="http://sphinx-doc.org/">Sphinx</a> using a <a href="https://github.com/rtfd/sphinx_rtd_theme">theme</a> provided by <a href="https://readthedocs.org">Read the Docs</a>. 
+
+</footer>
+
+        </div>
+      </div>
+
+    </section>
+
+  </div>
+  
+
+
+  <script type="text/javascript">
+      jQuery(function () {
+          SphinxRtdTheme.Navigation.enable(true);
+      });
+  </script>
+
+  
+  
+    
+   
+
+</body>
+</html>

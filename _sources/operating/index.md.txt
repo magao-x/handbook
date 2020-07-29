@@ -5,6 +5,9 @@
 .. toctree::
     :maxdepth: 1
 
+    xctrl
+    startup
+    shutdown
     software/index
     troubleshooting
 ```

@@ -254,7 +254,11 @@ $ cd MagAOX
 <h2>Usage<a class="headerlink" href="#usage" title="Permalink to this headline">¶</a></h2>
 <div class="section" id="connecting">
 <h3>Connecting<a class="headerlink" href="#connecting" title="Permalink to this headline">¶</a></h3>
-<p>To connect to the VM, use <code class="docutils literal notranslate"><span class="pre">vagrant</span> <span class="pre">ssh</span></code>. You’ll be logged in as user <code class="docutils literal notranslate"><span class="pre">vagrant</span></code> with no password. The rest of the commands in this section are to be run in a <code class="docutils literal notranslate"><span class="pre">vagrant</span> <span class="pre">ssh</span></code> session, unless otherwise noted.</p>
+<p>To connect to the VM, use <code class="docutils literal notranslate"><span class="pre">vagrant</span> <span class="pre">ssh</span></code>. You’ll be logged in as user <code class="docutils literal notranslate"><span class="pre">vagrant</span></code> with no password, and the command prompt in your shell will change to something like this:</p>
+<div class="highlight-default notranslate"><div class="highlight"><pre><span></span>[vagrant@centos7] $
+</pre></div>
+</div>
+<p>The rest of the commands in this section are to be run in a <code class="docutils literal notranslate"><span class="pre">vagrant</span> <span class="pre">ssh</span></code> session, unless otherwise noted.</p>
 </div>
 <div class="section" id="running-magao-x">
 <h3>Running MagAO-X<a class="headerlink" href="#running-magao-x" title="Permalink to this headline">¶</a></h3>
@@ -336,6 +340,7 @@ vm$ pwrGUI
 <ol>
 <li><p>Copy the <em>private half</em> of the SSH key you use from <code class="docutils literal notranslate"><span class="pre">~/.ssh/id_ecdsa</span></code> (or how ever it’s named on your computer) on the <em>host</em> to <code class="docutils literal notranslate"><span class="pre">~/.ssh/id_ecdsa</span></code> in the VM.</p>
 <div class="highlight-default notranslate"><div class="highlight"><pre><span></span>host$ cp ~/.ssh/id_ecdsa ./vm/id_ecdsa
+host$ cp ~/.ssh/id_ecdsa ./vm/id_ecdsa
 host$ vagrant ssh
 vm$ mv /vagrant/vm/id_ecdsa ~/.ssh/id_ecdsa
 vm$ chmod 600 ~/.ssh/id_ecdsa
