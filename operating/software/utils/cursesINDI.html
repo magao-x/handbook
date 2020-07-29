@@ -8,7 +8,7 @@
   
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
   
-  <title>Utilities &mdash; MagAO-X Instrument Handbook  documentation</title>
+  <title>cursesINDI &mdash; MagAO-X Instrument Handbook  documentation</title>
   
 
   
@@ -37,8 +37,8 @@
   <link rel="stylesheet" href="../../../_static/pygments.css" type="text/css" />
     <link rel="index" title="Index" href="../../../genindex.html" />
     <link rel="search" title="Search" href="../../../search.html" />
-    <link rel="next" title="cursesINDI" href="cursesINDI.html" />
-    <link rel="prev" title="xctrl" href="../scripts/xctrl.html" /> 
+    <link rel="next" title="getINDI" href="getINDI.html" />
+    <link rel="prev" title="Utilities" href="index.html" /> 
 </head>
 
 <body class="wy-body-for-nav">
@@ -94,8 +94,8 @@
 <li class="toctree-l2 current"><a class="reference internal" href="../index.html">Instrument Software</a><ul class="current">
 <li class="toctree-l3"><a class="reference internal" href="../apps/index.html">Applications</a></li>
 <li class="toctree-l3"><a class="reference internal" href="../scripts/index.html">Scripts</a></li>
-<li class="toctree-l3 current"><a class="current reference internal" href="#">Utilities</a><ul>
-<li class="toctree-l4"><a class="reference internal" href="cursesINDI.html">cursesINDI</a></li>
+<li class="toctree-l3 current"><a class="reference internal" href="index.html">Utilities</a><ul class="current">
+<li class="toctree-l4 current"><a class="current reference internal" href="#">cursesINDI</a></li>
 <li class="toctree-l4"><a class="reference internal" href="getINDI.html">getINDI</a></li>
 <li class="toctree-l4"><a class="reference internal" href="setINDI.html">setINDI</a></li>
 <li class="toctree-l4"><a class="reference internal" href="evalINDI.html">evalINDI</a></li>
@@ -159,13 +159,15 @@
         
           <li><a href="../index.html">Instrument Software</a> &raquo;</li>
         
-      <li>Utilities</li>
+          <li><a href="index.html">Utilities</a> &raquo;</li>
+        
+      <li>cursesINDI</li>
     
     
       <li class="wy-breadcrumbs-aside">
         
             
-            <a href="../../../_sources/operating/software/utils/index.md.txt" rel="nofollow"> View page source</a>
+            <a href="../../../_sources/operating/software/utils/cursesINDI.md.txt" rel="nofollow"> View page source</a>
           
         
       </li>
@@ -178,17 +180,32 @@
           <div role="main" class="document" itemscope="itemscope" itemtype="http://schema.org/Article">
            <div itemprop="articleBody">
             
-  <div class="section" id="utilities">
-<h1>Utilities<a class="headerlink" href="#utilities" title="Permalink to this headline">¶</a></h1>
-<div class="toctree-wrapper compound">
-<ul>
-<li class="toctree-l1"><a class="reference internal" href="cursesINDI.html">cursesINDI</a></li>
-<li class="toctree-l1"><a class="reference internal" href="getINDI.html">getINDI</a></li>
-<li class="toctree-l1"><a class="reference internal" href="setINDI.html">setINDI</a></li>
-<li class="toctree-l1"><a class="reference internal" href="evalINDI.html">evalINDI</a></li>
-<li class="toctree-l1"><a class="reference internal" href="indiserver.html">indiserver</a></li>
-<li class="toctree-l1"><a class="reference internal" href="logdump.html">logdump</a></li>
+  <div class="section" id="cursesindi">
+<h1>cursesINDI<a class="headerlink" href="#cursesindi" title="Permalink to this headline">¶</a></h1>
+<p>The instrument interface of first and last resort.</p>
+<p>The <code class="docutils literal notranslate"><span class="pre">cursesINDI</span></code> tool is available on all MagAO-X computers (including VMs and the test bed) and enables viewing and manipulation of the instrument settings via low-level properties and the INDI protocol. It can be useful when adding new drivers to the system, or when trying to track down a strange behavior in a higher-level GUI interface.</p>
+<p>You do not need to be <code class="docutils literal notranslate"><span class="pre">xsup</span></code> to run <code class="docutils literal notranslate"><span class="pre">cursesINDI</span></code>, but you do need <code class="docutils literal notranslate"><span class="pre">localhost:7624</span></code> to connect to a local or remote indiserver. This is the case when SSHed in to AOC, RTC, ICC, or the testbed (TCC); otherwise, you can use SSH tunneling.</p>
+<div class="section" id="overview">
+<h2>Overview<a class="headerlink" href="#overview" title="Permalink to this headline">¶</a></h2>
+<p>Start cursesINDI from a terminal with the <code class="docutils literal notranslate"><span class="pre">cursesINDI</span></code> command.</p>
+<p><img alt="screenshot of a terminal showing cursesINDI in action" src="../../../_images/cursesINDI.png" /></p>
+<p>The terminal will blank and show something like the screenshot above. Note: that you may need to resize your terminal to see all five columns:</p>
+<ul class="simple">
+<li><p>index</p></li>
+<li><p>device name</p></li>
+<li><p>property name (and meta info, see below)</p></li>
+<li><p>element name (see conventions below)</p></li>
+<li><p>value</p></li>
 </ul>
+<p>By default, you’re in “search” mode. Start typing a device name and cursesINDI will scroll the list to bring that device into view. Right-arrow over to the value column, and the <code class="docutils literal notranslate"><span class="pre">search:</span></code> prompt will change to <code class="docutils literal notranslate"><span class="pre">(e)dit</span> <span class="pre">this</span> <span class="pre">number</span></code>. Hit the <code class="docutils literal notranslate"><span class="pre">e</span></code> key and you’ll be prompted to <code class="docutils literal notranslate"><span class="pre">set</span> <span class="pre">devname.propname.element=</span></code>. Type in your new value, hit <code class="docutils literal notranslate"><span class="pre">enter</span></code>, and confirm (after checking carefully) the new value with <code class="docutils literal notranslate"><span class="pre">y</span></code>. (Or, you can hit <code class="docutils literal notranslate"><span class="pre">Esc</span></code> to get out of setting the value.)</p>
+</div>
+<div class="section" id="property-meta-info">
+<h2>Property meta info<a class="headerlink" href="#property-meta-info" title="Permalink to this headline">¶</a></h2>
+<p>The bracketed letter indicates whether a property is a <code class="docutils literal notranslate"><span class="pre">[t]ext</span></code>, <code class="docutils literal notranslate"><span class="pre">[n]umber</span></code>, <code class="docutils literal notranslate"><span class="pre">[s]witch</span></code>, or <code class="docutils literal notranslate"><span class="pre">[l]ight</span></code> as defined by INDI. The character after the brackets can be <code class="docutils literal notranslate"><span class="pre">~</span></code> (Idle), <code class="docutils literal notranslate"><span class="pre">-</span></code> (Ok), <code class="docutils literal notranslate"><span class="pre">*</span></code> (Busy), or <code class="docutils literal notranslate"><span class="pre">!</span></code> (Alert). You’ll see Idle properties switch to Busy when you set them, and back to Idle once the state you’ve set has been reached.</p>
+</div>
+<div class="section" id="element-naming-convention">
+<h2>Element naming convention<a class="headerlink" href="#element-naming-convention" title="Permalink to this headline">¶</a></h2>
+<p>In the MagAO-X instrument, the convention is for settable properties to expose their <code class="docutils literal notranslate"><span class="pre">current</span></code> value and their <code class="docutils literal notranslate"><span class="pre">target</span></code> value as two elements of the property. This is useful to, e.g., command stages and compare their current location to their commanded one. (Thanks to limitations in INDI, “read-only” can only apply to properties, not elements. Functionally, <code class="docutils literal notranslate"><span class="pre">current</span></code> is read-only and all edits are to <code class="docutils literal notranslate"><span class="pre">target</span></code>.)</p>
 </div>
 </div>
 
@@ -200,10 +217,10 @@
   
     <div class="rst-footer-buttons" role="navigation" aria-label="footer navigation">
       
-        <a href="cursesINDI.html" class="btn btn-neutral float-right" title="cursesINDI" accesskey="n" rel="next">Next <span class="fa fa-arrow-circle-right"></span></a>
+        <a href="getINDI.html" class="btn btn-neutral float-right" title="getINDI" accesskey="n" rel="next">Next <span class="fa fa-arrow-circle-right"></span></a>
       
       
-        <a href="../scripts/xctrl.html" class="btn btn-neutral float-left" title="xctrl" accesskey="p" rel="prev"><span class="fa fa-arrow-circle-left"></span> Previous</a>
+        <a href="index.html" class="btn btn-neutral float-left" title="Utilities" accesskey="p" rel="prev"><span class="fa fa-arrow-circle-left"></span> Previous</a>
       
     </div>
   

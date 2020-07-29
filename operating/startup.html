@@ -38,7 +38,7 @@
     <link rel="index" title="Index" href="../genindex.html" />
     <link rel="search" title="Search" href="../search.html" />
     <link rel="next" title="System shutdown" href="shutdown.html" />
-    <link rel="prev" title="xctrl" href="xctrl.html" /> 
+    <link rel="prev" title="Operation of the MagAO-X instrument" href="index.html" /> 
 </head>
 
 <body class="wy-body-for-nav">
@@ -88,11 +88,10 @@
               <ul class="current">
 <li class="toctree-l1"><a class="reference internal" href="../observers/index.html">Information For Observers</a></li>
 <li class="toctree-l1 current"><a class="reference internal" href="index.html">Operation of the MagAO-X instrument</a><ul class="current">
-<li class="toctree-l2"><a class="reference internal" href="xctrl.html">xctrl</a></li>
 <li class="toctree-l2 current"><a class="current reference internal" href="#">System startup</a></li>
 <li class="toctree-l2"><a class="reference internal" href="shutdown.html">System shutdown</a></li>
-<li class="toctree-l2"><a class="reference internal" href="software/index.html">Instrument Software</a></li>
 <li class="toctree-l2"><a class="reference internal" href="troubleshooting.html">Troubleshooting</a></li>
+<li class="toctree-l2"><a class="reference internal" href="software/index.html">Instrument Software</a></li>
 </ul>
 </li>
 <li class="toctree-l1"><a class="reference internal" href="../handling/index.html">Handling Procedures</a></li>
@@ -170,7 +169,7 @@
 <p>The following assumes you’re sitting at the AOC workstation, but it could be done anywhere with appropriate network tunnels. When one must SSH to different hosts, the one where the command should be run will be indicated before the prompt, like <code class="docutils literal notranslate"><span class="pre">aoc$</span> <span class="pre">ls</span></code> to run <code class="docutils literal notranslate"><span class="pre">ls</span></code> on AOC. (Don’t type the <code class="docutils literal notranslate"><span class="pre">host$</span></code> prefix, or any comment lines starting with <code class="docutils literal notranslate"><span class="pre">#</span></code>.)</p>
 <p>For simplicity, it’s easiest to run these commands as the user <code class="docutils literal notranslate"><span class="pre">xsup</span></code> to ensure you can read shared memory images (shmims) and <code class="docutils literal notranslate"><span class="pre">ssh</span></code> around to RTC and ICC.</p>
 <ol>
-<li><p>Ensure the MagAO-X apps are started on AOC to get power control (see the <a class="reference internal" href="xctrl.html"><span class="doc">guide to xctrl</span></a> for more detail)</p>
+<li><p>Ensure the MagAO-X apps are started on AOC to get power control (see the <a class="reference external" href="./xctrl">guide to xctrl</a> for more detail)</p>
 <div class="highlight-default notranslate"><div class="highlight"><pre><span></span>aoc$ xctrl startup
 # you&#39;ll see some output as the processes start, wait a little bit
 aoc$ xctrl status
@@ -294,7 +293,7 @@ icc$ dm_eye_doctor_update_flat dmncpc
         <a href="shutdown.html" class="btn btn-neutral float-right" title="System shutdown" accesskey="n" rel="next">Next <span class="fa fa-arrow-circle-right"></span></a>
       
       
-        <a href="xctrl.html" class="btn btn-neutral float-left" title="xctrl" accesskey="p" rel="prev"><span class="fa fa-arrow-circle-left"></span> Previous</a>
+        <a href="index.html" class="btn btn-neutral float-left" title="Operation of the MagAO-X instrument" accesskey="p" rel="prev"><span class="fa fa-arrow-circle-left"></span> Previous</a>
       
     </div>
   

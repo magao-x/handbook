@@ -37,7 +37,7 @@
   <link rel="stylesheet" href="../_static/pygments.css" type="text/css" />
     <link rel="index" title="Index" href="../genindex.html" />
     <link rel="search" title="Search" href="../search.html" />
-    <link rel="next" title="xctrl" href="xctrl.html" />
+    <link rel="next" title="System startup" href="startup.html" />
     <link rel="prev" title="Data reduction and calibration" href="../observers/reduction.html" /> 
 </head>
 
@@ -88,11 +88,10 @@
               <ul class="current">
 <li class="toctree-l1"><a class="reference internal" href="../observers/index.html">Information For Observers</a></li>
 <li class="toctree-l1 current"><a class="current reference internal" href="#">Operation of the MagAO-X instrument</a><ul>
-<li class="toctree-l2"><a class="reference internal" href="xctrl.html">xctrl</a></li>
 <li class="toctree-l2"><a class="reference internal" href="startup.html">System startup</a></li>
 <li class="toctree-l2"><a class="reference internal" href="shutdown.html">System shutdown</a></li>
-<li class="toctree-l2"><a class="reference internal" href="software/index.html">Instrument Software</a></li>
 <li class="toctree-l2"><a class="reference internal" href="troubleshooting.html">Troubleshooting</a></li>
+<li class="toctree-l2"><a class="reference internal" href="software/index.html">Instrument Software</a></li>
 </ul>
 </li>
 <li class="toctree-l1"><a class="reference internal" href="../handling/index.html">Handling Procedures</a></li>
@@ -164,13 +163,34 @@
             
   <div class="section" id="operation-of-the-magao-x-instrument">
 <h1>Operation of the MagAO-X instrument<a class="headerlink" href="#operation-of-the-magao-x-instrument" title="Permalink to this headline">¶</a></h1>
+<p>The MagAO-X instrument has (at last count) several thousand controllable degrees of freedom, three computers, and dozens of processes. To manage that complexity, we have the guides and tools detailed herein.</p>
+<p>Good starting points include the <a class="reference internal" href="startup.html"><span class="doc">startup</span></a> guide and the <a class="reference internal" href="troubleshooting.html"><span class="doc">troubleshooting</span></a> guide.</p>
+<p>Useful tools include <a class="reference internal" href="software/scripts/xctrl.html"><span class="doc">xctrl</span></a>, <a class="reference internal" href="software/utils/cursesINDI.html"><span class="doc">cursesINDI</span></a>, and <a class="reference internal" href="software/utils/logdump.html"><span class="doc">logdump</span></a>.</p>
 <div class="toctree-wrapper compound">
 <ul>
-<li class="toctree-l1"><a class="reference internal" href="xctrl.html">xctrl</a></li>
 <li class="toctree-l1"><a class="reference internal" href="startup.html">System startup</a></li>
-<li class="toctree-l1"><a class="reference internal" href="shutdown.html">System shutdown</a></li>
-<li class="toctree-l1"><a class="reference internal" href="software/index.html">Instrument Software</a></li>
-<li class="toctree-l1"><a class="reference internal" href="troubleshooting.html">Troubleshooting</a></li>
+<li class="toctree-l1"><a class="reference internal" href="shutdown.html">System shutdown</a><ul>
+<li class="toctree-l2"><a class="reference internal" href="shutdown.html#end-of-work-shutdown">End-of-work shutdown</a></li>
+<li class="toctree-l2"><a class="reference internal" href="shutdown.html#full-shutdown">Full shutdown</a></li>
+</ul>
+</li>
+<li class="toctree-l1"><a class="reference internal" href="troubleshooting.html">Troubleshooting</a><ul>
+<li class="toctree-l2"><a class="reference internal" href="troubleshooting.html#missing-gpus-on-rtc">Missing GPUs on RTC</a></li>
+<li class="toctree-l2"><a class="reference internal" href="troubleshooting.html#ocam-connectivity-bad-data">OCAM connectivity / bad data</a></li>
+<li class="toctree-l2"><a class="reference internal" href="troubleshooting.html#alpao-dm-not-responding">Alpao DM not responding</a></li>
+<li class="toctree-l2"><a class="reference internal" href="troubleshooting.html#dm-latency-and-communication-troubleshooting">DM Latency and Communication Troubleshooting</a></li>
+<li class="toctree-l2"><a class="reference internal" href="troubleshooting.html#troubleshooting-a-magao-x-app-that-won-t-start">Troubleshooting a MagAO-X app that won’t start</a></li>
+<li class="toctree-l2"><a class="reference internal" href="troubleshooting.html#edt-framegrabber-problems-camwfs-and-camlowfs">EDT Framegrabber Problems (camwfs and camlowfs)</a></li>
+<li class="toctree-l2"><a class="reference internal" href="troubleshooting.html#killing-indi-zombies">killing indi zombies</a></li>
+<li class="toctree-l2"><a class="reference internal" href="troubleshooting.html#difficulties-with-nvidia-proprietary-drivers">Difficulties with NVIDIA proprietary drivers</a></li>
+</ul>
+</li>
+<li class="toctree-l1"><a class="reference internal" href="software/index.html">Instrument Software</a><ul>
+<li class="toctree-l2"><a class="reference internal" href="software/apps/index.html">Applications</a></li>
+<li class="toctree-l2"><a class="reference internal" href="software/scripts/index.html">Scripts</a></li>
+<li class="toctree-l2"><a class="reference internal" href="software/utils/index.html">Utilities</a></li>
+</ul>
+</li>
 </ul>
 </div>
 </div>
@@ -183,7 +203,7 @@
   
     <div class="rst-footer-buttons" role="navigation" aria-label="footer navigation">
       
-        <a href="xctrl.html" class="btn btn-neutral float-right" title="xctrl" accesskey="n" rel="next">Next <span class="fa fa-arrow-circle-right"></span></a>
+        <a href="startup.html" class="btn btn-neutral float-right" title="System startup" accesskey="n" rel="next">Next <span class="fa fa-arrow-circle-right"></span></a>
       
       
         <a href="../observers/reduction.html" class="btn btn-neutral float-left" title="Data reduction and calibration" accesskey="p" rel="prev"><span class="fa fa-arrow-circle-left"></span> Previous</a>
