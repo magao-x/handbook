@@ -73,7 +73,13 @@ $ vagrant provision | tee provision.log
 
 ### Connecting
 
-To connect to the VM, use `vagrant ssh`. You'll be logged in as user `vagrant` with no password. The rest of the commands in this section are to be run in a `vagrant ssh` session, unless otherwise noted.
+To connect to the VM, use `vagrant ssh`. You'll be logged in as user `vagrant` with no password, and the command prompt in your shell will change to something like this:
+
+```
+[vagrant@centos7] $
+```
+
+The rest of the commands in this section are to be run in a `vagrant ssh` session, unless otherwise noted.
 
 ### Running MagAO-X
 
@@ -170,6 +176,7 @@ If you can SSH to the instrument's AOC, you can set up a tunnel from the VM to A
 1. Copy the *private half* of the SSH key you use from `~/.ssh/id_ecdsa` (or how ever it's named on your computer) on the *host* to `~/.ssh/id_ecdsa` in the VM.
 
     ```
+    host$ cp ~/.ssh/id_ecdsa ./vm/id_ecdsa
     host$ cp ~/.ssh/id_ecdsa ./vm/id_ecdsa
     host$ vagrant ssh
     vm$ mv /vagrant/vm/id_ecdsa ~/.ssh/id_ecdsa
