@@ -4,6 +4,7 @@
 .. toctree::
     :maxdepth: 1
 
+    cursesINDI
     getINDI
     setINDI
     evalINDI

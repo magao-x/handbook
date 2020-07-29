@@ -5,4 +5,5 @@ Instrument Software
     :maxdepth: 2
 
     apps/index
+    scripts/index
     utils/index
