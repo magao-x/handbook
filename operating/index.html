@@ -164,8 +164,7 @@
   <div class="section" id="operation-of-the-magao-x-instrument">
 <h1>Operation of the MagAO-X instrument<a class="headerlink" href="#operation-of-the-magao-x-instrument" title="Permalink to this headline">¶</a></h1>
 <p>The MagAO-X instrument has (at last count) several thousand controllable degrees of freedom, three computers, and dozens of processes. To manage that complexity, we have the guides and tools detailed herein.</p>
-<p>Good starting points include the <a class="reference internal" href="startup.html"><span class="doc">startup</span></a> guide and the <a class="reference internal" href="troubleshooting.html"><span class="doc">troubleshooting</span></a> guide.</p>
-<p>Useful tools include <a class="reference internal" href="software/scripts/xctrl.html"><span class="doc">xctrl</span></a>, <a class="reference internal" href="software/utils/cursesINDI.html"><span class="doc">cursesINDI</span></a>, and <a class="reference internal" href="software/utils/logdump.html"><span class="doc">logdump</span></a>.</p>
+<p>Good starting points include the <a class="reference internal" href="startup.html"><span class="doc">startup</span></a> guide and the <a class="reference internal" href="troubleshooting.html"><span class="doc">troubleshooting</span></a> guide. Useful tools include <a class="reference internal" href="software/scripts/xctrl.html"><span class="doc">xctrl</span></a>, <a class="reference internal" href="software/utils/cursesINDI.html"><span class="doc">cursesINDI</span></a>, and <a class="reference internal" href="software/utils/logdump.html"><span class="doc">logdump</span></a>.</p>
 <div class="toctree-wrapper compound">
 <ul>
 <li class="toctree-l1"><a class="reference internal" href="startup.html">System startup</a></li>
@@ -178,7 +177,11 @@
 <li class="toctree-l2"><a class="reference internal" href="troubleshooting.html#missing-gpus-on-rtc">Missing GPUs on RTC</a></li>
 <li class="toctree-l2"><a class="reference internal" href="troubleshooting.html#ocam-connectivity-bad-data">OCAM connectivity / bad data</a></li>
 <li class="toctree-l2"><a class="reference internal" href="troubleshooting.html#alpao-dm-not-responding">Alpao DM not responding</a></li>
-<li class="toctree-l2"><a class="reference internal" href="troubleshooting.html#dm-latency-and-communication-troubleshooting">DM Latency and Communication Troubleshooting</a></li>
+<li class="toctree-l2"><a class="reference internal" href="troubleshooting.html#dm-latency-and-communication-troubleshooting">DM Latency and Communication Troubleshooting</a><ul>
+<li class="toctree-l3"><a class="reference internal" href="troubleshooting.html#examples-with-known-fixes">Examples with known fixes:</a></li>
+<li class="toctree-l3"><a class="reference internal" href="troubleshooting.html#general-troubleshooting">General Troubleshooting</a></li>
+</ul>
+</li>
 <li class="toctree-l2"><a class="reference internal" href="troubleshooting.html#troubleshooting-a-magao-x-app-that-won-t-start">Troubleshooting a MagAO-X app that won’t start</a></li>
 <li class="toctree-l2"><a class="reference internal" href="troubleshooting.html#edt-framegrabber-problems-camwfs-and-camlowfs">EDT Framegrabber Problems (camwfs and camlowfs)</a></li>
 <li class="toctree-l2"><a class="reference internal" href="troubleshooting.html#killing-indi-zombies">killing indi zombies</a></li>
@@ -186,9 +189,31 @@
 </ul>
 </li>
 <li class="toctree-l1"><a class="reference internal" href="software/index.html">Instrument Software</a><ul>
-<li class="toctree-l2"><a class="reference internal" href="software/apps/index.html">Applications</a></li>
-<li class="toctree-l2"><a class="reference internal" href="software/scripts/index.html">Scripts</a></li>
-<li class="toctree-l2"><a class="reference internal" href="software/utils/index.html">Utilities</a></li>
+<li class="toctree-l2"><a class="reference internal" href="software/apps/index.html">Applications</a><ul>
+<li class="toctree-l3"><a class="reference internal" href="software/apps/alpaoCtrl.html">alpaoCtrl</a></li>
+<li class="toctree-l3"><a class="reference internal" href="software/apps/dmMode.html">dmMode</a></li>
+<li class="toctree-l3"><a class="reference internal" href="software/apps/filterWheelCtrl.html">filterWheelCtrl</a></li>
+<li class="toctree-l3"><a class="reference internal" href="software/apps/ocam2KCtrl.html">ocam2KCtrl</a></li>
+<li class="toctree-l3"><a class="reference internal" href="software/apps/sshDigger.html">sshDigger</a></li>
+<li class="toctree-l3"><a class="reference internal" href="software/apps/trippLitePDU.html">trippLitePDU</a></li>
+<li class="toctree-l3"><a class="reference internal" href="software/apps/xindiserver.html">xindiserver</a></li>
+<li class="toctree-l3"><a class="reference internal" href="software/apps/xt1121DCDU.html">xt1121DCDU</a></li>
+<li class="toctree-l3"><a class="reference internal" href="software/apps/index.html#standard-options">Standard Options</a></li>
+</ul>
+</li>
+<li class="toctree-l2"><a class="reference internal" href="software/scripts/index.html">Scripts</a><ul>
+<li class="toctree-l3"><a class="reference internal" href="software/scripts/xctrl.html">xctrl</a></li>
+</ul>
+</li>
+<li class="toctree-l2"><a class="reference internal" href="software/utils/index.html">Utilities</a><ul>
+<li class="toctree-l3"><a class="reference internal" href="software/utils/cursesINDI.html">cursesINDI</a></li>
+<li class="toctree-l3"><a class="reference internal" href="software/utils/getINDI.html">getINDI</a></li>
+<li class="toctree-l3"><a class="reference internal" href="software/utils/setINDI.html">setINDI</a></li>
+<li class="toctree-l3"><a class="reference internal" href="software/utils/evalINDI.html">evalINDI</a></li>
+<li class="toctree-l3"><a class="reference internal" href="software/utils/indiserver.html">indiserver</a></li>
+<li class="toctree-l3"><a class="reference internal" href="software/utils/logdump.html">logdump</a></li>
+</ul>
+</li>
 </ul>
 </li>
 </ul>
