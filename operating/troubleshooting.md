@@ -62,43 +62,41 @@ There are various ways that the shared memory interprocess communication between
 #### General Troubleshooting
 
 General troubleshooting steps, in order of severity (try the lower ones first if you don't have a clear idea what the problem is):
-1) release, then initialize from the dmCtrl GUI
+1) release, then initialize from the `dmCtrl` GUI
 2) release, then restart the DM controller software
+
     e.g. for the woofer:
     ```
-    [xsup@exao2 ~] $ tmux a -t dmwoofer
-     ctrl-c
-    [xsup@exao2 ~] $ alpaoCtrl -n dmwoofer
+    rtc$ xctrl restart dmwoofer
     ```
-
-
 3) restart the dmcomb process:
     * first stop the DM controller (see above)
-    * restart dmcomb using fpsCTRL (to be documented)
+    * restart dmcomb using `fpsCTRL` (to be documented)
     * restart the DM controller (see above)
     * this may cause problems in some other processes due to shmim recreation.
 
 4) Power cycle the DM
-    * release from the dmCtrl GUI
-    * turn off the power with the pwrCtrl GUI, then turn it back on
+    * release from the `dmCtrl` GUI
+    * turn off the power with the `pwrCtrl` GUI, then turn it back on
     * if it doesn't happen automatically, initialize the DM from the GUI when it has power
     * if this does not fix the problem, try steps 1-3 again.
 
 5) Full Software Restart 
     * Place all hardware controlled from this computer in a safe condition
-         * rest modttm and ttmpupil
+         * rest `modttm` and `ttmpupil`
          * start camera warmup (in case you can't get software back up)
          * release all DMs controlled from this computer
     * Shutdown all software with:
       ```
-       [xsup@exao2 ~] tmux kill-server
+      rtc$ xctrl shutdown
+      rtc$ tmux kill-server  # for cacao processes not managed by xctrl
       ```
     * Clear all shared memory:
       ```
-       [xsup@exao2 ~] cd /milk/shm 
-       [xsup@exao2 ~] sudo rm *
-       [xsup@exao2 ~] cd /dev/shm 
-       [xsup@exao2 ~] sudo rm *
+       rtc$ cd /milk/shm
+       rtc$ sudo rm *
+       rtc$ cd /dev/shm
+       rtc$ sudo rm *
       ```
     * Now restart software and restore hardware to operating condition
 
@@ -145,9 +143,11 @@ $ ./edt_load
 
 This will reset the kernel module and restore operation.  Now restart the controlling application by returning to the tmux session, up-arrow to find the command, and press enter.
 
-### killing indi zombies
+### Killing INDI zombies
 
-If the `indiserver` crashes uncleanly (itself a subprocess of `xindiserver`), the associated `xindidriver` processes may become orphans.  This will prevent `xindiserver` from starting gain until these processes have been killed.  The following shell command will kill them:
+If the `indiserver` crashes uncleanly (itself a subprocess of `xindiserver`), the associated `xindidriver` processes may become orphans (i.e. reparented to PID 1 (init)).  This will prevent `xindiserver` from starting again until these processes have been killed. (There will be output in logdump suggesting you `kill the zombies`.)
+
+The following shell command will kill them:
 ```
 $ kill $(ps -elf | awk '{if ($5 == 1){print $4" "$5" "$15}}' | grep MagAOX/drivers | awk '{print $1}')
 ```
