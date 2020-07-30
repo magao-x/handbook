@@ -101,7 +101,7 @@
 </li>
 <li class="toctree-l3"><a class="reference internal" href="#troubleshooting-a-magao-x-app-that-won-t-start">Troubleshooting a MagAO-X app that won’t start</a></li>
 <li class="toctree-l3"><a class="reference internal" href="#edt-framegrabber-problems-camwfs-and-camlowfs">EDT Framegrabber Problems (camwfs and camlowfs)</a></li>
-<li class="toctree-l3"><a class="reference internal" href="#killing-indi-zombies">killing indi zombies</a></li>
+<li class="toctree-l3"><a class="reference internal" href="#killing-indi-zombies">Killing INDI zombies</a></li>
 <li class="toctree-l3"><a class="reference internal" href="#difficulties-with-nvidia-proprietary-drivers">Difficulties with NVIDIA proprietary drivers</a></li>
 </ul>
 </li>
@@ -245,27 +245,25 @@ Sep 29 11:18:35 exao3.as.arizona.edu initialize_alpao.sh[4449]: ================
 <h3>General Troubleshooting<a class="headerlink" href="#general-troubleshooting" title="Permalink to this headline">¶</a></h3>
 <p>General troubleshooting steps, in order of severity (try the lower ones first if you don’t have a clear idea what the problem is):</p>
 <ol>
-<li><p>release, then initialize from the dmCtrl GUI</p></li>
-<li><p>release, then restart the DM controller software
-e.g. for the woofer:</p>
-<div class="highlight-default notranslate"><div class="highlight"><pre><span></span>[xsup@exao2 ~] $ tmux a -t dmwoofer
- ctrl-c
-[xsup@exao2 ~] $ alpaoCtrl -n dmwoofer
+<li><p>release, then initialize from the <code class="docutils literal notranslate"><span class="pre">dmCtrl</span></code> GUI</p></li>
+<li><p>release, then restart the DM controller software</p>
+<p>e.g. for the woofer:</p>
+<div class="highlight-default notranslate"><div class="highlight"><pre><span></span>rtc$ xctrl restart dmwoofer
 </pre></div>
 </div>
 </li>
 <li><p>restart the dmcomb process:</p>
 <ul class="simple">
 <li><p>first stop the DM controller (see above)</p></li>
-<li><p>restart dmcomb using fpsCTRL (to be documented)</p></li>
+<li><p>restart dmcomb using <code class="docutils literal notranslate"><span class="pre">fpsCTRL</span></code> (to be documented)</p></li>
 <li><p>restart the DM controller (see above)</p></li>
 <li><p>this may cause problems in some other processes due to shmim recreation.</p></li>
 </ul>
 </li>
 <li><p>Power cycle the DM</p>
 <ul class="simple">
-<li><p>release from the dmCtrl GUI</p></li>
-<li><p>turn off the power with the pwrCtrl GUI, then turn it back on</p></li>
+<li><p>release from the <code class="docutils literal notranslate"><span class="pre">dmCtrl</span></code> GUI</p></li>
+<li><p>turn off the power with the <code class="docutils literal notranslate"><span class="pre">pwrCtrl</span></code> GUI, then turn it back on</p></li>
 <li><p>if it doesn’t happen automatically, initialize the DM from the GUI when it has power</p></li>
 <li><p>if this does not fix the problem, try steps 1-3 again.</p></li>
 </ul>
@@ -274,21 +272,22 @@ e.g. for the woofer:</p>
 <ul>
 <li><p>Place all hardware controlled from this computer in a safe condition</p>
 <ul class="simple">
-<li><p>rest modttm and ttmpupil</p></li>
+<li><p>rest <code class="docutils literal notranslate"><span class="pre">modttm</span></code> and <code class="docutils literal notranslate"><span class="pre">ttmpupil</span></code></p></li>
 <li><p>start camera warmup (in case you can’t get software back up)</p></li>
 <li><p>release all DMs controlled from this computer</p></li>
 </ul>
 </li>
 <li><p>Shutdown all software with:</p>
-<div class="highlight-default notranslate"><div class="highlight"><pre><span></span> <span class="p">[</span><span class="n">xsup</span><span class="nd">@exao2</span> <span class="o">~</span><span class="p">]</span> <span class="n">tmux</span> <span class="n">kill</span><span class="o">-</span><span class="n">server</span>
+<div class="highlight-default notranslate"><div class="highlight"><pre><span></span>rtc$ xctrl shutdown
+rtc$ tmux kill-server  # for cacao processes not managed by xctrl
 </pre></div>
 </div>
 </li>
 <li><p>Clear all shared memory:</p>
-<div class="highlight-default notranslate"><div class="highlight"><pre><span></span> <span class="p">[</span><span class="n">xsup</span><span class="nd">@exao2</span> <span class="o">~</span><span class="p">]</span> <span class="n">cd</span> <span class="o">/</span><span class="n">milk</span><span class="o">/</span><span class="n">shm</span> 
- <span class="p">[</span><span class="n">xsup</span><span class="nd">@exao2</span> <span class="o">~</span><span class="p">]</span> <span class="n">sudo</span> <span class="n">rm</span> <span class="o">*</span>
- <span class="p">[</span><span class="n">xsup</span><span class="nd">@exao2</span> <span class="o">~</span><span class="p">]</span> <span class="n">cd</span> <span class="o">/</span><span class="n">dev</span><span class="o">/</span><span class="n">shm</span> 
- <span class="p">[</span><span class="n">xsup</span><span class="nd">@exao2</span> <span class="o">~</span><span class="p">]</span> <span class="n">sudo</span> <span class="n">rm</span> <span class="o">*</span>
+<div class="highlight-default notranslate"><div class="highlight"><pre><span></span> rtc$ cd /milk/shm
+ rtc$ sudo rm *
+ rtc$ cd /dev/shm
+ rtc$ sudo rm *
 </pre></div>
 </div>
 </li>
@@ -332,8 +331,9 @@ $ ./edt_load
 <p>This will reset the kernel module and restore operation.  Now restart the controlling application by returning to the tmux session, up-arrow to find the command, and press enter.</p>
 </div>
 <div class="section" id="killing-indi-zombies">
-<h2>killing indi zombies<a class="headerlink" href="#killing-indi-zombies" title="Permalink to this headline">¶</a></h2>
-<p>If the <code class="docutils literal notranslate"><span class="pre">indiserver</span></code> crashes uncleanly (itself a subprocess of <code class="docutils literal notranslate"><span class="pre">xindiserver</span></code>), the associated <code class="docutils literal notranslate"><span class="pre">xindidriver</span></code> processes may become orphans.  This will prevent <code class="docutils literal notranslate"><span class="pre">xindiserver</span></code> from starting gain until these processes have been killed.  The following shell command will kill them:</p>
+<h2>Killing INDI zombies<a class="headerlink" href="#killing-indi-zombies" title="Permalink to this headline">¶</a></h2>
+<p>If the <code class="docutils literal notranslate"><span class="pre">indiserver</span></code> crashes uncleanly (itself a subprocess of <code class="docutils literal notranslate"><span class="pre">xindiserver</span></code>), the associated <code class="docutils literal notranslate"><span class="pre">xindidriver</span></code> processes may become orphans (i.e. reparented to PID 1 (init)).  This will prevent <code class="docutils literal notranslate"><span class="pre">xindiserver</span></code> from starting again until these processes have been killed. (There will be output in logdump suggesting you <code class="docutils literal notranslate"><span class="pre">kill</span> <span class="pre">the</span> <span class="pre">zombies</span></code>.)</p>
+<p>The following shell command will kill them:</p>
 <div class="highlight-default notranslate"><div class="highlight"><pre><span></span>$ kill $(ps -elf | awk &#39;{if ($5 == 1){print $4&quot; &quot;$5&quot; &quot;$15}}&#39; | grep MagAOX/drivers | awk &#39;{print $1}&#39;)
 </pre></div>
 </div>

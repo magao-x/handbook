@@ -37,44 +37,72 @@ When you're done inspecting, you can use `Ctrl+b` followed by `d` to detach from
 Displays a short status report for all configured processes. If you supply one or more PROCNAMEs, it will show only those. Example output:
 
 ```
-$ xctrl status aoloop
-aoloop: running (pid: 62852)
-2020-07-28T21:01:52.855798452 INFO PID (62852) locked.
-2020-07-28T21:01:52.856423980 INFO State changed from UNINITIALIZED to INITIALIZED
-2020-07-28T21:01:52.856568207 INFO offload thread scheduler priority set to 0
-2020-07-28T21:01:52.856707653 INFO INDI driver communications started
-2020-07-28T21:01:52.856712784 INFO State changed from INITIALIZED to READY
-End aoloop logs
+$ xctrl status
+isAOC: running (pid: 60636)
+pdu0: running (pid: 6181)
+pdu1: running (pid: 16067)
+pdu2: running (pid: 21664)
+pdu3: running (pid: 11874)
+labCool: running (pid: 11956)
+tcsi: running (pid: 11843)
+adctrack: running (pid: 12061)
+aoc_icc_indi: running (pid: 12057)
+aoc_rtc_indi: running (pid: 12054)
+aoc_icc_milkzmq: running (pid: 11883)
+aoc_rtc_milkzmq: running (pid: 12150)
+mzmqClientAOC_ICC: running (pid: 12149)
+mzmqClientAOC_RTC: running (pid: 12045)
 ```
 
-The first line shows the state, and color-codes it if your terminal supports it. Green means it's all good. Below that, you see the last five lines that the process wrote to its log. (For a full log dump, see [logdump](software/utils/logdump.md) docs.)
+The statuses will be color-coded (if your terminal supports it). Green means it's all good.
+
+You can also check the status of a single process with `xctrl status PROCNAME`, e.g.:
+
+```
+$ xctrl status isAOC
+isAOC: running (pid: 60636)
+```
+
+If you shut down a process cleanly (or haven't yet started it) you will see `not started` in yellow and (usually) log lines indicating the state transitioned to `SHUTDOWN`:
+```
+isAOC: not started
+```
+
+If the process dies but its parent `tmux` session is alive:
+
+```
+isAOC: session exists, but process is not running
+```
+
+You may want to investigate the recent logs with [logdump](software/utils/logdump.md) or `xctrl peek PROCNAME` to see why it died. To restore it, you can `xctrl inspect PROCNAME` to connect to that `tmux` session and attempt to restart the process. You can also `xctrl restart PROCNAME` to end and recreate the `tmux` session.
+
+It is possible on occasion for a process to die, e.g. after a system crash and reboot. In those cases, you will see something like this:
+
+```
+isAOC: dead (stale pid)
+```
+
+This is another situation where you may want to check recent logs. To restore it, you can simply `xctrl startup` that process.
+
+
+## `xctrl peek`
+
+The extended version of `xctrl status`, which includes both the status and last ten lines that the process wrote to its log. (For a full log dump, see [logdump](software/utils/logdump.md) docs.) You can also use `xctrl peek PROCNAME` to peek at a single process, e.g.:
+
+```
+$ xctrl peek isAOC
+isAOC: running (pid: 60636)
+2020-07-30T16:10:37.150000000 INFO IS: Driver camwfs-dark@localhost:7626 at 127.0.0.1 now connected on socket=91
+2020-07-30T16:10:37.150000000 INFO IS: Driver dmtweeter@localhost:7626 at 127.0.0.1 now connected on socket=92
+2020-07-30T16:10:37.178000000 INFO IS: Driver ttmpupil@localhost:7626 at 127.0.0.1 now connected on socket=93
+2020-07-30T16:10:37.178000000 INFO IS: Driver camwfs-slopes@localhost:7626 at 127.0.0.1 now connected on socket=94
+2020-07-30T16:10:37.211000000 INFO IS: Driver fxngenmodwfs@localhost:7626 at 127.0.0.1 now connected on socket=95
+2020-07-30T16:10:37.218000000 INFO IS: Driver aoloop@localhost:7626 at 127.0.0.1 now connected on socket=96
+2020-07-30T16:10:37.219000000 INFO IS: Driver tweeterModes@localhost:7626 at 127.0.0.1 now connected on socket=97
+2020-07-30T16:10:37.219000000 INFO IS: Driver wooferModes@localhost:7626 at 127.0.0.1 now connected on socket=98
+2020-07-30T16:10:37.220000000 INFO IS: Driver w2tcsOffloader@localhost:7626 at 127.0.0.1 now connected on socket=99
+2020-07-30T16:10:37.259000000 INFO IS: Driver dmtweeter-avg@localhost:7626 at 127.0.0.1 now connected on socket=100
+End isAOC logs
+```
 
 **Tip:** Lines like `State changed from A to B` can give you a hint as to what's going wrong. See [stateCodes.hpp](https://github.com/magao-x/MagAOX/blob/master/libMagAOX/app/stateCodes.hpp) for descriptions of the different states.
-
-If the process didn't exit cleanly, i.e. crashed, `xctrl` will report `dead (stale pid)` in red. In those cases, the log output may say the process is `READY`, but that's just the last thing that it logged before it died.
-
-```
-$ xctrl status aoloop
-aoloop: dead (stale pid)
-2020-07-28T21:01:52.855798452 INFO PID (62852) locked.
-2020-07-28T21:01:52.856423980 INFO State changed from UNINITIALIZED to INITIALIZED
-2020-07-28T21:01:52.856568207 INFO offload thread scheduler priority set to 0
-2020-07-28T21:01:52.856707653 INFO INDI driver communications started
-2020-07-28T21:01:52.856712784 INFO State changed from INITIALIZED to READY
-End aoloop logs
-```
-
-If you shut down a process cleanly (or haven't yet started it) you will see `not started` in yellow and log lines indicating the state transitioned to `SHUTDOWN`:
-
-```
-$ xctrl status aoloop
-aoloop: not started
-2020-07-28T21:01:30.373659212 INFO State changed from INITIALIZED to READY
-2020-07-28T21:01:38.124834593 INFO Caught signal SIGTERM. Shutting down.
-2020-07-28T21:01:38.374862137 INFO State changed from READY to SHUTDOWN
-2020-07-28T21:01:38.374991913 INFO INDI driver communications stopped
-2020-07-28T21:01:38.375123905 INFO PID (62578) unlocked.
-End aoloop logs
-```
-
-If the process has exited but the tmux session exists, you will also see `not started` and will have to `xctrl inspect PROCNAME` to go start it again (or `xctrl shutdown PROCNAME` to end the tmux session). (TODO: make this better.)
