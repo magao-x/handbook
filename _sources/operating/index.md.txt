@@ -4,6 +4,8 @@ The MagAO-X instrument has (at last count) several thousand controllable degrees
 
 Good starting points include the [startup](./startup.md) guide and the [troubleshooting](./troubleshooting.md) guide. Useful tools include [xctrl](./software/scripts/xctrl.md), [cursesINDI](./software/utils/cursesINDI.md), and [logdump](./software/utils/logdump.md).
 
+Viewing camera output and DM input (really, any shared memory image) uses `rtimv`, which is documented in its own [User Guide](https://github.com/jaredmales/rtimv/blob/master/doc/UserGuide.md).
+
 ```eval_rst
 .. toctree::
     :maxdepth: 3
