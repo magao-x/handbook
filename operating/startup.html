@@ -169,7 +169,7 @@
 <p>The following assumes you’re sitting at the AOC workstation, but it could be done anywhere with appropriate network tunnels. When one must SSH to different hosts, the one where the command should be run will be indicated before the prompt, like <code class="docutils literal notranslate"><span class="pre">aoc$</span> <span class="pre">ls</span></code> to run <code class="docutils literal notranslate"><span class="pre">ls</span></code> on AOC. (Don’t type the <code class="docutils literal notranslate"><span class="pre">host$</span></code> prefix, or any comment lines starting with <code class="docutils literal notranslate"><span class="pre">#</span></code>.)</p>
 <p>For simplicity, it’s easiest to run these commands as the user <code class="docutils literal notranslate"><span class="pre">xsup</span></code> to ensure you can read shared memory images (shmims) and <code class="docutils literal notranslate"><span class="pre">ssh</span></code> around to RTC and ICC.</p>
 <ol>
-<li><p>Ensure the MagAO-X apps are started on AOC to get power control (see the <a class="reference external" href="./xctrl">guide to xctrl</a> for more detail)</p>
+<li><p>Ensure the MagAO-X apps are started on AOC to get power control (see the <a class="reference external" href="./scripts/xctrl">guide to xctrl</a> for more detail)</p>
 <div class="highlight-default notranslate"><div class="highlight"><pre><span></span>aoc$ xctrl startup
 # you&#39;ll see some output as the processes start, wait a little bit
 aoc$ xctrl status

@@ -91,18 +91,18 @@
 <li class="toctree-l2"><a class="reference internal" href="startup.html">System startup</a></li>
 <li class="toctree-l2"><a class="reference internal" href="shutdown.html">System shutdown</a></li>
 <li class="toctree-l2 current"><a class="current reference internal" href="#">Troubleshooting</a><ul>
-<li class="toctree-l3"><a class="reference internal" href="#missing-gpus-on-rtc">Missing GPUs on RTC</a></li>
-<li class="toctree-l3"><a class="reference internal" href="#ocam-connectivity-bad-data">OCAM connectivity / bad data</a></li>
-<li class="toctree-l3"><a class="reference internal" href="#alpao-dm-not-responding">Alpao DM not responding</a></li>
-<li class="toctree-l3"><a class="reference internal" href="#dm-latency-and-communication-troubleshooting">DM Latency and Communication Troubleshooting</a><ul>
-<li class="toctree-l4"><a class="reference internal" href="#examples-with-known-fixes">Examples with known fixes:</a></li>
-<li class="toctree-l4"><a class="reference internal" href="#general-troubleshooting">General Troubleshooting</a></li>
+<li class="toctree-l3"><a class="reference internal" href="#figuring-out-what-exactly-isn-t-working">Figuring out what exactly isn’t working</a></li>
+<li class="toctree-l3"><a class="reference internal" href="#addressing-specific-issues">Addressing specific issues</a><ul>
+<li class="toctree-l4"><a class="reference internal" href="#shared-memory-image-problems-with-no-space-left-on-device-errors">Shared memory image problems with “No space left on device” errors</a></li>
+<li class="toctree-l4"><a class="reference internal" href="#missing-gpus-on-rtc">Missing GPUs on RTC</a></li>
+<li class="toctree-l4"><a class="reference internal" href="#ocam-connectivity-bad-data">OCAM connectivity / bad data</a></li>
+<li class="toctree-l4"><a class="reference internal" href="#alpao-dm-not-responding">Alpao DM not responding</a></li>
+<li class="toctree-l4"><a class="reference internal" href="#dm-latency-and-communication-troubleshooting">DM Latency and Communication Troubleshooting</a></li>
+<li class="toctree-l4"><a class="reference internal" href="#edt-framegrabber-problems-camwfs-and-camlowfs">EDT Framegrabber Problems (camwfs and camlowfs)</a></li>
+<li class="toctree-l4"><a class="reference internal" href="#killing-indi-zombies">Killing INDI zombies</a></li>
+<li class="toctree-l4"><a class="reference internal" href="#difficulties-with-nvidia-proprietary-drivers">Difficulties with NVIDIA proprietary drivers</a></li>
 </ul>
 </li>
-<li class="toctree-l3"><a class="reference internal" href="#troubleshooting-a-magao-x-app-that-won-t-start">Troubleshooting a MagAO-X app that won’t start</a></li>
-<li class="toctree-l3"><a class="reference internal" href="#edt-framegrabber-problems-camwfs-and-camlowfs">EDT Framegrabber Problems (camwfs and camlowfs)</a></li>
-<li class="toctree-l3"><a class="reference internal" href="#killing-indi-zombies">Killing INDI zombies</a></li>
-<li class="toctree-l3"><a class="reference internal" href="#difficulties-with-nvidia-proprietary-drivers">Difficulties with NVIDIA proprietary drivers</a></li>
 </ul>
 </li>
 <li class="toctree-l2"><a class="reference internal" href="software/index.html">Instrument Software</a></li>
@@ -179,8 +179,34 @@
             
   <div class="section" id="troubleshooting">
 <h1>Troubleshooting<a class="headerlink" href="#troubleshooting" title="Permalink to this headline">¶</a></h1>
+<div class="section" id="figuring-out-what-exactly-isn-t-working">
+<h2>Figuring out what exactly isn’t working<a class="headerlink" href="#figuring-out-what-exactly-isn-t-working" title="Permalink to this headline">¶</a></h2>
+<p>To narrow down the failing component, use <code class="docutils literal notranslate"><span class="pre">xctrl</span> <span class="pre">status</span></code> to see if any MagAO-X apps are not running. The typical MagAO-X app is started by <code class="docutils literal notranslate"><span class="pre">xctrl</span> <span class="pre">startup</span></code> based on a line in a config file in <code class="docutils literal notranslate"><span class="pre">/opt/MagAOX/config/proclist_$MAGAOX_ROLE.txt</span></code>. This proclist determines which application to start and which config file from <code class="docutils literal notranslate"><span class="pre">/opt/MagAOX/config</span></code> should be supplied as the <code class="docutils literal notranslate"><span class="pre">-n</span></code> option (see <a class="reference external" href="#standard-options">Standard options</a>). It also uses <code class="docutils literal notranslate"><span class="pre">sudo</span></code> to run the process as user <code class="docutils literal notranslate"><span class="pre">xsup</span></code>, regardless of which user called <code class="docutils literal notranslate"><span class="pre">xctrl</span> <span class="pre">startup</span></code>.</p>
+<p>Many, if not all, MagAO-X apps are intended to run “forever” (i.e until shutdown). If the process is <code class="docutils literal notranslate"><span class="pre">dead</span></code>, you can attach to the <code class="docutils literal notranslate"><span class="pre">tmux</span></code> session that’s the parent of the process in question with <code class="docutils literal notranslate"><span class="pre">xctrl</span> <span class="pre">inspect</span> <span class="pre">PROCNAME</span></code> (where <code class="docutils literal notranslate"><span class="pre">PROCNAME</span></code> is the name of the failed process). This will occasionally reveal error messages that did not get to the log.</p>
+<p>For example, if <code class="docutils literal notranslate"><span class="pre">trippLitePDU</span></code> is started by <code class="docutils literal notranslate"><span class="pre">xctrl</span> <span class="pre">startup</span></code> with config specified by <code class="docutils literal notranslate"><span class="pre">-n</span> <span class="pre">pdu0</span></code> and there’s a syntax error in <code class="docutils literal notranslate"><span class="pre">/opt/MagAOX/config/pdu0.conf</span></code> preventing startup, you can attach to the tmux session with</p>
+<div class="highlight-default notranslate"><div class="highlight"><pre><span></span>yourlogin$ xctrl inspect pdu0
+</pre></div>
+</div>
+<p>The errors before exit, if any, will be in the log. The last few lines of the log can be checked with <code class="docutils literal notranslate"><span class="pre">logdump</span> <span class="pre">-f</span> <span class="pre">pdu0</span></code>. The command that started the app will be of the form <code class="docutils literal notranslate"><span class="pre">/opt/MagAOX/bin/$appName</span> <span class="pre">-n</span> <span class="pre">$configName</span></code>. You can use the up-arrow key in the tmux session to retrieve it from the shell history and try to relaunch once you’ve corrected whatever error was preventing startup.</p>
+</div>
+<div class="section" id="addressing-specific-issues">
+<h2>Addressing specific issues<a class="headerlink" href="#addressing-specific-issues" title="Permalink to this headline">¶</a></h2>
+<div class="section" id="shared-memory-image-problems-with-no-space-left-on-device-errors">
+<h3>Shared memory image problems with “No space left on device” errors<a class="headerlink" href="#shared-memory-image-problems-with-no-space-left-on-device-errors" title="Permalink to this headline">¶</a></h3>
+<p>When starting MagAO-X apps or CACAO apps that use shared memory images, the ImageStreamIO library will try to create shared memory images on <code class="docutils literal notranslate"><span class="pre">/milk/shm</span></code>. This can fail with an error like:</p>
+<div class="highlight-default notranslate"><div class="highlight"><pre><span></span><span class="n">ERROR</span> <span class="p">[</span> <span class="n">FILE</span><span class="p">:</span> <span class="o">/</span><span class="n">opt</span><span class="o">/</span><span class="n">MagAOX</span><span class="o">/</span><span class="n">source</span><span class="o">/</span><span class="n">cacao</span><span class="o">/</span><span class="n">src</span><span class="o">/</span><span class="n">ImageStreamIO</span><span class="o">/</span><span class="n">ImageStreamIO</span><span class="o">.</span><span class="n">c</span>   <span class="n">FUNCTION</span><span class="p">:</span> <span class="n">ImageStreamIO_createIm_gpu</span>   <span class="n">LINE</span><span class="p">:</span> <span class="mi">521</span> <span class="p">]</span>
+<span class="n">C</span> <span class="n">Error</span><span class="p">:</span> <span class="n">No</span> <span class="n">space</span> <span class="n">left</span> <span class="n">on</span> <span class="n">device</span>
+</pre></div>
+</div>
+<p>Indeed, if you use <code class="docutils literal notranslate"><span class="pre">df</span> <span class="pre">-h</span></code>, you’ll see that <code class="docutils literal notranslate"><span class="pre">/milk/shm</span></code> is full. The solution is to <a class="reference internal" href="shutdown.html"><span class="doc">shut down</span></a> and then clear <code class="docutils literal notranslate"><span class="pre">/milk/shm</span></code>.</p>
+<div class="highlight-default notranslate"><div class="highlight"><pre><span></span>you$ su xsup
+xsup$ cd /milk/shm
+xsup$ rm *
+</pre></div>
+</div>
+</div>
 <div class="section" id="missing-gpus-on-rtc">
-<h2>Missing GPUs on RTC<a class="headerlink" href="#missing-gpus-on-rtc" title="Permalink to this headline">¶</a></h2>
+<h3>Missing GPUs on RTC<a class="headerlink" href="#missing-gpus-on-rtc" title="Permalink to this headline">¶</a></h3>
 <p>Sometimes the RTC comes up with only one GPU (missing the two on an expansion board). This is due to a weird interaction between the expansion board and the motherboard. To resolve:</p>
 <ol class="simple">
 <li><p>If RTC is responding, bring it down cleanly (<code class="docutils literal notranslate"><span class="pre">shutdown</span> <span class="pre">-h</span> <span class="pre">now</span></code>)</p></li>
@@ -192,11 +218,11 @@
 </ol>
 </div>
 <div class="section" id="ocam-connectivity-bad-data">
-<h2>OCAM connectivity / bad data<a class="headerlink" href="#ocam-connectivity-bad-data" title="Permalink to this headline">¶</a></h2>
+<h3>OCAM connectivity / bad data<a class="headerlink" href="#ocam-connectivity-bad-data" title="Permalink to this headline">¶</a></h3>
 <p>OCAM connects over two CameraLink connections. CameraLink #1 carries serial communication with the detector, so if you’re able to command the camera but your data appear bad in <code class="docutils literal notranslate"><span class="pre">rtimv</span> <span class="pre">camwfs</span></code>, the culprit is likely the CameraLink #2 cable. Reseat, on ICC do <code class="docutils literal notranslate"><span class="pre">magaox</span> <span class="pre">restart</span> <span class="pre">camwfs</span></code>, and restart <code class="docutils literal notranslate"><span class="pre">rtimv</span></code>.</p>
 </div>
 <div class="section" id="alpao-dm-not-responding">
-<h2>Alpao DM not responding<a class="headerlink" href="#alpao-dm-not-responding" title="Permalink to this headline">¶</a></h2>
+<h3>Alpao DM not responding<a class="headerlink" href="#alpao-dm-not-responding" title="Permalink to this headline">¶</a></h3>
 <p>Make sure it has been initialized. There is an <code class="docutils literal notranslate"><span class="pre">initialize_alpao</span></code> systemd unit that runs at boot and initializes the interface card. Successful execution looks like this in <code class="docutils literal notranslate"><span class="pre">systemctl</span> <span class="pre">status</span> <span class="pre">initialize_alpao</span></code> output:</p>
 <div class="highlight-default notranslate"><div class="highlight"><pre><span></span>$ systemctl status initialize_alpao
 ● initialize_alpao.service - Initialize Alpao interface card
@@ -219,10 +245,10 @@ Sep 29 11:18:35 exao3.as.arizona.edu initialize_alpao.sh[4449]: ================
 <p>The script is saved at <code class="docutils literal notranslate"><span class="pre">/opt/MagAOX/config/initialize_alpao.sh</span></code>, if you want to see what it’s doing. Note that executing it again will appear to fail with a message about not finding cards to initialize if the cards have been previously initialized.</p>
 </div>
 <div class="section" id="dm-latency-and-communication-troubleshooting">
-<h2>DM Latency and Communication Troubleshooting<a class="headerlink" href="#dm-latency-and-communication-troubleshooting" title="Permalink to this headline">¶</a></h2>
+<h3>DM Latency and Communication Troubleshooting<a class="headerlink" href="#dm-latency-and-communication-troubleshooting" title="Permalink to this headline">¶</a></h3>
 <p>There are various ways that the shared memory interprocess communication between the deformable mirrors, loop control(s), and the hardware control processes can stop functioning properly.</p>
 <div class="section" id="examples-with-known-fixes">
-<h3>Examples with known fixes:<a class="headerlink" href="#examples-with-known-fixes" title="Permalink to this headline">¶</a></h3>
+<h4>Examples with known fixes:<a class="headerlink" href="#examples-with-known-fixes" title="Permalink to this headline">¶</a></h4>
 <ul class="simple">
 <li><p>Inability to set or zero flat or test from the dm control gui</p>
 <ul>
@@ -242,7 +268,7 @@ Sep 29 11:18:35 exao3.as.arizona.edu initialize_alpao.sh[4449]: ================
 </ul>
 </div>
 <div class="section" id="general-troubleshooting">
-<h3>General Troubleshooting<a class="headerlink" href="#general-troubleshooting" title="Permalink to this headline">¶</a></h3>
+<h4>General Troubleshooting<a class="headerlink" href="#general-troubleshooting" title="Permalink to this headline">¶</a></h4>
 <p>General troubleshooting steps, in order of severity (try the lower ones first if you don’t have a clear idea what the problem is):</p>
 <ol>
 <li><p>release, then initialize from the <code class="docutils literal notranslate"><span class="pre">dmCtrl</span></code> GUI</p></li>
@@ -303,19 +329,8 @@ rtc$ tmux kill-server  # for cacao processes not managed by xctrl
 </ol>
 </div>
 </div>
-<div class="section" id="troubleshooting-a-magao-x-app-that-won-t-start">
-<h2>Troubleshooting a MagAO-X app that won’t start<a class="headerlink" href="#troubleshooting-a-magao-x-app-that-won-t-start" title="Permalink to this headline">¶</a></h2>
-<p>The typical MagAO-X app is started by <code class="docutils literal notranslate"><span class="pre">xctrl</span> <span class="pre">startup</span></code> based on a line in a config file in <code class="docutils literal notranslate"><span class="pre">/opt/MagAOX/config/proclist_$MAGAOX_ROLE.txt</span></code>. This proclist determines which application to start and which config file from <code class="docutils literal notranslate"><span class="pre">/opt/MagAOX/config</span></code> should be supplied as the <code class="docutils literal notranslate"><span class="pre">-n</span></code> option (see <a class="reference external" href="#standard-options">Standard options</a>). It also uses <code class="docutils literal notranslate"><span class="pre">sudo</span></code> to run the process as user <code class="docutils literal notranslate"><span class="pre">xsup</span></code>, regardless of which user called <code class="docutils literal notranslate"><span class="pre">xctrl</span> <span class="pre">startup</span></code>.</p>
-<p>Many, if not all, MagAO-X apps are intended to run “forever” (i.e until shutdown). Obviously, if the process exits early, that’s cause for concern. To interrogate the list of running processes, use <code class="docutils literal notranslate"><span class="pre">xctrl</span> <span class="pre">status</span></code>. To attempt a restart, you can attach to the <code class="docutils literal notranslate"><span class="pre">tmux</span></code> session that’s the parent of the process in question with <code class="docutils literal notranslate"><span class="pre">xctrl</span> <span class="pre">inspect</span> <span class="pre">PROCNAME</span></code> (where <code class="docutils literal notranslate"><span class="pre">PROCNAME</span></code> is the name of the failed process).</p>
-<p>For example, if <code class="docutils literal notranslate"><span class="pre">trippLitePDU</span></code> is started by <code class="docutils literal notranslate"><span class="pre">xctrl</span> <span class="pre">startup</span></code> with config specified by <code class="docutils literal notranslate"><span class="pre">-n</span> <span class="pre">pdu0</span></code> and there’s a syntax error in <code class="docutils literal notranslate"><span class="pre">/opt/MagAOX/config/pdu0.conf</span></code> preventing startup, you can attach to the tmux session with</p>
-<div class="highlight-default notranslate"><div class="highlight"><pre><span></span>yourlogin$ xctrl inspect pdu0
-</pre></div>
-</div>
-<p>The errors before exit, if any, will be in the log. The last few lines of the log are shown in <code class="docutils literal notranslate"><span class="pre">xctrl</span> <span class="pre">status</span></code> output, or you can do <code class="docutils literal notranslate"><span class="pre">logdump</span> <span class="pre">-f</span> <span class="pre">pdu0</span></code>.</p>
-<p>The command that started the app will be of the form <code class="docutils literal notranslate"><span class="pre">/opt/MagAOX/bin/$appName</span> <span class="pre">-n</span> <span class="pre">$configName</span></code>. You can use the up-arrow key in the tmux session to retrieve it from the shell history and try to relaunch once you’ve corrected whatever error was preventing startup.</p>
-</div>
 <div class="section" id="edt-framegrabber-problems-camwfs-and-camlowfs">
-<h2>EDT Framegrabber Problems (camwfs and camlowfs)<a class="headerlink" href="#edt-framegrabber-problems-camwfs-and-camlowfs" title="Permalink to this headline">¶</a></h2>
+<h3>EDT Framegrabber Problems (camwfs and camlowfs)<a class="headerlink" href="#edt-framegrabber-problems-camwfs-and-camlowfs" title="Permalink to this headline">¶</a></h3>
 <p>The EDT PCIe framegrabber occassionally stops responding.  The main symptom of this is no data from <code class="docutils literal notranslate"><span class="pre">camwfs</span></code>, and no response on the serial over camera link.  This has not yet been observed on <code class="docutils literal notranslate"><span class="pre">camlowfs</span></code> (which does not use serial over C.L.).</p>
 <p>If <code class="docutils literal notranslate"><span class="pre">camwfs</span></code> (or any EDT camera) stops responding on serial, first shutdown the controlling application.</p>
 <div class="highlight-default notranslate"><div class="highlight"><pre><span></span>$ magaox inspect camwfs
@@ -331,7 +346,7 @@ $ ./edt_load
 <p>This will reset the kernel module and restore operation.  Now restart the controlling application by returning to the tmux session, up-arrow to find the command, and press enter.</p>
 </div>
 <div class="section" id="killing-indi-zombies">
-<h2>Killing INDI zombies<a class="headerlink" href="#killing-indi-zombies" title="Permalink to this headline">¶</a></h2>
+<h3>Killing INDI zombies<a class="headerlink" href="#killing-indi-zombies" title="Permalink to this headline">¶</a></h3>
 <p>If the <code class="docutils literal notranslate"><span class="pre">indiserver</span></code> crashes uncleanly (itself a subprocess of <code class="docutils literal notranslate"><span class="pre">xindiserver</span></code>), the associated <code class="docutils literal notranslate"><span class="pre">xindidriver</span></code> processes may become orphans (i.e. reparented to PID 1 (init)).  This will prevent <code class="docutils literal notranslate"><span class="pre">xindiserver</span></code> from starting again until these processes have been killed. (There will be output in logdump suggesting you <code class="docutils literal notranslate"><span class="pre">kill</span> <span class="pre">the</span> <span class="pre">zombies</span></code>.)</p>
 <p>The following shell command will kill them:</p>
 <div class="highlight-default notranslate"><div class="highlight"><pre><span></span>$ kill $(ps -elf | awk &#39;{if ($5 == 1){print $4&quot; &quot;$5&quot; &quot;$15}}&#39; | grep MagAOX/drivers | awk &#39;{print $1}&#39;)
@@ -343,12 +358,13 @@ $ ./edt_load
 </div>
 </div>
 <div class="section" id="difficulties-with-nvidia-proprietary-drivers">
-<h2>Difficulties with NVIDIA proprietary drivers<a class="headerlink" href="#difficulties-with-nvidia-proprietary-drivers" title="Permalink to this headline">¶</a></h2>
+<h3>Difficulties with NVIDIA proprietary drivers<a class="headerlink" href="#difficulties-with-nvidia-proprietary-drivers" title="Permalink to this headline">¶</a></h3>
 <ol class="simple">
 <li><p>When installing, ensure you have <code class="docutils literal notranslate"><span class="pre">systemctl</span> <span class="pre">set-default</span> <span class="pre">multi-user.target</span></code> and a display is connected <strong>only</strong> to the VGA header provided by the motherboard</p></li>
 <li><p>If NVIDIA graphical output did work, and now doesn’t: Your kernel may have been updated, requiring a rebuild of the NVIDIA driver. Having <code class="docutils literal notranslate"><span class="pre">dkms</span></code> installed <em>should</em> prevent needing to do this, but an uninstall and reinstall over SSH will also remedy it.</p></li>
 <li><p>Runfile installs can be uninstalled with <code class="docutils literal notranslate"><span class="pre">/usr/local/cuda/bin/cuda-uninstaller</span></code></p></li>
 </ol>
+</div>
 </div>
 </div>
 

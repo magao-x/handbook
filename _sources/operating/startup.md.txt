@@ -6,7 +6,7 @@ The following assumes you're sitting at the AOC workstation, but it could be don
 
 For simplicity, it's easiest to run these commands as the user `xsup` to ensure you can read shared memory images (shmims) and `ssh` around to RTC and ICC.
 
-1. Ensure the MagAO-X apps are started on AOC to get power control (see the [guide to xctrl](./xctrl.md) for more detail)
+1. Ensure the MagAO-X apps are started on AOC to get power control (see the [guide to xctrl](./scripts/xctrl.md) for more detail)
 
     ```
     aoc$ xctrl startup
