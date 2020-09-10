@@ -1,5 +1,38 @@
 # Troubleshooting
 
+## Figuring out what exactly isn't working
+
+To narrow down the failing component, use `xctrl status` to see if any MagAO-X apps are not running. The typical MagAO-X app is started by `xctrl startup` based on a line in a config file in `/opt/MagAOX/config/proclist_$MAGAOX_ROLE.txt`. This proclist determines which application to start and which config file from `/opt/MagAOX/config` should be supplied as the `-n` option (see [Standard options](#standard-options)). It also uses `sudo` to run the process as user `xsup`, regardless of which user called `xctrl startup`.
+
+Many, if not all, MagAO-X apps are intended to run "forever" (i.e until shutdown). If the process is `dead`, you can attach to the `tmux` session that's the parent of the process in question with `xctrl inspect PROCNAME` (where `PROCNAME` is the name of the failed process). This will occasionally reveal error messages that did not get to the log.
+
+For example, if `trippLitePDU` is started by `xctrl startup` with config specified by `-n pdu0` and there's a syntax error in `/opt/MagAOX/config/pdu0.conf` preventing startup, you can attach to the tmux session with
+
+```
+yourlogin$ xctrl inspect pdu0
+```
+
+The errors before exit, if any, will be in the log. The last few lines of the log can be checked with `logdump -f pdu0`. The command that started the app will be of the form `/opt/MagAOX/bin/$appName -n $configName`. You can use the up-arrow key in the tmux session to retrieve it from the shell history and try to relaunch once you've corrected whatever error was preventing startup.
+
+## Addressing specific issues
+
+### Shared memory image problems with "No space left on device" errors
+
+When starting MagAO-X apps or CACAO apps that use shared memory images, the ImageStreamIO library will try to create shared memory images on `/milk/shm`. This can fail with an error like:
+
+```
+ERROR [ FILE: /opt/MagAOX/source/cacao/src/ImageStreamIO/ImageStreamIO.c   FUNCTION: ImageStreamIO_createIm_gpu   LINE: 521 ]
+C Error: No space left on device
+```
+
+Indeed, if you use `df -h`, you'll see that `/milk/shm` is full. The solution is to [shut down](./shutdown.md) and then clear `/milk/shm`.
+
+```
+you$ su xsup
+xsup$ cd /milk/shm
+xsup$ rm *
+```
+
 ### Missing GPUs on RTC
 
 Sometimes the RTC comes up with only one GPU (missing the two on an expansion board). This is due to a weird interaction between the expansion board and the motherboard. To resolve:
@@ -103,24 +136,6 @@ General troubleshooting steps, in order of severity (try the lower ones first if
 6) Reboot
     * This is a last resort.  This may be necessary if a problem has developed in the device driver for instance.
     * Follow procedure for computer reboot.  Ensure all hardware is in a safe condition, including powered-off if needed, before rebooting.
-
-    
-    
-### Troubleshooting a MagAO-X app that won't start
-
-The typical MagAO-X app is started by `xctrl startup` based on a line in a config file in `/opt/MagAOX/config/proclist_$MAGAOX_ROLE.txt`. This proclist determines which application to start and which config file from `/opt/MagAOX/config` should be supplied as the `-n` option (see [Standard options](#standard-options)). It also uses `sudo` to run the process as user `xsup`, regardless of which user called `xctrl startup`.
-
-Many, if not all, MagAO-X apps are intended to run "forever" (i.e until shutdown). Obviously, if the process exits early, that's cause for concern. To interrogate the list of running processes, use `xctrl status`. To attempt a restart, you can attach to the `tmux` session that's the parent of the process in question with `xctrl inspect PROCNAME` (where `PROCNAME` is the name of the failed process).
-
-For example, if `trippLitePDU` is started by `xctrl startup` with config specified by `-n pdu0` and there's a syntax error in `/opt/MagAOX/config/pdu0.conf` preventing startup, you can attach to the tmux session with
-
-```
-yourlogin$ xctrl inspect pdu0
-```
-
-The errors before exit, if any, will be in the log. The last few lines of the log are shown in `xctrl status` output, or you can do `logdump -f pdu0`.
-
-The command that started the app will be of the form `/opt/MagAOX/bin/$appName -n $configName`. You can use the up-arrow key in the tmux session to retrieve it from the shell history and try to relaunch once you've corrected whatever error was preventing startup.
 
 ### EDT Framegrabber Problems (camwfs and camlowfs)
 
