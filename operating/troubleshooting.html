@@ -198,12 +198,21 @@
 <span class="n">C</span> <span class="n">Error</span><span class="p">:</span> <span class="n">No</span> <span class="n">space</span> <span class="n">left</span> <span class="n">on</span> <span class="n">device</span>
 </pre></div>
 </div>
-<p>Indeed, if you use <code class="docutils literal notranslate"><span class="pre">df</span> <span class="pre">-h</span></code>, you’ll see that <code class="docutils literal notranslate"><span class="pre">/milk/shm</span></code> is full. The solution is to <a class="reference internal" href="shutdown.html"><span class="doc">shut down</span></a> and then clear <code class="docutils literal notranslate"><span class="pre">/milk/shm</span></code>.</p>
+<p>Indeed, if you use <code class="docutils literal notranslate"><span class="pre">df</span> <span class="pre">-h</span></code>, you’ll see that <code class="docutils literal notranslate"><span class="pre">/milk/shm</span></code> is full:</p>
+<div class="highlight-default notranslate"><div class="highlight"><pre><span></span>$ df -h
+Filesystem      Size  Used Avail Use% Mounted on
+[...]
+tmpfs            63G   63G     0 100% /milk/shm
+[...]
+</pre></div>
+</div>
+<p>The solution is to <a class="reference internal" href="shutdown.html"><span class="doc">shut down</span></a> and then clear <code class="docutils literal notranslate"><span class="pre">/milk/shm</span></code>.</p>
 <div class="highlight-default notranslate"><div class="highlight"><pre><span></span>you$ su xsup
 xsup$ cd /milk/shm
 xsup$ rm *
 </pre></div>
 </div>
+<p>If rerunning <code class="docutils literal notranslate"><span class="pre">df</span> <span class="pre">-h</span></code> <em>still</em> doesn’t show any space available, something is probably holding a reference to the files. (See <a class="reference external" href="https://superuser.com/questions/1100059/tmpfs-deleting-files-wont-free-the-space">this SuperUser question</a>.) You should reboot the computer with <code class="docutils literal notranslate"><span class="pre">sudo</span> <span class="pre">reboot</span></code> (having already shut down / rested any hardware).</p>
 </div>
 <div class="section" id="missing-gpus-on-rtc">
 <h3>Missing GPUs on RTC<a class="headerlink" href="#missing-gpus-on-rtc" title="Permalink to this headline">¶</a></h3>

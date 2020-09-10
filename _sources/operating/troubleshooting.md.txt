@@ -25,13 +25,25 @@ ERROR [ FILE: /opt/MagAOX/source/cacao/src/ImageStreamIO/ImageStreamIO.c   FUNCT
 C Error: No space left on device
 ```
 
-Indeed, if you use `df -h`, you'll see that `/milk/shm` is full. The solution is to [shut down](./shutdown.md) and then clear `/milk/shm`.
+Indeed, if you use `df -h`, you'll see that `/milk/shm` is full:
+
+```
+$ df -h
+Filesystem      Size  Used Avail Use% Mounted on
+[...]
+tmpfs            63G   63G     0 100% /milk/shm
+[...]
+```
+
+The solution is to [shut down](./shutdown.md) and then clear `/milk/shm`.
 
 ```
 you$ su xsup
 xsup$ cd /milk/shm
 xsup$ rm *
 ```
+
+If rerunning `df -h` *still* doesn't show any space available, something is probably holding a reference to the files. (See [this SuperUser question](https://superuser.com/questions/1100059/tmpfs-deleting-files-wont-free-the-space).) You should reboot the computer with `sudo reboot` (having already shut down / rested any hardware).
 
 ### Missing GPUs on RTC
 
