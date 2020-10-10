@@ -88,13 +88,13 @@
               <ul class="current">
 <li class="toctree-l1"><a class="reference internal" href="../observers/index.html">Information For Observers</a></li>
 <li class="toctree-l1 current"><a class="reference internal" href="index.html">Operation of the MagAO-X instrument</a><ul class="current">
-<li class="toctree-l2"><a class="reference internal" href="startup.html">System startup</a></li>
+<li class="toctree-l2"><a class="reference internal" href="startup.html">Startup</a></li>
 <li class="toctree-l2"><a class="reference internal" href="shutdown.html">System shutdown</a></li>
 <li class="toctree-l2 current"><a class="current reference internal" href="#">Troubleshooting</a><ul>
 <li class="toctree-l3"><a class="reference internal" href="#figuring-out-what-exactly-isn-t-working">Figuring out what exactly isn’t working</a></li>
 <li class="toctree-l3"><a class="reference internal" href="#addressing-specific-issues">Addressing specific issues</a><ul>
 <li class="toctree-l4"><a class="reference internal" href="#shared-memory-image-problems-with-no-space-left-on-device-errors">Shared memory image problems with “No space left on device” errors</a></li>
-<li class="toctree-l4"><a class="reference internal" href="#missing-gpus-on-rtc">Missing GPUs on RTC</a></li>
+<li class="toctree-l4"><a class="reference internal" href="#rtc-lockup-or-missing-gpus-on-rtc">RTC Lockup or Missing GPUs on RTC</a></li>
 <li class="toctree-l4"><a class="reference internal" href="#ocam-connectivity-bad-data">OCAM connectivity / bad data</a></li>
 <li class="toctree-l4"><a class="reference internal" href="#alpao-dm-not-responding">Alpao DM not responding</a></li>
 <li class="toctree-l4"><a class="reference internal" href="#dm-latency-and-communication-troubleshooting">DM Latency and Communication Troubleshooting</a></li>
@@ -214,16 +214,29 @@ xsup$ rm *
 </div>
 <p>If rerunning <code class="docutils literal notranslate"><span class="pre">df</span> <span class="pre">-h</span></code> <em>still</em> doesn’t show any space available, something is probably holding a reference to the files. (See <a class="reference external" href="https://superuser.com/questions/1100059/tmpfs-deleting-files-wont-free-the-space">this SuperUser question</a>.) You should reboot the computer with <code class="docutils literal notranslate"><span class="pre">sudo</span> <span class="pre">reboot</span></code> (having already shut down / rested any hardware).</p>
 </div>
-<div class="section" id="missing-gpus-on-rtc">
-<h3>Missing GPUs on RTC<a class="headerlink" href="#missing-gpus-on-rtc" title="Permalink to this headline">¶</a></h3>
-<p>Sometimes the RTC comes up with only one GPU (missing the two on an expansion board). This is due to a weird interaction between the expansion board and the motherboard. To resolve:</p>
+<div class="section" id="rtc-lockup-or-missing-gpus-on-rtc">
+<h3>RTC Lockup or Missing GPUs on RTC<a class="headerlink" href="#rtc-lockup-or-missing-gpus-on-rtc" title="Permalink to this headline">¶</a></h3>
+<p>The RTC occassionally locks up, or will lose a GPU (GPU has fallen off the bus errors).  It must be restarted to resolve.</p>
+<ol>
+<li><p>If RTC is responding:</p>
+<ol>
+<li><p>Rest the woofer, tweeter, ttmmod, and ttmpupil.  Start camwfs warmup (you don’t have to wait).</p></li>
+<li><p>Shutdown RTC (requires sudo)</p>
+<div class="highlight-default notranslate"><div class="highlight"><pre><span></span>[user@exao2 ~]$ sudo shutdown -h now
+</pre></div>
+</div>
+</li>
+<li><p>Now proceed to step 4.4 in the <a class="reference external" href="./startup.html#rtc_power_on44">System Power On</a>.</p></li>
+</ol>
+</li>
+<li><p>If RTC is not responding, or GPUs continue to fall off the bus after step 1.</p>
 <ol class="simple">
-<li><p>If RTC is responding, bring it down cleanly (<code class="docutils literal notranslate"><span class="pre">shutdown</span> <span class="pre">-h</span> <span class="pre">now</span></code>)</p></li>
+<li><p>If you can, perform steps 1.1 and 1.2 above.</p></li>
 <li><p>Power down RTC at PDU0 (e.g. with <code class="docutils literal notranslate"><span class="pre">pwrGUI</span></code>)</p></li>
-<li><p>Wait 10 seconds before attempting to power back on</p></li>
-<li><p>Once it boots (which can take several minutes, with apparent false-starts), run <code class="docutils literal notranslate"><span class="pre">nvidia-smi</span></code> three times. It’ll likely die on the second (and lock up).</p></li>
-<li><p>Reset using the switch mounted on the RTC motherboard (or the to-be-installed remote reset switch)</p></li>
-<li><p>Repeatedly run <code class="docutils literal notranslate"><span class="pre">nvidia-smi</span></code> (e.g. <code class="docutils literal notranslate"><span class="pre">watch</span> <span class="pre">nvidia-smi</span></code>) to verify it’s back up and stable</p></li>
+<li><p>Wait at least 10 seconds.</p></li>
+<li><p>Now perform all of step 4 in the <a class="reference external" href="./startup.html#rtc_power_on">System Power On</a> procedure.</p></li>
+</ol>
+</li>
 </ol>
 </div>
 <div class="section" id="ocam-connectivity-bad-data">

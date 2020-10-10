@@ -8,7 +8,7 @@
   
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
   
-  <title>System startup &mdash; MagAO-X Instrument Handbook  documentation</title>
+  <title>Startup &mdash; MagAO-X Instrument Handbook  documentation</title>
   
 
   
@@ -88,7 +88,13 @@
               <ul class="current">
 <li class="toctree-l1"><a class="reference internal" href="../observers/index.html">Information For Observers</a></li>
 <li class="toctree-l1 current"><a class="reference internal" href="index.html">Operation of the MagAO-X instrument</a><ul class="current">
-<li class="toctree-l2 current"><a class="current reference internal" href="#">System startup</a></li>
+<li class="toctree-l2 current"><a class="current reference internal" href="#">Startup</a><ul>
+<li class="toctree-l3"><a class="reference internal" href="#system-powerup">System Powerup</a></li>
+<li class="toctree-l3"><a class="reference internal" href="#software-startup">Software Startup</a></li>
+<li class="toctree-l3"><a class="reference internal" href="#gui-setup">GUI Setup</a></li>
+<li class="toctree-l3"><a class="reference internal" href="#preparing-for-operation">Preparing For Operation</a></li>
+</ul>
+</li>
 <li class="toctree-l2"><a class="reference internal" href="shutdown.html">System shutdown</a></li>
 <li class="toctree-l2"><a class="reference internal" href="troubleshooting.html">Troubleshooting</a></li>
 <li class="toctree-l2"><a class="reference internal" href="software/index.html">Instrument Software</a></li>
@@ -144,7 +150,7 @@
         
           <li><a href="index.html">Operation of the MagAO-X instrument</a> &raquo;</li>
         
-      <li>System startup</li>
+      <li>Startup</li>
     
     
       <li class="wy-breadcrumbs-aside">
@@ -163,48 +169,188 @@
           <div role="main" class="document" itemscope="itemscope" itemtype="http://schema.org/Article">
            <div itemprop="articleBody">
             
-  <div class="section" id="system-startup">
-<h1>System startup<a class="headerlink" href="#system-startup" title="Permalink to this headline">¶</a></h1>
-<p>Once the instrument has been unpacked and cabled, the power-up process begins. Subsequent startup will look the same, with the exception of step 3 (devices that should stay on).</p>
-<p>The following assumes you’re sitting at the AOC workstation, but it could be done anywhere with appropriate network tunnels. When one must SSH to different hosts, the one where the command should be run will be indicated before the prompt, like <code class="docutils literal notranslate"><span class="pre">aoc$</span> <span class="pre">ls</span></code> to run <code class="docutils literal notranslate"><span class="pre">ls</span></code> on AOC. (Don’t type the <code class="docutils literal notranslate"><span class="pre">host$</span></code> prefix, or any comment lines starting with <code class="docutils literal notranslate"><span class="pre">#</span></code>.)</p>
-<p>For simplicity, it’s easiest to run these commands as the user <code class="docutils literal notranslate"><span class="pre">xsup</span></code> to ensure you can read shared memory images (shmims) and <code class="docutils literal notranslate"><span class="pre">ssh</span></code> around to RTC and ICC.</p>
+  <div class="section" id="startup">
+<h1>Startup<a class="headerlink" href="#startup" title="Permalink to this headline">¶</a></h1>
+<p>Once the instrument has been unpacked and cabled, begin startup from System Powerup. Subsequent (nightly/daily) re-startup should generally begin from “Preparing For Operation” below.</p>
+<p>The following assumes you’re sitting at the AOC workstation, but it could be done anywhere with appropriate network tunnels. When one must SSH to different hosts, the one where the command should be run will be indicated before the prompt, like <code class="docutils literal notranslate"><span class="pre">[xsup&#64;exao1</span> <span class="pre">~]$</span> <span class="pre">ls</span></code> to run <code class="docutils literal notranslate"><span class="pre">ls</span></code> on AOC in the <code class="docutils literal notranslate"><span class="pre">~</span></code> directory. (Don’t type the <code class="docutils literal notranslate"><span class="pre">[host</span> <span class="pre">$]</span></code> prompt, or any comment lines starting with <code class="docutils literal notranslate"><span class="pre">#</span></code>.)</p>
+<p>You should run these commands as the user <code class="docutils literal notranslate"><span class="pre">xsup</span></code> to ensure you can read shared memory images (shmims) and <code class="docutils literal notranslate"><span class="pre">ssh</span></code> around to RTC and ICC.  If sitting at AOC, it’s therefore best to be logged into the desktop as <code class="docutils literal notranslate"><span class="pre">xsup</span></code>.</p>
+<p>If working remotely, note that steps in RTC and ICC power-up must be done from firefox running on AOC.  You can use <code class="docutils literal notranslate"><span class="pre">ssh</span> <span class="pre">-X</span></code> to accomplish this with the right command line option in firefox, but using the x2go virtual desktop is generally easier.</p>
+<div class="section" id="system-powerup">
+<h2>System Powerup<a class="headerlink" href="#system-powerup" title="Permalink to this headline">¶</a></h2>
 <ol>
-<li><p>Ensure the MagAO-X apps are started on AOC to get power control (see the <a class="reference external" href="./scripts/xctrl">guide to xctrl</a> for more detail)</p>
-<div class="highlight-default notranslate"><div class="highlight"><pre><span></span>aoc$ xctrl startup
+<li><p>Start the MagAO-X processes on AOC (exao1) to get power control (see the <a class="reference external" href="./scripts/xctrl">guide to xctrl</a> for more detail)</p>
+<div class="highlight-default notranslate"><div class="highlight"><pre><span></span>[[xsup@exao1 ~]$ xctrl startup
 # you&#39;ll see some output as the processes start, wait a little bit
-aoc$ xctrl status
+[[xsup@exao1 ~]$ xctrl status
 # verify processes are all green/running
 </pre></div>
 </div>
 </li>
 <li><p>You should have power control now. AOC talks over the instrument internal LAN to network-controlled power strips (PDUs), which you can control over INDI via several different interfaces: <code class="docutils literal notranslate"><span class="pre">sup</span></code>, <code class="docutils literal notranslate"><span class="pre">cursesINDI</span></code>, or <code class="docutils literal notranslate"><span class="pre">pwrGUI</span></code>.</p>
 <p>Since you’re sitting at AOC, it’s simplest to open <code class="docutils literal notranslate"><span class="pre">pwrGUI</span></code>. You should see switches appear.</p>
-<div class="highlight-default notranslate"><div class="highlight"><pre><span></span>aoc$ pwrGUI &amp;
+<div class="highlight-default notranslate"><div class="highlight"><pre><span></span>[[xsup@exao1 ~]$ pwrGUI &amp;
 # window should pop open with switches
 </pre></div>
 </div>
 </li>
-<li><p>(Initial startup only) The following devices should be powered up, and never powered off (unless you know what you’re doing):</p>
+<li><p>The following devices should be powered up, and never powered off (unless you know what you’re doing):</p>
 <ul class="simple">
 <li><p>swinst</p></li>
-<li><p>compicc</p></li>
-<li><p>comprtc</p></li>
 <li><p>dcpwr</p></li>
-<li><p>usbdu0</p></li>
 <li><p>blower</p></li>
 <li><p>fan1</p></li>
 <li><p>fan2</p></li>
 <li><p>instcool</p></li>
 </ul>
 </li>
+<li><p>RTC Power-On <a name="rtc_power_on"></a></p>
+<ol class="simple">
+<li><p><strong>IMPORTANT</strong> ensure that instcool is powered on to provide liquid cooling to the RTC.</p></li>
+<li><p>using the pwrGUI, power on <code class="docutils literal notranslate"><span class="pre">comprtc</span></code></p></li>
+<li><p>wait at least 90 sec to allow the motherboard KVM module to initialize</p></li>
+<li><p>open firefox, and navigate to <code class="docutils literal notranslate"><span class="pre">192.168.0.170</span></code>: <a name="rtc_power_on44"></a></p></li>
+<li><p>login (if required, password provided to those who need it)</p></li>
+<li><p>in the left menu, select <code class="docutils literal notranslate"><span class="pre">I/O</span> <span class="pre">Setting</span> <span class="pre">-&gt;</span> <span class="pre">DO</span> <span class="pre">Channels</span></code>
+<img alt="../_images/moxa_dio_do.png" src="../_images/moxa_dio_do.png" /></p></li>
+<li><p>in the main frame, click on <code class="docutils literal notranslate"><span class="pre">RTC-PWR</span></code>, which will open a new window:
+<img alt="../_images/moxa_dialog.png" src="../_images/moxa_dialog.png" /></p></li>
+<li><p>Under [1. Current Setting], ensure that <code class="docutils literal notranslate"><span class="pre">Pulse</span> <span class="pre">Output</span></code> is selected, and check the box under Pulse Start.  Then press the <code class="docutils literal notranslate"><span class="pre">Submit</span></code> button at the bottom.  This remotely presses the ATX power button on the RTC.</p></li>
+<li><p>Next open a new tab in firefox, and navigate to 192.168.0.21, and login (password provided to those who need it):
+<img alt="../_images/rtc_ikvm_login.png" src="../_images/rtc_ikvm_login.png" /></p></li>
+<li><p>Press the <code class="docutils literal notranslate"><span class="pre">Launch</span></code> button after Remote Control:
+<img alt="../_images/rtc_ikvm_launch.png" src="../_images/rtc_ikvm_launch.png" /></p></li>
+<li><p>This brings up a video display of the RTC VGA output. Use the display to monitor progress.  It will likely hang with a message to press F1 as shown:
+<img alt="../_images/rtc_ikvm_f1.png" src="../_images/rtc_ikvm_f1.png" /></p></li>
+<li><p>This message is meaningless. When this message appears, press F1. Do NOT alter any settings. Immediately press F10 (Save Changes and Reset) and hit enter to say Yes.  A soft keyboard can be brought up from the dispaly controls to facilitate these interactions:
+<img alt="../_images/rtc_save_and_exit_yes.png" src="../_images/rtc_save_and_exit_yes.png" /></p></li>
+<li><p>Once the boot finishes, use <code class="docutils literal notranslate"><span class="pre">nvidia-smi</span></code> to be sure all GPUs are visible (currently 3 on RTC, 1 on ICC).</p></li>
+<li><p>If a GPU has <code class="docutils literal notranslate"><span class="pre">fallen</span> <span class="pre">off</span> <span class="pre">the</span> <span class="pre">bus</span></code>, see the troubleshooting guide for steps to take.</p></li>
+</ol>
+</li>
+<li><p>ICC Power-On</p>
+<ol class="simple">
+<li><p><strong>IMPORTANT</strong> ensure that instcool is powered on to provide liquid cooling to the ICC.</p></li>
+<li><p>using the pwrGUI, power on <code class="docutils literal notranslate"><span class="pre">compicc</span></code></p></li>
+<li><p>wait at least 90 sec to allow the motherboard KVM module to initialize</p></li>
+<li><p>open firefox, and navigate to 192.168.0.170</p></li>
+<li><p>login (if required, password provided to those who need it)</p></li>
+<li><p>in the left menu, select <code class="docutils literal notranslate"><span class="pre">I/O</span> <span class="pre">Setting</span> <span class="pre">-&gt;</span> <span class="pre">DO</span> <span class="pre">Channels</span></code></p></li>
+<li><p>in the main frame, click on <code class="docutils literal notranslate"><span class="pre">ICC-PWR</span></code>, which will open a new window</p></li>
+<li><p>under 1. Current Setting, ensure that <code class="docutils literal notranslate"><span class="pre">Pulse</span> <span class="pre">Output</span></code> is selected, and check the box under Pulse Start.  Then press the <code class="docutils literal notranslate"><span class="pre">Submit</span></code> button at the bottom. This remotely presses the ATX power button on the ICC.</p></li>
+<li><p>Next open a new tab in firefox, and navigate to 192.168.0.22, and login (password provided to those who need it)</p></li>
+<li><p>Press the <code class="docutils literal notranslate"><span class="pre">Launch</span></code> button after Remote Control.  This brings up a video display of the ICC VGA output.</p></li>
+<li><p>Use the display to monitor progress.  ICC should progress to the loging prompt without incident.</p></li>
+</ol>
+</li>
+</ol>
+</div>
+<div class="section" id="software-startup">
+<h2>Software Startup<a class="headerlink" href="#software-startup" title="Permalink to this headline">¶</a></h2>
+<ol>
+<li><p>RTC</p>
+<ul>
+<li><p>ssh to RTC with <code class="docutils literal notranslate"><span class="pre">ssh</span> <span class="pre">rtc</span></code></p></li>
+<li><p>First start cacao <code class="docutils literal notranslate"><span class="pre">dmcomb</span></code> processes.  Woofer first, then tweeter.  Note that these startup scripts are located in xsup’s home directory.</p>
+<div class="highlight-default notranslate"><div class="highlight"><pre><span></span>[xsup@exao2 ~]$ bash ./cacao_startup_woofer.sh
+[xsup@exao2 ~]$ bash ./cacao_startup_tweeter.sh
+</pre></div>
+</div>
+</li>
+<li><p>Use fpsCTRL to verify that both dmcombs are running:</p></li>
+<li><p>Now start MagAO-X</p>
+<div class="highlight-default notranslate"><div class="highlight"><pre><span></span>[xsup@exao2 ~]$ xctrl startup
+</pre></div>
+</div>
+</li>
+<li><p>Use <code class="docutils literal notranslate"><span class="pre">xctrl</span> <span class="pre">status</span></code> to verify that processes have started.</p></li>
+</ul>
+</li>
+<li><p>ICC</p>
+<ul>
+<li><p>ssh to ICC with <code class="docutils literal notranslate"><span class="pre">ssh</span> <span class="pre">icc</span></code></p></li>
+<li><p>First start cacao <code class="docutils literal notranslate"><span class="pre">dmcomb</span></code> processes for the dmncpc.  Note that these startup scripts are located in xsup’s home directory.</p>
+<div class="highlight-default notranslate"><div class="highlight"><pre><span></span>[xsup@exao3 ~]$ cd /opt/MagAOX/cacao/working/ncpc_mwfs
+[xsup@exao3 ncpc_mwfs]$ source cacaovars.ncpc_mwfs.bash
+[xsup@exao3 ncpc_mwfs]$ cacao-setup ncpc_mwfs
+</pre></div>
+</div>
+</li>
+<li><p>Use fpsCTRL to verify that the dmcomb is running:</p></li>
+<li><p>Now start MagAO-X</p>
+<div class="highlight-default notranslate"><div class="highlight"><pre><span></span>[xsup@exao3 ~]$ xctrl startup
+</pre></div>
+</div>
+</li>
+<li><p>Use <code class="docutils literal notranslate"><span class="pre">xctrl</span> <span class="pre">status</span></code> to verify that processes have started.</p></li>
+</ul>
+</li>
+<li><p>It is possible that MagAO-X software startup will not complete correctly, and/or need to be re-done.  Symptoms include not seeing either RTC or ICC (or both) processes in INDI on AOC, or crashed xindiserver processes (isICC or isRTC).  The cause is elusive.  The fix is to shutdown and restart MagAO-X software (<code class="docutils literal notranslate"><span class="pre">xctrl</span> <span class="pre">shutdown</span></code>) on each machine – possibly also on AOC.  You do not need to shutdown the cacao processes.</p></li>
+</ol>
+</div>
+<div class="section" id="gui-setup">
+<h2>GUI Setup<a class="headerlink" href="#gui-setup" title="Permalink to this headline">¶</a></h2>
+<p>To setup the GUIs on exao1 (AOC) as user <code class="docutils literal notranslate"><span class="pre">xsup</span></code>:</p>
+<ol>
+<li><p>If not already done, open the power control GUI:</p>
+<div class="highlight-default notranslate"><div class="highlight"><pre><span></span>[xsup@exao1 ~]$ pwrGUI &amp;
+</pre></div>
+</div>
+</li>
+<li><p>For each of the 3 DMs:</p>
+<ul>
+<li><p>woofer:</p>
+<div class="highlight-default notranslate"><div class="highlight"><pre><span></span>[xsup@exao1 ~]$ dmCtrlGUI dmwoofer &amp;
+[xsup@exao1 ~]$ bash dmdisp.sh woofer &amp;
+[xsup@exao1 ~]$ bash dmnorm.sh woofer &amp;
+</pre></div>
+</div>
+</li>
+</ul>
+<p><strong>Note:</strong> that the script argument is different from the dmCtrlGUI command.  (TODO: this needs to be normalized, and these scripts need to be made better).</p>
+<ul>
+<li><p>tweeter:</p>
+<div class="highlight-default notranslate"><div class="highlight"><pre><span></span>[xsup@exao1 ~]$ dmCtrlGUI dmtweeter &amp;
+[xsup@exao1 ~]$ bash dmdisp.sh tweeter &amp;
+[xsup@exao1 ~]$ bash dmnorm.sh tweeter &amp;
+</pre></div>
+</div>
+</li>
+<li><p>ncpc:</p>
+<div class="highlight-default notranslate"><div class="highlight"><pre><span></span>[xsup@exao1 ~]$ dmCtrlGUI dmncpc &amp;
+[xsup@exao1 ~]$ bash dmdisp.sh ncpc &amp;
+[xsup@exao1 ~]$ bash dmnorm.sh ncpc &amp;
+</pre></div>
+</div>
+</li>
+</ul>
+</li>
+<li><p>Launch camera viewers, e.g. for <code class="docutils literal notranslate"><span class="pre">camwfs</span></code> and <code class="docutils literal notranslate"><span class="pre">camsci1</span></code>:</p>
+<div class="highlight-default notranslate"><div class="highlight"><pre><span></span>[xsup@exao1 ~]$ rtimv -c rtimv_camwfs.conf &amp; 
+[xsup@exao1 ~]$ rtimv -c rtimv_camsci1.conf &amp;
+</pre></div>
+</div>
+<p>These commands are using configuration files specific to each camera.  Continue for <code class="docutils literal notranslate"><span class="pre">camsci2</span></code>, <code class="docutils literal notranslate"><span class="pre">camlowfs</span></code>, <code class="docutils literal notranslate"><span class="pre">camtip</span></code>, and <code class="docutils literal notranslate"><span class="pre">camacq</span></code>.</p>
+<p><strong>Note:</strong> This needs to read shmims, and should be run as <code class="docutils literal notranslate"><span class="pre">xsup</span></code> if you’re not logged in as <code class="docutils literal notranslate"><span class="pre">xsup</span></code> already (i.e. <code class="docutils literal notranslate"><span class="pre">su</span> <span class="pre">xsup</span></code> before running <code class="docutils literal notranslate"><span class="pre">rtimv</span></code>).</p>
+</li>
+<li><p>Launch <code class="docutils literal notranslate"><span class="pre">pupilGuideGUI</span></code></p>
+<div class="highlight-default notranslate"><div class="highlight"><pre><span></span>[xsup@exao1 ~]$ pupilGuideGUI
+</pre></div>
+</div>
+</li>
+</ol>
+</div>
+<div class="section" id="preparing-for-operation">
+<h2>Preparing For Operation<a class="headerlink" href="#preparing-for-operation" title="Permalink to this headline">¶</a></h2>
+<p>The steps below assume that the above steps are complete.  This will generally be the instrument state on a daily basis.</p>
+<ol>
 <li><p>If the tweeter is going to be used, turn on the dry air supply (N2 bottle for now) and wait for the relative humidity to drop below 15%. This will take a while, but while you wait…</p></li>
 <li><p>Ensure MagAO-X processes are started on ICC and RTC</p>
-<div class="highlight-default notranslate"><div class="highlight"><pre><span></span>aoc$ ssh icc
+<div class="highlight-default notranslate"><div class="highlight"><pre><span></span>[[xsup@exao1 ~]$ ssh icc
 icc$ xctrl startup
 icc$ xctrl status
 # verify processes are all green/running
 icc$ exit
-aoc$ ssh rtc
+[[xsup@exao1 ~]$ ssh rtc
 rtc$ xctrl startup
 rtc$ xctrl status
 # verify processes are all green/running
@@ -229,41 +375,18 @@ rtc$ exit
 </ul>
 <p>With even more things to power up for camsci2, etc. Be sure to home stages that need it before use! (They’ll appear as <code class="docutils literal notranslate"><span class="pre">NOTHOMED</span></code> in their <code class="docutils literal notranslate"><span class="pre">fsm</span></code> INDI property.)</p>
 </li>
-<li><p>Launch dmCtrlGUI, hit “reload flat” and “set flat” to flatten the DMs</p>
-<div class="highlight-default notranslate"><div class="highlight"><pre><span></span>aoc$ dmCtrlGUI dmncpc &amp;
-aoc$ dmCtrlGUI dmwoofer &amp;
-</pre></div>
-</div>
-</li>
-<li><p>Launch camera viewers, e.g. for <code class="docutils literal notranslate"><span class="pre">camtip</span></code> and <code class="docutils literal notranslate"><span class="pre">camsci1</span></code>:</p>
-<div class="highlight-default notranslate"><div class="highlight"><pre><span></span>aoc$ rtimv camsci1 &amp;
-aoc$ rtimv camtip &amp;
-</pre></div>
-</div>
-<p><strong>Note:</strong> This needs to read shmims, and should be run as <code class="docutils literal notranslate"><span class="pre">xsup</span></code> if you’re not logged in as <code class="docutils literal notranslate"><span class="pre">xsup</span></code> already (i.e. <code class="docutils literal notranslate"><span class="pre">su</span> <span class="pre">xsup</span></code> before running <code class="docutils literal notranslate"><span class="pre">rtimv</span></code>).</p>
-</li>
-<li><p>Launch <code class="docutils literal notranslate"><span class="pre">pupilGuideGUI</span></code></p>
-<div class="highlight-default notranslate"><div class="highlight"><pre><span></span>aoc$ pupilGuideGUI
-</pre></div>
-</div>
-<p>Now <code class="docutils literal notranslate"><span class="pre">Set</span></code> the pupil TTM and <code class="docutils literal notranslate"><span class="pre">Set</span></code> the pyramid modulator TTM. If the PSF isn’t centered on camtip, use the arrows (bottom left of pupilGuideGUI interface) to change the voltage bias. The central button changes the voltage step size.</p>
-</li>
+<li><p>Load and set the flat on both dmwoofer and dmncpc right away to give time for creep to creep.</p></li>
+<li><p>Now <code class="docutils literal notranslate"><span class="pre">Set</span></code> the pupil TTM and <code class="docutils literal notranslate"><span class="pre">Set</span></code> the pyramid modulator TTM. If the PSF isn’t centered on camtip, use the arrows (bottom left of pupilGuideGUI interface) to change the voltage bias. The central button changes the voltage step size.</p></li>
 <li><p><strong>Once the tweeter relative humidity is less than 15%</strong>, power it on (it’s on pdu1)</p></li>
-<li><p>Start dmCtrlGUI for <code class="docutils literal notranslate"><span class="pre">dmtweeter</span></code>:</p>
-<div class="highlight-default notranslate"><div class="highlight"><pre><span></span>aoc$ dmCtrlGUI dmtweeter
-</pre></div>
-</div>
-<p>Now <code class="docutils literal notranslate"><span class="pre">Reload</span> <span class="pre">flat</span></code> and <code class="docutils literal notranslate"><span class="pre">Set</span> <span class="pre">flat</span></code>.</p>
-</li>
 <li><p>Optimize PSF quality with <a class="reference external" href="eyedoctor">The Eye Doctor</a>, starting with the <code class="docutils literal notranslate"><span class="pre">camtip</span></code> PSF</p>
-<div class="highlight-default notranslate"><div class="highlight"><pre><span></span>aoc$ ssh icc
+<div class="highlight-default notranslate"><div class="highlight"><pre><span></span>[[xsup@exao1 ~]$ ssh icc
 icc$ dm_eye_doctor 7626 wooferModes camtip 10 2 1.0
 icc$ dm_eye_doctor 7626 wooferModes camtip 10 2...10 0.5
 icc$ dm_eye_doctor 7626 wooferModes camtip 10 2...35 0.05
 </pre></div>
 </div>
 <p>If you want to save this optimized woofer flat, you can do that on RTC:</p>
-<div class="highlight-default notranslate"><div class="highlight"><pre><span></span>aoc$ ssh rtc
+<div class="highlight-default notranslate"><div class="highlight"><pre><span></span>[[xsup@exao1 ~]$ ssh rtc
 rtc$ dm_eye_doctor_update_flat dmwoofer
 </pre></div>
 </div>
@@ -280,6 +403,7 @@ icc$ dm_eye_doctor_update_flat dmncpc
 </ol>
 <p>Now you’re ready to do things with the instrument!</p>
 <p>Open http://localhost:8000/ (or tunnel it to your computer from AOC) to use the web UI for filter wheels, stage positions, streamwriter and shutter toggles, etc. You can also control the instrument via the AOC indiserver on port 7624 with your favorite tool (<code class="docutils literal notranslate"><span class="pre">cursesINDI</span></code>, <a class="reference external" href="https://github.com/magao-x/purepyindi">PurePyINDI</a>, or what have you).</p>
+</div>
 </div>
 
 
