@@ -45,16 +45,23 @@ xsup$ rm *
 
 If rerunning `df -h` *still* doesn't show any space available, something is probably holding a reference to the files. (See [this SuperUser question](https://superuser.com/questions/1100059/tmpfs-deleting-files-wont-free-the-space).) You should reboot the computer with `sudo reboot` (having already shut down / rested any hardware).
 
-### Missing GPUs on RTC
+### RTC Lockup or Missing GPUs on RTC
 
-Sometimes the RTC comes up with only one GPU (missing the two on an expansion board). This is due to a weird interaction between the expansion board and the motherboard. To resolve:
+The RTC occassionally locks up, or will lose a GPU (GPU has fallen off the bus errors).  It must be restarted to resolve.
 
-1. If RTC is responding, bring it down cleanly (`shutdown -h now`)
-1. Power down RTC at PDU0 (e.g. with `pwrGUI`)
-2. Wait 10 seconds before attempting to power back on
-3. Once it boots (which can take several minutes, with apparent false-starts), run `nvidia-smi` three times. It'll likely die on the second (and lock up).
-4. Reset using the switch mounted on the RTC motherboard (or the to-be-installed remote reset switch)
-5. Repeatedly run `nvidia-smi` (e.g. `watch nvidia-smi`) to verify it's back up and stable
+1. If RTC is responding:
+   1. Rest the woofer, tweeter, ttmmod, and ttmpupil.  Start camwfs warmup (you don't have to wait).
+   2. Shutdown RTC (requires sudo)
+      ```
+      [user@exao2 ~]$ sudo shutdown -h now
+      ```
+   3. Now proceed to step 4.4 in the [System Power On](./startup.html#rtc_power_on44).
+
+2. If RTC is not responding, or GPUs continue to fall off the bus after step 1.
+   1. If you can, perform steps 1.1 and 1.2 above. 
+   2. Power down RTC at PDU0 (e.g. with `pwrGUI`)
+   3. Wait at least 10 seconds.
+   4. Now perform all of step 4 in the [System Power On](./startup.html#rtc_power_on) procedure.
 
 ### OCAM connectivity / bad data
 
