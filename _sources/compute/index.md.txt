@@ -10,6 +10,7 @@ The MagAO-X computing system.
    networking
    data_storage_management
    computer_setup/computer_setup
+   python
    development_vm
 ```
    
