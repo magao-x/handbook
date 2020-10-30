@@ -268,7 +268,7 @@ $ conda env update -f /opt/MagAOX/config/conda_env_pinned.yml
 <li><p>Edit <code class="docutils literal notranslate"><span class="pre">/opt/MagAOX/source/MagAOX/setup/install_python.sh</span></code> and change <code class="docutils literal notranslate"><span class="pre">MINICONDA_VERSION=&quot;X-pyXX_X.Y.Z&quot;</span></code> appropriately, and commit/push to version control.</p></li>
 <li><p>Run <code class="docutils literal notranslate"><span class="pre">bash</span> <span class="pre">/opt/MagAOX/source/MagAOX/setup/install_python.sh</span></code> to download and install the new <code class="docutils literal notranslate"><span class="pre">conda</span></code> to <code class="docutils literal notranslate"><span class="pre">/opt/miniconda3</span></code> with appropriate permissions</p></li>
 </ol>
-<p>At this point you may have to log out and back in to reset any environment variables that were set by the old <code class="docutils literal notranslate"><span class="pre">conda</span></code>.</p>
+<p>At this point you should log out and back in to reset any environment variables that were set by the old <code class="docutils literal notranslate"><span class="pre">conda</span></code>.</p>
 <div class="section" id="if-the-python-version-hasn-t-increased">
 <h3>If the Python version hasn’t increased<a class="headerlink" href="#if-the-python-version-hasn-t-increased" title="Permalink to this headline">¶</a></h3>
 <p>In most cases, the version of Python shipped with Miniconda hasn’t changed.</p>
@@ -278,7 +278,7 @@ $ conda env update -f /opt/MagAOX/config/conda_env_pinned.yml
 </div>
 <div class="section" id="if-the-python-version-has-changed">
 <h3>If the Python version has changed<a class="headerlink" href="#if-the-python-version-has-changed" title="Permalink to this headline">¶</a></h3>
-<p>The default <code class="docutils literal notranslate"><span class="pre">configure_python.sh</span></code> will try to restore the pinned versions from <code class="docutils literal notranslate"><span class="pre">conda_env_pinned.yml</span></code>, but will fail because of the Python version mismatch. Instead, you need to create the environment from <code class="docutils literal notranslate"><span class="pre">conda_env_base.yml</span></code> and update <code class="docutils literal notranslate"><span class="pre">conda_env_pinned.yml</span></code> yourself</p>
+<p>The default <code class="docutils literal notranslate"><span class="pre">configure_python.sh</span></code> would try to restore the pinned versions from <code class="docutils literal notranslate"><span class="pre">conda_env_pinned.yml</span></code>, but would fail because of the Python version mismatch. Instead, you need to create the environment from <code class="docutils literal notranslate"><span class="pre">conda_env_base.yml</span></code> and update <code class="docutils literal notranslate"><span class="pre">conda_env_pinned.yml</span></code> yourself</p>
 <ol>
 <li><p><code class="docutils literal notranslate"><span class="pre">conda</span> <span class="pre">env</span> <span class="pre">update</span> <span class="pre">-f</span> <span class="pre">/opt/MagAOX/config/conda_env_base.yml</span></code></p></li>
 <li><p><code class="docutils literal notranslate"><span class="pre">conda</span> <span class="pre">env</span> <span class="pre">export</span> <span class="pre">&gt;</span> <span class="pre">/opt/MagAOX/config/conda_env_pinned.yml</span></code></p></li>
@@ -290,17 +290,33 @@ $ conda env update -f /opt/MagAOX/config/conda_env_pinned.yml
 </div>
 </li>
 </ol>
+<p>You will also need to rerun some of the files in <code class="docutils literal notranslate"><span class="pre">/opt/MagAOX/source/MagAOX/setup/steps</span></code> that install Python packages into the environment. A (possibly incomplete list):</p>
+<div class="highlight-default notranslate"><div class="highlight"><pre><span></span><span class="n">cd</span> <span class="o">/</span><span class="n">opt</span><span class="o">/</span><span class="n">MagAOX</span><span class="o">/</span><span class="n">source</span><span class="o">/</span><span class="n">MagAOX</span><span class="o">/</span><span class="n">setup</span><span class="o">/</span><span class="n">steps</span> <span class="o">&amp;&amp;</span> \
+<span class="n">bash</span> <span class="n">install_purepyindi</span><span class="o">.</span><span class="n">sh</span> <span class="o">&amp;&amp;</span> \
+<span class="n">bash</span> <span class="n">install_imagestreamio_python</span><span class="o">.</span><span class="n">sh</span> <span class="o">&amp;&amp;</span> \
+<span class="n">bash</span> <span class="n">install_magpyx</span><span class="o">.</span><span class="n">sh</span> <span class="o">&amp;&amp;</span> \
+<span class="n">bash</span> <span class="n">install_sup</span><span class="o">.</span><span class="n">sh</span>
+</pre></div>
+</div>
 </div>
 <div class="section" id="replicate-across-all-the-machines">
 <h3>Replicate across all the machines<a class="headerlink" href="#replicate-across-all-the-machines" title="Permalink to this headline">¶</a></h3>
 <p>SSH to the other machines and:</p>
 <ol class="simple">
-<li><p>Move <code class="docutils literal notranslate"><span class="pre">/opt/miniconda3</span></code> out of the way (i.e. <code class="docutils literal notranslate"><span class="pre">mv</span> <span class="pre">/opt/miniconda3</span> <span class="pre">/opt/miniconda3.bak</span></code>)</p></li>
+<li><p>Move <code class="docutils literal notranslate"><span class="pre">/opt/miniconda3</span></code> out of the way (i.e. <code class="docutils literal notranslate"><span class="pre">sudo</span> <span class="pre">mv</span> <span class="pre">/opt/miniconda3</span> <span class="pre">/opt/miniconda3.bak</span></code>)</p></li>
+<li><p>Update the environment files: <code class="docutils literal notranslate"><span class="pre">cd</span> <span class="pre">/opt/MagAOX/config</span> <span class="pre">&amp;&amp;</span> <span class="pre">git</span> <span class="pre">pull</span></code></p></li>
 <li><p>Update the MagAO-X source: <code class="docutils literal notranslate"><span class="pre">cd</span> <span class="pre">/opt/MagAOX/source/MagAOX</span> <span class="pre">&amp;&amp;</span> <span class="pre">git</span> <span class="pre">pull</span></code></p></li>
 <li><p>Install Python via miniconda: <code class="docutils literal notranslate"><span class="pre">bash</span> <span class="pre">/opt/MagAOX/source/MagAOX/setup/install_python.sh</span></code></p></li>
-<li><p>Update the environment files: <code class="docutils literal notranslate"><span class="pre">cd</span> <span class="pre">/opt/MagAOX/config</span> <span class="pre">&amp;&amp;</span> <span class="pre">git</span> <span class="pre">pull</span></code></p></li>
 <li><p>Configure Python via conda environment files: <code class="docutils literal notranslate"><span class="pre">bash</span> <span class="pre">/opt/MagAOX/source/MagAOX/setup/configure_python.sh</span></code></p></li>
+<li><p>Ensure all our custom packages get installed</p></li>
 </ol>
+<div class="highlight-default notranslate"><div class="highlight"><pre><span></span><span class="n">cd</span> <span class="o">/</span><span class="n">opt</span><span class="o">/</span><span class="n">MagAOX</span><span class="o">/</span><span class="n">source</span><span class="o">/</span><span class="n">MagAOX</span><span class="o">/</span><span class="n">setup</span><span class="o">/</span><span class="n">steps</span> <span class="o">&amp;&amp;</span> \
+<span class="n">bash</span> <span class="n">install_purepyindi</span><span class="o">.</span><span class="n">sh</span> <span class="o">&amp;&amp;</span> \
+<span class="n">bash</span> <span class="n">install_imagestreamio_python</span><span class="o">.</span><span class="n">sh</span> <span class="o">&amp;&amp;</span> \
+<span class="n">bash</span> <span class="n">install_magpyx</span><span class="o">.</span><span class="n">sh</span> <span class="o">&amp;&amp;</span> \
+<span class="n">bash</span> <span class="n">install_sup</span><span class="o">.</span><span class="n">sh</span>
+</pre></div>
+</div>
 </div>
 </div>
 </div>
