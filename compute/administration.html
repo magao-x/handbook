@@ -244,16 +244,23 @@ Password for &#39;https://your-github-user-name@github.com/magao-x/calib.git&#39
 </li>
 <li><p>Install the new config with <code class="docutils literal notranslate"><span class="pre">sudo</span> <span class="pre">grub2-mkconfig</span> <span class="pre">-o</span> <span class="pre">/boot/grub2/grub.cfg</span></code></p></li>
 <li><p>Reboot, verify with <code class="docutils literal notranslate"><span class="pre">lsmod</span> <span class="pre">|</span> <span class="pre">grep</span> <span class="pre">nv</span></code> that no driver modules loaded</p></li>
-<li><p>Use <code class="docutils literal notranslate"><span class="pre">sudo</span> <span class="pre">/usr/bin/nvidia-uninstall</span></code> to uninstall the driver</p></li>
-<li><p>Use <code class="docutils literal notranslate"><span class="pre">sudo</span> <span class="pre">/usr/local/cuda/bin/cuda-uninstaller</span></code> to uninstall CUDA</p></li>
-<li><p>Remove the options to disable the driver.</p>
+<li><p>Use <code class="docutils literal notranslate"><span class="pre">sudo</span> <span class="pre">/usr/bin/nvidia-uninstall</span></code> to uninstall the driver (choosing “No” when asked whether to “attempt restoration of the original X configuration file”)</p></li>
+<li><p>Use <code class="docutils literal notranslate"><span class="pre">sudo</span> <span class="pre">/usr/local/cuda/bin/cuda-uninstaller</span></code> to uninstall CUDA (checking all available options before choosing “Done”)</p></li>
+<li><p>Remove the boot options that disable the driver.</p>
 <p>Open <code class="docutils literal notranslate"><span class="pre">/etc/default/grub</span></code> and remove the added options from <code class="docutils literal notranslate"><span class="pre">GRUB_CMDLINE_LINUX_DEFAULT</span></code>.</p>
 </li>
 <li><p>Install the new config with <code class="docutils literal notranslate"><span class="pre">sudo</span> <span class="pre">grub2-mkconfig</span> <span class="pre">-o</span> <span class="pre">/boot/grub2/grub.cfg</span></code></p></li>
 <li><p>Reboot again! Verify no driver is loaded again!</p></li>
 <li><p>Install CUDA using <code class="docutils literal notranslate"><span class="pre">sudo</span> <span class="pre">bash</span> <span class="pre">-x</span> <span class="pre">/opt/MagAOX/source/MagAOX/setup/steps/install_cuda.sh</span></code></p></li>
-<li><p>(on AOC only) Default to graphical boot again with  <code class="docutils literal notranslate"><span class="pre">systemctl</span> <span class="pre">set-default</span> <span class="pre">multi-user.target</span></code> and complete boot to graphical desktop with  <code class="docutils literal notranslate"><span class="pre">systemctl</span> <span class="pre">isolate</span> <span class="pre">graphical.target</span></code></p></li>
+<li><p>(on AOC only) Default to graphical boot again with  <code class="docutils literal notranslate"><span class="pre">systemctl</span> <span class="pre">set-default</span> <span class="pre">graphical.target</span></code> and complete boot to graphical desktop with  <code class="docutils literal notranslate"><span class="pre">systemctl</span> <span class="pre">isolate</span> <span class="pre">graphical.target</span></code></p></li>
+<li><p>Rebuild MAGMA with the new version of CUDA:</p></li>
 </ol>
+<div class="highlight-default notranslate"><div class="highlight"><pre><span></span><span class="n">cd</span> <span class="o">/</span><span class="n">opt</span><span class="o">/</span><span class="n">MagAOX</span><span class="o">/</span><span class="n">vendor</span><span class="o">/</span><span class="n">magma</span><span class="o">-</span><span class="n">X</span><span class="o">.</span><span class="n">Y</span><span class="o">.</span><span class="n">Z</span>
+<span class="n">make</span> <span class="n">clean</span>
+<span class="n">make</span> <span class="o">-</span><span class="n">j</span> <span class="mi">32</span>
+<span class="n">make</span> <span class="n">install</span>
+</pre></div>
+</div>
 </div>
 </div>
 
