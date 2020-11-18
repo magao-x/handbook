@@ -67,12 +67,20 @@ Upgrading CUDA is more involved, as the systems stubbornly insist on loading the
    ```
 3. Install the new config with `sudo grub2-mkconfig -o /boot/grub2/grub.cfg`
 4. Reboot, verify with `lsmod | grep nv` that no driver modules loaded
-5. Use `sudo /usr/bin/nvidia-uninstall` to uninstall the driver
-6. Use `sudo /usr/local/cuda/bin/cuda-uninstaller` to uninstall CUDA
-7. Remove the options to disable the driver.
+5. Use `sudo /usr/bin/nvidia-uninstall` to uninstall the driver (choosing "No" when asked whether to "attempt restoration of the original X configuration file")
+6. Use `sudo /usr/local/cuda/bin/cuda-uninstaller` to uninstall CUDA (checking all available options before choosing "Done")
+7. Remove the boot options that disable the driver.
 
    Open `/etc/default/grub` and remove the added options from `GRUB_CMDLINE_LINUX_DEFAULT`.
 8. Install the new config with `sudo grub2-mkconfig -o /boot/grub2/grub.cfg`
 9. Reboot again! Verify no driver is loaded again!
 10. Install CUDA using `sudo bash -x /opt/MagAOX/source/MagAOX/setup/steps/install_cuda.sh`
-11. (on AOC only) Default to graphical boot again with  `systemctl set-default multi-user.target` and complete boot to graphical desktop with  `systemctl isolate graphical.target`
+11. (on AOC only) Default to graphical boot again with  `systemctl set-default graphical.target` and complete boot to graphical desktop with  `systemctl isolate graphical.target`
+12. Rebuild MAGMA with the new version of CUDA:
+
+   ```
+   cd /opt/MagAOX/vendor/magma-X.Y.Z
+   make clean
+   make -j 32
+   make install
+   ```
