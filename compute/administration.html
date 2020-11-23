@@ -98,6 +98,7 @@
 </li>
 <li class="toctree-l3"><a class="reference internal" href="#configuring-git-for-a-new-user-account">Configuring git for a new user account</a></li>
 <li class="toctree-l3"><a class="reference internal" href="#upgrading-nvidia-cuda-and-drivers">Upgrading NVIDIA CUDA and drivers</a></li>
+<li class="toctree-l3"><a class="reference internal" href="#upgrading-the-rt-kernel">Upgrading the RT kernel</a></li>
 </ul>
 </li>
 <li class="toctree-l2"><a class="reference internal" href="networking.html">Networking</a></li>
@@ -261,6 +262,57 @@ Password for &#39;https://your-github-user-name@github.com/magao-x/calib.git&#39
 <span class="n">make</span> <span class="n">install</span>
 </pre></div>
 </div>
+</div>
+<div class="section" id="upgrading-the-rt-kernel">
+<h2>Upgrading the RT kernel<a class="headerlink" href="#upgrading-the-rt-kernel" title="Permalink to this headline">¶</a></h2>
+<p>The CentOS 7 RT kernel includes backported patches from the mainline kernel to 3.10.0 where CentOS 7 was frozen, plus the PREEMPT RT patch set and bug fixes from newer versions of that. On occasion a new version will appear in the <a class="reference external" href="http://mirror.centos.org/centos/7/rt/x86_64/Packages/">CentOS 7 RT package repository</a> and it may be worth upgrading to see if any of our bugs are fixed.</p>
+<ol class="simple">
+<li><p>Remove <code class="docutils literal notranslate"><span class="pre">versionlock</span></code> (if any)</p></li>
+<li><p><code class="docutils literal notranslate"><span class="pre">sudo</span> <span class="pre">yum</span> <span class="pre">update</span> <span class="pre">kernel-rt</span> <span class="pre">kernel-rt-devel</span></code></p></li>
+<li><p>Reboot, verify new version in <code class="docutils literal notranslate"><span class="pre">uname</span> <span class="pre">-a</span></code></p></li>
+<li><p>Reinstall drivers with kernel modules:</p>
+<ul class="simple">
+<li><p>NVIDIA (all machines)</p>
+<ol class="simple">
+<li><p><code class="docutils literal notranslate"><span class="pre">sudo</span> <span class="pre">/usr/bin/nvidia-uninstall</span></code></p></li>
+<li><p><code class="docutils literal notranslate"><span class="pre">cd</span> <span class="pre">/opt/MagAOX/vendor/cuda</span></code> and <code class="docutils literal notranslate"><span class="pre">bash</span> <span class="pre">cuda_11.1.1_455.32.00_linux.run</span> <span class="pre">--extract=/tmp/cuda11</span></code> (or as appropriate for the version of CUDA you have)</p></li>
+<li><p>Become root: <code class="docutils literal notranslate"><span class="pre">/usr/bin/sudo</span> <span class="pre">-i</span></code></p></li>
+<li><p><code class="docutils literal notranslate"><span class="pre">cd</span> <span class="pre">/tmp/cuda11</span></code></p></li>
+<li><p>Verify <code class="docutils literal notranslate"><span class="pre">realpath</span> <span class="pre">$(which</span> <span class="pre">cc)</span></code> is <code class="docutils literal notranslate"><span class="pre">/usr/bin/gcc</span></code> (and not the DevToolset-7 one)</p></li>
+<li><p><code class="docutils literal notranslate"><span class="pre">export</span> <span class="pre">IGNORE_PREEMPT_RT_PRESENCE=1</span></code></p></li>
+<li><p>Run the installer: <code class="docutils literal notranslate"><span class="pre">bash</span> <span class="pre">NVIDIA-Linux-x86_64-455.32.00.run</span></code></p></li>
+<li><p>On next reboot, verify <code class="docutils literal notranslate"><span class="pre">nvidia-smi</span></code> works and shows all cards</p></li>
+</ol>
+</li>
+<li><p>EDT (RTC, ICC)</p>
+<ol class="simple">
+<li><p><code class="docutils literal notranslate"><span class="pre">cd</span> <span class="pre">/opt/MagAOX/source/MagAOX/setup/steps</span></code></p></li>
+<li><p><code class="docutils literal notranslate"><span class="pre">sudo</span> <span class="pre">mv</span> <span class="pre">/opt/EDTpdv</span> <span class="pre">/opt/EDTpdv.oldkernel</span></code></p></li>
+<li><p><code class="docutils literal notranslate"><span class="pre">sudo</span> <span class="pre">bash</span> <span class="pre">install_edt.sh</span></code></p></li>
+</ol>
+</li>
+<li><p>ALPAO (RTC, ICC)</p>
+<ol class="simple">
+<li><p><code class="docutils literal notranslate"><span class="pre">cd</span> <span class="pre">/opt/MagAOX/source/MagAOX/setup/steps</span></code></p></li>
+<li><p><code class="docutils literal notranslate"><span class="pre">sudo</span> <span class="pre">bash</span> <span class="pre">install_alpao.sh</span></code></p></li>
+</ol>
+</li>
+<li><p>BMC (RTC)</p>
+<ol class="simple">
+<li><p><code class="docutils literal notranslate"><span class="pre">cd</span> <span class="pre">/opt/MagAOX/vendor/bmc</span></code></p></li>
+<li><p><code class="docutils literal notranslate"><span class="pre">sudo</span> <span class="pre">bash</span> <span class="pre">install.sh</span></code></p></li>
+</ol>
+</li>
+<li><p>Andor (ICC)</p>
+<ol class="simple">
+<li><p><code class="docutils literal notranslate"><span class="pre">cd</span> <span class="pre">/opt/MagAOX/source/MagAOX/setup/steps</span></code></p></li>
+<li><p><code class="docutils literal notranslate"><span class="pre">bash</span> <span class="pre">install_andor.sh</span></code></p></li>
+</ol>
+</li>
+</ul>
+</li>
+<li><p>Reboot, verify hardware is working (e.g. <code class="docutils literal notranslate"><span class="pre">nvidia-smi</span></code>, cameras all connecting, etc)</p></li>
+</ol>
 </div>
 </div>
 
