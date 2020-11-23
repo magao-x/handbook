@@ -1,0 +1,753 @@
+
+
+<!DOCTYPE html>
+<!--[if IE 8]><html class="no-js lt-ie9" lang="en" > <![endif]-->
+<!--[if gt IE 8]><!--> <html class="no-js" lang="en" > <!--<![endif]-->
+<head>
+  <meta charset="utf-8">
+  
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  
+  <title>Cameras &mdash; MagAO-X Instrument Handbook  documentation</title>
+  
+
+  
+  
+  
+  
+
+  
+  <script type="text/javascript" src="../../../_static/js/modernizr.min.js"></script>
+  
+    
+      <script type="text/javascript" id="documentation_options" data-url_root="../../../" src="../../../_static/documentation_options.js"></script>
+        <script src="../../../_static/jquery.js"></script>
+        <script src="../../../_static/underscore.js"></script>
+        <script src="../../../_static/doctools.js"></script>
+        <script src="../../../_static/language_data.js"></script>
+        <script src="../../../_static/stats.js"></script>
+        <script async="async" src="https://cdnjs.cloudflare.com/ajax/libs/mathjax/2.7.5/latest.js?config=TeX-AMS-MML_HTMLorMML"></script>
+    
+    <script type="text/javascript" src="../../../_static/js/theme.js"></script>
+
+    
+
+  
+  <link rel="stylesheet" href="../../../_static/css/theme.css" type="text/css" />
+  <link rel="stylesheet" href="../../../_static/pygments.css" type="text/css" />
+    <link rel="index" title="Index" href="../../../genindex.html" />
+    <link rel="search" title="Search" href="../../../search.html" /> 
+</head>
+
+<body class="wy-body-for-nav">
+
+   
+  <div class="wy-grid-for-nav">
+    
+    <nav data-toggle="wy-nav-shift" class="wy-nav-side">
+      <div class="wy-side-scroll">
+        <div class="wy-side-nav-search" >
+          
+
+          
+            <a href="../../../index.html">
+          
+
+          
+            
+            <img src="../../../_static/magao-x_logo_white.png" class="logo" alt="Logo"/>
+          
+          </a>
+
+          
+            
+            
+          
+
+          
+<div role="search">
+  <form id="rtd-search-form" class="wy-form" action="../../../search.html" method="get">
+    <input type="text" name="q" placeholder="Search docs" />
+    <input type="hidden" name="check_keywords" value="yes" />
+    <input type="hidden" name="area" value="default" />
+  </form>
+</div>
+
+          
+        </div>
+
+        <div class="wy-menu wy-menu-vertical" data-spy="affix" role="navigation" aria-label="main navigation">
+          
+            
+            
+              
+            
+            
+              <ul>
+<li class="toctree-l1"><a class="reference internal" href="../../../observers/index.html">Information For Observers</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../index.html">Operation of the MagAO-X instrument</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../../handling/index.html">Handling Procedures</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../../compute/index.html">Compute System</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../../appendices/index.html">Appendices</a></li>
+</ul>
+
+            
+          
+        </div>
+      </div>
+    </nav>
+
+    <section data-toggle="wy-nav-shift" class="wy-nav-content-wrap">
+
+      
+      <nav class="wy-nav-top" aria-label="top navigation">
+        
+          <i data-toggle="wy-nav-top" class="fa fa-bars"></i>
+          <a href="../../../index.html">MagAO-X Instrument Handbook</a>
+        
+      </nav>
+
+
+      <div class="wy-nav-content">
+        
+        <div class="rst-content">
+        
+          
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+<div role="navigation" aria-label="breadcrumbs navigation">
+
+  <ul class="wy-breadcrumbs">
+    
+      <li><a href="../../../index.html">Docs</a> &raquo;</li>
+        
+      <li>Cameras</li>
+    
+    
+      <li class="wy-breadcrumbs-aside">
+        
+            
+            <a href="../../../_sources/operating/software/apps/cameras.md.txt" rel="nofollow"> View page source</a>
+          
+        
+      </li>
+    
+  </ul>
+
+  
+  <hr/>
+</div>
+          <div role="main" class="document" itemscope="itemscope" itemtype="http://schema.org/Article">
+           <div itemprop="articleBody">
+            
+  <div class="section" id="cameras">
+<h1>Cameras<a class="headerlink" href="#cameras" title="Permalink to this headline">¶</a></h1>
+<p>Applications to control cameras have many common features.</p>
+<div class="section" id="standard-camera-interface">
+<h2>Standard Camera Interface<a class="headerlink" href="#standard-camera-interface" title="Permalink to this headline">¶</a></h2>
+<p>All camera controllers implement the standard camera interface, though only the features which that camera hardware offers.</p>
+<div class="section" id="modes">
+<h3>Modes<a class="headerlink" href="#modes" title="Permalink to this headline">¶</a></h3>
+<p>Modes are pre-defined hardware configurations, which include the size and binning of the readout.  They are defined in the configuration file with sections, where the section name is the name of the mode.  Example:</p>
+<div class="highlight-default notranslate"><div class="highlight"><pre><span></span><span class="p">[</span><span class="n">mode_name</span><span class="p">]</span>
+<span class="n">configFile</span><span class="o">=/</span><span class="n">path</span><span class="o">/</span><span class="n">to</span><span class="o">/</span><span class="n">EDT</span><span class="o">-</span><span class="n">config</span> <span class="c1">#this is required</span>
+<span class="n">serialCommand</span><span class="o">=</span><span class="p">(</span><span class="n">string</span><span class="p">)</span> <span class="c1">#optional</span>
+<span class="n">centerX</span><span class="o">=</span><span class="p">(</span><span class="nb">float</span><span class="p">)</span> <span class="c1">#optional</span>
+<span class="n">centerY</span><span class="o">=</span><span class="p">(</span><span class="nb">float</span><span class="p">)</span> <span class="c1">#optional</span>
+<span class="n">sizeX</span><span class="o">=</span><span class="p">(</span><span class="nb">int</span><span class="p">)</span> <span class="c1">#optional</span>
+<span class="n">sizeY</span><span class="o">=</span><span class="p">(</span><span class="nb">int</span><span class="p">)</span> <span class="c1">#optional</span>
+<span class="n">binning</span><span class="o">=</span><span class="p">(</span><span class="nb">int</span><span class="p">)</span> <span class="c1">#optional</span>
+<span class="n">maxFPS</span><span class="o">=</span><span class="p">(</span><span class="nb">float</span><span class="p">)</span> <span class="c1">#optional</span>
+</pre></div>
+</div>
+<p>If <code class="docutils literal notranslate"><span class="pre">configFile</span></code> is not found, the section will not be treated as a mode.</p>
+<p>Modes are controlled through INDI with the following properties:</p>
+<table border="1" class="docutils">
+<thead>
+<tr>
+<th>Property</th>
+<th>Element</th>
+<th>Type</th>
+<th>Description</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>.mode</td>
+<td>.{names}</td>
+<td>selection switch</td>
+<td>A list of modes by name.  Selecting one will cause the camera to be configured for that mode</td>
+</tr>
+<tr>
+<td>.reconfigure</td>
+<td>.request</td>
+<td>request switch</td>
+<td>Pressing this switch will cause the current mode to be re-loaded.</td>
+</tr>
+</tbody>
+</table><p>The following configuration options affect modes:</p>
+<table border="1" class="docutils">
+<thead>
+<tr>
+<th>Short</th>
+<th>Long</th>
+<th>Config-File</th>
+<th>Type</th>
+<th>Description</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td></td>
+<td>--camera.startupMode</td>
+<td>camera.startupMode</td>
+<td>string</td>
+<td>The mode to set upon power on or application startup.</td>
+</tr>
+</tbody>
+</table></div>
+<div class="section" id="regions-of-interest">
+<h3>Regions of Interest<a class="headerlink" href="#regions-of-interest" title="Permalink to this headline">¶</a></h3>
+<p>If the camera supports reading out only a region of interest (ROI), you can use INDI properties to define it.  An ROI is specified by its (x,y) center coordinate and its width and height, and optionally binning in each direction.  All coordinates and dimensions are in pixels.  We use the convention that the center of the lower-left pixel of the full array is (0,0).  The center coordinate of the full array is then (0.5*(max_width-1), 0.5*(max_height-1)).  Widths and heights are integer values, and coordinates are floats which can have values of 0.5.</p>
+<p>Not all values are valid, as some cameras restrict the increments (steps of 4, for example) of some of the values, or otherwise set limits.</p>
+<p>To change ROI, you set the <code class="docutils literal notranslate"><span class="pre">.target</span></code> elements to define the ROI, and then use the <code class="docutils literal notranslate"><span class="pre">.roi_set.request</span></code> switch to configure the camera.  The following INDI properties pertain to ROIs:</p>
+<table border="1" class="docutils">
+<thead>
+<tr>
+<th>Property</th>
+<th>Element</th>
+<th>Type</th>
+<th>Description</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>.roi_full_region</td>
+<td>.x</td>
+<td>float</td>
+<td>(READ ONLY) The x coordinate of the denter of the full region.</td>
+</tr>
+<tr>
+<td>.roi_full_region</td>
+<td>.y</td>
+<td>float</td>
+<td>(READ ONLY) The y coordinate of the center of the full region.</td>
+</tr>
+<tr>
+<td>.roi_full_region</td>
+<td>.w</td>
+<td>int</td>
+<td>(READ ONLY) The width of the full region.</td>
+</tr>
+<tr>
+<td>.roi_full_region</td>
+<td>.h</td>
+<td>int</td>
+<td>(READ ONLY) The height of the full region.</td>
+</tr>
+<tr>
+<td>.roi_region_bin_x</td>
+<td>.current</td>
+<td>int</td>
+<td>The current value of the ROI region binning in the x direction.</td>
+</tr>
+<tr>
+<td></td>
+<td>.target</td>
+<td>int</td>
+<td>The target value of the ROI region binning in the x direction.  Not laoded until the roi_set.request switch is pressed.</td>
+</tr>
+<tr>
+<td>.roi_region_bin_y</td>
+<td>.current</td>
+<td>int</td>
+<td>The current value of the ROI region binning in the y direction.</td>
+</tr>
+<tr>
+<td></td>
+<td>.target</td>
+<td>int</td>
+<td>The target value of the ROI region binning in the y direction.  Not laoded until the roi_set.request switch is pressed.</td>
+</tr>
+<tr>
+<td>.roi_region_h</td>
+<td>.current</td>
+<td>int</td>
+<td>The current value of the ROI region height.</td>
+</tr>
+<tr>
+<td></td>
+<td>.target</td>
+<td>int</td>
+<td>The target value of the ROI region height.  Not laoded until the roi_set.request switch is pressed.</td>
+</tr>
+<tr>
+<td>.roi_region_w</td>
+<td>.current</td>
+<td>int</td>
+<td>The current value of the ROI region width.</td>
+</tr>
+<tr>
+<td></td>
+<td>.target</td>
+<td>int</td>
+<td>The target value of the ROI region width.  Not laoded until the roi_set.request switch is pressed.</td>
+</tr>
+<tr>
+<td>.roi_region_x</td>
+<td>.current</td>
+<td>float</td>
+<td>The current value of the ROI region center x coordinate.</td>
+</tr>
+<tr>
+<td></td>
+<td>.target</td>
+<td>float</td>
+<td>The target value of the ROI region center x coordinate.  Not laoded until the roi_set.request switch is pressed.</td>
+</tr>
+<tr>
+<td>.roi_region_y</td>
+<td>.current</td>
+<td>float</td>
+<td>The current value of the ROI region center y coordinate.</td>
+</tr>
+<tr>
+<td></td>
+<td>.target</td>
+<td>float</td>
+<td>The target value of the ROI region center y coordinate.  Not laoded until the roi_set.request switch is pressed.</td>
+</tr>
+<tr>
+<td>.roi_set</td>
+<td>.request</td>
+<td>switch</td>
+<td>Press this switch to configure with the target values of the .roi_region*.target elements above.</td>
+</tr>
+<tr>
+<td>.roi_set_full</td>
+<td>.request</td>
+<td>switch</td>
+<td>Press this switch to configure with the full ROI of the camera.</td>
+</tr>
+<tr>
+<td>.roi_set_last</td>
+<td>.request</td>
+<td>switch</td>
+<td>Press this switch to configure with the previously set ROI.</td>
+</tr>
+<tr>
+<td>.roi_set_startup</td>
+<td>.request</td>
+<td>switch</td>
+<td>Press this switch to configure with the startup ROI (see options below).</td>
+</tr>
+</tbody>
+</table><p>The default ROI can be configured with the following options.  This ROI will be set each time the camera software is re-started or the camera is powered-on.</p>
+<table border="1" class="docutils">
+<thead>
+<tr>
+<th>Short</th>
+<th>Long</th>
+<th>Config-File</th>
+<th>Type</th>
+<th>Description</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td></td>
+<td>--camera.startup_x</td>
+<td>camera.startup_x</td>
+<td>float</td>
+<td>The default ROI x position.</td>
+</tr>
+<tr>
+<td></td>
+<td>--camera.startup_y</td>
+<td>camera.startup_y</td>
+<td>float</td>
+<td>The default ROI y position.</td>
+</tr>
+<tr>
+<td></td>
+<td>--camera.startup_w</td>
+<td>camera.startup_w</td>
+<td>int</td>
+<td>The default ROI width.</td>
+</tr>
+<tr>
+<td></td>
+<td>--camera.startup_h</td>
+<td>camera.startup_h</td>
+<td>int</td>
+<td>The default ROI height.</td>
+</tr>
+<tr>
+<td></td>
+<td>--camera.startup_bin_x</td>
+<td>camera.startup_bin_x</td>
+<td>int</td>
+<td>The default ROI x binning.</td>
+</tr>
+<tr>
+<td></td>
+<td>--camera.startup_bin_y</td>
+<td>camera.startup_bin_y</td>
+<td>int</td>
+<td>The default ROI y binning.</td>
+</tr>
+</tbody>
+</table></div>
+<div class="section" id="exposure-control">
+<h3>Exposure Control<a class="headerlink" href="#exposure-control" title="Permalink to this headline">¶</a></h3>
+<p>All MagAO-X cameras operate in free-run, meaning images are taken continuously with no user intervention needed.  The exposure time is either set directly, or by setting the frame rate, or both.  In cases where both options are given, see the camera specific documentation for details of how they are related.  The INDI properties for controlling exposure time and frame rate are:</p>
+<table border="1" class="docutils">
+<thead>
+<tr>
+<th>Property</th>
+<th>Element</th>
+<th>Type</th>
+<th>Description</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>.exptime</td>
+<td>.current</td>
+<td>float</td>
+<td>the current exposure time, in seconds.</td>
+</tr>
+<tr>
+<td></td>
+<td>.target</td>
+<td>float</td>
+<td>the target exposure time, in second.</td>
+</tr>
+<tr>
+<td>.fps</td>
+<td>.current</td>
+<td>float</td>
+<td>the current framerate, in frames per second.</td>
+</tr>
+<tr>
+<td></td>
+<td>.target</td>
+<td>float</td>
+<td>the target frame rate, in frames per second.</td>
+</tr>
+</tbody>
+</table></div>
+<div class="section" id="shutters">
+<h3>Shutters<a class="headerlink" href="#shutters" title="Permalink to this headline">¶</a></h3>
+<p>If the camera has an associated shutter, it is controlled with the following properties</p>
+<table border="1" class="docutils">
+<thead>
+<tr>
+<th>Property</th>
+<th>Element</th>
+<th>Type</th>
+<th>Description</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>.shutter_status</td>
+<td>.status</td>
+<td>string</td>
+<td>Status of the shutter, e.g. POWEROFF, READY, etc.</td>
+</tr>
+<tr>
+<td>.shutter</td>
+<td>.toggle</td>
+<td>toggle switch</td>
+<td>Current state of the shutter: ON = SHUT (|X|), OFF = OPEN (|O|). Toggling the switch changes state.</td>
+</tr>
+</tbody>
+</table><div class="section" id="uniblitz-dss-shutters">
+<h4>Uniblitz DSS Shutters<a class="headerlink" href="#uniblitz-dss-shutters" title="Permalink to this headline">¶</a></h4>
+<p>The cameras which use the Uniblitz DSS shutter control have the following additional configuration options</p>
+<table border="1" class="docutils">
+<thead>
+<tr>
+<th>Short</th>
+<th>Long</th>
+<th>Config-File</th>
+<th>Type</th>
+<th>Description</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td></td>
+<td>--shutter.powerDevice</td>
+<td>shutter.powerDevice</td>
+<td>string</td>
+<td>The device controlling this shutter's power</td>
+</tr>
+<tr>
+<td></td>
+<td>--shutter.powerChannel</td>
+<td>shutter.powerChannel</td>
+<td>string</td>
+<td>The channel controlling this shutter's power</td>
+</tr>
+<tr>
+<td></td>
+<td>--shutter.dioDevice</td>
+<td>shutter.dioDevice</td>
+<td>string</td>
+<td>The device controlling this shutter's digital I/O.</td>
+</tr>
+<tr>
+<td></td>
+<td>--shutter.sensorChannel</td>
+<td>shutter.sensorChannel</td>
+<td>string</td>
+<td>The channel reading this shutter's sensor.</td>
+</tr>
+<tr>
+<td></td>
+<td>--shutter.wait</td>
+<td>shutter.wait</td>
+<td>int</td>
+<td>The time to pause between checks of the sensor state during open/shut [msec]. Default is 100.</td>
+</tr>
+<tr>
+<td></td>
+<td>--shutter.timeout</td>
+<td>shutter.timeout</td>
+<td>int</td>
+<td>Total time to wait for sensor to change state before timing out [msec]. Default is 2000.</td>
+</tr>
+</tbody>
+</table></div>
+</div>
+<div class="section" id="temperature">
+<h3>Temperature<a class="headerlink" href="#temperature" title="Permalink to this headline">¶</a></h3>
+<p>All current cameras provide a measurement of the detector temperature.  Most provide a way to control the temperature based on a set point.</p>
+<table border="1" class="docutils">
+<thead>
+<tr>
+<th>Property</th>
+<th>Element</th>
+<th>Type</th>
+<th>Description</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>.temp_ccd</td>
+<td>.current</td>
+<td>float</td>
+<td>the current detector temperature, in C.</td>
+</tr>
+<tr>
+<td></td>
+<td>.target</td>
+<td>float</td>
+<td>only if temperature control is offered, the target temperature to set.</td>
+</tr>
+<tr>
+<td>.temp_controller</td>
+<td>.toggle</td>
+<td>toggle switch</td>
+<td>switch to turn on/off the temperature control system for this camera.</td>
+</tr>
+<tr>
+<td>.temp_control</td>
+<td>.status</td>
+<td>string</td>
+<td>the state of the temperature control, indicating whether it is on target, etc.</td>
+</tr>
+</tbody>
+</table><p>The following configuration options also affect temperature:</p>
+<table border="1" class="docutils">
+<thead>
+<tr>
+<th>Short</th>
+<th>Long</th>
+<th>Config-File</th>
+<th>Type</th>
+<th>Description</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td></td>
+<td>--camera.startupTemp</td>
+<td>camera.startupTemp</td>
+<td>float</td>
+<td>the temperature setpoint to set at startup</td>
+</tr>
+</tbody>
+</table></div>
+</div>
+<div class="section" id="framegrabber-interface">
+<h2>Framegrabber Interface<a class="headerlink" href="#framegrabber-interface" title="Permalink to this headline">¶</a></h2>
+<p>The standard MagAO-X framegrabber system is used by any application which collects images from hardware and writes them to a shared memory stream.  All cameras are framegrabbers.  The following INDI properties provide details about the framegrabber:</p>
+<table border="1" class="docutils">
+<thead>
+<tr>
+<th>Property</th>
+<th>Element</th>
+<th>Type</th>
+<th>Description</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>.fg_shmimname</td>
+<td>.name</td>
+<td>string</td>
+<td>The name of the ImageStreamIO shared memory image. Will be seen as /milk/shm/<shmimName>.im.shm.</td>
+</tr>
+<tr>
+<td>.fg_framesize</td>
+<td>.width</td>
+<td>int</td>
+<td>The width of the frame in memory.</td>
+</tr>
+<tr>
+<td></td>
+<td>.height</td>
+<td>int</td>
+<td>The height of the frame in memory.</td>
+</tr>
+</tbody>
+</table><p>The following configuration options will be available in any application which is a framegrabber:</p>
+<table border="1" class="docutils">
+<thead>
+<tr>
+<th>Short</th>
+<th>Long</th>
+<th>Config-File</th>
+<th>Type</th>
+<th>Description</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td></td>
+<td>--framegrabber.threadPrio</td>
+<td>framegrabber.threadPrio</td>
+<td>int</td>
+<td>The real-time priority of the framegrabber thread.</td>
+</tr>
+<tr>
+<td></td>
+<td>--framegrabber.shmimName</td>
+<td>framegrabber.shmimName</td>
+<td>string</td>
+<td>The name of the ImageStreamIO shared memory image. Will be used as /milk/shm/<shmimName>.im.shm.</td>
+</tr>
+<tr>
+<td></td>
+<td>--framegrabber.circBuffLength</td>
+<td>framegrabber.circBuffLength</td>
+<td>int</td>
+<td>The length of the circular buffer. Sets m_circBuffLength, default is 1.</td>
+</tr>
+</tbody>
+</table><div class="section" id="edt-framegrabbers">
+<h3>EDT Framegrabbers<a class="headerlink" href="#edt-framegrabbers" title="Permalink to this headline">¶</a></h3>
+<p>A camera which uses an EDT framegrabber (PCIe card) will have the following additional configuration options:</p>
+<table border="1" class="docutils">
+<thead>
+<tr>
+<th>Short</th>
+<th>Long</th>
+<th>Config-File</th>
+<th>Type</th>
+<th>Description</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td></td>
+<td>--framegrabber.pdv_unit</td>
+<td>framegrabber.pdv_unit</td>
+<td>int</td>
+<td>The EDT PDV framegrabber unit number.  Default is 0.</td>
+</tr>
+<tr>
+<td></td>
+<td>--framegrabber.pdv_channel</td>
+<td>framegrabber.pdv_channel</td>
+<td>int</td>
+<td>The EDT PDV framegrabber channel number.  Default is 0.</td>
+</tr>
+<tr>
+<td></td>
+<td>--framegrabber.numBuffs</td>
+<td>framegrabber.numBuffs</td>
+<td>int</td>
+<td>The EDT PDV framegrabber DMA buffer size [images].  Default is 4.</td>
+</tr>
+</tbody>
+</table></div>
+</div>
+</div>
+<div class="section" id="camera-applications">
+<h1>Camera Applications<a class="headerlink" href="#camera-applications" title="Permalink to this headline">¶</a></h1>
+<div class="toctree-wrapper compound">
+<ul>
+<li class="toctree-l1"><a class="reference internal" href="ocam2KCtrl.html">ocam2KCtrl</a></li>
+<li class="toctree-l1"><a class="reference internal" href="baslerCtrl.html">baslerCtrl</a></li>
+</ul>
+</div>
+</div>
+
+
+           </div>
+           
+          </div>
+          <footer>
+  
+
+  <hr/>
+
+  <div role="contentinfo">
+    <p>
+        &copy; Copyright 2019, Extreme Wavefront Control Lab, The University of Arizona
+
+    </p>
+  </div>
+  Built with <a href="http://sphinx-doc.org/">Sphinx</a> using a <a href="https://github.com/rtfd/sphinx_rtd_theme">theme</a> provided by <a href="https://readthedocs.org">Read the Docs</a>. 
+
+</footer>
+
+        </div>
+      </div>
+
+    </section>
+
+  </div>
+  
+
+
+  <script type="text/javascript">
+      jQuery(function () {
+          SphinxRtdTheme.Navigation.enable(true);
+      });
+  </script>
+
+  
+  
+    
+   
+
+</body>
+</html>

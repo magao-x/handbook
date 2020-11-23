@@ -1,0 +1,285 @@
+
+
+<!DOCTYPE html>
+<!--[if IE 8]><html class="no-js lt-ie9" lang="en" > <![endif]-->
+<!--[if gt IE 8]><!--> <html class="no-js" lang="en" > <!--<![endif]-->
+<head>
+  <meta charset="utf-8">
+  
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  
+  <title>xctrl &mdash; MagAO-X Instrument Handbook  documentation</title>
+  
+
+  
+  
+  
+  
+
+  
+  <script type="text/javascript" src="../../../_static/js/modernizr.min.js"></script>
+  
+    
+      <script type="text/javascript" id="documentation_options" data-url_root="../../../" src="../../../_static/documentation_options.js"></script>
+        <script src="../../../_static/jquery.js"></script>
+        <script src="../../../_static/underscore.js"></script>
+        <script src="../../../_static/doctools.js"></script>
+        <script src="../../../_static/language_data.js"></script>
+        <script src="../../../_static/stats.js"></script>
+        <script async="async" src="https://cdnjs.cloudflare.com/ajax/libs/mathjax/2.7.5/latest.js?config=TeX-AMS-MML_HTMLorMML"></script>
+    
+    <script type="text/javascript" src="../../../_static/js/theme.js"></script>
+
+    
+
+  
+  <link rel="stylesheet" href="../../../_static/css/theme.css" type="text/css" />
+  <link rel="stylesheet" href="../../../_static/pygments.css" type="text/css" />
+    <link rel="index" title="Index" href="../../../genindex.html" />
+    <link rel="search" title="Search" href="../../../search.html" /> 
+</head>
+
+<body class="wy-body-for-nav">
+
+   
+  <div class="wy-grid-for-nav">
+    
+    <nav data-toggle="wy-nav-shift" class="wy-nav-side">
+      <div class="wy-side-scroll">
+        <div class="wy-side-nav-search" >
+          
+
+          
+            <a href="../../../index.html">
+          
+
+          
+            
+            <img src="../../../_static/magao-x_logo_white.png" class="logo" alt="Logo"/>
+          
+          </a>
+
+          
+            
+            
+          
+
+          
+<div role="search">
+  <form id="rtd-search-form" class="wy-form" action="../../../search.html" method="get">
+    <input type="text" name="q" placeholder="Search docs" />
+    <input type="hidden" name="check_keywords" value="yes" />
+    <input type="hidden" name="area" value="default" />
+  </form>
+</div>
+
+          
+        </div>
+
+        <div class="wy-menu wy-menu-vertical" data-spy="affix" role="navigation" aria-label="main navigation">
+          
+            
+            
+              
+            
+            
+              <ul>
+<li class="toctree-l1"><a class="reference internal" href="../../../observers/index.html">Information For Observers</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../index.html">Operation of the MagAO-X instrument</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../../handling/index.html">Handling Procedures</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../../compute/index.html">Compute System</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../../appendices/index.html">Appendices</a></li>
+</ul>
+
+            
+          
+        </div>
+      </div>
+    </nav>
+
+    <section data-toggle="wy-nav-shift" class="wy-nav-content-wrap">
+
+      
+      <nav class="wy-nav-top" aria-label="top navigation">
+        
+          <i data-toggle="wy-nav-top" class="fa fa-bars"></i>
+          <a href="../../../index.html">MagAO-X Instrument Handbook</a>
+        
+      </nav>
+
+
+      <div class="wy-nav-content">
+        
+        <div class="rst-content">
+        
+          
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+<div role="navigation" aria-label="breadcrumbs navigation">
+
+  <ul class="wy-breadcrumbs">
+    
+      <li><a href="../../../index.html">Docs</a> &raquo;</li>
+        
+      <li>xctrl</li>
+    
+    
+      <li class="wy-breadcrumbs-aside">
+        
+            
+            <a href="../../../_sources/operating/software/utils/xctrl.md.txt" rel="nofollow"> View page source</a>
+          
+        
+      </li>
+    
+  </ul>
+
+  
+  <hr/>
+</div>
+          <div role="main" class="document" itemscope="itemscope" itemtype="http://schema.org/Article">
+           <div itemprop="articleBody">
+            
+  <div class="section" id="xctrl">
+<h1>xctrl<a class="headerlink" href="#xctrl" title="Permalink to this headline">¶</a></h1>
+<p>The process control interface for MagAO-X apps.</p>
+<p>The <code class="docutils literal notranslate"><span class="pre">xctrl</span></code> script is installed on all MagAO-X systems (including VMs and the test bed) for startup, shutdown, quick status checks, and inspection of MagAO-X apps.</p>
+<p>To use <code class="docutils literal notranslate"><span class="pre">xctrl</span></code>, open a terminal window on (or SSH in to) the computer you want to control. (You do not need to <code class="docutils literal notranslate"><span class="pre">su</span> <span class="pre">xsup</span></code> for <code class="docutils literal notranslate"><span class="pre">xctrl</span></code>.) Then, commands take the form of <code class="docutils literal notranslate"><span class="pre">xctrl</span> <span class="pre">VERB</span> <span class="pre">[PROCNAME]</span> <span class="pre">...</span></code> where the <code class="docutils literal notranslate"><span class="pre">VERB</span></code>s are explained below. Most commands can be run without a <code class="docutils literal notranslate"><span class="pre">PROCNAME</span></code> and will target all the configured processes by default.</p>
+<p>The valid names for <code class="docutils literal notranslate"><span class="pre">PROCNAME</span></code> are listed in <code class="docutils literal notranslate"><span class="pre">/opt/MagAOX/config/proclist_${MAGAOX_ROLE}.txt</span></code>.</p>
+<div class="section" id="xctrl-startup">
+<h2><code class="docutils literal notranslate"><span class="pre">xctrl</span> <span class="pre">startup</span></code><a class="headerlink" href="#xctrl-startup" title="Permalink to this headline">¶</a></h2>
+<p>When called without additional arguments, <code class="docutils literal notranslate"><span class="pre">xctrl</span> <span class="pre">startup</span></code> will start any process from the proclist that does <em>not</em> have a running tmux session. (Yes, each process is parented to a tmux session.)</p>
+<p>If you list one or more process names, e.g. <code class="docutils literal notranslate"><span class="pre">xctrl</span> <span class="pre">startup</span> <span class="pre">camtip</span> <span class="pre">camsci</span></code>, then <code class="docutils literal notranslate"><span class="pre">xctrl</span></code> will only consider the processes named.</p>
+</div>
+<div class="section" id="xctrl-shutdown">
+<h2><code class="docutils literal notranslate"><span class="pre">xctrl</span> <span class="pre">shutdown</span></code><a class="headerlink" href="#xctrl-shutdown" title="Permalink to this headline">¶</a></h2>
+<p>When called without additional arguments, <code class="docutils literal notranslate"><span class="pre">xctrl</span> <span class="pre">shutdown</span></code> will interrupt all running MagAO-X processes (by sending <code class="docutils literal notranslate"><span class="pre">Ctrl+C</span></code> to their tmux sessions). If they do not cleanly exit after five attempts (~5 seconds), <code class="docutils literal notranslate"><span class="pre">xctrl</span></code> will terminate them.</p>
+<p>You can list one or more process names, similarly to <code class="docutils literal notranslate"><span class="pre">startup</span></code>.</p>
+</div>
+<div class="section" id="xctrl-restart">
+<h2><code class="docutils literal notranslate"><span class="pre">xctrl</span> <span class="pre">restart</span></code><a class="headerlink" href="#xctrl-restart" title="Permalink to this headline">¶</a></h2>
+<p>Effectively <code class="docutils literal notranslate"><span class="pre">xctrl</span> <span class="pre">shutdown</span></code> followed by <code class="docutils literal notranslate"><span class="pre">xctrl</span> <span class="pre">startup</span></code>.</p>
+<p>You can list one or more process names, similarly to <code class="docutils literal notranslate"><span class="pre">startup</span></code>.</p>
+</div>
+<div class="section" id="xctrl-inspect-procname">
+<h2><code class="docutils literal notranslate"><span class="pre">xctrl</span> <span class="pre">inspect</span> <span class="pre">PROCNAME</span></code><a class="headerlink" href="#xctrl-inspect-procname" title="Permalink to this headline">¶</a></h2>
+<p>Requires an argument: the process name to inspect. The <code class="docutils literal notranslate"><span class="pre">xctrl</span> <span class="pre">inspect</span></code> command attaches to the <code class="docutils literal notranslate"><span class="pre">tmux</span></code> session where <code class="docutils literal notranslate"><span class="pre">PROCNAME</span></code> is running (or, if you’re inspecting it, maybe recently crashed). From the prompt you can use the up arrow key as normal to retrieve the last command executed (i.e. the process under inspection).</p>
+<p>When you’re done inspecting, you can use <code class="docutils literal notranslate"><span class="pre">Ctrl+b</span></code> followed by <code class="docutils literal notranslate"><span class="pre">d</span></code> to detach from a running process (or just <code class="docutils literal notranslate"><span class="pre">exit</span></code> to end the session).</p>
+</div>
+<div class="section" id="xctrl-status">
+<h2><code class="docutils literal notranslate"><span class="pre">xctrl</span> <span class="pre">status</span></code><a class="headerlink" href="#xctrl-status" title="Permalink to this headline">¶</a></h2>
+<p>Displays a short status report for all configured processes. If you supply one or more PROCNAMEs, it will show only those. Example output:</p>
+<div class="highlight-default notranslate"><div class="highlight"><pre><span></span>$ xctrl status
+isAOC: running (pid: 60636)
+pdu0: running (pid: 6181)
+pdu1: running (pid: 16067)
+pdu2: running (pid: 21664)
+pdu3: running (pid: 11874)
+labCool: running (pid: 11956)
+tcsi: running (pid: 11843)
+adctrack: running (pid: 12061)
+aoc_icc_indi: running (pid: 12057)
+aoc_rtc_indi: running (pid: 12054)
+aoc_icc_milkzmq: running (pid: 11883)
+aoc_rtc_milkzmq: running (pid: 12150)
+mzmqClientAOC_ICC: running (pid: 12149)
+mzmqClientAOC_RTC: running (pid: 12045)
+</pre></div>
+</div>
+<p>The statuses will be color-coded (if your terminal supports it). Green means it’s all good.</p>
+<p>You can also check the status of a single process with <code class="docutils literal notranslate"><span class="pre">xctrl</span> <span class="pre">status</span> <span class="pre">PROCNAME</span></code>, e.g.:</p>
+<div class="highlight-default notranslate"><div class="highlight"><pre><span></span>$ xctrl status isAOC
+isAOC: running (pid: 60636)
+</pre></div>
+</div>
+<p>If you shut down a process cleanly (or haven’t yet started it) you will see <code class="docutils literal notranslate"><span class="pre">not</span> <span class="pre">started</span></code> in yellow and (usually) log lines indicating the state transitioned to <code class="docutils literal notranslate"><span class="pre">SHUTDOWN</span></code>:</p>
+<div class="highlight-default notranslate"><div class="highlight"><pre><span></span><span class="n">isAOC</span><span class="p">:</span> <span class="ow">not</span> <span class="n">started</span>
+</pre></div>
+</div>
+<p>If the process dies but its parent <code class="docutils literal notranslate"><span class="pre">tmux</span></code> session is alive:</p>
+<div class="highlight-default notranslate"><div class="highlight"><pre><span></span><span class="n">isAOC</span><span class="p">:</span> <span class="n">session</span> <span class="n">exists</span><span class="p">,</span> <span class="n">but</span> <span class="n">process</span> <span class="ow">is</span> <span class="ow">not</span> <span class="n">running</span>
+</pre></div>
+</div>
+<p>You may want to investigate the recent logs with <a class="reference external" href="software/utils/logdump">logdump</a> or <code class="docutils literal notranslate"><span class="pre">xctrl</span> <span class="pre">peek</span> <span class="pre">PROCNAME</span></code> to see why it died. To restore it, you can <code class="docutils literal notranslate"><span class="pre">xctrl</span> <span class="pre">inspect</span> <span class="pre">PROCNAME</span></code> to connect to that <code class="docutils literal notranslate"><span class="pre">tmux</span></code> session and attempt to restart the process. You can also <code class="docutils literal notranslate"><span class="pre">xctrl</span> <span class="pre">restart</span> <span class="pre">PROCNAME</span></code> to end and recreate the <code class="docutils literal notranslate"><span class="pre">tmux</span></code> session.</p>
+<p>It is possible on occasion for a process to die, e.g. after a system crash and reboot. In those cases, you will see something like this:</p>
+<div class="highlight-default notranslate"><div class="highlight"><pre><span></span><span class="n">isAOC</span><span class="p">:</span> <span class="n">dead</span> <span class="p">(</span><span class="n">stale</span> <span class="n">pid</span><span class="p">)</span>
+</pre></div>
+</div>
+<p>This is another situation where you may want to check recent logs. To restore it, you can simply <code class="docutils literal notranslate"><span class="pre">xctrl</span> <span class="pre">startup</span></code> that process.</p>
+</div>
+<div class="section" id="xctrl-peek">
+<h2><code class="docutils literal notranslate"><span class="pre">xctrl</span> <span class="pre">peek</span></code><a class="headerlink" href="#xctrl-peek" title="Permalink to this headline">¶</a></h2>
+<p>The extended version of <code class="docutils literal notranslate"><span class="pre">xctrl</span> <span class="pre">status</span></code>, which includes both the status and last ten lines that the process wrote to its log. (For a full log dump, see <a class="reference external" href="software/utils/logdump">logdump</a> docs.) You can also use <code class="docutils literal notranslate"><span class="pre">xctrl</span> <span class="pre">peek</span> <span class="pre">PROCNAME</span></code> to peek at a single process, e.g.:</p>
+<div class="highlight-default notranslate"><div class="highlight"><pre><span></span>$ xctrl peek isAOC
+isAOC: running (pid: 60636)
+2020-07-30T16:10:37.150000000 INFO IS: Driver camwfs-dark@localhost:7626 at 127.0.0.1 now connected on socket=91
+2020-07-30T16:10:37.150000000 INFO IS: Driver dmtweeter@localhost:7626 at 127.0.0.1 now connected on socket=92
+2020-07-30T16:10:37.178000000 INFO IS: Driver ttmpupil@localhost:7626 at 127.0.0.1 now connected on socket=93
+2020-07-30T16:10:37.178000000 INFO IS: Driver camwfs-slopes@localhost:7626 at 127.0.0.1 now connected on socket=94
+2020-07-30T16:10:37.211000000 INFO IS: Driver fxngenmodwfs@localhost:7626 at 127.0.0.1 now connected on socket=95
+2020-07-30T16:10:37.218000000 INFO IS: Driver aoloop@localhost:7626 at 127.0.0.1 now connected on socket=96
+2020-07-30T16:10:37.219000000 INFO IS: Driver tweeterModes@localhost:7626 at 127.0.0.1 now connected on socket=97
+2020-07-30T16:10:37.219000000 INFO IS: Driver wooferModes@localhost:7626 at 127.0.0.1 now connected on socket=98
+2020-07-30T16:10:37.220000000 INFO IS: Driver w2tcsOffloader@localhost:7626 at 127.0.0.1 now connected on socket=99
+2020-07-30T16:10:37.259000000 INFO IS: Driver dmtweeter-avg@localhost:7626 at 127.0.0.1 now connected on socket=100
+End isAOC logs
+</pre></div>
+</div>
+<p><strong>Tip:</strong> Lines like <code class="docutils literal notranslate"><span class="pre">State</span> <span class="pre">changed</span> <span class="pre">from</span> <span class="pre">A</span> <span class="pre">to</span> <span class="pre">B</span></code> can give you a hint as to what’s going wrong. See <a class="reference external" href="https://github.com/magao-x/MagAOX/blob/master/libMagAOX/app/stateCodes.hpp">stateCodes.hpp</a> for descriptions of the different states.</p>
+</div>
+</div>
+
+
+           </div>
+           
+          </div>
+          <footer>
+  
+
+  <hr/>
+
+  <div role="contentinfo">
+    <p>
+        &copy; Copyright 2019, Extreme Wavefront Control Lab, The University of Arizona
+
+    </p>
+  </div>
+  Built with <a href="http://sphinx-doc.org/">Sphinx</a> using a <a href="https://github.com/rtfd/sphinx_rtd_theme">theme</a> provided by <a href="https://readthedocs.org">Read the Docs</a>. 
+
+</footer>
+
+        </div>
+      </div>
+
+    </section>
+
+  </div>
+  
+
+
+  <script type="text/javascript">
+      jQuery(function () {
+          SphinxRtdTheme.Navigation.enable(true);
+      });
+  </script>
+
+  
+  
+    
+   
+
+</body>
+</html>
