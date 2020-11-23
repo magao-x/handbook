@@ -84,3 +84,36 @@ Upgrading CUDA is more involved, as the systems stubbornly insist on loading the
    make -j 32
    make install
    ```
+
+## Upgrading the RT kernel
+
+The CentOS 7 RT kernel includes backported patches from the mainline kernel to 3.10.0 where CentOS 7 was frozen, plus the PREEMPT RT patch set and bug fixes from newer versions of that. On occasion a new version will appear in the [CentOS 7 RT package repository](http://mirror.centos.org/centos/7/rt/x86_64/Packages/) and it may be worth upgrading to see if any of our bugs are fixed.
+
+1. Remove `versionlock` (if any)
+2. `sudo yum update kernel-rt kernel-rt-devel`
+3. Reboot, verify new version in `uname -a`
+4. Reinstall drivers with kernel modules:
+
+   * NVIDIA (all machines)
+      1. `sudo /usr/bin/nvidia-uninstall`
+      2. `cd /opt/MagAOX/vendor/cuda` and `bash cuda_11.1.1_455.32.00_linux.run --extract=/tmp/cuda11` (or as appropriate for the version of CUDA you have)
+      4. Become root: `/usr/bin/sudo -i`
+      3. `cd /tmp/cuda11`
+      5. Verify `realpath $(which cc)` is `/usr/bin/gcc` (and not the DevToolset-7 one)
+      6. `export IGNORE_PREEMPT_RT_PRESENCE=1`
+      7. Run the installer: `bash NVIDIA-Linux-x86_64-455.32.00.run`
+      8. On next reboot, verify `nvidia-smi` works and shows all cards
+   * EDT (RTC, ICC)
+      1. `cd /opt/MagAOX/source/MagAOX/setup/steps`
+      2. `sudo mv /opt/EDTpdv /opt/EDTpdv.oldkernel`
+      3. `sudo bash install_edt.sh`
+   * ALPAO (RTC, ICC)
+      1. `cd /opt/MagAOX/source/MagAOX/setup/steps`
+      2. `sudo bash install_alpao.sh`
+   * BMC (RTC)
+      1. `cd /opt/MagAOX/vendor/bmc`
+      2. `sudo bash install.sh`
+   * Andor (ICC)
+      1. `cd /opt/MagAOX/source/MagAOX/setup/steps`
+      2. `bash install_andor.sh`
+5. Reboot, verify hardware is working (e.g. `nvidia-smi`, cameras all connecting, etc)
