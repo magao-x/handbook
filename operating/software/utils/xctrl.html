@@ -90,19 +90,24 @@
 <li class="toctree-l1 current"><a class="reference internal" href="../../index.html">Operation of the MagAO-X instrument</a><ul class="current">
 <li class="toctree-l2"><a class="reference internal" href="../../startup.html">Startup</a></li>
 <li class="toctree-l2"><a class="reference internal" href="../../shutdown.html">System shutdown</a></li>
-<li class="toctree-l2 current"><a class="reference internal" href="../index.html">Instrument Software</a><ul class="current">
-<li class="toctree-l3"><a class="reference internal" href="../apps/index.html">MagAO-X Applications</a></li>
-<li class="toctree-l3"><a class="reference internal" href="../apps/index.html#configuring-magao-x-applications">Configuring MagAO-X Applications</a></li>
-<li class="toctree-l3"><a class="reference internal" href="../apps/index.html#application-specifics">Application Specifics</a></li>
-<li class="toctree-l3 current"><a class="reference internal" href="index.html">Utilities</a><ul class="current">
-<li class="toctree-l4 current"><a class="current reference internal" href="#">xctrl</a></li>
-<li class="toctree-l4"><a class="reference internal" href="logdump.html">logdump</a></li>
-<li class="toctree-l4"><a class="reference internal" href="cursesINDI.html">cursesINDI</a></li>
-<li class="toctree-l4"><a class="reference internal" href="getINDI.html">getINDI</a></li>
-<li class="toctree-l4"><a class="reference internal" href="setINDI.html">setINDI</a></li>
-<li class="toctree-l4"><a class="reference internal" href="evalINDI.html">evalINDI</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../apps/index.html">Applications</a></li>
+<li class="toctree-l2 current"><a class="reference internal" href="index.html">Utilities</a><ul class="current">
+<li class="toctree-l3 current"><a class="current reference internal" href="#">xctrl</a><ul>
+<li class="toctree-l4"><a class="reference internal" href="#xctrl-startup"><code class="docutils literal notranslate"><span class="pre">xctrl</span> <span class="pre">startup</span></code></a></li>
+<li class="toctree-l4"><a class="reference internal" href="#xctrl-shutdown"><code class="docutils literal notranslate"><span class="pre">xctrl</span> <span class="pre">shutdown</span></code></a></li>
+<li class="toctree-l4"><a class="reference internal" href="#xctrl-restart"><code class="docutils literal notranslate"><span class="pre">xctrl</span> <span class="pre">restart</span></code></a></li>
+<li class="toctree-l4"><a class="reference internal" href="#xctrl-inspect-procname"><code class="docutils literal notranslate"><span class="pre">xctrl</span> <span class="pre">inspect</span> <span class="pre">PROCNAME</span></code></a></li>
+<li class="toctree-l4"><a class="reference internal" href="#xctrl-status"><code class="docutils literal notranslate"><span class="pre">xctrl</span> <span class="pre">status</span></code></a></li>
+<li class="toctree-l4"><a class="reference internal" href="#xctrl-peek"><code class="docutils literal notranslate"><span class="pre">xctrl</span> <span class="pre">peek</span></code></a></li>
 </ul>
 </li>
+<li class="toctree-l3"><a class="reference internal" href="logdump.html">logdump</a></li>
+<li class="toctree-l3"><a class="reference internal" href="cursesINDI.html">cursesINDI</a></li>
+<li class="toctree-l3"><a class="reference internal" href="getINDI.html">getINDI</a></li>
+<li class="toctree-l3"><a class="reference internal" href="setINDI.html">setINDI</a></li>
+<li class="toctree-l3"><a class="reference internal" href="evalINDI.html">evalINDI</a></li>
+<li class="toctree-l3"><a class="reference internal" href="indiserver.html">indiserver</a></li>
+<li class="toctree-l3"><a class="reference internal" href="eyedoctor.html">The Eye Doctor</a></li>
 </ul>
 </li>
 <li class="toctree-l2"><a class="reference internal" href="../../troubleshooting.html">Troubleshooting</a></li>
@@ -157,8 +162,6 @@
       <li><a href="../../../index.html">Docs</a> &raquo;</li>
         
           <li><a href="../../index.html">Operation of the MagAO-X instrument</a> &raquo;</li>
-        
-          <li><a href="../index.html">Instrument Software</a> &raquo;</li>
         
           <li><a href="index.html">Utilities</a> &raquo;</li>
         
@@ -241,7 +244,7 @@ isAOC: running (pid: 60636)
 <div class="highlight-default notranslate"><div class="highlight"><pre><span></span><span class="n">isAOC</span><span class="p">:</span> <span class="n">session</span> <span class="n">exists</span><span class="p">,</span> <span class="n">but</span> <span class="n">process</span> <span class="ow">is</span> <span class="ow">not</span> <span class="n">running</span>
 </pre></div>
 </div>
-<p>You may want to investigate the recent logs with <a class="reference external" href="software/utils/logdump">logdump</a> or <code class="docutils literal notranslate"><span class="pre">xctrl</span> <span class="pre">peek</span> <span class="pre">PROCNAME</span></code> to see why it died. To restore it, you can <code class="docutils literal notranslate"><span class="pre">xctrl</span> <span class="pre">inspect</span> <span class="pre">PROCNAME</span></code> to connect to that <code class="docutils literal notranslate"><span class="pre">tmux</span></code> session and attempt to restart the process. You can also <code class="docutils literal notranslate"><span class="pre">xctrl</span> <span class="pre">restart</span> <span class="pre">PROCNAME</span></code> to end and recreate the <code class="docutils literal notranslate"><span class="pre">tmux</span></code> session.</p>
+<p>You may want to investigate the recent logs with <a class="reference internal" href="logdump.html"><span class="doc">logdump</span></a> or <code class="docutils literal notranslate"><span class="pre">xctrl</span> <span class="pre">peek</span> <span class="pre">PROCNAME</span></code> to see why it died. To restore it, you can <code class="docutils literal notranslate"><span class="pre">xctrl</span> <span class="pre">inspect</span> <span class="pre">PROCNAME</span></code> to connect to that <code class="docutils literal notranslate"><span class="pre">tmux</span></code> session and attempt to restart the process. You can also <code class="docutils literal notranslate"><span class="pre">xctrl</span> <span class="pre">restart</span> <span class="pre">PROCNAME</span></code> to end and recreate the <code class="docutils literal notranslate"><span class="pre">tmux</span></code> session.</p>
 <p>It is possible on occasion for a process to die, e.g. after a system crash and reboot. In those cases, you will see something like this:</p>
 <div class="highlight-default notranslate"><div class="highlight"><pre><span></span><span class="n">isAOC</span><span class="p">:</span> <span class="n">dead</span> <span class="p">(</span><span class="n">stale</span> <span class="n">pid</span><span class="p">)</span>
 </pre></div>
@@ -250,7 +253,7 @@ isAOC: running (pid: 60636)
 </div>
 <div class="section" id="xctrl-peek">
 <h2><code class="docutils literal notranslate"><span class="pre">xctrl</span> <span class="pre">peek</span></code><a class="headerlink" href="#xctrl-peek" title="Permalink to this headline">¶</a></h2>
-<p>The extended version of <code class="docutils literal notranslate"><span class="pre">xctrl</span> <span class="pre">status</span></code>, which includes both the status and last ten lines that the process wrote to its log. (For a full log dump, see <a class="reference external" href="software/utils/logdump">logdump</a> docs.) You can also use <code class="docutils literal notranslate"><span class="pre">xctrl</span> <span class="pre">peek</span> <span class="pre">PROCNAME</span></code> to peek at a single process, e.g.:</p>
+<p>The extended version of <code class="docutils literal notranslate"><span class="pre">xctrl</span> <span class="pre">status</span></code>, which includes both the status and last ten lines that the process wrote to its log. (For a full log dump, see <a class="reference internal" href="logdump.html"><span class="doc">logdump</span></a> docs.) You can also use <code class="docutils literal notranslate"><span class="pre">xctrl</span> <span class="pre">peek</span> <span class="pre">PROCNAME</span></code> to peek at a single process, e.g.:</p>
 <div class="highlight-default notranslate"><div class="highlight"><pre><span></span>$ xctrl peek isAOC
 isAOC: running (pid: 60636)
 2020-07-30T16:10:37.150000000 INFO IS: Driver camwfs-dark@localhost:7626 at 127.0.0.1 now connected on socket=91

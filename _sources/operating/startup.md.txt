@@ -10,7 +10,7 @@ If working remotely, note that steps in RTC and ICC power-up must be done from f
 
 ## System Powerup
 
-1. Start the MagAO-X processes on AOC (exao1) to get power control (see the [guide to xctrl](./scripts/xctrl.md) for more detail)
+1. Start the MagAO-X processes on AOC (exao1) to get power control (see the [guide to xctrl](./software/utils/xctrl) for more detail)
 
     ```
     [[xsup@exao1 ~]$ xctrl startup
@@ -205,7 +205,7 @@ The steps below assume that the above steps are complete.  This will generally b
 
 5. **Once the tweeter relative humidity is less than 15%**, power it on (it's on pdu1)
 
-6. Optimize PSF quality with [The Eye Doctor](eyedoctor.md), starting with the `camtip` PSF
+6. Optimize PSF quality with [The Eye Doctor](software/utils/eyedoctor), starting with the `camtip` PSF
 
     ```
     [[xsup@exao1 ~]$ ssh icc

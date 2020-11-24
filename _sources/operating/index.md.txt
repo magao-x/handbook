@@ -8,10 +8,11 @@ Viewing camera output and DM input (really, any shared memory image) uses `rtimv
 
 ```eval_rst
 .. toctree::
-    :maxdepth: 3
+    :maxdepth: 2
 
     startup
     shutdown
-    software/index
+    software/apps/index
+    software/utils/index
     troubleshooting
 ```

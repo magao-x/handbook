@@ -8,7 +8,7 @@
   
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
   
-  <title>filterWheelCtrl &mdash; MagAO-X Instrument Handbook  documentation</title>
+  <title>Stages and filter wheels &mdash; MagAO-X Instrument Handbook  documentation</title>
   
 
   
@@ -37,8 +37,8 @@
   <link rel="stylesheet" href="../../../_static/pygments.css" type="text/css" />
     <link rel="index" title="Index" href="../../../genindex.html" />
     <link rel="search" title="Search" href="../../../search.html" />
-    <link rel="next" title="sshDigger" href="sshDigger.html" />
-    <link rel="prev" title="dmMode" href="dmMode.html" /> 
+    <link rel="next" title="Networking" href="network.html" />
+    <link rel="prev" title="Deformable mirrors" href="dms.html" /> 
 </head>
 
 <body class="wy-body-for-nav">
@@ -90,24 +90,19 @@
 <li class="toctree-l1 current"><a class="reference internal" href="../../index.html">Operation of the MagAO-X instrument</a><ul class="current">
 <li class="toctree-l2"><a class="reference internal" href="../../startup.html">Startup</a></li>
 <li class="toctree-l2"><a class="reference internal" href="../../shutdown.html">System shutdown</a></li>
-<li class="toctree-l2 current"><a class="reference internal" href="../index.html">Instrument Software</a><ul class="current">
-<li class="toctree-l3"><a class="reference internal" href="index.html">MagAO-X Applications</a></li>
-<li class="toctree-l3"><a class="reference internal" href="index.html#configuring-magao-x-applications">Configuring MagAO-X Applications</a></li>
-<li class="toctree-l3 current"><a class="reference internal" href="index.html#application-specifics">Application Specifics</a><ul class="current">
-<li class="toctree-l4"><a class="reference internal" href="cameras.html">Cameras</a></li>
-<li class="toctree-l4"><a class="reference internal" href="cameras.html#camera-applications">Camera Applications</a></li>
-<li class="toctree-l4"><a class="reference internal" href="alpaoCtrl.html">alpaoCtrl</a></li>
-<li class="toctree-l4"><a class="reference internal" href="dmMode.html">dmMode</a></li>
-<li class="toctree-l4 current"><a class="current reference internal" href="#">filterWheelCtrl</a></li>
-<li class="toctree-l4"><a class="reference internal" href="sshDigger.html">sshDigger</a></li>
-<li class="toctree-l4"><a class="reference internal" href="trippLitePDU.html">trippLitePDU</a></li>
-<li class="toctree-l4"><a class="reference internal" href="xindiserver.html">xindiserver</a></li>
-<li class="toctree-l4"><a class="reference internal" href="xt1121DCDU.html">xt1121DCDU</a></li>
+<li class="toctree-l2 current"><a class="reference internal" href="index.html">Applications</a><ul class="current">
+<li class="toctree-l3"><a class="reference internal" href="overview.html">Overview</a></li>
+<li class="toctree-l3"><a class="reference internal" href="cameras.html">Cameras</a></li>
+<li class="toctree-l3"><a class="reference internal" href="dms.html">Deformable mirrors</a></li>
+<li class="toctree-l3 current"><a class="current reference internal" href="#">Stages and filter wheels</a><ul>
+<li class="toctree-l4"><a class="reference internal" href="#filterwheelctrl">filterWheelCtrl</a></li>
 </ul>
 </li>
-<li class="toctree-l3"><a class="reference internal" href="../utils/index.html">Utilities</a></li>
+<li class="toctree-l3"><a class="reference internal" href="network.html">Networking</a></li>
+<li class="toctree-l3"><a class="reference internal" href="power.html">Power control devices</a></li>
 </ul>
 </li>
+<li class="toctree-l2"><a class="reference internal" href="../utils/index.html">Utilities</a></li>
 <li class="toctree-l2"><a class="reference internal" href="../../troubleshooting.html">Troubleshooting</a></li>
 </ul>
 </li>
@@ -161,17 +156,15 @@
         
           <li><a href="../../index.html">Operation of the MagAO-X instrument</a> &raquo;</li>
         
-          <li><a href="../index.html">Instrument Software</a> &raquo;</li>
+          <li><a href="index.html">Applications</a> &raquo;</li>
         
-          <li><a href="index.html">MagAO-X Applications</a> &raquo;</li>
-        
-      <li>filterWheelCtrl</li>
+      <li>Stages and filter wheels</li>
     
     
       <li class="wy-breadcrumbs-aside">
         
             
-            <a href="../../../_sources/operating/software/apps/filterWheelCtrl.md.txt" rel="nofollow"> View page source</a>
+            <a href="../../../_sources/operating/software/apps/motion.md.txt" rel="nofollow"> View page source</a>
           
         
       </li>
@@ -184,113 +177,25 @@
           <div role="main" class="document" itemscope="itemscope" itemtype="http://schema.org/Article">
            <div itemprop="articleBody">
             
-  <div class="section" id="filterwheelctrl">
-<h1>filterWheelCtrl<a class="headerlink" href="#filterwheelctrl" title="Permalink to this headline">¶</a></h1>
-<div class="section" id="name">
-<h2>Name<a class="headerlink" href="#name" title="Permalink to this headline">¶</a></h2>
-<p>filterWheelCtrl − controls a Faulhaber MCBL 3006S based filter wheel for MagAO-X.</p>
-</div>
-<div class="section" id="synopsis">
-<h2>Synopsis<a class="headerlink" href="#synopsis" title="Permalink to this headline">¶</a></h2>
-<div class="highlight-default notranslate"><div class="highlight"><pre><span></span><span class="n">filterWheelCtrl</span> <span class="p">[</span><span class="n">options</span><span class="p">]</span>
-</pre></div>
-</div>
-<p><code class="docutils literal notranslate"><span class="pre">filterWheelCtrl</span></code> is normally configured with a configuration file, hence all command-line arguments are optional. But note that if the <code class="docutils literal notranslate"><span class="pre">-n</span> <span class="pre">name</span></code> option is not given, then a configuration file named <code class="docutils literal notranslate"><span class="pre">filterWheelCtrl.conf</span></code> must be available at the MagAO-X standard config path.</p>
-</div>
-<div class="section" id="description">
-<h2>Description<a class="headerlink" href="#description" title="Permalink to this headline">¶</a></h2>
+  <div class="section" id="stages-and-filter-wheels">
+<h1>Stages and filter wheels<a class="headerlink" href="#stages-and-filter-wheels" title="Permalink to this headline">¶</a></h1>
+<p>Stages and filter wheels are controlled by apps derived from the <a class="reference external" href="https://github.com/magao-x/MagAOX/blob/master/libMagAOX/app/dev/stdMotionStage.hpp">stdMotionStage</a> implementation, meaning they share some common properties and options.</p>
+<div class="section" id="filterwheelctrl">
+<h2>filterWheelCtrl<a class="headerlink" href="#filterwheelctrl" title="Permalink to this headline">¶</a></h2>
 <p><code class="docutils literal notranslate"><span class="pre">filterWheelCtrl</span></code> controls an MCBL 3006S based filter wheel for MagAO-X.  As of Dec, 2018, there are 6 such wheels in MagAO-X.  This program communicates with the MCBL 3006S controller via USB.  It monitors the position and motion status of the wheel, and via INDI accepts commands to home and change wheel position.</p>
-</div>
 <div class="section" id="options">
-<h2>Options<a class="headerlink" href="#options" title="Permalink to this headline">¶</a></h2>
+<h3>Options<a class="headerlink" href="#options" title="Permalink to this headline">¶</a></h3>
 <table border="1" class="docutils">
 <thead>
 <tr>
 <th>Short</th>
 <th>Long</th>
-<th>Config-File *</th>
+<th>Config-File</th>
 <th>Type</th>
 <th>Description</th>
 </tr>
 </thead>
 <tbody>
-<tr>
-<td><code>-c</code></td>
-<td><code>--config</code></td>
-<td>config</td>
-<td>string</td>
-<td>A local config file</td>
-</tr>
-<tr>
-<td><code>-h</code></td>
-<td><code>--help</code></td>
-<td></td>
-<td>none</td>
-<td>Print this message and exit</td>
-</tr>
-<tr>
-<td><code>-p</code></td>
-<td><code>--loopPause</code></td>
-<td>loopPause</td>
-<td>unsigned long</td>
-<td>The main loop pause time in ns</td>
-</tr>
-<tr>
-<td><code>-P</code></td>
-<td><code>--RTPriority</code></td>
-<td>RTPriority</td>
-<td>unsigned</td>
-<td>The real-time priority (0-99)</td>
-</tr>
-<tr>
-<td><code>-L</code></td>
-<td><code>--logDir</code></td>
-<td>logger.logDir</td>
-<td>string</td>
-<td>The directory for log files</td>
-</tr>
-<tr>
-<td></td>
-<td><code>--logExt</code></td>
-<td>logger.logExt</td>
-<td>string</td>
-<td>The extension for log files</td>
-</tr>
-<tr>
-<td></td>
-<td><code>--maxLogSize</code></td>
-<td>logger.maxLogSize</td>
-<td>string</td>
-<td>The maximum size of log files</td>
-</tr>
-<tr>
-<td></td>
-<td><code>--writePause</code></td>
-<td>logger.writePause</td>
-<td>unsigned long</td>
-<td>The log thread pause time in ns</td>
-</tr>
-<tr>
-<td></td>
-<td><code>--logThreadPrio</code></td>
-<td>logger.logThreadPrio</td>
-<td>int</td>
-<td>The log thread priority</td>
-</tr>
-<tr>
-<td><code>-l</code></td>
-<td><code>--logLevel</code></td>
-<td>logger.logLevel</td>
-<td>string</td>
-<td>The log level</td>
-</tr>
-<tr>
-<td><code>-n</code></td>
-<td><code>--name</code></td>
-<td>name</td>
-<td>string</td>
-<td>The name of the application, specifies config.</td>
-</tr>
 <tr>
 <td></td>
 <td><code>--power.device</code></td>
@@ -404,38 +309,7 @@
 <td>The positions of the filters.  If omitted or 0 then order is used.</td>
 </tr>
 </tbody>
-</table><p><code class="docutils literal notranslate"><span class="pre">*</span></code> format in the config file column is section.option which implies the format</p>
-<div class="highlight-default notranslate"><div class="highlight"><pre><span></span><span class="p">[</span><span class="n">section</span><span class="p">]</span>
-<span class="n">option</span><span class="o">=</span><span class="n">value</span>
-</pre></div>
-</div>
-<p>in the config file.</p>
-</div>
-<div class="section" id="indi-properties">
-<h2>INDI Properties<a class="headerlink" href="#indi-properties" title="Permalink to this headline">¶</a></h2>
-<div class="section" id="read-only-indi-properties">
-<h3>Read-Only INDI Properties<a class="headerlink" href="#read-only-indi-properties" title="Permalink to this headline">¶</a></h3>
-<p>list them here</p>
-</div>
-<div class="section" id="read-write-indi-properties">
-<h3>Read-Write INDI Properties<a class="headerlink" href="#read-write-indi-properties" title="Permalink to this headline">¶</a></h3>
-<p>list them here</p>
-</div>
-</div>
-<div class="section" id="exit-status">
-<h2>Exit Status<a class="headerlink" href="#exit-status" title="Permalink to this headline">¶</a></h2>
-<p><code class="docutils literal notranslate"><span class="pre">filterWheelCtrl</span></code> runs until killed.  Use the <code class="docutils literal notranslate"><span class="pre">logdump</span></code> utility to examine the process log for errors.</p>
-</div>
-<div class="section" id="examples">
-<h2>Examples<a class="headerlink" href="#examples" title="Permalink to this headline">¶</a></h2>
-<p>To start the filter wheel controller for science camera 1:</p>
-<div class="highlight-default notranslate"><div class="highlight"><pre><span></span><span class="o">/</span><span class="n">opt</span><span class="o">/</span><span class="n">MagAOX</span><span class="o">/</span><span class="nb">bin</span><span class="o">/</span><span class="n">filterWheelCtrl</span> <span class="o">-</span><span class="n">n</span> <span class="n">fwsci1</span>
-</pre></div>
-</div>
-</div>
-<div class="section" id="see-also">
-<h2>See Also<a class="headerlink" href="#see-also" title="Permalink to this headline">¶</a></h2>
-<p><a class="reference external" href="../../../MagAOX/group__filterWheelCtrl.html">Source code.</a></p>
+</table></div>
 </div>
 </div>
 
@@ -447,10 +321,10 @@
   
     <div class="rst-footer-buttons" role="navigation" aria-label="footer navigation">
       
-        <a href="sshDigger.html" class="btn btn-neutral float-right" title="sshDigger" accesskey="n" rel="next">Next <span class="fa fa-arrow-circle-right"></span></a>
+        <a href="network.html" class="btn btn-neutral float-right" title="Networking" accesskey="n" rel="next">Next <span class="fa fa-arrow-circle-right"></span></a>
       
       
-        <a href="dmMode.html" class="btn btn-neutral float-left" title="dmMode" accesskey="p" rel="prev"><span class="fa fa-arrow-circle-left"></span> Previous</a>
+        <a href="dms.html" class="btn btn-neutral float-left" title="Deformable mirrors" accesskey="p" rel="prev"><span class="fa fa-arrow-circle-left"></span> Previous</a>
       
     </div>
   

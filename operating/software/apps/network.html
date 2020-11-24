@@ -8,7 +8,7 @@
   
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
   
-  <title>xindiserver &mdash; MagAO-X Instrument Handbook  documentation</title>
+  <title>Networking &mdash; MagAO-X Instrument Handbook  documentation</title>
   
 
   
@@ -37,8 +37,8 @@
   <link rel="stylesheet" href="../../../_static/pygments.css" type="text/css" />
     <link rel="index" title="Index" href="../../../genindex.html" />
     <link rel="search" title="Search" href="../../../search.html" />
-    <link rel="next" title="xt1121DCDU" href="xt1121DCDU.html" />
-    <link rel="prev" title="trippLitePDU" href="trippLitePDU.html" /> 
+    <link rel="next" title="Power control devices" href="power.html" />
+    <link rel="prev" title="Stages and filter wheels" href="motion.html" /> 
 </head>
 
 <body class="wy-body-for-nav">
@@ -90,24 +90,20 @@
 <li class="toctree-l1 current"><a class="reference internal" href="../../index.html">Operation of the MagAO-X instrument</a><ul class="current">
 <li class="toctree-l2"><a class="reference internal" href="../../startup.html">Startup</a></li>
 <li class="toctree-l2"><a class="reference internal" href="../../shutdown.html">System shutdown</a></li>
-<li class="toctree-l2 current"><a class="reference internal" href="../index.html">Instrument Software</a><ul class="current">
-<li class="toctree-l3"><a class="reference internal" href="index.html">MagAO-X Applications</a></li>
-<li class="toctree-l3"><a class="reference internal" href="index.html#configuring-magao-x-applications">Configuring MagAO-X Applications</a></li>
-<li class="toctree-l3 current"><a class="reference internal" href="index.html#application-specifics">Application Specifics</a><ul class="current">
-<li class="toctree-l4"><a class="reference internal" href="cameras.html">Cameras</a></li>
-<li class="toctree-l4"><a class="reference internal" href="cameras.html#camera-applications">Camera Applications</a></li>
-<li class="toctree-l4"><a class="reference internal" href="alpaoCtrl.html">alpaoCtrl</a></li>
-<li class="toctree-l4"><a class="reference internal" href="dmMode.html">dmMode</a></li>
-<li class="toctree-l4"><a class="reference internal" href="filterWheelCtrl.html">filterWheelCtrl</a></li>
-<li class="toctree-l4"><a class="reference internal" href="sshDigger.html">sshDigger</a></li>
-<li class="toctree-l4"><a class="reference internal" href="trippLitePDU.html">trippLitePDU</a></li>
-<li class="toctree-l4 current"><a class="current reference internal" href="#">xindiserver</a></li>
-<li class="toctree-l4"><a class="reference internal" href="xt1121DCDU.html">xt1121DCDU</a></li>
+<li class="toctree-l2 current"><a class="reference internal" href="index.html">Applications</a><ul class="current">
+<li class="toctree-l3"><a class="reference internal" href="overview.html">Overview</a></li>
+<li class="toctree-l3"><a class="reference internal" href="cameras.html">Cameras</a></li>
+<li class="toctree-l3"><a class="reference internal" href="dms.html">Deformable mirrors</a></li>
+<li class="toctree-l3"><a class="reference internal" href="motion.html">Stages and filter wheels</a></li>
+<li class="toctree-l3 current"><a class="current reference internal" href="#">Networking</a><ul>
+<li class="toctree-l4"><a class="reference internal" href="#sshdigger">sshDigger</a></li>
+<li class="toctree-l4"><a class="reference internal" href="#xindiserver">xindiserver</a></li>
 </ul>
 </li>
-<li class="toctree-l3"><a class="reference internal" href="../utils/index.html">Utilities</a></li>
+<li class="toctree-l3"><a class="reference internal" href="power.html">Power control devices</a></li>
 </ul>
 </li>
+<li class="toctree-l2"><a class="reference internal" href="../utils/index.html">Utilities</a></li>
 <li class="toctree-l2"><a class="reference internal" href="../../troubleshooting.html">Troubleshooting</a></li>
 </ul>
 </li>
@@ -161,17 +157,15 @@
         
           <li><a href="../../index.html">Operation of the MagAO-X instrument</a> &raquo;</li>
         
-          <li><a href="../index.html">Instrument Software</a> &raquo;</li>
+          <li><a href="index.html">Applications</a> &raquo;</li>
         
-          <li><a href="index.html">MagAO-X Applications</a> &raquo;</li>
-        
-      <li>xindiserver</li>
+      <li>Networking</li>
     
     
       <li class="wy-breadcrumbs-aside">
         
             
-            <a href="../../../_sources/operating/software/apps/xindiserver.md.txt" rel="nofollow"> View page source</a>
+            <a href="../../../_sources/operating/software/apps/network.md.txt" rel="nofollow"> View page source</a>
           
         
       </li>
@@ -184,22 +178,52 @@
           <div role="main" class="document" itemscope="itemscope" itemtype="http://schema.org/Article">
            <div itemprop="articleBody">
             
-  <div class="section" id="xindiserver">
-<h1>xindiserver<a class="headerlink" href="#xindiserver" title="Permalink to this headline">¶</a></h1>
-<div class="section" id="name">
-<h2>Name<a class="headerlink" href="#name" title="Permalink to this headline">¶</a></h2>
-<p>xindiserver − wrapper for <code class="docutils literal notranslate"><span class="pre">indiserver</span></code>, integrating it into the MagAO-X ecosystem.</p>
-</div>
-<div class="section" id="synopsis">
-<h2>Synopsis<a class="headerlink" href="#synopsis" title="Permalink to this headline">¶</a></h2>
-<div class="highlight-default notranslate"><div class="highlight"><pre><span></span><span class="n">xindiserver</span> <span class="p">[</span><span class="n">options</span><span class="p">]</span>
+  <div class="section" id="networking">
+<h1>Networking<a class="headerlink" href="#networking" title="Permalink to this headline">¶</a></h1>
+<p>Networking apps manage communication internal to the instrument. (They are distinct from utilities in that they run until killed.)</p>
+<div class="section" id="sshdigger">
+<h2>sshDigger<a class="headerlink" href="#sshdigger" title="Permalink to this headline">¶</a></h2>
+<p><code class="docutils literal notranslate"><span class="pre">sshDigger</span></code> uses the <code class="docutils literal notranslate"><span class="pre">autossh</span></code> utility to form a robust <code class="docutils literal notranslate"><span class="pre">SSH</span></code> tunnel or port forward to a remote host.  In addition, the forked <code class="docutils literal notranslate"><span class="pre">autossh</span></code> process is monitored, and if it dies a new one is created.</p>
+<p>The base configuration is normally located at <code class="docutils literal notranslate"><span class="pre">/opt/MagAOX/config/sshTunnels.conf</span></code> (<a class="reference external" href="https://github.com/magao-x/config/blob/master/sshTunnels.conf">view in magao-x/config</a>).  It should contain options applicable to all tunnels, as well as the tunnel definitions themselves.</p>
+<p>The tunnel name must be specified with the <code class="docutils literal notranslate"><span class="pre">-n</span></code> command line option. The <code class="docutils literal notranslate"><span class="pre">tunnel_name</span></code> denotes the section in the configuration file(s) which contains the specification of the tunnel. <code class="docutils literal notranslate"><span class="pre">sshDigger</span></code> is normally configured via a base configuration file, hence all other command-line arguments are optional.</p>
+<p>This app does not require that an instance specific configuration <code class="docutils literal notranslate"><span class="pre">tunnel_name.conf</span></code> be available.  If one is available matching the name given with the <code class="docutils literal notranslate"><span class="pre">-n</span> <span class="pre">tunnel_name</span></code> option, then any settings contained therein will override those given in the base config file.</p>
+<div class="section" id="tunnel-specification">
+<h3>Tunnel Specification<a class="headerlink" href="#tunnel-specification" title="Permalink to this headline">¶</a></h3>
+<p>Tunnels are specified by a section in the configuration files, normally the base <code class="docutils literal notranslate"><span class="pre">sshTunnels.conf</span></code> file.  The section must have the following members</p>
+<div class="highlight-default notranslate"><div class="highlight"><pre><span></span><span class="p">[</span><span class="n">tunnel_name</span><span class="p">]</span>
+<span class="n">remoteHost</span><span class="o">=</span><span class="n">resolvable_name</span>
+<span class="n">localPort</span><span class="o">=</span><span class="n">X</span>
+<span class="n">remotePort</span><span class="o">=</span><span class="n">Y</span>
 </pre></div>
 </div>
-<p><code class="docutils literal notranslate"><span class="pre">xindiserver</span></code> is normally configured with a configuration file, hence all command-line arguments are optional.</p>
-<div class="section" id="description">
-<h3>Description<a class="headerlink" href="#description" title="Permalink to this headline">¶</a></h3>
-<p><code class="docutils literal notranslate"><span class="pre">xindiserver</span></code> wraps the standard <code class="docutils literal notranslate"><span class="pre">indiserver</span></code> program in a MagAO-X interface.  This includes exposing configuration options, and capturing logs which are reformatted in the <code class="docutils literal notranslate"><span class="pre">flatlogs</span></code> binary logging system.</p>
+<p>Where</p>
+<ul class="simple">
+<li><p><code class="docutils literal notranslate"><span class="pre">resolvable_name</span></code> is an ip address or host name.  This can include a user name <code class="docutils literal notranslate"><span class="pre">user&#64;</span></code> at the beginning if needed.</p></li>
+<li><p><code class="docutils literal notranslate"><span class="pre">X</span></code> denotes the integer local port number.</p></li>
+<li><p><code class="docutils literal notranslate"><span class="pre">Y</span></code> denotes the integer remote port number</p></li>
+</ul>
+<p>This results in <code class="docutils literal notranslate"><span class="pre">ssh</span></code> being started with</p>
+<div class="highlight-default notranslate"><div class="highlight"><pre><span></span>$ ssh -nNTL X:localhost:Y resolvable_name
+</pre></div>
 </div>
+<p>by the <code class="docutils literal notranslate"><span class="pre">autossh</span></code> utility.</p>
+<p>For example, to create an SSH tunnel for <code class="docutils literal notranslate"><span class="pre">magaox_aoc_to_rtc_indi</span></code>:</p>
+<div class="highlight-default notranslate"><div class="highlight"><pre><span></span>$ /opt/MagAOX/bin/sshDigger -n magaox_aoc_to_rtc_indi
+</pre></div>
+</div>
+<p>Which expects a configuration entry of the form:</p>
+<div class="highlight-default notranslate"><div class="highlight"><pre><span></span><span class="p">[</span><span class="n">magaox_aoc_to_rtc_indi</span><span class="p">]</span>
+<span class="n">remoteHost</span><span class="o">=</span><span class="n">rtc</span>
+<span class="n">localPort</span><span class="o">=</span><span class="mi">7630</span>
+<span class="n">remotePort</span><span class="o">=</span><span class="mi">7624</span>
+</pre></div>
+</div>
+<p>This then securely forwards traffic from <code class="docutils literal notranslate"><span class="pre">localhost:7630</span></code> to the INDI server on <code class="docutils literal notranslate"><span class="pre">rtc:7624</span></code>.</p>
+</div>
+</div>
+<div class="section" id="xindiserver">
+<h2>xindiserver<a class="headerlink" href="#xindiserver" title="Permalink to this headline">¶</a></h2>
+<p><code class="docutils literal notranslate"><span class="pre">xindiserver</span></code> wraps the standard <code class="docutils literal notranslate"><span class="pre">indiserver</span></code> program in a MagAO-X interface.  This includes exposing configuration options, and capturing logs which are reformatted in the <code class="docutils literal notranslate"><span class="pre">flatlogs</span></code> binary logging system.</p>
 <div class="section" id="options">
 <h3>Options<a class="headerlink" href="#options" title="Permalink to this headline">¶</a></h3>
 <table border="1" class="docutils">
@@ -213,83 +237,6 @@
 </tr>
 </thead>
 <tbody>
-<tr>
-<td><code>-c</code></td>
-<td><code>--config</code></td>
-<td>config</td>
-<td>string</td>
-<td>A local config file</td>
-</tr>
-<tr>
-<td><code>-h</code></td>
-<td><code>--help</code></td>
-<td></td>
-<td>none</td>
-<td>Print this message and exit</td>
-</tr>
-<tr>
-<td><code>-p</code></td>
-<td><code>--loopPause</code></td>
-<td>loopPause</td>
-<td>unsigned long</td>
-<td>The main loop pause time in ns</td>
-</tr>
-<tr>
-<td><code>-P</code></td>
-<td><code>--RTPriority</code></td>
-<td>RTPriority</td>
-<td>unsigned</td>
-<td>The real-time priority (0-99)</td>
-</tr>
-<tr>
-<td><code>-L</code></td>
-<td><code>--logDir</code></td>
-<td>logger.logDir</td>
-<td>string</td>
-<td>The directory for log files</td>
-</tr>
-<tr>
-<td></td>
-<td><code>--logExt</code></td>
-<td>logger.logExt</td>
-<td>string</td>
-<td>The extension for log files</td>
-</tr>
-<tr>
-<td></td>
-<td><code>--maxLogSize</code></td>
-<td>logger.maxLogSize</td>
-<td>string</td>
-<td>The maximum size of log files</td>
-</tr>
-<tr>
-<td></td>
-<td><code>--writePause</code></td>
-<td>logger.writePause</td>
-<td>unsigned long</td>
-<td>The log thread pause time in ns</td>
-</tr>
-<tr>
-<td></td>
-<td><code>--logThreadPrio</code></td>
-<td>logger.logThreadPrio</td>
-<td>int</td>
-<td>The log thread priority</td>
-</tr>
-<tr>
-<td><code>-l</code></td>
-<td><code>--logLevel</code></td>
-<td>logger.logLevel</td>
-<td>string</td>
-<td>The log level</td>
-</tr>
-<tr>
-<td><code>-n</code></td>
-<td><code>--name</code></td>
-<td>name</td>
-<td>string</td>
-<td>The name of the application, specifies config.</td>
-</tr>
 <tr>
 <td><code>-m</code></td>
 <td></td>
@@ -348,13 +295,12 @@
 </tr>
 </tbody>
 </table></div>
-</div>
 <div class="section" id="driver-specifications">
-<h2>Driver Specifications<a class="headerlink" href="#driver-specifications" title="Permalink to this headline">¶</a></h2>
+<h3>Driver Specifications<a class="headerlink" href="#driver-specifications" title="Permalink to this headline">¶</a></h3>
 <p>Lists of driver names are passed to <code class="docutils literal notranslate"><span class="pre">xindiserver</span></code> via the configuration system.  Drivers can be either local or remote.</p>
 <p>Driver names can not be repeated, whether local or remote.</p>
 <div class="section" id="local-drivers">
-<h3>Local Drivers<a class="headerlink" href="#local-drivers" title="Permalink to this headline">¶</a></h3>
+<h4>Local Drivers<a class="headerlink" href="#local-drivers" title="Permalink to this headline">¶</a></h4>
 <p>Drivers running on the same machine are specified by their names only.  On the command line this would be</p>
 <div class="highlight-default notranslate"><div class="highlight"><pre><span></span><span class="o">--</span><span class="n">local</span><span class="o">=</span><span class="n">driverX</span><span class="p">,</span><span class="n">driverY</span><span class="p">,</span><span class="n">driverZ</span>
 </pre></div>
@@ -366,7 +312,7 @@
 </div>
 </div>
 <div class="section" id="remote-drivers">
-<h3>Remote Drivers<a class="headerlink" href="#remote-drivers" title="Permalink to this headline">¶</a></h3>
+<h4>Remote Drivers<a class="headerlink" href="#remote-drivers" title="Permalink to this headline">¶</a></h4>
 <p>Drivers running a remote machine are specified by their names and the name of the SSH tunnel to that machine.  <code class="docutils literal notranslate"><span class="pre">xindiserver</span></code> parses the <code class="docutils literal notranslate"><span class="pre">sshTunnels.conf</span></code> config file as part of configuration.</p>
 <p>NOTE: the tunnel specification is by the tunnel name (the section in the config file), not the host name.</p>
 <p>On the command line this would be</p>
@@ -380,6 +326,7 @@
 </div>
 <p>In both cases it must be true that <code class="docutils literal notranslate"><span class="pre">sshTunnels.conf</span></code> contains a valid tunnel specification for <code class="docutils literal notranslate"><span class="pre">tunnel_name_1</span></code> and <code class="docutils literal notranslate"><span class="pre">tunnel_name_2</span></code>.</p>
 </div>
+</div>
 <div class="section" id="exit-status">
 <h3>Exit Status<a class="headerlink" href="#exit-status" title="Permalink to this headline">¶</a></h3>
 <p>If there are no errors <code class="docutils literal notranslate"><span class="pre">xindiserver</span></code> runs until killed.</p>
@@ -387,14 +334,10 @@
 <p>If the <code class="docutils literal notranslate"><span class="pre">indiserver</span></code> process exits for any reason, then <code class="docutils literal notranslate"><span class="pre">xindiserver</span></code> will produce a log entry, change to state FAILURE, and exit.</p>
 <p>If the <code class="docutils literal notranslate"><span class="pre">xindidriver</span></code> program for a driver reports that it can not get a lock, which indicates that another instance of <code class="docutils literal notranslate"><span class="pre">xindidriver</span></code> already has the FIFO open, then <code class="docutils literal notranslate"><span class="pre">xindiserver</span></code> will produce a log entry, change to state FAILURE, and exit.</p>
 </div>
-</div>
 <div class="section" id="troubleshooting">
-<h2>Troubleshooting<a class="headerlink" href="#troubleshooting" title="Permalink to this headline">¶</a></h2>
+<h3>Troubleshooting<a class="headerlink" href="#troubleshooting" title="Permalink to this headline">¶</a></h3>
 <p>If <code class="docutils literal notranslate"><span class="pre">indiserver</span></code> exits abnormally (this is extremly rare, and is not expected except due to operator error!), it can leave the <code class="docutils literal notranslate"><span class="pre">xindidriver</span></code> processes running.  A subsequent attempt to restart will fail when new instances of <code class="docutils literal notranslate"><span class="pre">xindidriver</span></code> can not lock the FIFOs.  The solution is manually kill each of the <code class="docutils literal notranslate"><span class="pre">xindidriver</span></code> processes, which will have the symlinked names of the <code class="docutils literal notranslate"><span class="pre">MagAOXApp</span></code> they are communicating with.</p>
 </div>
-<div class="section" id="see-also">
-<h2>See Also<a class="headerlink" href="#see-also" title="Permalink to this headline">¶</a></h2>
-<p><a class="reference external" href="../../../MagAOX/group__xindiserver.html">Source code</a></p>
 </div>
 </div>
 
@@ -406,10 +349,10 @@
   
     <div class="rst-footer-buttons" role="navigation" aria-label="footer navigation">
       
-        <a href="xt1121DCDU.html" class="btn btn-neutral float-right" title="xt1121DCDU" accesskey="n" rel="next">Next <span class="fa fa-arrow-circle-right"></span></a>
+        <a href="power.html" class="btn btn-neutral float-right" title="Power control devices" accesskey="n" rel="next">Next <span class="fa fa-arrow-circle-right"></span></a>
       
       
-        <a href="trippLitePDU.html" class="btn btn-neutral float-left" title="trippLitePDU" accesskey="p" rel="prev"><span class="fa fa-arrow-circle-left"></span> Previous</a>
+        <a href="motion.html" class="btn btn-neutral float-left" title="Stages and filter wheels" accesskey="p" rel="prev"><span class="fa fa-arrow-circle-left"></span> Previous</a>
       
     </div>
   

@@ -96,7 +96,8 @@
 </ul>
 </li>
 <li class="toctree-l2"><a class="reference internal" href="shutdown.html">System shutdown</a></li>
-<li class="toctree-l2"><a class="reference internal" href="software/index.html">Instrument Software</a></li>
+<li class="toctree-l2"><a class="reference internal" href="software/apps/index.html">Applications</a></li>
+<li class="toctree-l2"><a class="reference internal" href="software/utils/index.html">Utilities</a></li>
 <li class="toctree-l2"><a class="reference internal" href="troubleshooting.html">Troubleshooting</a></li>
 </ul>
 </li>
@@ -178,7 +179,7 @@
 <div class="section" id="system-powerup">
 <h2>System Powerup<a class="headerlink" href="#system-powerup" title="Permalink to this headline">¶</a></h2>
 <ol>
-<li><p>Start the MagAO-X processes on AOC (exao1) to get power control (see the <a class="reference external" href="./scripts/xctrl">guide to xctrl</a> for more detail)</p>
+<li><p>Start the MagAO-X processes on AOC (exao1) to get power control (see the <a class="reference internal" href="software/utils/xctrl.html"><span class="doc">guide to xctrl</span></a> for more detail)</p>
 <div class="highlight-default notranslate"><div class="highlight"><pre><span></span>[[xsup@exao1 ~]$ xctrl startup
 # you&#39;ll see some output as the processes start, wait a little bit
 [[xsup@exao1 ~]$ xctrl status
@@ -378,7 +379,7 @@ rtc$ exit
 <li><p>Load and set the flat on both dmwoofer and dmncpc right away to give time for creep to creep.</p></li>
 <li><p>Now <code class="docutils literal notranslate"><span class="pre">Set</span></code> the pupil TTM and <code class="docutils literal notranslate"><span class="pre">Set</span></code> the pyramid modulator TTM. If the PSF isn’t centered on camtip, use the arrows (bottom left of pupilGuideGUI interface) to change the voltage bias. The central button changes the voltage step size.</p></li>
 <li><p><strong>Once the tweeter relative humidity is less than 15%</strong>, power it on (it’s on pdu1)</p></li>
-<li><p>Optimize PSF quality with <a class="reference external" href="eyedoctor">The Eye Doctor</a>, starting with the <code class="docutils literal notranslate"><span class="pre">camtip</span></code> PSF</p>
+<li><p>Optimize PSF quality with <a class="reference internal" href="software/utils/eyedoctor.html"><span class="doc">The Eye Doctor</span></a>, starting with the <code class="docutils literal notranslate"><span class="pre">camtip</span></code> PSF</p>
 <div class="highlight-default notranslate"><div class="highlight"><pre><span></span>[[xsup@exao1 ~]$ ssh icc
 icc$ dm_eye_doctor 7626 wooferModes camtip 10 2 1.0
 icc$ dm_eye_doctor 7626 wooferModes camtip 10 2...10 0.5

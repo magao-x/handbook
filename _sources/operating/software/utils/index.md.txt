@@ -10,4 +10,6 @@
     getINDI
     setINDI
     evalINDI
+    indiserver
+    eyedoctor
 ```
