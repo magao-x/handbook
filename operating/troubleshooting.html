@@ -301,13 +301,20 @@ Sep 29 11:18:35 exao3.as.arizona.edu initialize_alpao.sh[4449]: ================
 </pre></div>
 </div>
 </li>
-<li><p>restart the dmcomb process:</p>
+<li><p>restart the CACAO process that combines the DM shmims:</p>
 <ul class="simple">
 <li><p>first stop the DM controller (see above)</p></li>
-<li><p>restart dmcomb using <code class="docutils literal notranslate"><span class="pre">fpsCTRL</span></code> (to be documented)</p></li>
-<li><p>restart the DM controller (see above)</p></li>
-<li><p>this may cause problems in some other processes due to shmim recreation.</p></li>
+<li><p>restart <code class="docutils literal notranslate"><span class="pre">dmcomb</span></code> (or testbed equivalent) using <code class="docutils literal notranslate"><span class="pre">fpsCTRL</span></code></p>
+<ul>
+<li><p>run <code class="docutils literal notranslate"><span class="pre">fpsCTRL</span></code></p></li>
+<li><p>select process to restart with arrow keys</p></li>
+<li><p>hit lower-case <code class="docutils literal notranslate"><span class="pre">r</span></code> to stop the process</p></li>
+<li><p>hit upper-case <code class="docutils literal notranslate"><span class="pre">R</span></code> to start it again</p></li>
 </ul>
+</li>
+<li><p>restart the DM controller (see above)</p></li>
+</ul>
+<p>Note: this may cause problems in some other processes due to shmim recreation.</p>
 </li>
 <li><p>Power cycle the DM</p>
 <ul class="simple">
