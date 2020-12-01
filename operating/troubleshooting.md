@@ -121,11 +121,16 @@ General troubleshooting steps, in order of severity (try the lower ones first if
     ```
     rtc$ xctrl restart dmwoofer
     ```
-3) restart the dmcomb process:
+3) restart the CACAO process that combines the DM shmims:
     * first stop the DM controller (see above)
-    * restart dmcomb using `fpsCTRL` (to be documented)
+    * restart `dmcomb` (or testbed equivalent) using `fpsCTRL`
+        * run `fpsCTRL`
+        * select process to restart with arrow keys
+        * hit lower-case `r` to stop the process
+        * hit upper-case `R` to start it again
     * restart the DM controller (see above)
-    * this may cause problems in some other processes due to shmim recreation.
+
+    Note: this may cause problems in some other processes due to shmim recreation.
 
 4) Power cycle the DM
     * release from the `dmCtrl` GUI
