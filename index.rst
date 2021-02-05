@@ -12,6 +12,7 @@ Table of contents
     observers/index
     operating/index
     testbed/index
+    troubleshooting
     handling/index
     compute/index
     appendices/index

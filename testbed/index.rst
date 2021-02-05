@@ -1,5 +1,5 @@
-Testbed Operation and Troubleshooting
-=====================================
+Testbed Operation
+=================
 
 .. figure:: testbed_diagram.png
    :alt: Diagram showing systems on the testbed
