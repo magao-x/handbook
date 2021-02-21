@@ -81,4 +81,4 @@ $ logdump -L W -f trippLitePDU0
 
 ## See Also
 
-[Source code.](../../MagAOX/group__logdump.html)
+[Source code](https://github.com/magao-x/MagAOX/blob/master/utils/logdump/logdump.hpp)

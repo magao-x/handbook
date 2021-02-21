@@ -74,7 +74,7 @@ If the process dies but its parent `tmux` session is alive:
 isAOC: session exists, but process is not running
 ```
 
-You may want to investigate the recent logs with [logdump](software/utils/logdump.md) or `xctrl peek PROCNAME` to see why it died. To restore it, you can `xctrl inspect PROCNAME` to connect to that `tmux` session and attempt to restart the process. You can also `xctrl restart PROCNAME` to end and recreate the `tmux` session.
+You may want to investigate the recent logs with [logdump](logdump) or `xctrl peek PROCNAME` to see why it died. To restore it, you can `xctrl inspect PROCNAME` to connect to that `tmux` session and attempt to restart the process. You can also `xctrl restart PROCNAME` to end and recreate the `tmux` session.
 
 It is possible on occasion for a process to die, e.g. after a system crash and reboot. In those cases, you will see something like this:
 
@@ -87,7 +87,7 @@ This is another situation where you may want to check recent logs. To restore it
 
 ## `xctrl peek`
 
-The extended version of `xctrl status`, which includes both the status and last ten lines that the process wrote to its log. (For a full log dump, see [logdump](software/utils/logdump.md) docs.) You can also use `xctrl peek PROCNAME` to peek at a single process, e.g.:
+The extended version of `xctrl status`, which includes both the status and last ten lines that the process wrote to its log. (For a full log dump, see [logdump](logdump) docs.) You can also use `xctrl peek PROCNAME` to peek at a single process, e.g.:
 
 ```
 $ xctrl peek isAOC

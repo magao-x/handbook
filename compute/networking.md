@@ -31,6 +31,9 @@ This document uses the hostnames of the machines interchangeably with their role
 | www-ua | enx2cfda1c6db1b | 10.130.133.207 | 255.255.254.0 | 10.130.132.1 | 128.196.208.2 128.196.209.2 128.196.11.233 | as.arizona.edu |
 | www-lco | enx2cfda1c6db1b | 200.28.147.222 | 255.255.255.0 | 200.28.147.1 | 200.28.147.4 200.28.147.2 139.229.97.26 | lco.cl |
 | instrument | enx2cfda1c6db1a | 192.168.0.11 | 255.255.255.0 | 192.168.0.1 | -- | -- |
+| rtc-to-icc | enx00133b219c6e | 192.168.2.2 | 255.255.255.0 | -- | -- | -- |
+
+`instrument` is a routerless network within the rack using a switch. `rtc-to-icc` is a direct NIC-to-NIC link between RTC and ICC.
 
 ### exao3
 
@@ -41,6 +44,9 @@ This document uses the hostnames of the machines interchangeably with their role
 | instrument | enx2cfda1c61f16 | 192.168.0.12 | 255.255.255.0 | 192.168.0.1 | -- | -- |
 | camsci1 | enx503eaa0ceeff | 192.168.102.2 | 255.255.255.0 | 192.168.102.1 | -- | -- |
 | camsci2 | enx503eaa0cf4cd | 192.168.101.2 | 255.255.255.0 | 192.168.101.1 | -- | -- |
+| icc-to-rtc | enx00133b219c32 | 192.168.2.3 | 255.255.255.0 | -- | -- | -- |
+
+`instrument` is a routerless network within the rack using a switch. `icc-to-rtc` is a direct NIC-to-NIC link between RTC and ICC. The `camsci1` and `camsci2` networks are just direct connections from the Princeton Instruments cameras to their NICs.
 
 ## Hostnames
 
