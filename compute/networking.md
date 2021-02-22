@@ -6,6 +6,19 @@ This document uses the hostnames of the machines interchangeably with their role
   - `exao2` — RTC
   - `exao3` — ICC
 
+## Firewall zones
+
+Certain interfaces are instrument internal: rack LAN, cameras, and direct NIC-to-NIC links. To ensure traffic is unrestricted on them, configure as follows:
+
+  * `exao1`, `exao2`, and `exao3`
+    * `sudo nmcli con modify instrument connection.zone trusted`
+  * `exao2` only
+    * `sudo nmcli con modify rtc-to-icc connection.zone trusted`
+  * `exao3` only
+    * `sudo nmcli con modify icc-to-rtc connection.zone trusted`
+    * `sudo nmcli con modify camsci1 connection.zone trusted`
+    * `sudo nmcli con modify camsci2 connection.zone trusted`
+
 ## Network Connections
 
 ### exao1

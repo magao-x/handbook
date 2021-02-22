@@ -89,7 +89,7 @@ Upgrading CUDA is more involved, as the systems stubbornly insist on loading the
 
 The CentOS 7 RT kernel includes backported patches from the mainline kernel to 3.10.0 where CentOS 7 was frozen, plus the PREEMPT RT patch set and bug fixes from newer versions of that. On occasion a new version will appear in the [CentOS 7 RT package repository](http://mirror.centos.org/centos/7/rt/x86_64/Packages/) and it may be worth upgrading to see if any of our bugs are fixed.
 
-1. Remove `versionlock` (if any)
+1. Remove `versionlock` (if any): `yum versionlock delete kernel-rt`
 2. `sudo yum update kernel-rt kernel-rt-devel`
 3. Reboot, verify new version in `uname -a`
 4. Reinstall drivers with kernel modules:
