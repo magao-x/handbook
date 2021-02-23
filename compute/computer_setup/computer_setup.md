@@ -234,11 +234,11 @@ To enable this scheme, follow the procedure from [this ServerFault answer](https
     ```
     NAME=="", ENV{ID_NET_NAME_MAC}!="", NAME="$env{ID_NET_NAME_MAC}"
     ```
-3. Reboot
+3. **Reboot**
 
 ### Configure network connections
 
-Names for network interfaces are now tied to their hardware MAC address, not their location on the PCI bus. The flip side is that replacing a NIC will require repeating the below process, probably from a seat at the computer. (However, this happens much less often than rearranging GPUs and confusing NetworkManager with renumbered `enXpY` devices.)
+Names for network interfaces are now tied to their hardware MAC address, not their location on the PCI bus. The flip side is that replacing a NIC with a new card will require repeating the below process, probably from a seat at the computer. (However, this happens much less often than rearranging GPUs and confusing NetworkManager with renumbered `enXpY` devices.)
 
 - Use `ip a` or `nmcli` to verify the new network names. For example, this `nmcli` output is from RTC:
 
@@ -266,9 +266,9 @@ Names for network interfaces are now tied to their hardware MAC address, not the
     [...]
     ```
 - **If the strings `connected to www-lco` or `www-ua`, and `connected to instrument` appear in the `nmcli` output, you may be finished.** If the connection profiles do not automatically find the renamed devices, read on.
-- Unplug the instrument interface and run `nmcli` again, noting which of the interfaces shows up as disconnected
+- Unplug the instrument and other interfaces and run `nmcli` again, noting which of the interfaces shows up as connected
 - Copy the full name (`enxaabbccddeeff`) of the interface that is showing up as connected
-- In `sudo nmtui`, rename or delete connections as necessary until there is only `www-ua`, `www-lco`, and `instrument`
+- In `sudo nmtui`, rename or delete connections as necessary until there is only `www-ua`, `www-lco`, and `instrument` (**Note:** ICC has `icc-to-rtc` and RTC has `rtc-to-icc` to configure, which are a pair of NICs for low-latency transfer. ICC additionally has `camsci1` and `camsci2`. Until we rewrite this document, consult the Networking doc for their config.)
 - Edit the `www-*` connections to ensure the "Device" field is set to the interface name you just copied
 - Copy the full name for the instrument interface, plug its cable back in, and repeat the last step for the `instrument` connection
 - Activate the appropriate connections in `nmtui` (or with `nmcli con down www-lco; nmcli con up www-ua; nmcli con up instrument`, swap `www-ua` and `www-lco` if necessary)
