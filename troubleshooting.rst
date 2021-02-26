@@ -85,32 +85,31 @@ Believe it or not, this can be a sign of insufficient disk space.
 Consult ``df -h`` and see if any of the filesystems have ``Use%`` of
 100%.
 
-RTC Lockup or Missing GPUs on RTC
-~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+Lockup / Missing GPUs / ``nvidia-smi`` errors
+~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
 
-The RTC occassionally locks up, or will lose a GPU (GPU has fallen off
-the bus errors). It must be restarted to resolve.
+Our computers with PCIe expansion cards will occassionally lock up, or will lose a GPU (``GPU has fallen off
+the bus`` errors). Sometimes running ``nvidia-smi`` fails with ``Unable to determine the device handle for GPU 0000:8C:00.0: GPU is lost.  Reboot the system to recover this GPU.`` GPU telemetry will also disappear from the monitoring dashboard.
 
-1. If RTC is responding:
+1. If the system is responding:
 
-   1. Rest the woofer, tweeter, ttmmod, and ttmpupil. Start camwfs
-      warmup (you don’t have to wait).
+   1. If you were using the system, rest any attached hardware and begin camera warmup. (You don't have to wait for them to reach the warmup temperature.) (For RTC: woofer, tweeter, ttmmod, ttmpupil, and camwfs.)
 
-   2. Shutdown RTC (requires sudo)
+   2. Shutdown (requires sudo)
 
       .. code-block:: bash
 
-         [user@exao2 ~]$ sudo shutdown -h now
+         [user@exaoN ~]$ sudo shutdown -h now
 
-   3. Now proceed to step 4.4 in the :doc:`System Power On <operating/startup>` procedure.
+   3. Now "press the power button" using the Moxa IO unit (see the ICC or RTC Power-On section for that computer in the :doc:`System Power On <operating/startup>` procedure)
 
-2. If RTC is not responding, or GPUs continue to fall off the bus after
-   step 1.
+2. If the system is not responding, GPUs continue to fall off the bus, or ``nvidia-smi`` errors persist after
+   following the procedure above:
 
-   1. If you can, perform steps 1.1 and 1.2 above.
-   2. Power down RTC at PDU0 (e.g. with ``pwrGUI``)
+   1. If you can, perform steps 1.1 and 1.2 above to bring the system down in an orderly fashion.
+   2. Power down ``pdu0.comprtc`` or ``pdu.compicc`` (e.g. with ``pwrGUI``)
    3. Wait at least 10 seconds.
-   4. Now perform all of step 4 in the :doc:`System Power On <operating/startup>` procedure.
+   4. Now perform all of the ICC or RTC Power-On steps from the :doc:`System Power On <operating/startup>` procedure.
 
 OCAM connectivity / bad data
 ~~~~~~~~~~~~~~~~~~~~~~~~~~~~
@@ -303,6 +302,7 @@ To check if any remain use
 .. code-block:: bash
 
    $ ps -elf | awk '{if ($5 == 1){print $4" "$5" "$15}}' | grep MagAOX/drivers
+
 
 Difficulties with NVIDIA proprietary drivers
 ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
