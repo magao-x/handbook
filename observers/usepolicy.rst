@@ -181,6 +181,11 @@ and before the proposal cycle for planned runs.  (The below list is currently on
 
 We encourage proposals to observe H-alpha targets not on our list, e.g. new proprietary targets, with MagAO-X and will work (discreetly when necessary) to support your observations.
 
+Nearby Bright Stars
+==================================
+The ultimate science goals for MagAO-X involve very high contrast observations of nearby stars.  Some obvious examples include alpha Cen A&B, Proxima, eps Eri, tau Ceti, Ross 128, GJ 876, and Sirius.  This list is not exhaustive.  You should assume that any stars within ~10 pc aand brighter than ~10th mag are reserved for the MagAO-X team.  However, this will depend on the science goals of your observation so please discuss interest in such targets with Jared Males (jrmales@arizona.edu).
+
+
 Laboratory Experiments
 ============================
 MagAO-X is often set up in the eXtreme Wavefront Control Laboratory (XWCL) at Steward Observatory, where it is available for conducting experiments and demonstrations.  We welcome such efforts, and will work to support them.  This includes providing remote access to the instrument when appropriate. Please contact Jared Males (jrmales@arizona.edu) to discuss.

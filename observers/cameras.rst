@@ -2,7 +2,6 @@ Camera Characteristics
 =============================
 
 The camera detector characteristics given below are mainly based on measurements certified by the manufacturers at delivery.  Unless otherwise indicated we have not verified these numbers in detail.
-
 camsci1
 --------------------
 
