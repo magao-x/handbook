@@ -6,12 +6,12 @@ The MagAO-X computing system.
 .. toctree::
    :maxdepth: 1
 
+   remote_operation
+   python
    administration
    networking
    data_storage_management
    computer_setup/computer_setup
-   python
-   development_vm
 ```
    
 ## Computer Architecture

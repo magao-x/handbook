@@ -6,7 +6,7 @@ degrees of freedom, three computers, and dozens of processes. To manage
 that complexity, we have the guides and tools detailed herein.
 
 Good starting points include the :doc:`startup <startup>` guide and the
-:doc:`troubleshooting <troubleshooting>` guide. Useful tools include 
+:doc:`troubleshooting <../troubleshooting>` guide. Useful tools include 
 :doc:`software/utils/xctrl`, :doc:`software/utils/cursesINDI`, and 
 :doc:`software/utils/logdump`.
 
