@@ -28,17 +28,6 @@ As it happens, MagAO-X has a
 `Vagrantfile <https://github.com/magao-x/MagAOX/blob/master/Vagrantfile>`__
 specifying the setup process to minimize the number of manual steps.
 
-.. warning::
-
-   **Linux users, do not use** ``apt`` **or** ``yum`` **to install Vagrant or VirtualBox.**
-
-   From the Vagrant `docs <https://learn.hashicorp.com/tutorials/vagrant/getting-started-install?in=vagrant/getting-started#caveats>`__:
-   "Some operating system distributions include a vagrant package in their upstream package repos.
-   Please do not install Vagrant in this manner. Typically these packages are
-   missing dependencies or include very outdated versions of Vagrant. If you
-   install via your system's package manager, it is very likely that you will
-   experience issues. Please use the official installers on the `downloads page <https://www.vagrantup.com/downloads>`__."
-
 Prerequisites
 -------------
 
@@ -49,6 +38,17 @@ Prerequisites
    virtualization backend, available for free. (`download <https://www.virtualbox.org/wiki/Downloads>`__, `install instructions <https://www.virtualbox.org/manual/ch02.html>`__)
 -  `Vagrant <https://www.vagrantup.com/>`__ — Program to automate
    creation / provisioning of development VMs (`download <https://www.vagrantup.com/downloads>`__, `install instructions <https://www.vagrantup.com/docs/installation>`__)
+
+.. warning::
+
+   **Linux users, do not use** ``apt`` **or** ``yum`` **to install Vagrant or VirtualBox.**
+
+   From the Vagrant `docs <https://learn.hashicorp.com/tutorials/vagrant/getting-started-install?in=vagrant/getting-started#caveats>`__:
+   "Some operating system distributions include a vagrant package in their upstream package repos.
+   Please do not install Vagrant in this manner. Typically these packages are
+   missing dependencies or include very outdated versions of Vagrant. If you
+   install via your system's package manager, it is very likely that you will
+   experience issues. Please use the official installers on the `downloads page <https://www.vagrantup.com/downloads>`__."
 
 Additional notes for Windows users
 ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
