@@ -24,9 +24,13 @@ make certain customizations for speed and convenience, there’s
 machine from a pre-made image, run your install script, and configure
 things like forwarding network ports from the VM to your host OS.
 
+As it happens, MagAO-X has a
+`Vagrantfile <https://github.com/magao-x/MagAOX/blob/master/Vagrantfile>`__
+specifying the setup process to minimize the number of manual steps.
+
 .. warning::
 
-   **Linux users, do not use ``apt``/``yum`` to install Vagrant or VirtualBox.**
+   **Linux users, do not use** ``apt`` **or** ``yum`` **to install Vagrant or VirtualBox.**
 
    From the Vagrant `docs <https://learn.hashicorp.com/tutorials/vagrant/getting-started-install?in=vagrant/getting-started#caveats>`__:
    "Some operating system distributions include a vagrant package in their upstream package repos.
@@ -34,10 +38,6 @@ things like forwarding network ports from the VM to your host OS.
    missing dependencies or include very outdated versions of Vagrant. If you
    install via your system's package manager, it is very likely that you will
    experience issues. Please use the official installers on the `downloads page <https://www.vagrantup.com/downloads>`__."
-
-As it happens, MagAO-X has a
-`Vagrantfile <https://github.com/magao-x/MagAOX/blob/master/Vagrantfile>`__
-specifying the setup process to minimize the number of manual steps.
 
 Prerequisites
 -------------
