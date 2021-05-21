@@ -6,9 +6,11 @@ included `provisioning
 script <https://github.com/magao-x/MagAOX/blob/master/setup/provision.sh>`__
 will automatically set up a fresh install on a computer running that OS.
 However, most of us don’t use CentOS 7 on our personal computers.
+Furthermore, the provisioning script will create users and groups, applying
+configuration you probably don't want!
 
-If you’re on a Mac or Windows machine, or if you just want to keep
-MagAO-X isolated from the rest of your OS, you should use a virtual
+If you don't fancy installing the full set of dependencies by hand,
+or you're on a Windows or macOS machine, you should use a virtual
 machine (VM). A virtual machine is a simulated computer (running
 whatever “guest OS” you like) that runs as a program on your computer’s
 OS (which we call the “host OS”). This virtual machine can then be used
@@ -22,6 +24,17 @@ make certain customizations for speed and convenience, there’s
 machine from a pre-made image, run your install script, and configure
 things like forwarding network ports from the VM to your host OS.
 
+.. warning::
+
+   **Linux users, do not use ``apt``/``yum`` to install Vagrant or VirtualBox.**
+
+   From the Vagrant `docs <https://learn.hashicorp.com/tutorials/vagrant/getting-started-install?in=vagrant/getting-started#caveats>`__:
+   "Some operating system distributions include a vagrant package in their upstream package repos.
+   Please do not install Vagrant in this manner. Typically these packages are
+   missing dependencies or include very outdated versions of Vagrant. If you
+   install via your system's package manager, it is very likely that you will
+   experience issues. Please use the official installers on the `downloads page <https://www.vagrantup.com/downloads>`__."
+
 As it happens, MagAO-X has a
 `Vagrantfile <https://github.com/magao-x/MagAOX/blob/master/Vagrantfile>`__
 specifying the setup process to minimize the number of manual steps.
@@ -33,11 +46,9 @@ Prerequisites
    ``xcode-select --install`` on macOS, see
    `below <#additional-notes-for-windows-users>`__ for Windows
 -  `VirtualBox <https://www.virtualbox.org/>`__ — Preferred
-   virtualization backend, available for free
+   virtualization backend, available for free. (`download <https://www.virtualbox.org/wiki/Downloads>`__, `install instructions <https://www.virtualbox.org/manual/ch02.html>`__)
 -  `Vagrant <https://www.vagrantup.com/>`__ — Program to automate
-   creation / provisioning of development VMs
--  NFS — available preinstalled on macOS and most Linux hosts *(ICC
-   guest on macOS and Linux hosts only)*
+   creation / provisioning of development VMs (`download <https://www.vagrantup.com/downloads>`__, `install instructions <https://www.vagrantup.com/docs/installation>`__)
 
 Additional notes for Windows users
 ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
