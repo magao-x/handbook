@@ -60,9 +60,11 @@ dm_eye_doctor_update_flat [dm: woofer, ncpc, or tweeter]
 ### Mode selection
 
 The modes argument can be specified by comma-separated integers, ranges (...), or a combination thereof. Examples:
-* 2 -> to 2
-* 3...5 -> 3,4,5
-* 2,6,10...15,18 -> 2,6,10,11,12,13,14,15,18
+```
+2 -> 2
+3...5 -> 3,4,5
+2,6,10...15,18 -> 2,6,10,11,12,13,14,15,18
+```
 
 ### Baselines
 
