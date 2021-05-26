@@ -8,3 +8,4 @@ Planning your observations
 
    filters
    cameras
+   coronagraphs
