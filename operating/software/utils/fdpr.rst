@@ -1,7 +1,7 @@
 Focus Diversity Phase Retrieval (and correction)
 ==================================================
 
-Guide on how to run focus diversity phase retrieval (FDPR) on MagAO-X. Part of the `magpyx <https://github.com/magao-x/magpyx>`_ Python package.
+Guide on running focus diversity phase retrieval (FDPR) on MagAO-X. Part of the `magpyx <https://github.com/magao-x/magpyx>`_ Python package.
 
 Description
 ------------
@@ -11,13 +11,13 @@ FDPR estimates the pupil-plane field from a set of measurements of defocused PSF
 Quick start (for when you just want to copy and paste)
 -------------------------------------------------------
 
-First, get the instrument into the expected configuration::
+First, get the instrument into the expected configuration (not quite implemented yet)::
 
     send_to_preset <fdpr preset name>
 
 If you've already got a calibration and only need to close the loop::
 
-    fdpr_close_loop <name of config file (always without the path or .conf extension)>
+    fdpr_close_loop <name of config file (always without the path and .conf extension)>
 
 If you just want to estimate the current wavefront state (this will update a set of shmims specified in the config file)::
 
@@ -44,7 +44,7 @@ Setting up the instrument
 
 Required devices, alignment, configuration... 
 
-.. Notes to myself: ND1 / ND1, 5Mhz, 50fps, Halpha 256x256 ROI at (708,248)
+.. Notes to myself: ND1 / ND1, 5Mhz, ~15fps, Halpha 256x256 ROI at (708,248)
 
 
 Calibration and configuration
@@ -144,25 +144,17 @@ A few parameters of note:
 Command line usage
 -------------------
 
-A general note about arguments 
-^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+When calling FDPR from the command line, the configuration parameters can be overriden with the following syntax::
 
-overriding the configuration file
+    <fdpr_console_script> <conf file> -o section1.parameter1=value1 section2.parameter2=value2
 
-One-shot estimation
-^^^^^^^^^^^^^^^^^^^^^
+For example, to run a closed loop with a different number of modes and a different gain::
 
-Response matrix measurement
-^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+    fdpr_close_loop <conf file> -c -o control.nmodes=1000 control.gain=0.6
 
-Response matrix estimation
-^^^^^^^^^^^^^^^^^^^^^^^^^^^
+(the `-c` flag above forces the control matrix to be recomputed with the new parameters.)
 
-Computing the control matrix
-^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
-
-Closing the loop
-^^^^^^^^^^^^^^^^^
+The `-o` flag is valid for any FDPR script. Individual scripts have unique flags that you can find by calling the help on a given function (`-h`).
 
 Interactive usage
 ------------------
