@@ -143,8 +143,56 @@ help.
 Usage
 -----
 
-Connecting
-~~~~~~~~~~
+
+Remotely controlling MagAO-X
+~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+
+Before you can remotely control MagAO-X, a little post-provisioning
+configuration is required. You must have a user account on MagAO-X with
+an SSH key file configured. This will probably be called something like
+``~/.ssh/id_ecdsa`` on your host computer (with the contents of the corresponding file
+``~/.ssh/id_ecdsa.pub`` added to `~/.ssh/authorized_keys` on the MagAO-X
+computers).
+
+With the username and key file handy, go to the folder where you cloned
+the ``MagAOX`` repository. There will be a subfolder called ``vm/``
+where the provisioning process placed a lot of files. In ``vm/ssh/``
+edit the ``config`` file. It should look like::
+
+   IdentityFile /vagrant/vm/ssh/magaox_ssh_key
+   Host aoc
+      HostName exao1.magao-x.org
+   Host rtc
+      HostName rtc
+      ProxyJump aoc
+   Host icc
+      HostName icc
+      ProxyJump aoc
+   Host *
+      User YOURUSERNAME
+
+which you should update with the username you use on MagAO-X computers.
+Notice the line at the top that says
+``IdentityFile /vagrant/vm/ssh/magaox_ssh_key``. This tells the VM to
+use the private key file at ``vm/ssh/magaox_ssh_key`` from the host to
+authenticate you.
+
+Copy the private key file you identified before and rename it
+to ``magaox_ssh_key`` and store it in the same directory as ``config``::
+
+   cp ~/.ssh/id_ecdsa vm/ssh/magaox_ssh_key
+
+SSH is very picky about file permissions, so ensure it's correctly limited to your user account::
+
+   $ ls -l vm/ssh/magaox_ssh_key
+   -rw-------  1 josephlong  staff  411 Apr 20 12:23 vm/ssh/magaox_ssh_key
+
+If you don't see ``-rw-------`` in the ``ls`` output, set permissions as follows::
+
+   chmod u=rw,g=,o= vm/ssh/magaox_ssh_key
+
+Connecting to the VM
+^^^^^^^^^^^^^^^^^^^^
 
 To connect to the VM, use ``vagrant ssh``. You’ll be logged in as user
 ``vagrant`` with no password, and the command prompt in your shell will
@@ -157,35 +205,8 @@ change to something like this:
 The rest of the commands in this section are to be run in a
 ``vagrant ssh`` session, unless otherwise noted.
 
-Remotely controlling MagAO-X
-~~~~~~~~~~~~~~~~~~~~~~~~~~~~
-
-Before you can remotely control MagAO-X, a little post-provisioning
-configuration is required. You must have a user account on MagAO-X with
-an SSH key file configured. (This will probably be called something like
-``~/.ssh/id_ecdsa`` on your host computer, with the corresponding file
-``~/.ssh/id_ecdsa.pub`` added to your authorized keys on the MagAO-X
-computers.)
-
-With the username and key file handy, go to the folder where you cloned
-the ``MagAOX`` repository. There will be a subfolder called ``vm/``
-where the provisioning process placed a lot of files. In ``vm/ssh/``
-edit the ``config`` file. At the end you will see
-
-::
-
-   Host *
-     User YOURUSERNAME
-
-which you should update with the username you use on MagAO-X computers.
-Notice the line at the top that says
-``IdentityFile /vagrant/vm/ssh/magaox_ssh_key``. This tells the VM to
-use the key file at ``vm/ssh/magaox_ssh_key`` from the host to
-authenticate you. Copy the key file you identified before and rename it
-to ``magaox_ssh_key`` and store it in the same directory as ``config``.
-
-Check connectivity
-^^^^^^^^^^^^^^^^^^
+Check connectivity to MagAO-X
+^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
 
 To ensure everything’s configured correctly, from a ``vagrant ssh``
 session run ``ssh rtc``, then ``exit``:

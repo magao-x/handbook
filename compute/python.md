@@ -54,14 +54,14 @@ git pull
 # resolve any conflicts
 ```
 
-Then open `/opt/MagAOX/config/conda_env_base.yml`. You'll see something like `conda env export`, but without the version numbers. Add your package name (but not version, unless you know what you're doing) to the list, being careful to put it under the `pip:` heading if that's how it was installed. 
+Then open `/opt/MagAOX/source/MagAOX/setup/conda_env_base.yml`. You'll see something like `conda env export`, but without the version numbers. Add your package name (but not version, unless you know what you're doing) to the list, being careful to put it under the `pip:` heading if that's how it was installed. 
 
 ### Updating the pinned packages
 
-Now, you need to update the pinned packages in `/opt/MagAOX/config/conda_env_pinned.yml`.
+Now, you need to update the pinned packages in `/opt/MagAOX/source/MagAOX/setup/conda_env_pinned.yml`.
 
 ```
-$ conda env export > /opt/MagAOX/config/conda_env_pinned.yml
+$ conda env export > /opt/MagAOX/source/MagAOX/setup/conda_env_pinned.yml
 ```
 
 ### Storing in version control
@@ -80,7 +80,7 @@ If you just performed these steps on AOC, now you need to connect to ICC and RTC
 ```
 $ cd /opt/MagAOX/config
 $ git pull
-$ conda env update -f /opt/MagAOX/config/conda_env_pinned.yml
+$ conda env update -f /opt/MagAOX/source/MagAOX/setup/conda_env_pinned.yml
 ```
 
 ## Updating `conda`
@@ -107,8 +107,8 @@ In most cases, the version of Python shipped with Miniconda hasn't changed.
 
 The default `configure_python.sh` would try to restore the pinned versions from `conda_env_pinned.yml`, but would fail because of the Python version mismatch. Instead, you need to create the environment from `conda_env_base.yml` and update `conda_env_pinned.yml` yourself
 
-4. `conda env update -f /opt/MagAOX/config/conda_env_base.yml`
-5. `conda env export > /opt/MagAOX/config/conda_env_pinned.yml`
+4. `conda env update -f /opt/MagAOX/source/MagAOX/setup/conda_env_base.yml`
+5. `conda env export > /opt/MagAOX/source/MagAOX/setup/conda_env_pinned.yml`
 6. ```
     $ cd /opt/MagAOX/config
     $ git add conda_env_pinned.yml
