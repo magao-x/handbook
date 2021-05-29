@@ -10,7 +10,7 @@ The base configuration is normally located at `/opt/MagAOX/config/sshTunnels.con
 
 The tunnel name must be specified with the `-n` command line option. The `tunnel_name` denotes the section in the configuration file(s) which contains the specification of the tunnel. `sshDigger` is normally configured via a base configuration file, hence all other command-line arguments are optional.
 
-This app does not require that an instance specific configuration `tunnel_name.conf` be available.  If one is available matching the name given with the `-n tunnel_name` option, then any settings contained therein will override those given in the base config file.
+This app does not require that an instance of specific configuration `tunnel_name.conf` be available.  If one is available matching the name given with the `-n tunnel_name` option, then any settings contained therein will override those given in the base config file.
 
 ### Tunnel Specification
 
@@ -21,12 +21,14 @@ Tunnels are specified by a section in the configuration files, normally the base
 remoteHost=resolvable_name
 localPort=X
 remotePort=Y
+compression=true-or-false
 ```
 
 Where
 - `resolvable_name` is an ip address or host name.  This can include a user name `user@` at the beginning if needed.
 - `X` denotes the integer local port number.
 - `Y` denotes the integer remote port number
+- `true-or-false` should be either `true` or `false`, and specifies whether this tunnel will use compression, see below.
 
 This results in `ssh` being started with
 
@@ -50,6 +52,12 @@ remotePort=7624
 ```
 
 This then securely forwards traffic from `localhost:7630` to the INDI server on `rtc:7624`.
+
+### Compression
+
+The INDI protocol uses XML, and can therefore be a heavy user of bandwidth.  Tunnels for INDI should normally be compressed for remote connections, and may be compressed depending on performance for instrument LAN tunnels.
+
+Tunnels for milkzmq image transfer should NOT be compressed.  The images are already compressed if possible, and the algorithm used by ssh will not provide significant compression of this type of data.  This would just consume CPU resources without benefit.
 
 ## xindiserver
 
@@ -117,4 +125,4 @@ If the `xindidriver` program for a driver reports that it can not get a lock, wh
 
 ### Troubleshooting
 
-If `indiserver` exits abnormally (this is extremly rare, and is not expected except due to operator error!), it can leave the `xindidriver` processes running.  A subsequent attempt to restart will fail when new instances of `xindidriver` can not lock the FIFOs.  The solution is manually kill each of the `xindidriver` processes, which will have the symlinked names of the `MagAOXApp` they are communicating with.
+If `indiserver` exits abnormally (this is extremly rare, and is not expected except due to operator error!), it can leave the `xindidriver` processes running.  A subsequent attempt to restart will fail when new instances of `xindidriver` can not lock the FIFOs.  The solution is manually kill each of the `xindidriver` processes, which will have the symlinked names of the `MagAOXApp` they are communicating with. Instructions can be found in the [troubleshooting guide.](../../troubleshooting.html#killing-indi-zombies)

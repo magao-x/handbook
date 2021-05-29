@@ -282,9 +282,9 @@ Killing INDI zombies
 ~~~~~~~~~~~~~~~~~~~~
 
 If the ``indiserver`` crashes uncleanly (itself a subprocess of
-``xindiserver``), the associated ``xindidriver`` processes may become
+`xindiserver <operating/software/apps/network.html#xindiserver>`_), the associated ``xindidriver`` processes may become
 orphans (i.e. reparented to PID 1 (init)). This will prevent
-``xindiserver`` from starting again until these processes have been
+`xindiserver <operating/software/apps/network.html#xindiserver>`_ from starting again until these processes have been
 killed. (There will be output in logdump suggesting you
 ``kill the zombies``.)
 
