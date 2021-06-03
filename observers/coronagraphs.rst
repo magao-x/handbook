@@ -40,7 +40,7 @@ Two pupil masks are currently available, in addition to "open" (no mask).
      
 Focal Plane Masks
 +++++++++++++++++++++++++++++    
-There are two chrome dots on glass plates. Note: optical densitties are estimated from standard chrome.
+There are two chrome dots on glass plates. Note: optical densities are estimated from standard chrome.
 
 
 Small spot: 272 um diameter.
