@@ -20,5 +20,8 @@ Viewing camera output and DM input (really, any shared memory image) uses
    startup
    shutdown
    alignment
-   software/apps/index
+   software/guis/index
    software/utils/index
+   software/apps/index
+   
+   
