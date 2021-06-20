@@ -25,12 +25,12 @@ Two pupil masks are currently available, in addition to "open" (no mask).
    * - open
      - No mask, just the telescope pupil.  Note: design file includes mask over bump.
      - 100%
-     - :static:`magMask.fits.gz <_static/coronagraph/lyot/magMask.fits.gz>`
+     - :static:`magMask.fits.gz <coronagraph/lyot/magMask.fits.gz>`
      - 0.0067528
    * - bump-mask 
      - Undersized pupil, oversized central obscuration, oversized spiders, and mask over bump
      - 86.75%
-     - :static:`bumpMask.fits.gz <_static/coronagraph/lyot/bumpMask.fits.gz>`
+     - :static:`bumpMask.fits.gz <coronagraph/lyot/bumpMask.fits.gz>`
      - 0.0067528
    * - fat-spider 
      - Same as bump-mask, but one extra-oversized spider.  Intended for kernel-phase type WFS. 
@@ -40,7 +40,7 @@ Two pupil masks are currently available, in addition to "open" (no mask).
      
 Focal Plane Masks
 +++++++++++++++++++++++++++++    
-There are two chrome dots on glass plates. Note: ODs are estimated.
+There are two chrome dots on glass plates. Note: optical densities are estimated from standard chrome.
 
 
 Small spot: 272 um diameter.
@@ -114,17 +114,17 @@ Lyot Stops
    * - LyotLg1
      - Lyot Large 1
      - 63.82%
-     - :static:`lyotMaskLarge1.fits.gz <_static/coronagraph/lyot/lyotMaskLarge1.fits.gz>`
+     - :static:`lyotMaskLarge1.fits.gz <coronagraph/lyot/lyotMaskLarge1.fits.gz>`
      - 0.0067528
    * - LyotLg2 
      - Lyot Large 2
      - 57.32
-     - :static:`lyotMaskLarge2.fits.gz <_static/coronagraph/lyot/lyotMaskLarge2.fits.gz>`
+     - :static:`lyotMaskLarge2.fits.gz <coronagraph/lyot/lyotMaskLarge2.fits.gz>`
      - 0.0067528
    * - LyotSm
      - Lyot Small
      - 33.35%
-     - :static:`lyotMaskSmall.fits.gz <_static/coronagraph/lyot/lyotMaskSmall.fits.gz>`
+     - :static:`lyotMaskSmall.fits.gz <coronagraph/lyot/lyotMaskSmall.fits.gz>`
      - 0.0067528
      
      
