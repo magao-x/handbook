@@ -41,14 +41,20 @@ Prerequisites
 
 .. warning::
 
-   **Linux users, do not use** ``apt`` **or** ``yum`` **to install Vagrant or VirtualBox.**
+   **Linux users, follow instructions on the respective download pages before
+   using** ``apt`` **or** ``yum`` **to install Vagrant or VirtualBox. The
+   default packages will not work properly.**
 
-   From the Vagrant `docs <https://learn.hashicorp.com/tutorials/vagrant/getting-started-install?in=vagrant/getting-started#caveats>`__:
-   "Some operating system distributions include a vagrant package in their upstream package repos.
-   Please do not install Vagrant in this manner. Typically these packages are
-   missing dependencies or include very outdated versions of Vagrant. If you
-   install via your system's package manager, it is very likely that you will
-   experience issues. Please use the official installers on the `downloads page <https://www.vagrantup.com/downloads>`__."
+   For VirtualBox, the `Linux downloads page <https://www.virtualbox.org/wiki/Linux_Downloads>`__
+   offers direct links to ``.rpm`` and ``.deb`` packages which you can
+   install, or you can read down the page for information on adding VirtualBox
+   packages to your OS package index.
+
+   For Vagrant, the `download page <https://www.vagrantup.com/downloads>`__
+   explains how to add their updated packages to your package manager, which
+   you should do first so that ``apt` (or ``yum``) finds the up-to-date
+   version.
+
 
 Additional notes for Windows users
 ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
