@@ -28,15 +28,18 @@ A few things to know for running CACTI safely:
 4. If over the course of several days the humidity is slowly rising check the
    following things:
    
-   a. The airflow from the hose to the DM box
-   
-   b. The dessicant attached to the air flow pipes.
+   * The airflow from the hose to the DM box
+   * The dessicant attached to the air flow pipes.
    
 5. If restarting or shutting down XCTRL, first zero the DM and then release it.
 
+Virtual Machine (VM)
+--------------------
+
+Initialize the virtual machine before running exao0 on CACTI. The VM handles the control GUIs and the cameras.
 
 Setup (if first time)
----------------------
+^^^^^^^^^^^^^^^^^^^^^
 
 1. Follow the directions for setting up the MagAO-X instrument. https://magao-x.org/docs/handbook/compute/remote_operation.html#setup
 
@@ -94,7 +97,7 @@ Setup (if first time)
 At this point, you should be ready to have regular virtual machine startup for CACTI.
 
 Startup
--------
+^^^^^^^
 
 These directions are not guaranteed to work unless your virtual machine setup is adjusted for CACTI.
 
@@ -124,6 +127,130 @@ These directions are not guaranteed to work unless your virtual machine setup is
       vm_tic_indi
       toc_tic_milkzmq
       toc_tic_jupyterlab
+      
+Now you can go about with your various tasks.
 
-TODO: Humidity checking, running XSUP, cursesINDI, Config, Python Scripts, EyeDoctor
+VM Commands
+-----------
+These commands allow you to turn on various GUIs through the VM.
+
+pwrGUI
+^^^^^^
+Power Control GUI. Allows you to turn on and off the cameras, lasers, DM, etc.
+   
+To operate, use:
+   
+.. code:: text
+    
+    $ pwrGUI &
+      
+dmCtrlGUI
+^^^^^^^^^
+DM Control GUI. Controls the 1K DM. Apply flats, clear channels, release DM.
+   
+To operate, use:
+
+.. code:: text
+    
+    $ dmCtrlGUI dmkilo &
+      
+rtimv
+^^^^^
+Real Time Image Viewer GUI. Allows you to view livestreams of the camera.
+   
+To operate, use:
+
+.. code:: text
+    
+    $ rtimv <shmim name> &
+
+where ``<shmim name>`` is the name of the device. For example if using camsci,
+
+.. code:: text
+    
+    $ rtimv camsci &
+
+**Tips for rtimv**: If the stream is not live, it could be an indicator that:
+
+   * The camera is off.
+   * The process on exao0 has crashed. Check in the exao0 terminal with ``xctrl status``.
+   * ``milkmxmq`` server is down. Check in exao0 terminal with ``xctrl status``.
+   * You didn't start the ``milkmxmq`` client in the VM.
+
+Exao0
+-----
+
+To operate CACTI, you must be in exao0.
+
+To startup exao0, open a new terminal and ssh with your account into exao0. Always run it in xsup.
+
+.. code:: text
+   
+   $ ssh exao0
+   $ su xsup
+   
+From here, you can start running the various processes.
+
+Humidity Sensing
+^^^^^^^^^^^^^^^^
+
+The arduino humidity sensor has been moved from corona to exao0. The humidity
+sensor is connected via USB to /dev/ttyACM0 which can be monitored with “screen” 
+provided that you are in the “dialout” group.
+
+If you are not in the "dialout" group, get someone to do ``sudo gpasswd -a USERNAME dialout``.
+
+Open a separate terminal and log into exao0.
+
+If you are starting from a fresh boot:
+
+.. code:: text
+   
+   $ screen /dev/ttyACM0
+   
+If the session already exists (i.e. was disconnected without killing it):
+
+.. code:: text
+   
+   $ screen -rd
+   
+This will open up another terminal window which will output all humidity levels. The humidity levels are updated every 5 minutes. Please actively check the humidity levels every 30 minutes or so.
+
+**Do not operate the 1K DM if the humidity is above 15%!!**
+
+If somoene else is using the device, you won't be able to open it until they have killed their screen session (after reattaching if needed).
+
+**To kill**: ``Ctrl + a``, release, then "k", then "y" to confirm.
+
+   * This releases the device for other users.
+
+**To detatch**: ``Ctrl + a``, release, then "d".
+
+   * This makes it easy to reattached with ``screen -rd``
+
+cursesINDI
+^^^^^^^^^^
+
+Allows you to set exposure times, ROI, etc directly.
+
+To start cursesINDI, enter it in the exao0 terminal when in xsup:
+
+.. code:: text
+   
+   $ cursesINDI
+   
+For general use:
+
+1. Enter the name of device and it will search for it.
+
+   * Tip: Sometimes there are multiple versions of the device. Add "." at the end
+     of your device name to minimize scrolling. 
+
+2. Once at the list, curse over "target" in second to right hand column. Hit "e" for edit, enter a new number, and then "y" for yes.
+
+3. For ROI you will need to toggle the ``set_roi`` processes by hitting "t" for toggle.
+
+4. To exit, hit ``Ctrl + c``.
+   
+TODO: Config, Python Scripts, EyeDoctor
 
