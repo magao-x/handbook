@@ -52,7 +52,7 @@ Prerequisites
 
    For Vagrant, the `download page <https://www.vagrantup.com/downloads>`__
    explains how to add their updated packages to your package manager, which
-   you should do first so that ``apt` (or ``yum``) finds the up-to-date
+   you should do first so that ``apt`` (or ``yum``) finds the up-to-date
    version.
 
 
@@ -150,8 +150,8 @@ Usage
 -----
 
 
-Remotely controlling MagAO-X
-~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+Configuring the VM to use your SSH key
+~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
 
 Before you can remotely control MagAO-X, a little post-provisioning
 configuration is required. You must have a user account on MagAO-X with
@@ -202,25 +202,31 @@ Connecting to the VM
 
 To connect to the VM, use ``vagrant ssh``. You’ll be logged in as user
 ``vagrant`` with no password, and the command prompt in your shell will
-change to something like this:
-
-::
+change to something like this::
 
    [vagrant@centos7] $
 
 The rest of the commands in this section are to be run in a
 ``vagrant ssh`` session, unless otherwise noted.
 
+(Note: under some circumstances you will get a worrying-sounding message
+about ``Xauthority``. As long as things are working, it should be ignored.)
+
+.. _check_vm_connectivity:
+
 Check connectivity to MagAO-X
 ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
 
 To ensure everything’s configured correctly, from a ``vagrant ssh``
-session run ``ssh rtc``, then ``exit``:
+session run ``ssh aoc``, type ``yes`` at the prompt (if needed)
+then ``exit``::
 
-::
-
-   [vagrant@centos7] $ ssh rtc
-   [you@exao2] $ exit
+   [vagrant@centos7] $ ssh aoc
+   The authenticity of host 'exao1.magao-x.org (128.196.208.35)' can't be established.
+   ECDSA key fingerprint is SHA256:NZB0hJzTYb5+g6JH/mrLdC7PNB1h8UTb74bStipmfDE.
+   Are you sure you want to continue connecting (yes/no/[fingerprint])? yes
+   Warning: Permanently added '128.196.208.35' (ECDSA) to the list of known hosts.
+   [you@exao1] $ exit
    [vagrant@centos7] $
 
 Start tunnels
@@ -234,9 +240,7 @@ The proclist for VM usage is in
 `magao-x/config/proclist_vm.txt <https://github.com/magao-x/config/blob/master/proclist_vm.txt>`__.
 
 Running ``xctrl startup`` to start the tunnels should result in output
-like:
-
-::
+like::
 
    [vagrant@centos7 ~]$ xctrl startup
    Session vm_aoc_milkzmq does not exist
@@ -278,7 +282,7 @@ GUI app, which is still running inside the VM.
    |                  +----------------------+|
    +------------------------------------------+
 
-So, to start the ``coronAlignGUI``, you could do…
+So, to start the ``coronAlignGUI``, you could do...
 
 ::
 
