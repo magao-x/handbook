@@ -37,7 +37,6 @@ Create a virtual machine to operate CACTI remotely. The VM handles the control G
 
 Initial Setup
 ^^^^^^^^^^^^^
-
 0. You will need an SSH key in ECDSA or ED25519 format, and a user account in
    group ``magaox-dev`` on ``exao0`` (a.k.a. TIC) with that key authorized
 
@@ -123,7 +122,121 @@ To operate, use:
 .. code:: text
 
     $ pwrGUI &
+    
+To power on a device, slide the bar from left to right. Simiarly, to power off a device, 
+slide the bar from right to left.
 
+rtimv
+^^^^^
+Real Time Image Viewer GUI. Allows you to view livestreams of the camera. A detailed 
+explanation for ``rtimv`` can be found in the :doc:`../operating/software/guis/cameras` 
+section.
+
+There is a little bit of preparation work to do before running ``rtimv``. 
+
+1. Power on the cameras you want to use in ``pwrGUI``.
+
+2. Initialize the ``milkzmqClient`` so ``rtimv`` can see them. You can do this with::
+      
+      $ milkzmqClient -p 9000 localhost <shmim-1> <shmim-2> ... &
+   
+  where each ``<shmim>`` is a device (camera, DM channels). Load up all the cameras 
+  you want to use. For example,::
+      
+      $ milkzmqClient -p 9000 localhost camlgsfp camzwfs camtip &
+      
+  will initialize the cameras ``camlgsfp``, ``camzwfs``, and ``camtip``.
+  
+  **Tip**: If you forgot the ``&`` at the end of the command and the command
+  line is hanging, you can press ``ctrl + z`` to go back to the command line
+  and then enter ``bg`` to put ``milkzmqClient`` in the background.
+  
+  **Note**: ``milkzmqClient`` can be a little slow at times. If the command
+  line is hanging and you used ``&``, try hitting ``enter`` to see if you get
+  back to command line.
+
+3. Now you can run ``rtimv``. There's two ways you can do this.
+
+   A. To see the camera GUI with the INDI connected display, use::
+
+         $ rtimv -c rtimv_<camera-name>.conf &
+
+      where ``<camera-name>`` is the name of the camera. For example if using ``camlgsfp``,::
+      
+         $ rtimv -c rtimv_camlgsfp.conf &
+         
+      **Note**: A ``.conf`` file for this ``<camera-name>`` must exist for this to run.
+      If it's not present, contact Jared.
+      
+   B. If you are not interested in the INDI connected display, use::
+   
+         $ rtimv <camera-name> &
+      
+      and you should get the ``rtimv`` GUI with no notes on the sides.
+
+
+**Troubleshooting rtimv**: Sometimes you do everything right and you are rewarded with a blank 
+``rtimv`` window. Here are some steps to take for resetting the ``milkzmq`` connection.
+
+1. Kill the ``rtimv`` and ``milkzmqClient`` jobs. At the vm command line, enter ``jobs`` and
+   you will see all the jobs running with a number associated with it.::
+      
+      [vagrant@centos7 ~]$ jobs
+      [1]   Running                 pwrGUI &
+      [2]-  Running                 milkzmqClient -p 9000 localhost camlgsfp &
+      [3]+  Running                 rtimv -c rtimv_camlgsfp.conf &
+      
+   To stop a job, enter ``kill %n`` where ``n`` is the number. In this example, you need to stop
+   the ``milkzmqClient`` on 2 and the ``rtimv`` on 3.::
+  
+      [vagrant@centos7 ~]$ kill %2
+      [vagrant@centos7 ~]$ milkzmqClient: Disconnected from camlgsfp
+      
+      [2]-  Done                    milkzmqClient -p 9000 localhost camlgsfp
+      [vagrant@centos7 ~]$ jobs
+      [1]-  Running                 pwrGUI &
+      [3]+  Running                 rtimv -c rtimv_camlgsfp.conf &
+      [vagrant@centos7 ~]$ kill %3
+      [vagrant@centos7 ~]$ jobs
+      [1]-  Running                 pwrGUI &
+      [3]+  Terminated              rtimv -c rtimv_camlgsfp.conf
+      [vagrant@centos7 ~]$ jobs
+      [1]+  Running                 pwrGUI &
+
+2. Reinitialize the ``milkzmqClient``. ::
+
+      [vagrant@centos7 ~]$ milkzmqClient -p 9000 localhost camlgsfp &
+
+3. Restart the ``vm_tic_milkzmq`` process in ``xctrl``.::
+
+      [vagrant@centos7 ~]$ xctrl restart vm_tic_milkzmq
+      Waiting for tmux session for vm_tic_milkzmq to exit...
+      Waiting for tmux session for vm_tic_milkzmq to exit...
+      Ended tmux session for vm_tic_milkzmq
+      Session vm_tic_milkzmq does not exist
+      Created tmux session for vm_tic_milkzmq
+      Executed in vm_tic_milkzmq session: '/opt/MagAOX/bin/sshDigger -n vm_tic_milkzmq'
+      [vagrant@centos7 ~]$ milkzmqClient: Connected to camlgsfp
+       [ MILK_SHM_DIR ] '/milk/shm'
+       [ MILK_SHM_DIR ] '/milk/shm'
+       [ MILK_SHM_DIR ] '/milk/shm'
+       
+   What we are looking for is the last 4 lines, which shows the output for ``milkzmqClient``.
+   
+4. Start up ``rtimv`` like in the previous directions. The GUI should be outputting properly now.
+
+
+roiGUI
+^^^^^^
+Region of Interest GUI for ``rtimv``. A detailed explanation for ``roiGUI`` functions can be found 
+in the :doc:`../operating/software/guis/cameras` section.
+
+To operate, use:::
+
+   $ roiGUI <camera-name> &
+
+where ``<camera-name>`` is the camera you want to edit the ROI for ``rtimv``. 
+   
 dmCtrlGUI
 ^^^^^^^^^
 DM Control GUI. Controls the 1K DM. Apply flats, clear channels, release DM.
@@ -133,29 +246,6 @@ To operate, use:
 .. code:: text
 
     $ dmCtrlGUI dmkilo &
-
-rtimv
-^^^^^
-Real Time Image Viewer GUI. Allows you to view livestreams of the camera.
-
-To operate, use:
-
-.. code:: text
-
-    $ rtimv <shmim name> &
-
-where ``<shmim name>`` is the name of the device. For example if using camsci,
-
-.. code:: text
-
-    $ rtimv camsci &
-
-**Tips for rtimv**: If the stream is not live, it could be an indicator that:
-
-   * The camera is off.
-   * The process on exao0 has crashed. Check in the exao0 terminal with ``xctrl status``.
-   * ``milkmxmq`` server is down. Check in exao0 terminal with ``xctrl status``.
-   * You didn't start the ``milkmxmq`` client in the VM.
 
 Commands run on ``exao0``
 -------------------------
