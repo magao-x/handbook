@@ -93,7 +93,7 @@ These directions are not guaranteed to work unless your virtual machine setup is
 2. Start up the virtual machine::
 
       $ vagrant up
-      $ vagrant shh
+      $ vagrant ssh
 
 3. One you are in the virtual machine, bring up xctrl::
 
@@ -154,6 +154,20 @@ There is a little bit of preparation work to do before running ``rtimv``.
   **Note**: ``milkzmqClient`` can be a little slow at times. If the command
   line is hanging and you used ``&``, try hitting ``enter`` to see if you get
   back to command line.
+  
+  Here is an example of ``milkzmqClient`` successfully loading for ``camlgsfp``. Note that
+  the command line entry that says ``N: 2`` is automatic. The last 4 lines are proof that 
+  ``camlgsfp`` is connected in ``milkzmqClient``. ::
+  
+      [vagrant@centos7 ~]$ milkzmqClient -p 9000 localhost camlgsfp &
+      [2] 6332
+      [vagrant@centos7 ~]$ N: 2
+      camlgsfp 
+      milkzmqClient: Beginning receive at tcp://localhost:9000 for camlgsfp
+      milkzmqClient: Connected to camlgsfp
+       [ MILK_SHM_DIR ] '/milk/shm'
+       [ MILK_SHM_DIR ] '/milk/shm'
+       [ MILK_SHM_DIR ] '/milk/shm'
 
 3. Now you can run ``rtimv``. There's two ways you can do this.
 
@@ -179,7 +193,7 @@ There is a little bit of preparation work to do before running ``rtimv``.
 ``rtimv`` window. Here are some steps to take for resetting the ``milkzmq`` connection.
 
 1. Kill the ``rtimv`` and ``milkzmqClient`` jobs. At the vm command line, enter ``jobs`` and
-   you will see all the jobs running with a number associated with it.::
+   you will see all the jobs running with a number associated with it. ::
       
       [vagrant@centos7 ~]$ jobs
       [1]   Running                 pwrGUI &
@@ -187,7 +201,7 @@ There is a little bit of preparation work to do before running ``rtimv``.
       [3]+  Running                 rtimv -c rtimv_camlgsfp.conf &
       
    To stop a job, enter ``kill %n`` where ``n`` is the number. In this example, you need to stop
-   the ``milkzmqClient`` on 2 and the ``rtimv`` on 3.::
+   the ``milkzmqClient`` on 2 and the ``rtimv`` on 3. ::
   
       [vagrant@centos7 ~]$ kill %2
       [vagrant@centos7 ~]$ milkzmqClient: Disconnected from camlgsfp
@@ -207,7 +221,7 @@ There is a little bit of preparation work to do before running ``rtimv``.
 
       [vagrant@centos7 ~]$ milkzmqClient -p 9000 localhost camlgsfp &
 
-3. Restart the ``vm_tic_milkzmq`` process in ``xctrl``.::
+3. Restart the ``vm_tic_milkzmq`` process in ``xctrl``. ::
 
       [vagrant@centos7 ~]$ xctrl restart vm_tic_milkzmq
       Waiting for tmux session for vm_tic_milkzmq to exit...
@@ -221,7 +235,7 @@ There is a little bit of preparation work to do before running ``rtimv``.
        [ MILK_SHM_DIR ] '/milk/shm'
        [ MILK_SHM_DIR ] '/milk/shm'
        
-   What we are looking for is the last 4 lines, which shows the output for ``milkzmqClient``.
+   Here we can see at the last 4 lines that ``camlgsfp`` is restarted in ``milkzmqClient``.
    
 4. Start up ``rtimv`` like in the previous directions. The GUI should be outputting properly now.
 
@@ -231,7 +245,9 @@ roiGUI
 Region of Interest GUI for ``rtimv``. A detailed explanation for ``roiGUI`` functions can be found 
 in the :doc:`../operating/software/guis/cameras` section.
 
-To operate, use:::
+To operate, use:
+
+.. code:: text
 
    $ roiGUI <camera-name> &
 
@@ -241,12 +257,25 @@ dmCtrlGUI
 ^^^^^^^^^
 DM Control GUI. Controls the 1K DM. Apply flats, clear channels, release DM.
 
-To operate, use:
+**IMPORTANT**: Before powering the DM in ``pwrGUI`` and operating ``dmCtrlGUI``, you must verify the 
+1K DM humidity is below 15%. See :ref:`humidity_check` for instructions on checking the humidity.
 
-.. code:: text
+To operate, use: ::
 
     $ dmCtrlGUI dmkilo &
 
+This will open a GUI window. 
+
+1. Initialize the DM by clicking on the ``initialize`` at the top right. Sometimes, the GUI starts 
+   pre-initialized.
+
+2. To load a DM flat, choose which file you'd like from the top drop down menu.
+
+3. Click on ``set_flat`` to load the flat.
+
+4. When you are done using the 1K DM, please click on ``zero flat`` then  ``release`` before powering it
+   down in ``pwrGUI``.
+    
 Commands run on ``exao0``
 -------------------------
 
@@ -262,6 +291,8 @@ Startup and shutdown with ``xctrl``
 
 From here, you can start running the various processes with :doc:`../operating/software/utils/xctrl`.
 
+.. _humidity_check:
+
 Humidity Sensing
 ^^^^^^^^^^^^^^^^
 
@@ -269,9 +300,10 @@ The Arduino humidity sensor has been moved from ``corona`` to ``exao0``. The hum
 sensor is connected via USB to ``/dev/ttyACM0`` which can be monitored with ``screen``
 provided that you are in the ``dialout`` user group on exao0.
 
-If you are not in the ``dialout`` group, get someone to do ``sudo gpasswd -a USERNAME dialout`` and log in again.
+If you are not in the ``dialout`` group, get someone to do ``sudo gpasswd -a USERNAME dialout`` 
+and log in again.
 
-Open a separate terminal and log into ``exao0``.
+Open a separate terminal and log into ``exao0`` **with your account** (not ``xsup``).
 
 If you are starting from a fresh (re)boot:
 
@@ -285,7 +317,7 @@ If the session already exists (i.e. was disconnected without killing it):
 
    $ screen -rd
 
-The screen should now show a bunch of environmental monitoring information that looks like this::
+The screen should now show a bunch of environmental monitoring information that looks like this: ::
 
    Humidity: 10.70 %	Temperature: 22.80 *C 73.04 *F	Heat index: 21.41 *C 70.55 *F
 
@@ -293,7 +325,8 @@ Please actively check the humidity levels every 30 minutes or so.
 
 **Do not operate the 1K DM if the humidity is above 15%!!**
 
-If somoene else is viewing the humidity monitor, even if they are "detached" from ``screen``, you won't be able to open it until they have killed their screen session (after reattaching if needed).
+If somoene else is viewing the humidity monitor, even if they are "detached" from ``screen``, 
+you won't be able to open it until they have killed their screen session (after reattaching if needed).
 
 **To kill (exit) the humidity monitor**: ``Ctrl + a``, release, then "k", then "y" to confirm.
 
@@ -321,7 +354,8 @@ For general use:
    * Tip: Sometimes there are multiple versions of the device. Add "." at the end
      of your device name to minimize scrolling.
 
-2. Once at the list, curse over "target" in second to right hand column. Hit "e" for edit, enter a new number, and then "y" for yes.
+2. Once at the list, curse over "target" in second to right hand column. Hit "e" for edit, enter a new 
+   number, and then "y" for yes.
 
 3. For ROI you will need to toggle the ``set_roi`` processes by hitting "t" for toggle.
 
