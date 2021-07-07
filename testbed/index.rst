@@ -9,7 +9,7 @@ Virtual Machine, which operates very similarly to MagAO-X with some tweaks.
 
    Diagram showing the relationships between systems on the XWCL testbed. Red indicates the AO control loop. :download:`Full-size <testbed_diagram.png>`
 
-**Sections TODO: Config, Python Scripts, EyeDoctor**
+**Sections TODO: Config, Python Scripts**
 
 General Safety
 --------------
@@ -298,7 +298,7 @@ Humidity Sensing
 
 The Arduino humidity sensor has been moved from ``corona`` to ``exao0``. The humidity
 sensor is connected via USB to ``/dev/ttyACM0`` which can be monitored with ``screen``
-provided that you are in the ``dialout`` user group on exao0.
+provided that you are in the ``dialout`` user group on ``exao0``.
 
 If you are not in the ``dialout`` group, get someone to do ``sudo gpasswd -a USERNAME dialout`` 
 and log in again.
@@ -341,7 +341,7 @@ cursesINDI
 
 Allows you to set exposure times, ROI, etc directly.
 
-To start cursesINDI, enter it in the exao0 terminal when in xsup:
+To start cursesINDI, enter it in the ``exao0`` terminal when in ``xsup``:
 
 .. code:: text
 
@@ -357,13 +357,115 @@ For general use:
 2. Once at the list, curse over "target" in second to right hand column. Hit "e" for edit, enter a new 
    number, and then "y" for yes.
 
-3. For ROI you will need to toggle the ``set_roi`` processes by hitting "t" for toggle.
-
-4. To exit, hit ``Ctrl + c``.
+3. To exit, hit ``Ctrl + c``.
 
 The Eye Doctor for CACTI
 ^^^^^^^^^^^^^^^^^^^^^^^^
 
-**TODO**
-
 Consult :doc:`../operating/software/utils/eyedoctor` for general information.
+
+Run eye doctor in the ``exao0`` terminal under ``xsup``. The general form of the command is:
+
+.. code:: text
+   
+   $ dm_eye_doctor <portINDI> <dmModes> <camera-name> <psf_core_radius_pixels> <modes_to_optimize> <amplitude_search_range> --skip 1
+   
+For example, if you want to run ``dm_eye_doctor`` for the 1K DM using the ``camlgsfp`` camera and
+correct the lower order modes, it would be:
+
+.. code:: text
+   
+   $ dm_eye_doctor 7626 kiloModes camlgsfp 8 2...10 0.1 --skip 1
+   
+If you want to go on higher order modes, change the ``<modes_to_optimize>`` value:
+
+.. code:: text
+   
+   $ dm_eye_doctor 7626 kiloModes camlgsfp 8 10...30 0.1 --skip 1
+   
+Once you have a DM flat that produces a nice PSF, you can save the flat with:
+
+.. code:: text
+   
+   $ dm_eye_doctor_update_flat kilo
+   
+And it will save a new flat in the ``dmCtrlGUI`` list at the very bottom with the date stamped on it.
+To run the new flat, you need to update ``dmCtrlGUI`` to zero the flat, select the new flat, and then
+set it.
+
+Running Python to control ``exao0``
+--------------------------------------------
+
+There are a myriad of commands you can use to do things with ``exao0``, such as saving data and
+running control loops.
+
+Running Jupyter Notebook (Python)
+^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+
+To access Jupyter Notebook from ``exao0``, you need to ssh into ``exao0`` with another terminal:
+
+.. code:: text
+   
+   $ ssh -L 9990:localhost:9999 exao0
+
+**Note**: if your computer has a different access code for getting into ``exao0``, use that in 
+place of the ``exao0`` portion of the command above.
+
+Once connected through ssh, you can navigate to ``localhost:9990`` on your internet browser. This 
+will open up the jupyter notebook directory page under ``xsup``. If a password is required, ask
+someone who has access for it.
+
+From here, you can create your own directories and jupyter notebooks to run your python code.
+
+Saving Camera Images with ``magpyx``
+^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+
+There's two ways to save images from the cameras, either through ``cursesINDI`` or using the
+``ImageStream`` function within the ``magpyx`` python code. This section will cover how to use
+``magpyx``. More information on ``magpyx`` can be found `here <https://github.com/magao-x/magpyx>`_.
+
+In jupyter, you need to import ``ImageStream``:
+
+.. code:: text
+   
+   $ from magpyx.utils import ImageStream
+   
+To declare a camera, set the name of the camera in ``<camera-name>``:
+
+.. code:: text
+   
+   $ cam = ImageStream(<camera-name>)
+   
+From here, you can do multiple types of tasks with the camera. Commands for using ``ImageStream`` 
+can be found in the `source code <https://github.com/magao-x/magpyx/blob/master/magpyx/utils.py#L88>`_. When 
+you collect data for the camera, it will use the settings for that camera that have been declared 
+in ``cursesINDI``.
+
+If you want to get the immediate frame, you can run:
+
+.. code:: text
+   
+   $ image = cam.grab_latest()
+
+If you want to get a cube of images for ``n`` number frames, you can do:
+
+.. code:: text
+   
+   $ imagecube = cam.grab_many(n)
+   
+When you are done with the camera, please close it off:
+
+.. code:: text
+   
+   $ cam.close()
+
+**Tips for running ``ImageStream``**:
+
+1. It's generally better to leave the ``ImageStream`` on if you're going to do multiple things
+   instead of constantly opening and closing it.
+
+2. If you make a change on the ROI, you will need to close and re-open it for it to work.
+   Otherwise, a segfault and no one likes that.
+   
+3. If the camera isn't collecting data, you can change the framerate in ``cursesINDI`` and it 
+   will keep following it.
