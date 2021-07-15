@@ -56,6 +56,11 @@ On the RTC with the tweeter DM::
     fdpr_close_loop fdpr_dmtweeter_camsci2_stage # close the loop
     dm_eye_doctor_update_flat tweeter # collapse all DM channels into a new flat
 
+To view the FDPR-estimated phase and amplitude::
+
+    rtimv fdpr_camsci2_phase # radians
+    rtimv fdpr_camsci2_amp
+
 Overview
 -------------------------------------------------------
 
