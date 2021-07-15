@@ -25,7 +25,7 @@ stagesci2   75mm (center of range)
 camsci2     5MHz, 512x512 ROI (centered on PSF at 75mm), ~15 fps (or fastest possible)
 ==========  =====
 
-Running ``send_to_preset fdpr_camsci2_halpha`` will set all devices to the above configuration, except camsci2 (provided devices that require homing have been homed -- this is a work in progress).
+Running ``pyindi_send_preset fdpr_camsci2_halpha`` will set all devices to the above configuration, except camsci2 (provided devices that require homing have been homed -- this is a work in progress).
 
 The PSF should be in focus and saturated at the 75 mm position. If it is egregiously out of focus, you can drive it to focus using ``dmncpcModes`` (if it's a large change in focus, this normally introduces astigmatism as well).
 
@@ -40,7 +40,7 @@ A typical session of FDPR-driven optimization will start by driving the NCPC DM 
 
 On the ICC with the NCPC DM::
 
-    send_to_preset fdpr_camsci2_halpha # configure the instrument. make sure you've set camsci2 separately
+    pyindi_send_preset fdpr_camsci2_halpha # configure the instrument. make sure you've set camsci2 separately
     fdpr_measure_response fdpr_dmncpc_camsci2_stage # measure a new response matrix
     fdpr_estimate_response fdpr_dmncpc_camsci2_stage # estimate the phase from the latest measured response matrix (this will take a few minutes)
     fdpr_compute_control_matrix fdpr_dmncpc_camsci2_stage # compute a control matrix
@@ -49,7 +49,7 @@ On the ICC with the NCPC DM::
 
 On the RTC with the tweeter DM::
 
-    send_to_preset fdpr_camsci2_halpha # configure the instrument. make sure you've set camsci2 separately
+    pyindi_send_preset fdpr_camsci2_halpha # configure the instrument. make sure you've set camsci2 separately
     fdpr_measure_response fdpr_dmtweeter_camsci2_stage # measure a new response matrix
     fdpr_estimate_response fdpr_dmtweeter_camsci2_stage # estimate the phase from the latest measured response matrix (this will take a ~ 1 hr, 15 min)
     fdpr_compute_control_matrix fdpr_dmtweeter_camsci2_stage # compute a control matrix
@@ -61,7 +61,7 @@ Overview
 
 First, get the instrument into the expected configuration (not quite implemented yet)::
 
-    send_to_preset <fdpr preset name>
+    pyindi_send_preset <fdpr preset name>
 
 If you've already got a calibration and only need to close the loop::
 
