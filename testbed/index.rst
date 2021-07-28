@@ -126,6 +126,11 @@ To operate, use:
 To power on a device, slide the bar from left to right. Simiarly, to power off a device, 
 slide the bar from right to left.
 
+**Troubleshooting tips**:
+
+1. Sometimes nothing shows up in ``pwrGUI``. Exit the window and enter ``xctrl restart`` to 
+   reboot the tmux sessions. Running ``pwrGUI`` should be back to normal.
+
 rtimv
 ^^^^^
 Real Time Image Viewer GUI. Allows you to view livestreams of the camera. A detailed 
@@ -150,6 +155,9 @@ There is a little bit of preparation work to do before running ``rtimv``.
   **Tip**: If you forgot the ``&`` at the end of the command and the command
   line is hanging, you can press ``ctrl + z`` to go back to the command line
   and then enter ``bg`` to put ``milkzmqClient`` in the background.
+  
+  **Tip**: You don't have to have all the cameras loaded at once. You can run another instance
+  of ``milkzmqClient`` for another camera without affecting a pre-existing instance.
   
   **Note**: ``milkzmqClient`` can be a little slow at times. If the command
   line is hanging and you used ``&``, try hitting ``enter`` to see if you get
@@ -188,56 +196,62 @@ There is a little bit of preparation work to do before running ``rtimv``.
       
       and you should get the ``rtimv`` GUI with no notes on the sides.
 
-
-**Troubleshooting rtimv**: Sometimes you do everything right and you are rewarded with a blank 
-``rtimv`` window. Here are some steps to take for resetting the ``milkzmq`` connection.
-
-1. Kill the ``rtimv`` and ``milkzmqClient`` jobs. At the vm command line, enter ``jobs`` and
-   you will see all the jobs running with a number associated with it. ::
       
-      [vagrant@centos7 ~]$ jobs
-      [1]   Running                 pwrGUI &
-      [2]-  Running                 milkzmqClient -p 9000 localhost camlgsfp &
-      [3]+  Running                 rtimv -c rtimv_camlgsfp.conf &
-      
-   To stop a job, enter ``kill %n`` where ``n`` is the number. In this example, you need to stop
-   the ``milkzmqClient`` on 2 and the ``rtimv`` on 3. ::
-  
-      [vagrant@centos7 ~]$ kill %2
-      [vagrant@centos7 ~]$ milkzmqClient: Disconnected from camlgsfp
-      
-      [2]-  Done                    milkzmqClient -p 9000 localhost camlgsfp
-      [vagrant@centos7 ~]$ jobs
-      [1]-  Running                 pwrGUI &
-      [3]+  Running                 rtimv -c rtimv_camlgsfp.conf &
-      [vagrant@centos7 ~]$ kill %3
-      [vagrant@centos7 ~]$ jobs
-      [1]-  Running                 pwrGUI &
-      [3]+  Terminated              rtimv -c rtimv_camlgsfp.conf
-      [vagrant@centos7 ~]$ jobs
-      [1]+  Running                 pwrGUI &
+**Troubleshooting tips**:
 
-2. Reinitialize the ``milkzmqClient``. ::
+1. Check that ``<camera-name>`` is powered on in ``pwrGUI``.
 
-      [vagrant@centos7 ~]$ milkzmqClient -p 9000 localhost camlgsfp &
-
-3. Restart the ``vm_tic_milkzmq`` process in ``xctrl``. ::
-
-      [vagrant@centos7 ~]$ xctrl restart vm_tic_milkzmq
-      Waiting for tmux session for vm_tic_milkzmq to exit...
-      Waiting for tmux session for vm_tic_milkzmq to exit...
-      Ended tmux session for vm_tic_milkzmq
-      Session vm_tic_milkzmq does not exist
-      Created tmux session for vm_tic_milkzmq
-      Executed in vm_tic_milkzmq session: '/opt/MagAOX/bin/sshDigger -n vm_tic_milkzmq'
-      [vagrant@centos7 ~]$ milkzmqClient: Connected to camlgsfp
-       [ MILK_SHM_DIR ] '/milk/shm'
-       [ MILK_SHM_DIR ] '/milk/shm'
-       [ MILK_SHM_DIR ] '/milk/shm'
-       
-   Here we can see at the last 4 lines that ``camlgsfp`` is restarted in ``milkzmqClient``.
+2. Check that INDI recognizes the camera. If the ``<camera-name>.fsm`` property in ``cursesINDI`` 
+   says ``NODEVICE``, then it is not being detected. Try checking the USB connection.
    
-4. Start up ``rtimv`` like in the previous directions. The GUI should be outputting properly now.
+3. If all else fails, try resetting ``milkzmqClient``:
+
+   1. Kill the ``rtimv`` and ``milkzmqClient`` jobs. At the vm command line, enter ``jobs`` and
+      you will see all the jobs running with a number associated with it. ::
+      
+         [vagrant@centos7 ~]$ jobs
+         [1]   Running                 pwrGUI &
+         [2]-  Running                 milkzmqClient -p 9000 localhost camlgsfp &
+         [3]+  Running                 rtimv -c rtimv_camlgsfp.conf &
+         
+      To stop a job, enter ``kill %n`` where ``n`` is the number. In this example, you need to stop
+      the ``milkzmqClient`` on 2 and the ``rtimv`` on 3. ::
+  
+         [vagrant@centos7 ~]$ kill %2
+         [vagrant@centos7 ~]$ milkzmqClient: Disconnected from camlgsfp
+         
+         [2]-  Done                    milkzmqClient -p 9000 localhost camlgsfp
+         [vagrant@centos7 ~]$ jobs
+         [1]-  Running                 pwrGUI &
+         [3]+  Running                 rtimv -c rtimv_camlgsfp.conf &
+         [vagrant@centos7 ~]$ kill %3
+         [vagrant@centos7 ~]$ jobs
+         [1]-  Running                 pwrGUI &
+         [3]+  Terminated              rtimv -c rtimv_camlgsfp.conf
+         [vagrant@centos7 ~]$ jobs
+         [1]+  Running                 pwrGUI &
+
+   2. Reinitialize the ``milkzmqClient``. ::
+
+         [vagrant@centos7 ~]$ milkzmqClient -p 9000 localhost camlgsfp &
+
+   3. Restart the ``vm_tic_milkzmq`` process in ``xctrl`` with ``xctrl restart vm_tic_milkzmq``. ::
+
+         [vagrant@centos7 ~]$ xctrl restart vm_tic_milkzmq
+         Waiting for tmux session for vm_tic_milkzmq to exit...
+         Waiting for tmux session for vm_tic_milkzmq to exit...
+         Ended tmux session for vm_tic_milkzmq
+         Session vm_tic_milkzmq does not exist
+         Created tmux session for vm_tic_milkzmq
+         Executed in vm_tic_milkzmq session: '/opt/MagAOX/bin/sshDigger -n vm_tic_milkzmq'
+         [vagrant@centos7 ~]$ milkzmqClient: Connected to camlgsfp
+          [ MILK_SHM_DIR ] '/milk/shm'
+          [ MILK_SHM_DIR ] '/milk/shm'
+          [ MILK_SHM_DIR ] '/milk/shm'
+       
+      Here we can see at the last 4 lines that ``camlgsfp`` is restarted in ``milkzmqClient``.
+   
+   4. Start up ``rtimv`` like in the previous directions. The GUI should be outputting properly now.
 
 
 roiGUI
@@ -252,7 +266,26 @@ To operate, use:
    $ roiGUI <camera-name> &
 
 where ``<camera-name>`` is the camera you want to edit the ROI for ``rtimv``. 
+
+Basic operation for setting up the ROI box:
+
+1. In the ``rtimv`` window, hover a cursor where you want the center of the ROI box located.
+
+2. The bottom left corner of the ``rtimv`` window will be the X and Y pixel coordinates at the cursor.
+
+3. Note these values and input them into the ``X Center`` and ``Y Center`` targets in ``roiGUI``.
+
+4. To set up the box size, you can use the cursor to go to the edge of your ROI in ``rtimv`` and
+   do some quick math to determine how box the box size will be.
    
+5. Input these values in the ``Width`` and ``Height`` in ``roiGUI``.
+
+6. At this point, a colored box will show up in ``rtimv``. Play around with the settings to get
+   the desired ROI.
+   
+7. Once completed, click the ``set`` button and the ``rtimv`` window will change to the ROI.
+
+
 dmCtrlGUI
 ^^^^^^^^^
 DM Control GUI. Controls the 1K DM. Apply flats, clear channels, release DM.
@@ -359,6 +392,8 @@ For general use:
 
 3. To exit, hit ``Ctrl + c``.
 
+**Tip**: You can also run ``cursesINDI`` in the virtual machine instead through ``xsup@exao0``.
+
 The Eye Doctor for CACTI
 ^^^^^^^^^^^^^^^^^^^^^^^^
 
@@ -437,9 +472,9 @@ To declare a camera, set the name of the camera in ``<camera-name>``:
    $ cam = ImageStream(<camera-name>)
    
 From here, you can do multiple types of tasks with the camera. Commands for using ``ImageStream`` 
-can be found in the `source code <https://github.com/magao-x/magpyx/blob/master/magpyx/utils.py#L88>`_. When 
-you collect data for the camera, it will use the settings for that camera that have been declared 
-in ``cursesINDI``.
+can be found in the `source code <https://github.com/magao-x/magpyx/blob/master/magpyx/utils.py#L88>`_. 
+When you collect data for the camera, it will use the settings for that camera that have been declared 
+in ``cursesINDI`` and ``roiGUI``.
 
 If you want to get the immediate frame, you can run:
 
@@ -459,13 +494,13 @@ When you are done with the camera, please close it off:
    
    $ cam.close()
 
-**Tips for running ``ImageStream``**:
+**Tips for running** ``ImageStream``:
 
 1. It's generally better to leave the ``ImageStream`` on if you're going to do multiple things
    instead of constantly opening and closing it.
 
-2. If you make a change on the ROI, you will need to close and re-open it for it to work.
-   Otherwise, a segfault and no one likes that.
+2. If you make a change on the ROI, you will need to close and re-open ``ImageStream`` for it 
+   to work. Otherwise, a segfault and **no one** likes that.
    
-3. If the camera isn't collecting data, you can change the framerate in ``cursesINDI`` and it 
-   will keep following it.
+3. If the camera isn't actively collecting data, you can change the exposure time in ``cursesINDI`` 
+   and ``ImageStream`` will update to the new value.
