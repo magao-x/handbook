@@ -8,12 +8,65 @@ Description
 
 FDPR estimates the pupil-plane field from a set of measurements of defocused PSFs. This implementation is based on `Thurman et al. (2009) <https://doi.org/10.1364/JOSAA.26.000700>`_.
 
-Quick start (for when you just want to copy and paste)
+Setting up the instrument
+--------------------------
+
+Follow the usual procedure for :doc:`starting up the instrument <../../startup>` and :doc:`aligning the system pupil <../../alignment>`. We typically run
+FDPR in the H\ :math:`\alpha` filter on camsci2. Here's a typical configuration:
+
+==========  ===== 
+device      state
+==========  =====
+fwtelsim    ND1
+fwscind     ND1_0
+fwsci2      Halpha
+stagescibs  Halpha
+stagesci2   75mm (center of range)
+camsci2     5MHz, 512x512 ROI (centered on PSF at 75mm), ~15 fps (or fastest possible)
+==========  =====
+
+Running ``pyindi_send_preset fdpr_camsci2_halpha`` will set all devices to the above configuration, except camsci2 (provided devices that require homing have been homed -- this is a work in progress).
+
+The PSF should be in focus and saturated at the 75 mm position. If it is egregiously out of focus, you can drive it to focus using ``dmncpcModes`` (if it's a large change in focus, this normally introduces astigmatism as well).
+
+We typically make measurements at defocused positions of +/-40 and +/-60mm. To check that the camera is set appropriately, drive stagesci2 to 35 and 115 mm and confirm that the PSF is not saturating. 
+
+When driving the tweeter on the RTC, you will need to set up a TCP shmim stream of camsci2 from the ICC to RTC.
+
+Quick start
+-------------------
+
+A typical session of FDPR-driven optimization will start by driving the NCPC DM on camsci2 measurements, followed by driving the tweeter on camsci2. Here are some commands to selectively copy & paste as needed.
+
+On the ICC with the NCPC DM::
+
+    pyindi_send_preset fdpr_camsci2_halpha # configure the instrument. make sure you've set camsci2 separately
+    fdpr_measure_response fdpr_dmncpc_camsci2_stage # measure a new response matrix
+    fdpr_estimate_response fdpr_dmncpc_camsci2_stage # estimate the phase from the latest measured response matrix (this will take a few minutes)
+    fdpr_compute_control_matrix fdpr_dmncpc_camsci2_stage # compute a control matrix
+    fdpr_close_loop fdpr_dmncpc_camsci2_stage # close the loop
+    dm_eye_doctor_update_flat ncpc # collapse all DM channels into a new flat
+
+On the RTC with the tweeter DM::
+
+    pyindi_send_preset fdpr_camsci2_halpha # configure the instrument. make sure you've set camsci2 separately
+    fdpr_measure_response fdpr_dmtweeter_camsci2_stage # measure a new response matrix
+    fdpr_estimate_response fdpr_dmtweeter_camsci2_stage # estimate the phase from the latest measured response matrix (this will take a ~ 1 hr, 15 min)
+    fdpr_compute_control_matrix fdpr_dmtweeter_camsci2_stage # compute a control matrix
+    fdpr_close_loop fdpr_dmtweeter_camsci2_stage # close the loop
+    dm_eye_doctor_update_flat tweeter # collapse all DM channels into a new flat
+
+To view the FDPR-estimated phase and amplitude::
+
+    rtimv fdpr_camsci2_phase # radians
+    rtimv fdpr_camsci2_amp
+
+Overview
 -------------------------------------------------------
 
 First, get the instrument into the expected configuration (not quite implemented yet)::
 
-    send_to_preset <fdpr preset name>
+    pyindi_send_preset <fdpr preset name>
 
 If you've already got a calibration and only need to close the loop::
 
@@ -38,14 +91,6 @@ To run the calibration from scratch:
     fdpr_compute_control_matrix <name of config file>
 
 4. Close the loop (see above)
-
-Setting up the instrument
---------------------------
-
-Required devices, alignment, configuration... 
-
-.. Notes to myself: ND1 / ND1, 5Mhz, ~15fps, Halpha 256x256 ROI at (708,248)
-
 
 Calibration and configuration
 --------------------------------
@@ -85,11 +130,6 @@ The configuration files are stored at ``\opt\MagAOX\config``. A typical example 
 
     [camera]
     name=camsci2
-    region_roi_x=256
-
-    [instrument]
-    fwpupil=bump_mask
-    fwsci2=Halpha
 
     [diversity]
     wfilter=Halpha
@@ -97,22 +137,23 @@ The configuration files are stored at ``\opt\MagAOX\config``. A typical example 
     camstage=stagesci2
     stage_focus=75
     dmModes=wooferModes
-    dmdelay=0.063
+    dmdelay=0.13
     indidelay=1
     values =-60,-40,40,60
     navg=1
     ndark=10
     dmdivchannel=dm01disp05
-    port=7624
+    port=7625
 
     [estimation]
-    N=256
+    N=512
     nzernike=45
     npad=10
     pupil=bump_mask
     phase_shmim=fdpr_camsci2_phase
     amp_shmim=fdpr_camsci2_amp
     nproc=3
+    gpus=0,1,2
 
     [calibration]
     path=/opt/MagAOX/calib/fdpr/dmtweeter_camsci2_stage
@@ -122,12 +163,13 @@ The configuration files are stored at ``\opt\MagAOX\config``. A typical example 
     Nact = 2040
     dm_map=/opt/MagAOX/calib/dm/bmc_2k/bmc_2k_actuator_mapping.fits
     dm_mask=/opt/MagAOX/calib/dm/bmc_2k/bmc_2k_actuator_mask.fits
+    fix_xy_to_first=True
 
     [control]
-    dmctrlchannel=dm01disp06
+    dmctrlchannel=dm01disp05
     nmodes=1500
     ampthreshold=0.
-    dmthreshold=0.5
+    dmthreshold=1.1
     wfsthreshold=0.5
     ninterp=3
     gain=0.5
@@ -140,6 +182,8 @@ A few parameters of note:
 * `diversity.type` can be either `stage` or `dm` and specifies whether the focus diversity is achieved by moving the camera stage or the DM specified by the `dmModes` parameter
 * `diversity.values` is a comma-separated list of diversity values: axial stage movement in mm if `diversity.type=stage` or microns RMS if `diversity.type=dm`
 * `diversity.stage_focus` sets the nominal focused position about which the stage will move if `diversity.type=stage`
+
+There are a large number of other parameters (particularly those used in the estimation process) that are only exposed through interactive usage in a python session.
 
 Command line usage
 -------------------
