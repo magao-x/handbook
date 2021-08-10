@@ -154,6 +154,10 @@ There is a little bit of preparation work to do before running ``rtimv``.
   dark frames are considered separate image streams on their own, so a complete
   set would include ``camlgsfp camlgsfp_dark camzwfs camzwfs_dark camtip camtip_dark``.
 
+  The backgrounded job (because we used ``&``) will keep outputting messages to the
+  terminal, interfering with the appearance of the shell prompt, but you can
+  hit ``Enter`` a few times to get the familiar ``[vagrant@centos7 ~]$`` back.
+
   **Tip**: If you forgot the ``&`` at the end of the command and the command
   line is hanging, you can press ``ctrl + z`` to go back to the command line
   and then enter ``bg`` to put ``milkzmqClient`` in the background.
@@ -162,9 +166,10 @@ There is a little bit of preparation work to do before running ``rtimv``.
   of ``milkzmqClient`` for another camera without affecting a pre-existing instance.
 
   Here is an example of ``milkzmqClient`` successfully loading for
-  ``camlgsfp``.  (The backgrounded job will keep outputting messages to the
-  terminal, interfering with the appearance of the shell prompt, but you can
-  hit ``Enter`` a few times to get the familiar ``[vagrant@centos7 ~]$`` back.) ::
+  ``camlgsfp``. The ``milkzmqClient: Connected to camlgsfp`` line indicates
+  data should be flowing.
+
+  ::
 
       [vagrant@centos7 ~]$ milkzmqClient -p 9000 localhost camlgsfp &
       [2] 6332
@@ -176,8 +181,7 @@ There is a little bit of preparation work to do before running ``rtimv``.
        [ MILK_SHM_DIR ] '/milk/shm'
        [ MILK_SHM_DIR ] '/milk/shm'
 
-   The ``milkzmqClient: Connected to camlgsfp`` line indicates data should be
-   flowing::
+
 
 3. Now you can run ``rtimv``. There's two ways you can do this.
 
