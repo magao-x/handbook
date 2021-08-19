@@ -6,9 +6,7 @@ Magellan Clay Telescope.
 
 Estimated Time to Complete: 2 hours
 
-.. code:: eval_rst
-
-   This document can be downloaded as a PDF: :static:`Removing MagAO-X from the Telescope <handling/telescope_removal.pdf>`
+This document can be downloaded as a PDF: :static:`Removing MagAO-X from the Telescope <handling/telescope_removal.pdf>`
 
 Initial Conditions
 ------------------

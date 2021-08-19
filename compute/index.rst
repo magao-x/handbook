@@ -3,17 +3,15 @@ Compute System
 
 The MagAO-X computing system.
 
-.. code:: eval_rst
+.. toctree::
+   :maxdepth: 1
 
-   .. toctree::
-      :maxdepth: 1
-
-      remote_operation
-      python
-      administration
-      networking
-      data_storage_management
-      computer_setup/computer_setup
+   remote_operation
+   python
+   administration
+   networking
+   data_storage_management
+   computer_setup/computer_setup
 
 Computer Architecture
 ---------------------

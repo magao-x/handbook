@@ -1,17 +1,15 @@
 Utilities
 =========
 
-.. code:: eval_rst
+.. toctree::
+    :maxdepth: 1
 
-   .. toctree::
-       :maxdepth: 1
-
-       xctrl
-       logdump
-       cursesINDI
-       getINDI
-       setINDI
-       evalINDI
-       indiserver
-       eyedoctor
-       fdpr
+    xctrl
+    logdump
+    cursesINDI
+    getINDI
+    setINDI
+    evalINDI
+    indiserver
+    eyedoctor
+    fdpr

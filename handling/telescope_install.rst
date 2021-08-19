@@ -6,9 +6,7 @@ Magellan Clay Telescope.
 
 Estimated Time to Complete: 5 hours
 
-.. code:: eval_rst
-
-   This document can be downloaded as a PDF: :static:`Installing MagAO-X on the Telescope <handling/telescope_install.pdf>`
+This document can be downloaded as a PDF: :static:`Installing MagAO-X on the Telescope <handling/telescope_install.pdf>`
 
 Initial Conditions
 ------------------
@@ -240,9 +238,7 @@ Install MagAO-X On The Platform
 
 -  ☐ Conduct the daytime alignment procedure per alignment plan
 
-   .. code:: eval_rst
-
-      See MagAO-X PSR Document :download:`3.3: Alignment Plan <../appendices/psr/3.3_MagAO-X_alignment_procedure.pdf>`
+See MagAO-X PSR Document :download:`3.3: Alignment Plan <../appendices/psr/3.3_MagAO-X_alignment_procedure.pdf>`
 
 Transport Electronics
 ---------------------
@@ -307,8 +303,6 @@ Cable the 2K
 
 -  ☐ Cable the 2K DM following procedure
 
-   .. code:: eval_rst
-
-      See MagAO-X PSR Document :download:`2.2 Deformable Mirrors <../appendices/psr/2_2_Deformable_Mirrors.pdf>`
+See MagAO-X PSR Document :download:`2.2 Deformable Mirrors <../appendices/psr/2_2_Deformable_Mirrors.pdf>`
 
 -  ☐ Check actuator functionality
