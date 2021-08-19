@@ -100,14 +100,5 @@ latex_elements = {
     'preamble': _latex_preamble,
 }
 
-def setup(app):
-    # Enable reCommonMark extensions to Markdown syntax
-    # see https://recommonmark.readthedocs.io/en/latest/auto_structify.html
-    app.add_config_value('recommonmark_config', {
-        'enable_auto_toc_tree': True,
-        'auto_toc_tree_section': 'Contents',
-    }, True)
-    app.add_transform(AutoStructify)
-
-    # Add Matomo analytics
-    app.add_javascript('stats.js')
+# Add Matomo analytics
+html_js_files = ['stats.js']
