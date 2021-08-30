@@ -1,6 +1,12 @@
 Troubleshooting
 ===============
 
+.. image:: _static/things_can_go_right.png
+   :alt: Illustration of MagAO-X with motto: "Having more things just means more things can go right"
+   :align: center
+   :scale: 33%
+
+
 Figuring out what exactly isn’t working
 ---------------------------------------
 
