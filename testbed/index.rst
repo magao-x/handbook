@@ -81,6 +81,35 @@ Initial Setup
 
 At this point, you should be ready to have regular virtual machine startup for CACTI.
 
+Updating the VM
+^^^^^^^^^^^^^^^
+When testbed code is updated and pushed onto Github, your computer cannot register them until you update
+your virtual machine. Ideally, you should update both ``calib`` and ``config``.
+
+1. In terminal, go to the MagAO-X directory::
+
+      $ cd ~/your/path/to/MagAOX/
+      
+2. Go to the ``vm/`` folder::
+
+      $ cd vm/
+      
+3. Go to the ``config/`` folder and go ``git pull``::
+
+      $ cd config/
+      $ git pull
+
+4. From here, you will see some text about files being downloaded and updated. If there is nothing new,
+   then you will get an ``Already up to date.`` response.
+   
+5. You can update ``calib/`` by moving up to ``vm/`` and following step 3::
+
+      $ cd ..
+      $ cd calib/
+      $ git pull
+
+After this, your virtual machine will be up to date with the new CACTI code.
+      
 Startup
 ^^^^^^^
 
@@ -128,9 +157,36 @@ slide the bar from right to left.
 
 **Troubleshooting tips**:
 
-1. Sometimes nothing shows up in ``pwrGUI``. Exit the window and enter ``xctrl restart`` to 
+1. Sometimes nothing shows up in ``pwrGUI``. Exit the ``pwrGUI`` window and enter ``xctrl restart`` to 
    reboot the tmux sessions. Running ``pwrGUI`` should be back to normal.
+   
+2. Sometimes only one row shows up (either ``pdu`` or ``usb``). Here, we have to go on ``TIC`` to 
+   investigate. This will be a very simplified explanation from :doc:`../operating/software/utils/xctrl` section, which contains more details on other troubleshooting instances. 
+   
+   #. Connect to ``TIC`` from within Vagrant::
 
+         $ ssh tic
+         
+   #. Run ``xctrl status`` to investigate the various processes. Green means the process is working. Red
+      means the process has some problems with it. Other modes are explained in :doc:`../operating/software/utils/xctrl`::
+
+         $ xctrl status
+         
+   #. For example, say the ``usbdu0`` process is highlighted in red. You can restart it with 
+      ``xctrl startup usbdu0``::
+
+         $ xctrl startup usbdu0
+         
+   #. Check that it got fixed with the ``usbdu0`` process highlighted in green with ``xctrl status``::
+
+         $ xctrl status
+         
+   #. You should be good to go. Return to Vagrant by typing ``exit`` in ``TIC``.
+   
+3. If you still have connection problems with Vagrant, exit out of Vagrant and type ``vagrant reload`` in
+   the terminal. This will restart your entire virtual machine. This works best when you've left your
+   computer on for many days without restarting.
+         
 rtimv
 ^^^^^
 Real Time Image Viewer GUI. Allows you to view livestreams of the camera. A detailed 
@@ -308,6 +364,22 @@ This will open a GUI window.
 
 4. When you are done using the 1K DM, please click on ``zero flat`` then  ``release`` before powering it
    down in ``pwrGUI``.
+   
+dmModeGUI
+^^^^^^^^^
+DM Modes GUI. You can apply up to +/-1 wavelength of low order Zernike modes. Useful for manual dialing.
+
+To operate, use: ::
+
+    $ dmModeGUI kiloModes &
+
+This will open a GUI window with a list of low order Zernikes and a slider bar.
+
+1. You can manually enter a number in the box at the right side, then hit enter to apply it.
+
+2. You can move the slider bar to apply aberration.
+
+3. You may see some values already in place. They are retained in the virtual machine.
     
 Commands run on ``exao0``
 -------------------------
@@ -399,6 +471,10 @@ The Eye Doctor for CACTI
 
 Consult :doc:`../operating/software/utils/eyedoctor` for general information.
 
+Before running eye doctor, make sure that the PSF on the camera is not oversaturated or else the solution
+will not turn out well. Go on ``cursesINDI`` to adjust the camera exposure time or add an ND filter to
+CACTI.
+
 Run eye doctor in the ``exao0`` terminal under ``xsup``. The general form of the command is:
 
 .. code:: text
@@ -427,6 +503,9 @@ Once you have a DM flat that produces a nice PSF, you can save the flat with:
 And it will save a new flat in the ``dmCtrlGUI`` list at the very bottom with the date stamped on it.
 To run the new flat, you need to update ``dmCtrlGUI`` to zero the flat, select the new flat, and then
 set it.
+
+**Note**: Occasionally, Eye Doctor doesn't give you the best solved flat. This may be remedied by going
+on ``dmModeGUI`` to manually dial out the lower order modes. 
 
 Running Python to control ``exao0``
 --------------------------------------------
