@@ -178,6 +178,29 @@ and before the proposal cycle for planned runs.  (The below list is currently on
    * - HD 169142
      - 18:24:29.77
      - -29:46:50.0
+   * - HD 163296
+     - 18:24:29.77
+     - -29:46:50.0
+   * - CT Cha
+     - 18:24:29.77
+     - -29:46:50.0
+   * - GQ Lup
+     - 18:24:29.77
+     - -29:46:50.0
+   * - PZ Tel
+     - 18:24:29.77
+     - -29:46:50.0
+   * - Delorme 1 ab
+     - 18:24:29.77
+     - -29:46:50.0
+   * - GSC6214
+     - 18:24:29.77
+     - -29:46:50.0
+   * - HD 34700
+     - 18:24:29.77
+     - -29:46:50.0
+	
+
 
 We encourage proposals to observe H-alpha targets not on our list, e.g. new proprietary targets, with MagAO-X and will work (discreetly when necessary) to support your observations.
 
