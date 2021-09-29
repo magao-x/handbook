@@ -199,7 +199,12 @@ and before the proposal cycle for planned runs.  (The below list is currently on
    * - HD 34700
      - 05:19:41.40
      - 05:38:42.77
-	
+   * - RX J1604.3-2130A  
+     - 16:04:21.6 
+     - -21:30:28.5
+   * - HD 135244B 
+     - 15:15:48.43 
+     - -37:09:16.0
 
 
 We encourage proposals to observe H-alpha targets not on our list, e.g. new proprietary targets, with MagAO-X and will work (discreetly when necessary) to support your observations.
