@@ -224,6 +224,32 @@ Links within the handbook use document names (without file extensions).
 
 -------------
 
+Glossary of terms
+~~~~~~~~~~~~~~~~~
+
+The :doc:`glossary` lives in ``appendices/glossary.rst``. Add terms there following the
+same format, and then reference them as follows anywhere else in the docs.
+
+When you want the link text to be different from the term as given in the
+glossary (e.g. to make it plural), you can put the term as spelled in the
+glossary within angle brackets.
+
+**Markup:**
+
+.. code-block:: rest
+
+   Maybe you will be the great physicist to discover the meaning
+   of :term:`shmims <shmim>`! Also, what does :term:`RON` mean?
+
+**Output:**
+
+-------------
+
+Maybe you will be the great physicist to discover the meaning
+of :term:`shmims <shmim>`! Also, what does :term:`RON` mean?
+
+-------------
+
 Internal references
 ~~~~~~~~~~~~~~~~~~~
 
