@@ -20,8 +20,8 @@ camsci1
    * - Filter
      - WFS B/S
      - Sci BS
-     - :math:`\lambda_0` [\mum]
-     - :math:`w_\mathrm{eff}` [\mum]
+     - :math:`\lambda_0` [µm]
+     - :math:`w_\mathrm{eff}` [µm]
      - :math:`\mathrm{QE}_\mathrm{max}`
      - :math:`F_0` [photon / sec]
      - Files
@@ -126,8 +126,8 @@ camsci2
    * - Filter
      - WFS B/S
      - Sci BS
-     - :math:`\lambda_0` [\mum]
-     - :math:`w_\mathrm{eff}` [\mum]
+     - :math:`\lambda_0` [µm]
+     - :math:`w_\mathrm{eff}` [µm]
      - :math:`\mathrm{QE}_\mathrm{max}`
      - :math:`F_0` [photon / sec]
      - Files
