@@ -31,7 +31,7 @@ The PSF should be in focus and saturated at the 75 mm position. If it is egregio
 
 We typically make measurements at defocused positions of +/-40 and +/-60mm. To check that the camera is set appropriately, drive stagesci2 to 35 and 115 mm and confirm that the PSF is not saturating. 
 
-When driving the tweeter on the RTC, you will need to set up a TCP shmim stream of camsci2 from the ICC to RTC.
+When driving the tweeter on the RTC, you will need to set up a TCP :term:`shmim` stream of camsci2 from the ICC to RTC.
 
 Quick start
 -------------------
@@ -72,7 +72,7 @@ If you've already got a calibration and only need to close the loop::
 
     fdpr_close_loop <name of config file (always without the path and .conf extension)>
 
-If you just want to estimate the current wavefront state (this will update a set of shmims specified in the config file)::
+If you just want to estimate the current wavefront state (this will update a set of :term:`shmims<shmim>` specified in the config file)::
 
     fdpr_one_shot <name of config file>
 
