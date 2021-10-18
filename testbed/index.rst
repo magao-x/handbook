@@ -169,11 +169,7 @@ slide the bar from right to left.
 
 **Troubleshooting tips**:
 
-<<<<<<< HEAD
-1. Sometimes nothing shows up in ``pwrGUI``. Exit the ``pwrGUI`` window and enter ``xctrl restart`` to 
-=======
 1. Sometimes nothing shows up in ``pwrGUI``. Exit the window and enter ``xctrl restart`` to
->>>>>>> b498d66a4a771e98cb715355d951ce35be0fc4a2
    reboot the tmux sessions. Running ``pwrGUI`` should be back to normal.
    
 2. Sometimes only one row shows up (either ``pdu`` or ``usb``). Here, we have to go on ``TIC`` to 
@@ -386,7 +382,6 @@ This will open a GUI window.
 
 4. When you are done using the 1K DM, please click on ``zero flat`` then  ``release`` before powering it
    down in ``pwrGUI``.
-<<<<<<< HEAD
    
 **Troubleshooting tips**:
 
@@ -421,9 +416,7 @@ This will open a GUI window with a list of low order Zernikes and a slider bar.
 
 3. You may see some values already in place. They are retained in the virtual machine.
     
-=======
 
->>>>>>> b498d66a4a771e98cb715355d951ce35be0fc4a2
 Commands run on ``exao0``
 -------------------------
 
@@ -633,16 +626,10 @@ When you are done with the camera, please close it off:
 2. It's generally better to leave the ``ImageStream`` on if you're going to do multiple things
    instead of constantly opening and closing it.
 
-<<<<<<< HEAD
 3. If you make a change on the ROI, you will need to close and re-open ``ImageStream`` for it 
    to work. Otherwise, a segfault and **no one** likes that.
    
 4. If the camera isn't actively collecting data, you can change the exposure time in ``cursesINDI`` 
-=======
-2. If you make a change on the ROI, you will need to close and re-open ``ImageStream`` for it
-   to work. Otherwise, a segfault and **no one** likes that.
-
-3. If the camera isn't actively collecting data, you can change the exposure time in ``cursesINDI``
    and ``ImageStream`` will update to the new value.
 
 
