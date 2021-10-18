@@ -163,13 +163,17 @@ To operate, use:
 .. code:: text
 
     $ pwrGUI &
-    
-To power on a device, slide the bar from left to right. Simiarly, to power off a device, 
+
+To power on a device, slide the bar from left to right. Simiarly, to power off a device,
 slide the bar from right to left.
 
 **Troubleshooting tips**:
 
+<<<<<<< HEAD
 1. Sometimes nothing shows up in ``pwrGUI``. Exit the ``pwrGUI`` window and enter ``xctrl restart`` to 
+=======
+1. Sometimes nothing shows up in ``pwrGUI``. Exit the window and enter ``xctrl restart`` to
+>>>>>>> b498d66a4a771e98cb715355d951ce35be0fc4a2
    reboot the tmux sessions. Running ``pwrGUI`` should be back to normal.
    
 2. Sometimes only one row shows up (either ``pdu`` or ``usb``). Here, we have to go on ``TIC`` to 
@@ -201,49 +205,55 @@ slide the bar from right to left.
          
 rtimv
 ^^^^^
-Real Time Image Viewer GUI. Allows you to view livestreams of the camera. A detailed 
-explanation for ``rtimv`` can be found in the :doc:`../operating/software/guis/cameras` 
+Real Time Image Viewer GUI. Allows you to view livestreams of the camera. A detailed
+explanation for ``rtimv`` can be found in the :doc:`../operating/software/guis/cameras`
 section.
 
-There is a little bit of preparation work to do before running ``rtimv``. 
+There is a little bit of preparation work to do before running ``rtimv``.
 
 1. Power on the cameras you want to use in ``pwrGUI``.
 
 2. Initialize the ``milkzmqClient`` so ``rtimv`` can see them. You can do this with::
-      
+
       $ milkzmqClient -p 9000 localhost <shmim-1> <shmim-2> ... &
-   
-  where each ``<shmim>`` is a device (camera, DM channels). Load up all the cameras 
+
+  where each ``<shmim>`` is a device (camera, DM channels). Load up all the cameras
   you want to use. For example,::
-      
+
       $ milkzmqClient -p 9000 localhost camlgsfp camzwfs camtip &
-      
-  will initialize the cameras ``camlgsfp``, ``camzwfs``, and ``camtip``.
-  
+
+  will initialize the cameras ``camlgsfp``, ``camzwfs``, and ``camtip``. Note that
+  dark frames are considered separate image streams on their own, so a complete
+  set would include ``camlgsfp camlgsfp_dark camzwfs camzwfs_dark camtip camtip_dark``.
+
+  The backgrounded job (because we used ``&``) will keep outputting messages to the
+  terminal, interfering with the appearance of the shell prompt, but you can
+  hit ``Enter`` a few times to get the familiar ``[vagrant@centos7 ~]$`` back.
+
   **Tip**: If you forgot the ``&`` at the end of the command and the command
   line is hanging, you can press ``ctrl + z`` to go back to the command line
   and then enter ``bg`` to put ``milkzmqClient`` in the background.
-  
+
   **Tip**: You don't have to have all the cameras loaded at once. You can run another instance
   of ``milkzmqClient`` for another camera without affecting a pre-existing instance.
-  
-  **Note**: ``milkzmqClient`` can be a little slow at times. If the command
-  line is hanging and you used ``&``, try hitting ``enter`` to see if you get
-  back to command line.
-  
-  Here is an example of ``milkzmqClient`` successfully loading for ``camlgsfp``. Note that
-  the command line entry that says ``N: 2`` is automatic. The last 4 lines are proof that 
-  ``camlgsfp`` is connected in ``milkzmqClient``. ::
-  
+
+  Here is an example of ``milkzmqClient`` successfully loading for
+  ``camlgsfp``. The ``milkzmqClient: Connected to camlgsfp`` line indicates
+  data should be flowing.
+
+  ::
+
       [vagrant@centos7 ~]$ milkzmqClient -p 9000 localhost camlgsfp &
       [2] 6332
       [vagrant@centos7 ~]$ N: 2
-      camlgsfp 
+      camlgsfp
       milkzmqClient: Beginning receive at tcp://localhost:9000 for camlgsfp
       milkzmqClient: Connected to camlgsfp
        [ MILK_SHM_DIR ] '/milk/shm'
        [ MILK_SHM_DIR ] '/milk/shm'
        [ MILK_SHM_DIR ] '/milk/shm'
+
+
 
 3. Now you can run ``rtimv``. There's two ways you can do this.
 
@@ -252,42 +262,42 @@ There is a little bit of preparation work to do before running ``rtimv``.
          $ rtimv -c rtimv_<camera-name>.conf &
 
       where ``<camera-name>`` is the name of the camera. For example if using ``camlgsfp``,::
-      
+
          $ rtimv -c rtimv_camlgsfp.conf &
-         
+
       **Note**: A ``.conf`` file for this ``<camera-name>`` must exist for this to run.
       If it's not present, contact Jared.
-      
+
    B. If you are not interested in the INDI connected display, use::
-   
+
          $ rtimv <camera-name> &
-      
+
       and you should get the ``rtimv`` GUI with no notes on the sides.
 
-      
+
 **Troubleshooting tips**:
 
 1. Check that ``<camera-name>`` is powered on in ``pwrGUI``.
 
-2. Check that INDI recognizes the camera. If the ``<camera-name>.fsm`` property in ``cursesINDI`` 
+2. Check that INDI recognizes the camera. If the ``<camera-name>.fsm`` property in ``cursesINDI``
    says ``NODEVICE``, then it is not being detected. Try checking the USB connection.
-   
+
 3. If all else fails, try resetting ``milkzmqClient``:
 
    1. Kill the ``rtimv`` and ``milkzmqClient`` jobs. At the vm command line, enter ``jobs`` and
       you will see all the jobs running with a number associated with it. ::
-      
+
          [vagrant@centos7 ~]$ jobs
          [1]   Running                 pwrGUI &
          [2]-  Running                 milkzmqClient -p 9000 localhost camlgsfp &
          [3]+  Running                 rtimv -c rtimv_camlgsfp.conf &
-         
+
       To stop a job, enter ``kill %n`` where ``n`` is the number. In this example, you need to stop
       the ``milkzmqClient`` on 2 and the ``rtimv`` on 3. ::
-  
+
          [vagrant@centos7 ~]$ kill %2
          [vagrant@centos7 ~]$ milkzmqClient: Disconnected from camlgsfp
-         
+
          [2]-  Done                    milkzmqClient -p 9000 localhost camlgsfp
          [vagrant@centos7 ~]$ jobs
          [1]-  Running                 pwrGUI &
@@ -316,15 +326,15 @@ There is a little bit of preparation work to do before running ``rtimv``.
           [ MILK_SHM_DIR ] '/milk/shm'
           [ MILK_SHM_DIR ] '/milk/shm'
           [ MILK_SHM_DIR ] '/milk/shm'
-       
+
       Here we can see at the last 4 lines that ``camlgsfp`` is restarted in ``milkzmqClient``.
-   
+
    4. Start up ``rtimv`` like in the previous directions. The GUI should be outputting properly now.
 
 
 roiGUI
 ^^^^^^
-Region of Interest GUI for ``rtimv``. A detailed explanation for ``roiGUI`` functions can be found 
+Region of Interest GUI for ``rtimv``. A detailed explanation for ``roiGUI`` functions can be found
 in the :doc:`../operating/software/guis/cameras` section.
 
 To operate, use:
@@ -333,7 +343,7 @@ To operate, use:
 
    $ roiGUI <camera-name> &
 
-where ``<camera-name>`` is the camera you want to edit the ROI for ``rtimv``. 
+where ``<camera-name>`` is the camera you want to edit the ROI for ``rtimv``.
 
 Basic operation for setting up the ROI box:
 
@@ -345,12 +355,12 @@ Basic operation for setting up the ROI box:
 
 4. To set up the box size, you can use the cursor to go to the edge of your ROI in ``rtimv`` and
    do some quick math to determine how box the box size will be.
-   
+
 5. Input these values in the ``Width`` and ``Height`` in ``roiGUI``.
 
 6. At this point, a colored box will show up in ``rtimv``. Play around with the settings to get
    the desired ROI.
-   
+
 7. Once completed, click the ``set`` button and the ``rtimv`` window will change to the ROI.
 
 
@@ -358,16 +368,16 @@ dmCtrlGUI
 ^^^^^^^^^
 DM Control GUI. Controls the 1K DM. Apply flats, clear channels, release DM.
 
-**IMPORTANT**: Before powering the DM in ``pwrGUI`` and operating ``dmCtrlGUI``, you must verify the 
+**IMPORTANT**: Before powering the DM in ``pwrGUI`` and operating ``dmCtrlGUI``, you must verify the
 1K DM humidity is below 15%. See :ref:`humidity_check` for instructions on checking the humidity.
 
 To operate, use: ::
 
     $ dmCtrlGUI dmkilo &
 
-This will open a GUI window. 
+This will open a GUI window.
 
-1. Initialize the DM by clicking on the ``initialize`` at the top right. Sometimes, the GUI starts 
+1. Initialize the DM by clicking on the ``initialize`` at the top right. Sometimes, the GUI starts
    pre-initialized.
 
 2. To load a DM flat, choose which file you'd like from the top drop down menu.
@@ -376,6 +386,7 @@ This will open a GUI window.
 
 4. When you are done using the 1K DM, please click on ``zero flat`` then  ``release`` before powering it
    down in ``pwrGUI``.
+<<<<<<< HEAD
    
 **Troubleshooting tips**:
 
@@ -410,6 +421,9 @@ This will open a GUI window with a list of low order Zernikes and a slider bar.
 
 3. You may see some values already in place. They are retained in the virtual machine.
     
+=======
+
+>>>>>>> b498d66a4a771e98cb715355d951ce35be0fc4a2
 Commands run on ``exao0``
 -------------------------
 
@@ -434,7 +448,7 @@ The Arduino humidity sensor has been moved from ``corona`` to ``exao0``. The hum
 sensor is connected via USB to ``/dev/ttyACM0`` which can be monitored with ``screen``
 provided that you are in the ``dialout`` user group on ``exao0``.
 
-If you are not in the ``dialout`` group, get someone to do ``sudo gpasswd -a USERNAME dialout`` 
+If you are not in the ``dialout`` group, get someone to do ``sudo gpasswd -a USERNAME dialout``
 and log in again.
 
 Open a separate terminal and log into ``exao0`` **with your account** (not ``xsup``).
@@ -459,7 +473,7 @@ Please actively check the humidity levels every 30 minutes or so.
 
 **Do not operate the 1K DM if the humidity is above 15%!!**
 
-If somoene else is viewing the humidity monitor, even if they are "detached" from ``screen``, 
+If somoene else is viewing the humidity monitor, even if they are "detached" from ``screen``,
 you won't be able to open it until they have killed their screen session (after reattaching if needed).
 
 **To kill (exit) the humidity monitor**: ``Ctrl + a``, release, then "k", then "y" to confirm.
@@ -490,7 +504,7 @@ For general use:
    * Tip: Sometimes there are multiple prefix versions of the device (such as camera darks). Add "." 
      at the end of your device name to minimize scrolling.
 
-2. Once at the list, curse over "target" in second to right hand column. Hit "e" for edit, enter a new 
+2. Once at the list, curse over "target" in second to right hand column. Hit "e" for edit, enter a new
    number, and then "y" for yes.
 
 3. To exit, hit ``Ctrl + c``.
@@ -509,28 +523,28 @@ CACTI.
 Run eye doctor in the ``exao0`` terminal under ``xsup``. The general form of the command is:
 
 .. code:: text
-   
+
    $ dm_eye_doctor <portINDI> <dmModes> <camera-name> <psf_core_radius_pixels> <modes_to_optimize> <amplitude_search_range> --skip 1
-   
+
 For example, if you want to run ``dm_eye_doctor`` for the 1K DM using the ``camlgsfp`` camera and
 correct the lower order modes, it would be:
 
 .. code:: text
-   
+
    $ dm_eye_doctor 7626 kiloModes camlgsfp 8 2...10 0.1 --skip 1
-   
+
 If you want to go on higher order modes, change the ``<modes_to_optimize>`` value:
 
 .. code:: text
-   
+
    $ dm_eye_doctor 7626 kiloModes camlgsfp 8 10...30 0.1 --skip 1
-   
+
 Once you have a DM flat that produces a nice PSF, you can save the flat with:
 
 .. code:: text
-   
+
    $ dm_eye_doctor_update_flat kilo
-   
+
 And it will save a new flat in the ``dmCtrlGUI`` list at the very bottom with the date stamped on it.
 To run the new flat, you need to update ``dmCtrlGUI`` to zero the flat, select the new flat, and then
 set it.
@@ -550,13 +564,13 @@ Running Jupyter Notebook (Python)
 To access Jupyter Notebook from ``exao0``, you need to ssh into ``exao0`` with another terminal:
 
 .. code:: text
-   
+
    $ ssh -L 9990:localhost:9999 exao0
 
-**Note**: if your computer has a different access code for getting into ``exao0``, use that in 
+**Note**: if your computer has a different access code for getting into ``exao0``, use that in
 place of the ``exao0`` portion of the command above.
 
-Once connected through ssh, you can navigate to ``localhost:9990`` on your internet browser. This 
+Once connected through ssh, you can navigate to ``localhost:9990`` on your internet browser. This
 will open up the jupyter notebook directory page under ``xsup``. If a password is required, ask
 someone who has access for it.
 
@@ -574,36 +588,36 @@ There's two ways to save images from the cameras, either through ``cursesINDI`` 
 In jupyter, you need to import ``ImageStream``:
 
 .. code:: text
-   
+
    $ from magpyx.utils import ImageStream
-   
+
 To declare a camera, set the name of the camera in ``<camera-name>``:
 
 .. code:: text
-   
+
    $ cam = ImageStream(<camera-name>)
-   
-From here, you can do multiple types of tasks with the camera. Commands for using ``ImageStream`` 
-can be found in the `source code <https://github.com/magao-x/magpyx/blob/master/magpyx/utils.py#L88>`_. 
-When you collect data for the camera, it will use the settings for that camera that have been declared 
+
+From here, you can do multiple types of tasks with the camera. Commands for using ``ImageStream``
+can be found in the `source code <https://github.com/magao-x/magpyx/blob/master/magpyx/utils.py#L88>`_.
+When you collect data for the camera, it will use the settings for that camera that have been declared
 in ``cursesINDI`` and ``roiGUI``.
 
 If you want to get the immediate frame, you can run:
 
 .. code:: text
-   
+
    $ image = cam.grab_latest()
 
 If you want to get a cube of images for ``n`` number frames, you can do:
 
 .. code:: text
-   
+
    $ imagecube = cam.grab_many(n)
-   
+
 When you are done with the camera, please close it off:
 
 .. code:: text
-   
+
    $ cam.close()
 
 **Tips for running** ``ImageStream``:
@@ -619,10 +633,17 @@ When you are done with the camera, please close it off:
 2. It's generally better to leave the ``ImageStream`` on if you're going to do multiple things
    instead of constantly opening and closing it.
 
+<<<<<<< HEAD
 3. If you make a change on the ROI, you will need to close and re-open ``ImageStream`` for it 
    to work. Otherwise, a segfault and **no one** likes that.
    
 4. If the camera isn't actively collecting data, you can change the exposure time in ``cursesINDI`` 
+=======
+2. If you make a change on the ROI, you will need to close and re-open ``ImageStream`` for it
+   to work. Otherwise, a segfault and **no one** likes that.
+
+3. If the camera isn't actively collecting data, you can change the exposure time in ``cursesINDI``
+>>>>>>> b498d66a4a771e98cb715355d951ce35be0fc4a2
    and ``ImageStream`` will update to the new value.
 
 

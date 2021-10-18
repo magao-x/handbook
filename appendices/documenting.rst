@@ -8,16 +8,12 @@ This source code for this documentation lives in the
 `magao-x/handbook <https://github.com/magao-x/handbook>`_ repository.
 Parts of the documentation pertaining to the core C++ code are generated
 from the code in `magao-x/MagAOX <https://github.com/magao-x/MagAOX>`_,
-which is documented in Doxygen. (TODO: explain how to make
-cross-references.)
+which is documented in Doxygen.
 
 The built copy of this documentation is hosted at
-https://magao-x.github.io/handbook/ via `GitHub Pages free
-hosting <https://pages.github.com/>`_. When changes are pushed to the
-``master`` branch of
-`magao-x/handbook <https://github.com/magao-x/handbook>`_, a CircleCI
-job builds and updates the ``gh-pages`` branch of the repository, with
-changes reflected on the GitHub Pages site 1-15 minutes later.
+https://magao-x.org/docs/handbook/. When changes are pushed to the
+``main`` branch of
+`magao-x/handbook <https://github.com/magao-x/handbook>`_, a `workflow <https://github.com/magao-x/handbook/actions/workflows/build.yml>`_ runs in GitHub Actions to update the copy on magao-x.org.
 
 How to make changes: in brief (e.g. for typo corrections)
 ---------------------------------------------------------
@@ -42,7 +38,7 @@ it is best to simply edit the file directly on GitHub.
 4. Scroll down to the “Commit changes” or “Propose changes” form (below
    the main editor) and fill in a brief description of what you changed.
 5. Click “Commit changes” or “Propose change”
-6. If you committed directly, your changes will be live in 5-15 minutes.
+6. If you committed directly, your changes will be live in a minute or two.
    If you proposed a change, someone else will have to merge it first.
 
 How to make bigger changes
@@ -88,7 +84,7 @@ You will need Python 3.5 or newer (with ``pip``) and a recent version of
 
       $ which sphinx-build
       /Users/jlong/miniconda3/bin/sphinx-build
-   
+
    (If you’re using your OS-provided Python, and don’t see anything output
    when you run ``which sphinx-build``, you should make sure
    ``$HOME/.local/bin`` is on ``$PATH``.)
@@ -99,7 +95,7 @@ editing an existing document, :ref:`skip ahead <edit-and-publish>`.
 Creating a brand new document
 ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
 
-1. Create a new plain text file with the name you want and the extension 
+1. Create a new plain text file with the name you want and the extension
    ``.rst`` for reStructuredText (see :ref:`markup`)
 2. Open the ``index.rst`` file in the folder for the section you're adding
    to and find the ``.. toctree::``. Add the base name of your file to the list
@@ -135,14 +131,7 @@ tool (abbreviated "reST"). The rest of this section contains a cheat sheet for c
 may need to write your document, but you can also consult the `primer <https://www.sphinx-doc.org/en/master/usage/restructuredtext/basics.html>`_ and
 the `docutils documentation <https://docutils.readthedocs.io/en/sphinx-docs/ref/rst/directives.html>`_ for more advanced topics.
 
-Existing documents may be written in Markdown
-(`CommonMark <https://spec.commonmark.org/0.29/>`_ variant), in which case the
-filename will end with ``.md``. Markdown has certain disadvantages for
-embedding mathematical expressions, download links, tables of contents,
-or other things not part of the original specification. Therefore, its
-use is discouraged for new documentation.
-
-In either case, if you want to see how a particular bit of formatting was 
+If you want to see how a particular bit of formatting was
 achieved, you can click the “Page source” link at the bottom of any page.
 
 Headings and paragraphs
@@ -232,6 +221,32 @@ Links within the handbook use document names (without file extensions).
 :doc:`/operating/index`
 
 :doc:`Operating section </operating/index>`
+
+-------------
+
+Glossary of terms
+~~~~~~~~~~~~~~~~~
+
+The :doc:`glossary` lives in ``appendices/glossary.rst``. Add terms there following the
+same format, and then reference them as follows anywhere else in the docs.
+
+When you want the link text to be different from the term as given in the
+glossary (e.g. to make it plural), you can put the term as spelled in the
+glossary within angle brackets.
+
+**Markup:**
+
+.. code-block:: rest
+
+   Maybe you will be the great physicist to discover the meaning
+   of :term:`shmims <shmim>`! Also, what does :term:`RON` mean?
+
+**Output:**
+
+-------------
+
+Maybe you will be the great physicist to discover the meaning
+of :term:`shmims <shmim>`! Also, what does :term:`RON` mean?
 
 -------------
 

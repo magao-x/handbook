@@ -1,6 +1,12 @@
 Troubleshooting
 ===============
 
+.. image:: _static/things_can_go_right.png
+   :alt: Illustration of MagAO-X with motto: "Having more things just means more things can go right"
+   :align: center
+   :scale: 33%
+
+
 Figuring out what exactly isn’t working
 ---------------------------------------
 
@@ -278,6 +284,20 @@ then do these steps as root:
 This will reset the kernel module and restore operation. Now restart the
 controlling application with ``xctrl startup camwfs``.
 
+
+Camsci1/2 not responding
+~~~~~~~~~~~~~~~~~~~~~~~~
+
+If ``camsci1`` and/or ``camsci2`` stop responding, first attempt to restart the control software with ``xctrl restart``.  If this does not restore operation, the PICam library needs to be reset.  Perform the following steps:
+
+1. Turn power off for both cameras.  Note that you will not be able to verify detector temperature but this can not be avoided.
+2. Stop both ``camsci`` control processes.  Either use xctrl or go to the tmux session and use ctrl-c. 
+3. In a terminal on ICC, go to ``/opt/MagAOX/source/MagAOX/apps/picamCtrl`` and run the script "cleanPI.sh".  This removes lock files.
+4. Re-start both control processes.
+5. Power up both cameras
+
+
+
 Killing INDI zombies
 ~~~~~~~~~~~~~~~~~~~~
 
@@ -316,3 +336,4 @@ Difficulties with NVIDIA proprietary drivers
    uninstall and reinstall over SSH will also remedy it.
 3. Runfile installs can be uninstalled with
    ``/usr/local/cuda/bin/cuda-uninstaller``
+

@@ -1,7 +1,9 @@
 Camera Characteristics
 =============================
 
-The camera detector characteristics given below are mainly based on measurements certified by the manufacturers at delivery.  Unless otherwise indicated we have not verified these numbers in detail.
+The camera detector characteristics given below are mainly based on measurements certified by the manufacturers at delivery.
+Unless otherwise indicated we have not verified these numbers in detail.
+
 camsci1
 --------------------
 
@@ -11,7 +13,7 @@ camsci1
    * - Manufacturer: 
      - Princeton Instruments
    * - Model
-     - ProEM-HS 1024B_eXcelon
+     - ProEM HS: 1024BX3
    * - Serial Number:
      - 09434117
    * - Format
@@ -22,15 +24,15 @@ camsci1
      - 78,000 electrons
    * - Dark Current
      - 0.004 e/pix/sec at -55 C
-   * - CIC
-     - ? events/pixel
+   * - :term:`CIC`
+     - 0.02 e-/pix/frame at 1000x EM gain
      
 .. list-table:: camsci1 Performance
    :header-rows: 2  
   
    * - Amplifier
      - Speed
-     - RON
+     - :term:`RON`
      - Gain 
      - [e-/count]
      -
@@ -86,7 +88,7 @@ camsci2
    * - Manufacturer: 
      - Princeton Instruments
    * - Model
-     - ProEM-HS 1024B_eXcelon
+     - ProEM HS: 1024BX3
    * - Serial Number:
      - 09434417
    * - Format
@@ -97,8 +99,8 @@ camsci2
      - 75,000 electrons
    * - Dark Current
      - 0.0064 e/pix/sec at -55 C
-   * - CIC
-     - ? events/pixel  
+   * - :term:`CIC`
+     - 0.02 e-/pix/frame at 1000x EM gain
      
 .. list-table:: camsci2 Performance
    :header-rows: 2  
