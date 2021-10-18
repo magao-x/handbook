@@ -643,7 +643,6 @@ When you are done with the camera, please close it off:
    to work. Otherwise, a segfault and **no one** likes that.
 
 3. If the camera isn't actively collecting data, you can change the exposure time in ``cursesINDI``
->>>>>>> b498d66a4a771e98cb715355d951ce35be0fc4a2
    and ``ImageStream`` will update to the new value.
 
 
