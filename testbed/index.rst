@@ -20,7 +20,7 @@ A few things to know for running CACTI safely:
 
 2. Do not power up the deformable mirror if humidity is above 15%.
 
-3. Check the humidity reading about once every 30 minutes.
+3. On humid (monsoon) days, it's recommended to check the humidity reading about once every 30 minutes.
 
 4. If over the course of several days the humidity is slowly rising check the
    following things:
@@ -29,6 +29,18 @@ A few things to know for running CACTI safely:
    * The dessicant attached to the air flow pipes.
 
 5. If restarting or shutting down with ``xctrl``, first zero the DM and then release it.
+
+General Troubleshooting
+-----------------------
+
+Here are some resources for troubleshooting things that aren't working:
+
+1. For the most part, troubleshooting tips are documented with the command. It's **not** an exhaustive list, though.
+
+2. General and sepcific troubleshooting tips can be found in the :doc:`../troubleshooting` page.
+
+3. If you're not sure how to proceed, please bring up the issue in the ``#lab-activities`` slack channel.
+
 
 Remote operation with a virtual machine (VM)
 --------------------------------------------
@@ -365,6 +377,23 @@ This will open a GUI window.
 4. When you are done using the 1K DM, please click on ``zero flat`` then  ``release`` before powering it
    down in ``pwrGUI``.
    
+**Troubleshooting tips**:
+
+Sometimes the GUI claims the DM is off, despite it being powered on in ``pwrGUI``. Here's some steps to take to investigate:
+
+1. **Verify that the power is working.** Go on ``cursesINDI`` and type ``pdu0.`` to the search portion.
+   Scroll down until you find ``dmkilo`` in the second column. Check that the ``state`` and ``target`` bits are ``On`` in 
+   the rightmost column.
+
+2. **Restart the driver process.** Log into ``exao0`` as ``xsup`` and type ``xctrl status``. Look for the ``dmkilo`` 
+   session on the list. If it is red, then the process is not running. If it's green, then the process is running. Either
+   way, reset the driver with: ::
+   
+      $ xctrl restart dmkilo 
+    
+   From here, this will reconnect the device and ``dmCtrlGUI`` should be active again.
+
+   
 dmModeGUI
 ^^^^^^^^^
 DM Modes GUI. You can apply up to +/-1 wavelength of low order Zernike modes. Useful for manual dialing.
@@ -441,10 +470,12 @@ you won't be able to open it until they have killed their screen session (after 
 
    * This makes it easy to reattach with ``screen -rd``
 
+.. _cursesINDI:   
+
 cursesINDI
 ^^^^^^^^^^
 
-Allows you to set exposure times, ROI, etc directly.
+Allows you to directly set exposure times, investigate the status of various components, etc.
 
 To start cursesINDI, enter it in the ``exao0`` terminal when in ``xsup``:
 
@@ -456,8 +487,8 @@ For general use:
 
 1. Enter the name of device and it will search for it.
 
-   * Tip: Sometimes there are multiple versions of the device. Add "." at the end
-     of your device name to minimize scrolling.
+   * Tip: Sometimes there are multiple prefix versions of the device (such as camera darks). Add "." 
+     at the end of your device name to minimize scrolling.
 
 2. Once at the list, curse over "target" in second to right hand column. Hit "e" for edit, enter a new 
    number, and then "y" for yes.
@@ -531,6 +562,8 @@ someone who has access for it.
 
 From here, you can create your own directories and jupyter notebooks to run your python code.
 
+.. _ImageStream:
+
 Saving Camera Images with ``magpyx``
 ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
 
@@ -575,11 +608,86 @@ When you are done with the camera, please close it off:
 
 **Tips for running** ``ImageStream``:
 
-1. It's generally better to leave the ``ImageStream`` on if you're going to do multiple things
+1. If you want to save an image with ``cam.grab_latest()`` after a change occured, a short delay before
+   grabbing the frame is required. Here is some example code for setting a delay: ::
+   
+      $ import time
+      $ # do a command here
+      $ time.sleep(0.5) # in seconds; can be shorter pending on camera exposure time
+      $ image = cam.grab_latest()
+
+2. It's generally better to leave the ``ImageStream`` on if you're going to do multiple things
    instead of constantly opening and closing it.
 
-2. If you make a change on the ROI, you will need to close and re-open ``ImageStream`` for it 
+3. If you make a change on the ROI, you will need to close and re-open ``ImageStream`` for it 
    to work. Otherwise, a segfault and **no one** likes that.
    
-3. If the camera isn't actively collecting data, you can change the exposure time in ``cursesINDI`` 
+4. If the camera isn't actively collecting data, you can change the exposure time in ``cursesINDI`` 
    and ``ImageStream`` will update to the new value.
+
+
+Applying DM commands with ``magpyx``
+^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+
+If you would like to apply DM commands through python, you can do so using ``ImageStream`` similarly
+as saving a camera image with some simple changes. The main difference is that you will need to initialize
+``ImageStream`` for each DM channel you want to access. What shows up on the DM is the summed command
+across each of the channels.
+
+In jupyter, you need to import ``ImageStream``:
+
+.. code:: text
+   
+   $ from magpyx.utils import ImageStream
+   
+To declare the DM channel, set the name of the DM and channel in ``<dm-channel-name>``:
+
+.. code:: text
+   
+   $ dm = ImageStream(<dm-channel-name>)
+   
+Generally, ``<dm-channel-name>`` follows a specific format of ``dmXXdispYY`` where ``XX`` is the DM number
+and ``YY`` is the channel number. 
+
+On CACTI, there are two DM options that are available to use.
+
+  * The BMC 1K is ``00``, making it ``dm00``.
+  * If the IrisAO segmented DM is in use, it would be ``dm01``.
+
+Despite different DMs, they each have 12 channels available for use. However, note that some channels are
+used for specific activities in CACAO. Here are some channels generally used for specific activities:
+  
+  * Pre-set flat is in ``disp00``. This generally is initialized once in ``dmCtrlGUI`` and not touched in python.
+  * The turbulence/aberration channel is ``disp11``.
+  * The AO channel is ``disp03``. Note that any AO correction needs to be multiplied by ``-1`` to work properly.
+
+Therefore, an example of initializing the BMC 1K DM's turbulence and AO channels would be:
+
+.. code:: text
+   
+   $ dm_turb = ImageStream('dm00disp11')
+   $ dm_ao = ImageStream('dm00disp03')
+   
+From here, you can write the commands to the DM using the ``write`` function. 
+
+.. code:: text
+   
+   $ dm_turb.write(<dm_com_mat>)
+
+Where ``<dm_com_mat>`` is the DM command matrix parameter to pass in. Note that ``<dm_com_mat>`` will be different
+based on the DM being used. 
+
+  * The BMC 1K is a ``32x32`` matrix which assumes the units are in ``microns``. Try to avoid using the edge actuators.
+  * The IrisAO segmented DM is a ``37x3`` matrix where each row is a specific segment and the 1st column is piston (in 
+    ``microns``), the 2nd is tip, and the 3rd is tilt (each in ``milliradians``).
+    
+For every new DM command you want to enter, you can keep updating it with the ``write`` function.
+
+When you are done with the DM, close it similar to saving an image:
+
+.. code:: text
+   
+   $ dm_turb.close()
+   $ dm_ao.close()
+
+
