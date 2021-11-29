@@ -113,9 +113,9 @@ Finally, to preview and publish your edits:
 2. Run ``make html`` (in the directory you cloned into)
 3. Open ``_build/html/index.html`` to see the updated site, and verify
    your changes look good
-4. ``git add ./path/to/file/you/changed.md`` and
+4. ``git add ./path/to/file/you/changed.rst`` and
    ``git commit -m "Description of your changes"``
-5. ``git push origin master``
+5. ``git push origin main``
 
 If everything looks good, the public copy of the docs will update
 automatically!
