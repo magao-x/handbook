@@ -27,6 +27,13 @@
 .. role:: orange
 
 
+.. raw:: html
+
+    <style> .gray {color:gray} </style>
+
+.. role:: gray
+
+
 **********************************
 A Beginner's Guide to Using MagAOX
 **********************************
@@ -95,7 +102,18 @@ When using cursesINDI, you can type the name of the device you want to scroll to
 | :green:`In case this goes wrong`:
 
 
-If cursesINDI or getINDI fails with a connection error, we might need to run the system startups as the INDI server is probably down:
+If cursesINDI or getINDI fails with a connection error, we might need to run the system startups as the INDI server is probably down. But first, check the VM:
+
+.. code-block:: bash
+
+    # Exit the VM via ctrl+d or typing logout
+    vagrant reload
+    vagrant ssh
+    xctrl startup
+    getINDI
+
+
+If the problem persists after doing this the following steps are needed:
 
 Check rtc:
 
@@ -297,7 +315,40 @@ Although we are checking the humidity of dm01, the tweeter, to ensure the safety
 
 Once all 3 GUIs are open, press the "set flat" button on all 3 GUIs
 
+:green:`================================================================================`
+If one of the DMs isn't responding when trying to flatten it, its process is likely down (or hanging). To fix:
 
+**Follow steps in the Handbook for:**
+:doc:`Software Startup <./startup>`
+
+Specifically, for dmwoofer and dmtweeter:
+
+.. code-block:: bash
+
+    ssh rtc
+    su xsup
+    cd
+    bash ./cacao_startup_woofer.sh
+    bash .cacao_startup_tweeter.sh
+    xctrl restart isRTC
+    xctrl restart <dmwoofer or dmtweeter> # until it reconnects
+
+For dmncpc
+
+.. code-block:: bash
+
+    ssh icc
+    su xsup
+    cd    
+    bash ./cacao_startup_dmncpc.sh
+    xctrl restart isICC
+    tmux attach -t dmncpc
+    # ctrl+c, up-arrow, press enter until it reconnects
+
+
+After this process, the DM in question should be reconnected to the INDI server and work in the GUI again.
+
+:green:`================================================================================`
 
 | :blue:`Note`:
 | "[" on the keyboard to square rtimv viewers as big as possible (scaled to the data)
@@ -404,7 +455,7 @@ Filter Wheels, Final Power ups, and Final Checks
 
 3. Now can turn on everything in :orange:`usbdu0` except for camacq.
 
-:red:`REMINDER`: fwscind and fwtelsim in :orusbdu0 must be done after the dcdu1 ones!
+:red:`REMINDER`: fwscind and fwtelsim in :orange:`usbdu0` must be done after the dcdu1 ones!
 
 4. Turn on sliders in :orange:`usbdu1` except for flipacq and flipeye
 
@@ -503,6 +554,31 @@ Now go to **Modulation & Centering**:
 Now for Cacao-ing
 =================
 
+To begin, set up rtc in the mode to have the lowest latency:
+
+.. code-block:: bash
+
+    ssh rtc
+    cat /proc/cpuinfo | grep MHz | wc -l
+
+If this is 72:
+
+.. code-block:: bash
+
+    sudo /opt/MagAOX/source/MagAOX/script/rtc_cpuset
+    sudo /opt/MagAOX/source/MagAOX/script/rtc_procset
+    cat /proc/cpuinfo | grep MHz | wc -l
+
+
+:blue:`Note`: Do not switch to xsup to do this, as you need sudo!
+
+
+| It should now be 54. Now we are ready to set rtc into lowest latency mode:
+| go to cursesINDI
+| search sysMonRTC
+| go to sysMonRTC.set_latency and toggle it on
+
+
 Open another terminal (henceforth terminal #2):
 
 .. code-block:: bash
@@ -559,27 +635,6 @@ If it's near 2 frames or larger, message the PI / Slack.
 Getting a Response Matrix:
 ==========================
 
-To begin, set up rtc in the mode to have the lowest latency:
-
-.. code-block:: bash
-
-    ssh rtc
-    cat /proc/cpuinfo | grep MHz | wc -l
-
-If this is 72:
-
-.. code-block:: bash
-
-    sudo /opt/MagAOX/source/MagAOX/script/rtc_cpuset
-    sudo /opt/MagAOX/source/MagAOX/script/rtc_procset
-    cat /proc/cpuinfo | grep MHz | wc -l
-
-
-| It should now be 54. Now we are ready to set rtc into lowest latency mode:
-| go to cursesINDI
-| search sysMonRTC
-| go to sysMonRTC.set_latency and toggle it on
-
 
 1. Now, in the Cacao GUI terminal (terminal #2), scroll to **START AUTO SYSTEM CALIBRATION (new modes)**
 
@@ -609,11 +664,171 @@ To save the Response Matrix:
     - wfsdark/wfsdark_<date>.fits 
 
 
+
+Closing the Loop!
+=================
+
+1. Now use the right arrow to select :gray:`Top` at bottom of cacao window and press enter. This will take you back to the main cacao menu
+
+| 2. Select: **Modes and Control Matrix** and press enter
+| scroll to:
+| modeCPA, press enter, and change to 24
+| mkModes0, press enter
+
+
+3. open a terminal to monitor when this process completes:
+
+.. code-block:: bash
+
+    ssh rtc
+    su xsup
+    tmux ls # to look for aol1mkmodes
+    tmux attach -t aol1mkmodes
+
+
+"dologext: command not found"ill will be printed. Press enter and if you get a command prompt, and that means the process is done
+
+
+| 4. Go back to cacao window:
+| Take note of the date in **STAGED CONFIGURATION**: press enter and verify the date changes
+| Arrow down and press enter on **Configuration Update**, check **ACTIVE CONFIGURATION** below to see its date matches the new one in **Staged configuration**.
+
+
+5. Now scroll to **Load shared memory from conf** and press enter
+
+
+6. Open a terminal to monitor when this process completes:
+
+.. code-block:: bash
+
+    ssh rtc
+    tmux atach -t aol1SMload
+    # wait for process to complete (getting a bash prompt)
+
+
+
+| 7. now select :gray:`Top` again in the cacao window
+| Select **Control AO (L)oop**
+
+
+| 8. scroll down to:
+| **Loop processes ON, press to STOP** and press enter
+
+
+| 9. scroll down to:
+| **START loop processes** and press enter
+| check procCTRL; you should see 4 new processes that all stay green (Active)
+
+10. Now that 4 new processes have been launched, we need to update the script that is allowing us to run with low latency:
+
+.. code-block:: bash
+
+    ssh rtc
+    sudo /opt/MagAOX/source/MagAOX/script/rtc_procset
+
+It should run without any errors or warnings.
+
+
+| 11. Scroll down to **LOOP SETTING**
+| Verify loop gain is 0
+
+
+| 12. Scroll to **LOOP CONTROL**
+| Highlight **START control loop** and press enter
+| Check procCTRL again, and see that loopcnt is updating at the frame rate
+
+
+| 13. Go to loop gain under **LOOP SETTING** again:
+| Increase the value little by little and verify the loop is stable
+    It is stable if dm01disp (the tweeter) has no saturated actuators, and is not oscillating between values
+
+
+Congrats! You have closed the loop on the WFS!
+
+You can test this by opening up the DM modes GUI for dmwoofer and adding an aberration. You should immediately see the opposite shape appear in the viewer for the tweeter, and the camwfs output not change. You can open the modes GUI for dmncpc as well:
+
+.. code-block:: bash
+
+    dmModeGUI wooferModes &
+    dmModeGUI ncpcModes &
+
+
+
+Preparing camsci1 for images
+============================
+
+
+Set up to get light on camsci1
+    | Go to cursesINDI and make the following changes:
+    | fwfpm.filterName -> open1
+    | fwsci1.filterName -> z
+    | fwsciND -> ND2 or ND3 (to stop saturation)
+
+
+Setting up ROI for camsci1:
+    | Click the ROI button on camsci1 cameraGUI
+    | Mouse over the central pixel of the PSF in the camsci1 viewer to get its coordinate
+    | Set the coordinate you found to the X Center and Y center boxes with that coordinate
+    | Set Width and Height to 32 each press enter (32 for speed, 64 can work too)
+    | Click check
+    | Click set
+    | Press z in camsci1 and move the gold box to restretch the color scale.
+    | Close the ROI gui
+
+
+
+Now we want more speed on the camera by a bit:
+    | Click the box for Readout Spd and use the target pulldown to change to emccd_10MHz
+    | Click Vert. Shift Spd and use the target pulldown to change to 0_7us
+    | set exp time [sec.] to 0.001 to force fastest readout
+
+
+You should get an FPS of ~156.1 on camsci1 after making those changes. Once you know this FPS, you need to update the AO loop to use it:
+
+1. To stop the loop, scroll down to **LOOP SETTING** and set loop gain to 0. Then press enter on "stop loop" under **LOOP CONTROL**
+
+2. Update the frame rate of camwfs and the modulation frequency to match the camsci1 FPS:
+    change FPS on camwfs
+    update modulation frequency in Pupil Alignment GUI
+
+
+
+Now that you can see the light in our ROI on camsci1, you may want to clean up the PSF a little. To do this, run eye doctor.
+
+1. See :doc:`Eye-Doctor <./software/utils/eyedoctor>` for more details
+
+In terminal #1:
+
+.. code-block:: bash
+
+    dmModesGUI ncpcModes & # if not opened earlier
+
+
+Open a new terminal:
+
+.. code-block:: bash
+
+    ssh icc
+    su xsup
+    cd
+    dm_eye_doctor 7624 ncpcModes camsci1 5 2...10 0.25
+
+It will print when it is done, and you can watch in NCPC DM Modes GUI, DMdm02disp, and camsci1 viewers to see what it is doing, and if it is imroving the PSF quality.
+
+
+
+
+
+
+
+
+
+
 To do stuff in Python
 =====================
 
 1. open a terminal:
-2. ``ssh rtc -L 9999:localhost:9999``
+2. ``ssh aoc -L 9999:localhost:9999``
 3. navigate to localhost:9999 in a browser
 
 Useful Python stuff to know to build around:
@@ -641,8 +856,28 @@ Useful Python stuff to know to build around:
     # Subtract wfsref0
 
 
+To save fits files written in python here to local:
+    | Copy the fits files writen to /home/xsup/magic_portal
+    | Go to Box
+    | MagAOX/magic_portal
+    | Download the files
+    | Go back to the terminal ssh'd to aoc
+    | cd to /home/xsup/magic_portal
+    | remove the files you added
+
+
+
+
 Safe Shutdown!
 ==============
+
+Shutting down cacao:
+    | set loop gain to 0
+    | scroll to STOP control loop, and press enter
+    | scroll to Loop processes ON, press to STOP, and press enter
+
+The 4 processes for the loop should show as "stopped" in procCTRL, and the loop counter should no longer be increasing. Use :gray:`Top` to get back to the main cacao menu, or :gray:`Exit` to close aolconf.
+
 
 :red:`IMPORTANT`: First is warm up the 4 EMCCDs! These are camwfs, camlowfs, camsci1, and camsci2 (the camsci's cool automatically, even if you don't use them)
 
@@ -696,6 +931,9 @@ If the temperature is 20C, the cameras can be slid off. 19C is okay, <19C is not
 
 
 :red:`IMPORTANT`: Before being done, double check that "instcool" is still powered on in pwrGUI (this is important as it keeps the CPUs and such from overheating)
+
+Go to cursesINDI, and stop set_latency:
+sysMonRTC.set_latency, toggle off
 
 Now close all the windows and post in Slack that MagAOX is off.
 
