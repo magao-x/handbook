@@ -13,7 +13,7 @@ Prepare the system:
 
 * **fwpupil.filterName** in open
 
-* **fwpm.filterName** in **flat**
+* **fwfpm.filterName** in **flat**
 
 * **stagelosel.presetName** in **pupil**
 
@@ -52,7 +52,7 @@ Find and mark the pupil position on **camlowfs**:
 
 * **fwpupil.filterName** in **open**
 
-* **fwpm.filterName** in **flat**
+* **fwfpm.filterName** in **flat**
 
 * **stagelosel.presetName** in **pupil**
 
