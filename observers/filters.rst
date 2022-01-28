@@ -245,4 +245,58 @@ Filters in the low-order WFS.
 Atmosphere
 ---------------------------
 
-Atmospheric transmission curves.
+Atmospheric transmission curves for Cerro Manqui.  These were calculated by Jared using the BTRAM IDL code.  Individual files linked below, and the complete set can be :static:`downloaded <ref/atm/magaox_manqui_atm.zip>`.
+
+.. list-table::
+   :header-rows: 2
+
+   * - ZD
+     - PWV [mm]
+     - PWV [mm]
+     - PWV [mm]
+     - PWV [mm]
+     - PWV [mm]
+     - PWV [mm]
+   * - [deg]
+     - 0.0
+     - 2.5
+     - 5.0
+     - 7.5
+     - 10.0
+     - 12.5
+   * - 0.0
+     - :static:`file <ref/atm/manqui_zd0.0_pwv0.0.txt>`
+     - :static:`file <ref/atm/manqui_zd0.0_pwv2.5.txt>`
+     - :static:`file <ref/atm/manqui_zd0.0_pwv5.0.txt>`
+     - :static:`file <ref/atm/manqui_zd0.0_pwv7.5.txt>`
+     - :static:`file <ref/atm/manqui_zd0.0_pwv10.0.txt>`
+     - :static:`file <ref/atm/manqui_zd0.0_pwv12.5.txt>`
+   * - 15.0
+     - :static:`file <ref/atm/manqui_zd15.0_pwv0.0.txt>`
+     - :static:`file <ref/atm/manqui_zd15.0_pwv2.5.txt>`
+     - :static:`file <ref/atm/manqui_zd15.0_pwv5.0.txt>`
+     - :static:`file <ref/atm/manqui_zd15.0_pwv7.5.txt>`
+     - :static:`file <ref/atm/manqui_zd15.0_pwv10.0.txt>`
+     - :static:`file <ref/atm/manqui_zd15.0_pwv12.5.txt>`
+   * - 30.0
+     - :static:`file <ref/atm/manqui_zd30.0_pwv0.0.txt>`
+     - :static:`file <ref/atm/manqui_zd30.0_pwv2.5.txt>`
+     - :static:`file <ref/atm/manqui_zd30.0_pwv5.0.txt>`
+     - :static:`file <ref/atm/manqui_zd30.0_pwv7.5.txt>`
+     - :static:`file <ref/atm/manqui_zd30.0_pwv10.0.txt>`
+     - :static:`file <ref/atm/manqui_zd30.0_pwv12.5.txt>`
+   * - 45.0
+     - :static:`file <ref/atm/manqui_zd45.0_pwv0.0.txt>`
+     - :static:`file <ref/atm/manqui_zd45.0_pwv2.5.txt>`
+     - :static:`file <ref/atm/manqui_zd45.0_pwv5.0.txt>`
+     - :static:`file <ref/atm/manqui_zd45.0_pwv7.5.txt>`
+     - :static:`file <ref/atm/manqui_zd45.0_pwv10.0.txt>`
+     - :static:`file <ref/atm/manqui_zd45.0_pwv12.5.txt>`
+   * - 60.0
+     - :static:`file <ref/atm/manqui_zd60.0_pwv0.0.txt>`
+     - :static:`file <ref/atm/manqui_zd60.0_pwv2.5.txt>`
+     - :static:`file <ref/atm/manqui_zd60.0_pwv5.0.txt>`
+     - :static:`file <ref/atm/manqui_zd60.0_pwv7.5.txt>`
+     - :static:`file <ref/atm/manqui_zd60.0_pwv10.0.txt>`
+     - :static:`file <ref/atm/manqui_zd60.0_pwv12.5.txt>`
+   
