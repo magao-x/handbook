@@ -4,14 +4,14 @@ Python environments
 Plenty of MagAO-X software is written in Python, so we need a consistent
 environment.
 
-There are two config files in magao-x/config that control conda
+There are two config files in magao-x/MagAOX that control conda
 environments on AOC/RTC/ICC:
 
--  ``conda_env_base.yml``
--  ``conda_env_pinned.yml``
+-  ``setup/conda_env_base.yml``
+-  ``setup/conda_env_pinned.yml``
 
 The first, ``conda_env_base.yml``, stores just the top-level
-dependencies (i.e. not everything they depend on) without versions. This
+dependencies (i.e. not everything they depend on) without versions. This
 makes it easier to track what we *really* depend on in case we need to
 help conda along with failing dependency resolution.
 
@@ -65,7 +65,7 @@ To add it to the template, first pull any changes:
 
 ::
 
-   cd /opt/MagAOX/config
+   cd /opt/MagAOX/source/MagAOX
    git pull
    # resolve any conflicts
 
@@ -90,7 +90,7 @@ Storing in version control
 
 ::
 
-   $ cd /opt/MagAOX/config
+   $ cd /opt/MagAOX/source/MagAOX/setup
    $ git add conda_env_pinned.yml conda_env_base.yml
    $ git commit -m "Added Python package foopkg to conda envs"
    $ git push
@@ -103,7 +103,7 @@ and RTC and run the following steps:
 
 ::
 
-   $ cd /opt/MagAOX/config
+   $ cd /opt/MagAOX/source/MagAOX/setup
    $ git pull
    $ conda env update -f /opt/MagAOX/source/MagAOX/setup/conda_env_pinned.yml
 
@@ -122,7 +122,7 @@ Generally only something to do if things are totally messed up, there’s
 a new version of the Python interpreter itself, or both.
 
 1. Move ``/opt/miniconda3`` out of the way
-   (i.e. ``mv /opt/miniconda3 /opt/miniconda3.bak``)
+   (i.e. ``mv /opt/miniconda3 /opt/miniconda3.bak``)
 2. Edit ``/opt/MagAOX/source/MagAOX/setup/install_python.sh`` and change
    ``MINICONDA_VERSION="X-pyXX_X.Y.Z"`` appropriately, and commit/push
    to version control.
@@ -151,11 +151,17 @@ from ``conda_env_base.yml`` and update ``conda_env_pinned.yml`` yourself
 
 4. ``conda env update -f /opt/MagAOX/source/MagAOX/setup/conda_env_base.yml``
 5. ``conda env export > /opt/MagAOX/source/MagAOX/setup/conda_env_pinned.yml``
-6. ``$ cd /opt/MagAOX/config     $ git add conda_env_pinned.yml     $ git commit -m "Updated pinned packages for conda upgrade"     $ git push``
+6.  ::
+
+      $ cd /opt/MagAOX/source/MagAOX/setup
+      $ git add conda_env_pinned.yml
+      $ git commit -m "Updated pinned packages for conda upgrade"
+      $ git push
+
 
 You will also need to rerun some of the files in
 ``/opt/MagAOX/source/MagAOX/setup/steps`` that install Python packages
-into the environment. A (possibly incomplete list):
+into the environment. A (possibly incomplete) list:
 
 ::
 
@@ -171,15 +177,14 @@ Replicate across all the machines
 SSH to the other machines and:
 
 1. Move ``/opt/miniconda3`` out of the way
-   (i.e. ``sudo mv /opt/miniconda3 /opt/miniconda3.bak``)
-2. Update the environment files: ``cd /opt/MagAOX/config && git pull``
-3. Update the MagAO-X source:
+   (i.e. ``sudo mv /opt/miniconda3 /opt/miniconda3.bak``)
+2. Update the MagAO-X source:
    ``cd /opt/MagAOX/source/MagAOX && git pull``
-4. Install Python via miniconda:
+3. Install Python via miniconda:
    ``bash /opt/MagAOX/source/MagAOX/setup/install_python.sh``
-5. Configure Python via conda environment files:
-   ``bash /opt/MagAOX/source/MagAOX/setup/configure_python.sh``
-6. Ensure all our custom packages get installed
+4. Configure Python via conda environment files:
+  ``bash /opt/MagAOX/source/MagAOX/setup/configure_python.sh``
+5. Ensure all our custom packages get installed
 
 ::
 
