@@ -75,18 +75,26 @@ numbers. Add your package name (but not version, unless you know what
 you’re doing) to the list, being careful to put it under the ``pip:``
 heading if that’s how it was installed.
 
-Updating the pinned packages
-~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+Updating the list of pinned packages
+~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
 
-Now, you need to update the pinned packages in
-``/opt/MagAOX/source/MagAOX/setup/conda_env_pinned.yml``.
+Now, you need to update the list of pinned packages and versions
+in ``/opt/MagAOX/source/MagAOX/setup/conda_env_pinned.yml`` by
+exporting the current packages and versions from the system where
+you just installed a new package.
 
 ::
 
    $ conda env export > /opt/MagAOX/source/MagAOX/setup/conda_env_pinned.yml
 
+This updates the versioned file in the MagAO-X source, and you can
+use ``git diff`` to see what has changed.
+
 Storing in version control
 ~~~~~~~~~~~~~~~~~~~~~~~~~~
+
+Follow these steps to commit the updates to these files to version control
+and push them to the central copy.
 
 ::
 
@@ -106,6 +114,9 @@ and RTC and run the following steps:
    $ cd /opt/MagAOX/source/MagAOX/setup
    $ git pull
    $ conda env update -f /opt/MagAOX/source/MagAOX/setup/conda_env_pinned.yml
+
+(Or, if you made the change another one of the machines, just run the above
+steps on the two **other** ones.)
 
 Updating ``conda``
 ------------------
