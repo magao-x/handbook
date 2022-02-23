@@ -21,45 +21,45 @@ fwtelsim    ND1
 fwscind     ND1_0
 fwsci2      Halpha
 stagescibs  Halpha
-stagesci2   75mm (center of range)
+stagesci2   51mm (center of range)
 camsci2     5MHz, 512x512 ROI (centered on PSF at 75mm), ~15 fps (or fastest possible)
 ==========  =====
 
 Running ``pyindi_send_preset fdpr_camsci2_halpha`` will set all devices to the above configuration, except camsci2 (provided devices that require homing have been homed -- this is a work in progress).
 
-The PSF should be in focus and saturated at the 75 mm position. If it is egregiously out of focus, you can drive it to focus using ``dmncpcModes`` (if it's a large change in focus, this normally introduces astigmatism as well).
+The PSF should be in focus and saturated at the 51 mm position. If it is egregiously out of focus, you can drive it to focus using ``dmncpcModes`` (if it's a large change in focus, this normally introduces astigmatism as well) or the eye doctor.
 
-We typically make measurements at defocused positions of +/-40 and +/-60mm. To check that the camera is set appropriately, drive stagesci2 to 35 and 115 mm and confirm that the PSF is not saturating. 
+We typically make measurements at defocused positions of +/-50 mm or more. To check that the camera is set appropriately, drive stagesci2 to 10 and 100 mm and confirm that the defocused PSF is not saturating.
 
-When driving the tweeter on the RTC, you will need to set up a TCP :term:`shmim` stream of camsci2 from the ICC to RTC.
+To initialize mzmq streaming for camsci2 and NCPC commands, start up ``mzmqClientRTC_ICC`` and ``mzmqServerRTC_ICC`` on the RTC and ``mzmqClientICC_RTC`` and ``mzmqServerICC_RTC`` on the ICC.
 
 Quick start
 -------------------
 
 A typical session of FDPR-driven optimization will start by driving the NCPC DM on camsci2 measurements, followed by driving the tweeter on camsci2. Here are some commands to selectively copy & paste as needed.
 
-On the ICC with the NCPC DM::
+On the RTC with the NCPC DM::
 
     pyindi_send_preset fdpr_camsci2_halpha # configure the instrument. make sure you've set camsci2 separately
-    fdpr_measure_response fdpr_dmncpc_camsci2_stage # measure a new response matrix
-    fdpr_estimate_response fdpr_dmncpc_camsci2_stage # estimate the phase from the latest measured response matrix (this will take a few minutes)
-    fdpr_compute_control_matrix fdpr_dmncpc_camsci2_stage # compute a control matrix
-    fdpr_close_loop fdpr_dmncpc_camsci2_stage # close the loop
-    dm_eye_doctor_update_flat ncpc # collapse all DM channels into a new flat
+    fdpr_measure_response fdpr_dmncpc_camsci2_stage_RTC # measure a new response matrix
+    fdpr_estimate_response fdpr_dmncpc_camsci2_stage_RTC # estimate the phase from the latest measured response matrix (this will take a few minutes)
+    fdpr_compute_control_matrix fdpr_dmncpc_camsci2_stage_RTC # compute a control matrix
+    fdpr_close_loop fdpr_dmncpc_camsci2_stage_RTC -o estimation.nproc=1 estimation.gpus=0 # close the loop
+    dm_save_flat ncpc -d fdpr # run on the ICC to save out the flat
 
 On the RTC with the tweeter DM::
 
     pyindi_send_preset fdpr_camsci2_halpha # configure the instrument. make sure you've set camsci2 separately
     fdpr_measure_response fdpr_dmtweeter_camsci2_stage # measure a new response matrix
-    fdpr_estimate_response fdpr_dmtweeter_camsci2_stage # estimate the phase from the latest measured response matrix (this will take a ~ 1 hr, 15 min)
+    fdpr_estimate_response fdpr_dmtweeter_camsci2_stage # estimate the phase from the latest measured response matrix (this will take several hours)
     fdpr_compute_control_matrix fdpr_dmtweeter_camsci2_stage # compute a control matrix
-    fdpr_close_loop fdpr_dmtweeter_camsci2_stage # close the loop
-    dm_eye_doctor_update_flat tweeter # collapse all DM channels into a new flat
+    fdpr_close_loop fdpr_dmtweeter_camsci2_stage -o estimation.nproc=1 estimation.gpus=0 # close the loop
+    dm_save_flat tweeter -d fdpr # run on the RTC to save out the flat
 
 To view the FDPR-estimated phase and amplitude::
 
     rtimv fdpr_camsci2_phase # radians
-    rtimv fdpr_camsci2_amp
+    rtimv fdpr_camsci2_amp # arbitrary units
 
 Overview
 -------------------------------------------------------
@@ -74,7 +74,7 @@ If you've already got a calibration and only need to close the loop::
 
 If you just want to estimate the current wavefront state (this will update a set of :term:`shmims<shmim>` specified in the config file)::
 
-    fdpr_one_shot <name of config file>
+    fdpr_one_shot <name of config file> -o estimation.nproc=1 estimation.gpus=0
 
 To run the calibration from scratch:
 
@@ -135,13 +135,13 @@ The configuration files are stored at ``\opt\MagAOX\config``. A typical example 
     wfilter=Halpha
     type=stage
     camstage=stagesci2
-    stage_focus=75
+    stage_focus=51
     dmModes=wooferModes
-    dmdelay=0.13
-    indidelay=1
-    values =-60,-40,40,60
+    dmdelay=2
+    indidelay=2
+    values =-50,95
     navg=1
-    ndark=10
+    ndark=50
     dmdivchannel=dm01disp05
     port=7625
 
@@ -149,7 +149,7 @@ The configuration files are stored at ``\opt\MagAOX\config``. A typical example 
     N=512
     nzernike=45
     npad=10
-    pupil=bump_mask
+    pupil=open
     phase_shmim=fdpr_camsci2_phase
     amp_shmim=fdpr_camsci2_amp
     nproc=3
@@ -166,16 +166,17 @@ The configuration files are stored at ``\opt\MagAOX\config``. A typical example 
     fix_xy_to_first=True
 
     [control]
-    dmctrlchannel=dm01disp05
-    nmodes=1500
-    ampthreshold=0.
-    dmthreshold=1.1
+    dmctrlchannel=dm01disp03
+    nmodes=1000
+    remove_modes=0
+    ampthreshold=1.
+    dmthreshold=0.8
     wfsthreshold=0.5
     ninterp=3
-    gain=0.5
+    gain=0.3
     leak=0.
-    niter=10
-    delay=0.5
+    niter=5
+    delay=2
 
 A few parameters of note:
 
