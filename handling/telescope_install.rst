@@ -305,4 +305,4 @@ Cable the 2K
 
 See MagAO-X PSR Document :download:`2.2 Deformable Mirrors <../appendices/psr/2_2_Deformable_Mirrors.pdf>`
 
--  ☐ Check actuator functionality
+-  ☐ Check actuator functionality, following `this notebook on the RTC <https://github.com/magao-x/magpyx/blob/master/notebooks/connection_doctor_example.ipynb>`_
