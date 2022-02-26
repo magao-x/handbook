@@ -14,3 +14,4 @@ Handling Procedures
     telescope_removal
     electronics_packing
     instrument_packing
+    bmc_dm_cabling
