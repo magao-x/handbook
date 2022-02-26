@@ -5,6 +5,7 @@ Handling Procedures
   - :doc:`telescope_removal` (:static:`PDF <handling/telescope_removal.pdf>`)
   - :doc:`electronics_packing` (:static:`PDF <handling/electronics_packing.pdf>`)
   - :doc:`instrument_packing` (:static:`PDF <handling/instrument_packing.pdf>`)
+  - :doc:`bmc_dm_cabling` (:static:`PDF <handling/bmc_dm_cabling.pdf>`)
 
 .. toctree::
     :maxdepth: 1

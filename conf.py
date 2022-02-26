@@ -69,6 +69,7 @@ latex_documents = [
     ('handling/instrument_packing', 'instrument_packing.tex', 'Packing the MagAO-X Table at LCO for Shipment', author, 'howto', False),
     ('handling/telescope_install', 'telescope_install.tex', 'Installing MagAO-X on the Telescope', author, 'howto', False),
     ('handling/telescope_removal', 'telescope_removal.tex', 'Removing MagAO-X from the Telescope', author, 'howto', False),
+    ('handling/bmc_dm_cabling', 'bmc_dm_cabling.tex', 'Decabling and recabling of Boston Micromachines deformable mirror', author, 'howto', False),
 ]
 
 #   - Disable page-clearing for chapter titles
