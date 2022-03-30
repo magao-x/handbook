@@ -1,6 +1,7 @@
 Handling Procedures
 ===================
 
+  - :doc:`electronics_unpacking` (:static:`PDF <handling/electronics_unpacking.pdf>`)
   - :doc:`telescope_install` (:static:`PDF <handling/telescope_install.pdf>`)
   - :doc:`telescope_removal` (:static:`PDF <handling/telescope_removal.pdf>`)
   - :doc:`electronics_packing` (:static:`PDF <handling/electronics_packing.pdf>`)
@@ -11,6 +12,7 @@ Handling Procedures
     :maxdepth: 1
     :hidden:
 
+    electronics_unpacking
     telescope_install
     telescope_removal
     electronics_packing
