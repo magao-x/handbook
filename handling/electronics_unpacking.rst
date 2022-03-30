@@ -76,6 +76,10 @@ CAUTION: The box should not be lifted off the ground using the lifting rings, th
 
 -  Install the braces
 
+   .. image:: figures/ebox_unpack_braces.jpg
+
+   *Brace installed*
+
 -  Unbolt the top lid (still attached to crane) and remove it with the crane.
 
    .. image:: figures/ebox_unpack_lid_removal.png
