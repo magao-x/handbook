@@ -302,8 +302,8 @@ following properties
 | ``.shutter``    | ``.toggle``     | toggle switch   | Current state   |
 |                 |                 |                 | of the shutter: |
 |                 |                 |                 | ON = SHUT       |
-|                 |                 |                 | (|X|), OFF =    |
-|                 |                 |                 | OPEN (|O|).     |
+|                 |                 |                 | (``|X|``), OFF =|
+|                 |                 |                 | OPEN (``|O|``). |
 |                 |                 |                 | Toggling the    |
 |                 |                 |                 | switch changes  |
 |                 |                 |                 | state.          |

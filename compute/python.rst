@@ -194,13 +194,11 @@ SSH to the other machines and:
 3. Install Python via miniconda:
    ``bash /opt/MagAOX/source/MagAOX/setup/install_python.sh``
 4. Configure Python via conda environment files:
-  ``bash /opt/MagAOX/source/MagAOX/setup/configure_python.sh``
-5. Ensure all our custom packages get installed
+   ``bash /opt/MagAOX/source/MagAOX/setup/configure_python.sh``
+5. Ensure all our custom packages get installed::
 
-::
-
-   cd /opt/MagAOX/source/MagAOX/setup/steps && \
-   bash install_purepyindi.sh && \
-   bash install_imagestreamio_python.sh && \
-   bash install_magpyx.sh && \
-   bash install_sup.sh
+      cd /opt/MagAOX/source/MagAOX/setup/steps && \
+      bash install_purepyindi.sh && \
+      bash install_imagestreamio_python.sh && \
+      bash install_magpyx.sh && \
+      bash install_sup.sh
