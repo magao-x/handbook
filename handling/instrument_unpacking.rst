@@ -34,29 +34,49 @@ Open The Box
 
 Note: the removable side wall should be facing towards the outer garage door
 
--  Install the handles on the removable side panel.
+   .. image:: figures/inst_unpack_box_render.png
+
+   *Illustration of the instrument table shipping system*
+
+   .. image:: figures/inst_unpack_box_onto_dollies.jpg
+
+   *Using the forklift to set the box down on 4 furniture dollies*
+
+-  Install the handles on the removable side panel in the outward direction (they are stowed inward for shipping)
 
 -  Remove all but two bolts from the side panel
 
--  With 4 workers standing by to handle the panel, remove the final bolts.  The panel fits very snugly so it will not fall out on its on.
+-  With 4 workers standing by to handle the panel, remove the final bolts.  The panel fits very snugly so it should not fall out on its on.
 
 -  Remove the side panel.  This takes 4 workers.
 
+    .. image:: figures/inst_unpack_front_removal.png
+
+   *Removal of the front panel*
+
 -  Set the side panel out of the way outside
+
+   .. image:: figures/inst_unpack_front_storage.png
+
+   *The front panel temporarily stored outside*
 
 -  Conduct initial inspection of the instrument, including drop-n-tells.  Remove the data recorders (this may have been done via the inspection ports already)
 
--  Totate the box on dollies 180 degrees so the opening faces into the cleanroom
+-  Rotate the box on dollies 180 degrees so the opening faces into the cleanroom
 
 -  Remove all bolts attaching the box top to the aluminum pallet.  Store in a safe place.
 
 -  Install the lifting eyes on the box lid, and attach the load spreader the box lid as shown. The load spread should be driven to the correct mark.
 
+   .. image:: figures/inst_unpack_fixture_to_lid.jpg
+
+   *The lifting fixture attached to the lid*
+
 -  Stage 4x furniture dollies to set the lid on, between the pallet and the outer garage door.
 
 -  Open the inner garage door
 
--  position a worker at each corner to guid the lid
+-  Position a worker at each corner to guid the lid
 
 -  Lift the lid with the crane, with the 4 corner guides ensuring that it goes straight up.
 
