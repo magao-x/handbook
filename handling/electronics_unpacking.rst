@@ -6,7 +6,7 @@ LCO.
 
 Estimated Time to Complete: 2 hrs
 
-This document can be downloaded as a PDF: :static:`Electronics Rack Packing at LCO <handling/electronics_unpacking.pdf>`
+This document can be downloaded as a PDF: :static:`Electronics Rack Unpacking at LCO <handling/electronics_unpacking.pdf>`
 
 Initial Conditions
 ------------------
