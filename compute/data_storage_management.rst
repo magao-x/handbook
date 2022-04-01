@@ -83,6 +83,6 @@ sure it’s reassembled after reboot.
    isn’t part of the ``/data`` RAID5 array.
 
 3. Hot-add the dropped device to the array with ``mdadm``
-   ``$ sudo mdadm /dev/md124 --add /dev/sdf``
+   ``$ sudo mdadm /dev/md124 --add /dev/sdf1``
 
 4. Repeat steps 1 and 2 and verify all drives are present in the RAID

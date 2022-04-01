@@ -71,7 +71,7 @@ For ICC/RTC
    |
     --Processor Configuration
       |
-      -- DCU Mode [16KB 4Way With ECC] {This is critical for allowing PCIe expansion to work}
+      -- DCU Mode [32KB 8Way Without ECC] {This is default, ECC not needed for new-style target and host cards}
    |
     --Miscellaneous Configuration
       |
