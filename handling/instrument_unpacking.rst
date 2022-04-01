@@ -26,6 +26,8 @@ Preparations
 
 -  find a crane scale good for at least 2500 lbs.
 
+-  If the legs will be used, make sure the 3 geophones (blue cables) are untangled in the basket and can reach their respective legs (see number and letter markings)
+
 
 Open The Box
 ------------
@@ -66,7 +68,7 @@ Note: the removable side wall should be facing towards the outer garage door
 
 -  Remove all bolts attaching the box top to the aluminum pallet.  Store in a safe place.
 
--  Install the lifting eyes on the box lid, and attach the load spreader the box lid as shown. The load spread should be driven to the correct mark.
+-  Install the lifting eyes on the box lid, and attach the load spreader the box lid as shown. The load spread should be adjusted to nearly one end (mark the spot!)
 
    .. image:: figures/inst_unpack_fixture_to_lid.jpg
 
@@ -76,11 +78,23 @@ Note: the removable side wall should be facing towards the outer garage door
 
 -  Open the inner garage door
 
+   .. image:: figures/inst_unpack_lid_readytolift.jpg
+
+   *Ready to lift the lid*
+
 -  Position a worker at each corner to guid the lid
 
 -  Lift the lid with the crane, with the 4 corner guides ensuring that it goes straight up.
 
+   .. image:: figures/inst_unpack_lid_lift.png
+
+   *Lifting the lid.  Note it does not need to go this high at LCO*
+
 -  Once the lid is safely clear of the palette lip, move the palette on its dollies into the cleanroom
+
+   .. image:: figures/inst_unpack_pallet_move.jpg
+
+   *Moving the instrument on the pallet into the cleanroom temporarily*
 
 -  Close the inner door behind it.
 
@@ -91,6 +105,11 @@ CAUTION: Do not have both garage doors open at the same time.
 -  Detach the load spreader from the lid, fine to leave it attached to the crane.
 
 -  Rotate the lid 180 degrees, and move it outside via the lift gate.
+
+
+   .. image:: figures/inst_unpack_lid_outside.png
+
+   *The lid stored outside*
 
 -  Shut the outer door
 
@@ -105,6 +124,12 @@ Remove the Table from the Frame
 
 -  Assemble the cart around the shipping frame on the pallet.
 
+   .. image:: figures/inst_unpack_cart_assy.jpg
+
+   *The cart is assembled on the pallet around the instrument.  This shows it in progress.*
+
+NOTE: The cart parts are labeled with A B C D, and they should be oriented to match the table.
+
 -  Attach the 2x 2-wire lifting harnasses to the cart, and then to the load-spreader (which should still be on the crane)
 
 -  Install the guide pins on opposite corners
@@ -112,6 +137,10 @@ Remove the Table from the Frame
 -  Reposition the laod spreader to the cart position
 
 -  slowly Lift the cart up to the bottom of the table
+
+   .. image:: figures/inst_unpack_cart_lifted.jpg
+
+   *The cart is been lifted off the pallet to the instrument.*
 
 CAUTION: guide the cart around the wire springs.
 
@@ -127,11 +156,21 @@ NOTE: it may be necessary to loosen some of the cart bolts
 
 -  Tighten all cart bolts
 
--  Remove the bolts holding the table to the shipping frame
+-  Remove the bolts holding the table to the shipping frame, collecting them in a box for later.
+
+   .. image:: figures/inst_unpack_removing_shipping_bolts.jpg
+
+   *Removing the shipping frame bolts.*
 
 -  Adjust the load spreader to the table position
 
 -  Attach the load balancing ropes to form a triangle above the load spreader.
+
+   .. image:: figures/inst_unpack_load_balancing.jpg
+
+   *The load spreader is adjusted, and the load balancing ropes are being snugged.*
+
+-  If not done, install the pusher bar cart handles
 
 -  Station workers on each end, to use the cart handles to guide the load
 
@@ -139,14 +178,26 @@ NOTE: it may be necessary to loosen some of the cart bolts
 
 -  Being careful to not tip the instrument, move the pallet out from under it towards the outside door.
 
+   .. image:: figures/inst_unpack_lifted_off.jpg
+
+   *Once the table is off the pallet, it is moved out from under.*
+
 -  If not using the legs now, gently set the cart down on the floor.
 
-Remove the Cart from the Table
-------------------------------
+Remove the Cart from the Table on the Legs
+------------------------------------------
 
 -  If not already done, lift the cart+table off the floor with the crane
 
+-  Center the platters on the legs
+
+-  Orient the legs so that the letters align with those on the table (A=A, B=B, etc.)
+
 -  Wheel the legs under the table and lower it.  Alignment is not critical in the cleanroom, but try to center it.
+
+   .. image:: figures/inst_unpack_legs_under_table.jpg
+
+   *The legs are wheeled under the table.*
 
 -  Maintain 320 lbs (or the weight noted above) of pre-load on the crane
 
@@ -154,11 +205,21 @@ Remove the Cart from the Table
 
 -  lower the cart with the crane to the floor
 
+   .. image:: figures/inst_unpack_cart_on_floor.jpg
+
+   *The cart has been detached from the table, which is now on the legs.*
+
 -  Place wood blocks under the short sides of the cart, and then remove the side of the cart along the clean room side
+
+   .. image:: figures/inst_unpack_cart_disassy.jpg
+
+   *Using blocks to disassemble the cart.*
 
 -  Wheel the instrument on the legs into the clean room.
 
--  Reassemble the cart, and wheel it into the cleanroom.
+-  Optional: reassemble the cart, and wheel it into the cleanroom.
+
+-  Otherwise, stow the cart pieces out of the way.
 
 Reassemble the shipping box
 ----------------------------
