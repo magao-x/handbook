@@ -277,8 +277,8 @@ then do these steps as root:
 
 .. code-block:: bash
 
-   $ modprobe -r edt
    $ cd /opt/EDTpdv
+   $ ./edt_unload
    $ ./edt_load
 
 This will reset the kernel module and restore operation. Now restart the
