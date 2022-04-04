@@ -6,7 +6,12 @@ End-of-work shutdown
 
 After a night of observing or a day of lab work, follow these steps.
 
-TODO
+ - Close camera shutters
+ - Stop cooling / begin warming up cameras
+ - Zero all DM channels, release DM
+ - Power down DM
+ - Wait for cameras to warm to ≥20ºC
+ - Power down cameras
 
 Full shutdown
 -------------
