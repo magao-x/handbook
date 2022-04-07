@@ -86,7 +86,7 @@ Rig Onto Cart
    *One of the guide pins installed, visible at the lower right corner of table*
 
 
--  Attach the lifting wire-harness to each side of the cart
+-  Attach the lifting wire-harness to each side of the cart.  The hooks should point outward.
 
 -  Attach the load spreader with straight extensions to the crane,
    using a crane scale
@@ -118,7 +118,7 @@ Rig Onto Cart
 
    .. image:: figures/cart_lift_tofrom_table.jpg
 
-   *The cart being lifted to the bottom of the table.*
+   *The cart being lifted to the bottom of the table.  Note the direction of the hooks.*
 
 -  Install the 2 bolts opposite the guide-pins. Loosen bolts
    on the cart as needed.
