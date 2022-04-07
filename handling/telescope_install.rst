@@ -18,7 +18,13 @@ Preparations
 
 -  Shutdown MagAO-X
 
--  Turn off table legs and remove air connection
+-  Prepare Legs for Move
+
+    - Turn off table legs (table air power off, PEPS II rocker switch off) and remove air connection from wall
+    - Lie under table and remove all three (#1,2,& 3) geophones from bottom of table
+    - Place coiled up geophones and cables into basket
+    - Unplug PEPS II power from side of rack
+    - Remove the taped down exhaust line from the clean room floor
 
 -  Remove all cables
 
@@ -34,6 +40,7 @@ Preparations
 -  Instrument
 
    -  Remove eyepiece
+   -  Place freezer baggie over top periscope mirror so it does not fall on pyramid
    -  Turn off blower, and remove hose
    -  Tape over any exposed holes (from cables, etc)
    -  Secure any loose cables
@@ -51,12 +58,15 @@ Rig Onto Cart
 -------------
 
 -  Lower table legs onto the casters by turning the 16 leveling bolts,
-   and remove the metal pads
+   and remove the 12 metal pads
 
 -  Roll the instrument out of the cleanroom
 
    **NOTE:** At least 4 people required, 2 to push, 2 to hold the
    cleanroom sides open
+
+   **CAUTION:** only push on the legs, not the table itself
+
 
 -  Continue rolling the instrument through the garage door into the
    unpacking area
@@ -68,6 +78,13 @@ Rig Onto Cart
 -  Attach the 4th side of the cart
 
 -  Ensure that the 8 large bolts on the cart are snug but not tight
+
+-  Install the guide pins along one side of table
+
+   .. image:: figures/cart_lift_guide_pin.jpg
+
+   *One of the guide pins installed, visible at the lower right corner of table*
+
 
 -  Attach the lifting wire-harness to each side of the cart
 
@@ -97,14 +114,16 @@ Rig Onto Cart
    uncontrolled
 
 -  Slowly lift the cart (**320 lbs**) until it is touching the bottom
-   of the table
+   of the table.  Ensure the guide pins go into the outboard slots in the brackets.
 
    .. image:: figures/cart_lift_tofrom_table.jpg
 
    *The cart being lifted to the bottom of the table.*
 
--  Install the 8 bolts attaching the cart to the table. Loosen bolts
+-  Install the 2 bolts opposite the guide-pins. Loosen bolts
    on the cart as needed.
+
+-  Remove the 2 guide-pins, and replace with bolts.  There are a total of 4 bolts now installed.
 
 -  Once the cart is bolted to the table bottom, while **320 lbs** is
    still on the crane, tighten all cart bolts. Do not over-tighten, make
@@ -134,8 +153,10 @@ Rig Onto Cart
 
 -  Position two people to remove the legs from under the table
 
--  Lift the table off the legs. The weight of the table + cart is
+-  Begin SLOWLY lifting the table off the legs. The weight of the table + cart is
    **1920 lbs**
+
+-  Go up 0.5inch then stop and inspect the platters.  Use a long flathead screwdriver to very gently pry any stuck platters off bottom of table.
 
 -  Move the legs out from under the table.
 
@@ -149,23 +170,29 @@ Rig Onto Cart
 Transport MagAO-X To Clay
 -------------------------
 
--  Move MagAO-X onto the lift gate
+-  Move MagAO-X onto the lift gate (using plates over the gap)
+
+   .. image:: figures/inst_onto_pentalift.jpg
+
+   *MagAO-X moved onto the pentalift.  Note the metal plates across the gap.*
 
 -  Raise the lift-gate to the height of the flatbed truck
 
--  Move MagAO-X onto the truck *[To Decide: Do we use the
-   come-along?]*
+   .. image:: figures/inst_pentalift_uptotruck.jpg
+
+   *Pentalift raised to truck height.*
+
+
+-  Install the come-along and place the plates across the gap.
+
+-  Move MagAO-X onto the truck using the come-along
 
 -  Secure the instrument by strapping the cart down at 4 points as
    illustrated in the below figure.
 
-   .. image:: figures/asm_truck_strapped.jpg
+   .. image:: figures/inst_on_truck.jpg
 
-   *MagAO-X will be strapped to the Isuzu similarly to how the ASM is
-   transported.*
-
--  The legs should also fit on the truck, and can be be moved at the
-   same time. They should be securely strapped down as well.
+   *MagAO-X will be strapped to the Isuzu flatbed.*
 
 -  Slowly drive the truck to the summit.
 
@@ -174,22 +201,52 @@ Transport MagAO-X To Clay
 
 -  Back the flatbed truck up to the lift gate.
 
--  If the legs are on this load, first unload them and move them out
-   of the way
-
--  Next, using the come-along, carefully move MagAO-X onto the lift
-   gate.
-
-   .. image:: figures/asm_backed_up.jpg
+   .. image:: figures/inst_backed_up.jpg
 
    *MagAO-X will be unloaded at the telescope using the lift gate,
    adjusted for slow operation as it is for the ASM.*
 
+-  Next, using the come-along, carefully move MagAO-X onto the lift
+   gate.
+
+   .. image:: figures/inst_come_along.jpeg
+
+   *Use the come-along to move MagAO-X on the gate*
+
 -  Very slowly so as to minimize vibrations, move MagAO-X to the
    elevator, or place it in the Aux until ready to move to the elvator.
 
--  If the legs were not moved, return to the cleanroom with the
-   flatbed and move the legs to the telescope.
+   .. image:: figures/inst_carefully_moved.jpeg
+
+   *Slowly and carefully move MagAO-X to the telescop or Aux.*
+
+Moving the Legs to the Summit
+------------------------------
+
+-  Return to the cleanroom with the flatbed.
+
+-  Placed on 2 dollies as in the below image.
+
+   .. image:: figures/legs_dollies.png
+
+   *Legs on 2 dollies placed in the middle of the table under each lower long tie bar (away from basket).*
+
+
+-  Move the legs to the flatbed and strap them down.
+
+   .. image:: figures/legs_truck.png
+
+   *Legs strapped to the truck.*
+
+-  Slowly drive the truck to the summit.
+
+-  Ensure that the lift gate at the summit has been adjusted for slow smooth operation downwards (slow air release) as is done for the ASM
+
+-  Back the flatbed truck up to the lift gate.
+
+-  Next carefully roll legs onto the lift gate.
+
+-  Remove dollies from legs before going into elevator
 
 Install MagAO-X On The Platform
 -------------------------------
@@ -203,10 +260,10 @@ Install MagAO-X On The Platform
    telescope leaving room for lifting the instrument into place.
 
 -  Align the legs in X (parallel to the guider ring) so that only a
-   push in Y (towards the telescope) is needed
+   push in Y (towards the telescope) is needed (best effort)
 
 -  Set the alignment pin system on the legs for receiving the
-   instrument, and ensure that the pads are centered on the legs.
+   instrument, and ensure that the platters are centered on the legs.
 
 -  Attach the load spreader using the wire harnesses as above
 
@@ -220,10 +277,18 @@ Install MagAO-X On The Platform
 -  While keeping the instrument level, very slowly lower it into
    position using the alignment pins.
 
--  Once on the legs, unload the crane to the cart weight of **320
-   lbs**
+-  If one side touches first platters will move and repeat last few steps until platters are centerd and pins are centered (UPDATE once/if Jack screws arrive)
 
--  While the crane is still supporting the cart weight, remove the 8
+-  Once on the legs, unload the crane to the cart weight of **320
+   lbs** and re-position the load spreader for the cart
+
+   .. image:: figures/inst_platform_loadspreader.png
+
+   *Adjusting the load spreader for the cart.*
+
+-  Now pre-load the crane again to 320 lbs.
+
+-  With the crane supporting the cart weight, remove the 4
    bolts attaching the cart to the table
 
 -  Lower the cart to the floor, and detach from the crane.
@@ -234,11 +299,8 @@ Install MagAO-X On The Platform
    and wheel the remaining pieces out from under table. Reassemble the
    cart and remove to the Aux. Bldg.
 
--  Attach the “pushers” to the table legs.
-
 -  Conduct the daytime alignment procedure per alignment plan
 
-See MagAO-X PSR Document :download:`3.3: Alignment Plan <../appendices/psr/3.3_MagAO-X_alignment_procedure.pdf>`
 
 Transport Electronics
 ---------------------
@@ -257,7 +319,7 @@ Transport Electronics
 
 -  strap the rack securely to the truck
 
-   .. image:: figures/rack_truck.jpg
+   .. image:: figures/electronics_pickup.jpg
 
    *The rack on a truck for transport.*
 
