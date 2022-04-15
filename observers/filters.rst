@@ -314,7 +314,7 @@ MagAO-X WFS bandpasses with atm model:
 Alternately you can use Gaia G band magnitude and correct the color to the WFS bandpasses.  These curves give an estimate of the color correction
 for Gaia G to WFS 65/35 (blue) and WFS Halpha/IR (orange) for main sequence stars (solid) and giants (dotted) by spectral type.
 
-.. image:: WFS-Gaia-curves.png
+.. image:: GaiaG_to_MagAO-X_WFS_color_conversion.png
    :alt: Gaia to WFS curves
 
 
