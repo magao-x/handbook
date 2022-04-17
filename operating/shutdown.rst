@@ -12,6 +12,8 @@ After a night of observing or a day of lab work, follow these steps.
  - Power down DM
  - Wait for cameras to warm to ≥20ºC
  - Power down cameras
+ - **Until fixed:** leave ``fwscind`` and ``fwtelsim`` on both USB and DC power
+ - Power down everything else, except for computers, cooling, and network switch
 
 Full shutdown
 -------------
