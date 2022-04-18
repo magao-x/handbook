@@ -37,26 +37,20 @@ You will need a user account on exao0, a computer in our lab at The University o
 
 You can SSH via exao0 if your SSH client supports the ``-J`` option (which most do)::
 
-    $ ssh -J 'ssh myusername@exao0.as.arizona.edu' guestobs@exao1.lco.cl
-
-You can accomplish the same thing by SSHing to first one, then the other::
-
-    $ ssh myusername@exao0.as.arizona.edu
-    [myusername@exao0] $ ssh guestobs@exao1.lco.cl
-    [guestobs@exao1] $
+    yourComputer$ ssh -J 'ssh myusername@exao0.as.arizona.edu' guestobs@exao1.lco.cl
 
 Browsing the data
 ^^^^^^^^^^^^^^^^^
 
 The quicklook data are rooted in ``/data/users/guestobs/quicklook/``. So, for example, ``/data/users/guestobs/quicklook/XXXXXX/`` will contain::
 
-    $ ls /data/users/guestobs/quicklook/XXXXXX/
+    [guestobs@exao1] $ ls /data/users/guestobs/quicklook/XXXXXX/
     YYYYY
     ZZZZZ
 
 and an individual group will contain a folder per science camera::
 
-    $ ls /data/users/guestobs/quicklook/XXXXXX/YYYYY/
+    [guestobs@exao1] $ ls /data/users/guestobs/quicklook/XXXXXX/YYYYY/
     camsci1
     camsci2
 
