@@ -7,13 +7,18 @@ End-of-work shutdown
 After a night of observing or a day of lab work, follow these steps.
 
  - Close camera shutters
- - Stop cooling / begin warming up cameras
+ - Stop cooling / begin warming up cameras to 20ºC
  - Zero all DM channels, release DM
  - Power down DM
+ - From the pupil alignment interface, make sure that the modulation and centering (tip/tilt modulation) is in "RIP" status, or click "rest" to make it Rest In Peace
+ - Likewise, the pupil steering mirror should be rested
  - Wait for cameras to warm to ≥20ºC
  - Power down cameras
- - **Until fixed:** leave ``fwscind`` and ``fwtelsim`` on both USB and DC power
- - Power down everything else, except for computers, cooling, and network switch
+ - Power down everything else, except for:
+    - computers (``compicc``, ``comprtc``)
+    - cooling (``instcool``)
+    - network switch (``swinst``)
+    - **Note:** Until fixed, leave ``fwscind`` and ``fwtelsim`` on both USB and DC power to avoid unplanned ICC shutdown.
 
 Full shutdown
 -------------
