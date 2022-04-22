@@ -18,6 +18,7 @@ After a night of observing or a day of lab work, follow these steps.
     - computers (``compicc``, ``comprtc``)
     - cooling (``instcool``)
     - network switch (``swinst``)
+    - blower (``blower``)
     - **Note:** Until fixed, leave ``fwscind`` and ``fwtelsim`` on both USB and DC power to avoid unplanned ICC shutdown.
 
 Full shutdown
