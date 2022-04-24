@@ -13,12 +13,20 @@ Initial Conditions
 
 -  Instrument on Magellan Clay Nasmyth Platform, operating.
 
-Preparations
+Shutdown
 ------------
 
--  Shutdown MagAO-X
+-  At the end of the last night, have the TO position the telescope so that the NASE platform faces the elevator.
 
--  Turn off table legs and remove air connection
+-  Power down all of MagAO-X
+
+   - Ensure that `stagepickoff` in the `out` position.
+   - Place the k-mirror at 180 degrees.
+   - use the `shutdown -h now` command to halt both RTC and ICC
+   - turn off power for all devices on MagOA-X.
+
+-  Remove blower hose and cover the hole.
+
 
 -  Remove all cables
 
@@ -34,7 +42,7 @@ Preparations
 
    -  Remove eyepiece
    -  Remove bumpers and pusher hardware
-   -  Turn off blower, and remove hose
+   -  Remove air connection
    -  Tape over any exposed holes (from cables, etc)
    -  Secure any loose cables
    -  Shrink wrap the instrument
@@ -44,8 +52,6 @@ Preparations
 
    -  Verify all cart hardware is in-hand
    -  Verify two wire harnesses are in hand
-   -  Partially assemble cart, leaving one long side off
-   -  Store cart out of the way so table can roll into unpacking area
 
 Rig Onto Cart
 -------------
@@ -58,14 +64,9 @@ Rig Onto Cart
 
 -  Roll the instrument away from the telescope
 
-   **NOTE:** At least 4 people required, 2 to push, 2 to hold the
-   cleanroom sides open
-
--  Move the cart, currently with 3 sides, around the legs
+-  Assemble the cart around the instrument
 
    -  **CAUTION:** be careful to not bump the legs with the cart
-
--  Attach the 4th side of the cart
 
 -  Ensure that the 8 large bolts on the cart are snug but not tight
 
@@ -84,7 +85,7 @@ Rig Onto Cart
 -  Lift the load spreader, and position it over the instrument
 
 -  Being careful to not bump the instrument, lower the load spreader
-   and attach the lifting harness D rings. Use 2x shackles to extend the
+   and attach the lifting harness D rings. Use 3x shackles to extend the
    length to reach the cart on the floor.
 
    .. image:: figures/cart_lift_extensions.jpg
@@ -103,7 +104,7 @@ Rig Onto Cart
 
    *The cart being lifted to the bottom of the table.*
 
--  Install the 8 bolts attaching the cart to the table. Loosen bolts
+-  Install the 4 bolts attaching the cart to the table. Loosen bolts
    on the cart as needed.
 
 -  Once the cart is bolted to the table bottom, while **320 lbs** is
@@ -120,8 +121,6 @@ Rig Onto Cart
    *The triangle stabilizing ropes should be tight, but not become the
    lifting point for the load.*
 
-   **CAUTION:** be sure that the load spread does not hit the cart when
-   being repositioned.
 
 -  Reposition the load spreader center to the instrument + cart
    position marked on it.
@@ -163,18 +162,17 @@ Transport MagAO-X To The Clean room
 
 -  Move MagAO-X onto the truck, using the come-along
 
-   .. image:: figures/asm_backed_up.jpg
+   .. image:: figures/inst_backed_up.jpg
 
-   *MagAO-X will be loaded at the telescope using the lift gate,
-   adjusted for slow operation as it is for the ASM.*
+   *MagAO-X is loaded at the telescope using the lift gate,
+   adjusted for slow operation.*
 
 -  Secure the instrument by strapping the cart down at 4 points as
    illustrated in the below figure.
 
-   .. image:: figures/asm_truck_strapped.jpg
+   .. image:: figures/inst_on_truck.jpg
 
-   *MagAO-X will be strapped to the Isuzu similarly to how the ASM is
-   transported.*
+   *MagAO-X will be strapped to the Isuzu.*
 
 -  Slowly drive the truck to the cleanroom
 
@@ -183,11 +181,21 @@ Transport MagAO-X To The Clean room
 -  Next, using the come-along, carefully move MagAO-X onto the lift
    gate.
 
--  If the legs were not moved, return to the with the flatbed and move
-   the legs to the telescope.
+-  Return to the top with the flatbed and move
+   the legs to the cleanroom.
 
-Install MagAO-X On The Platform
--------------------------------
+-  Placed on 2 dollies as in the below image.
+
+   .. image:: figures/legs_dollies.png
+
+   *Legs on 2 dollies placed in the middle of the table under each lower long tie bar (away from basket).*
+
+
+-  Move the legs to the flatbed and strap them down.
+
+   .. image:: figures/legs_truck.png
+
+   *Legs strapped to the truck.*
 
 Transport Electronics
 ---------------------
@@ -205,9 +213,10 @@ Transport Electronics
 
 -  strap the rack securely to the truck
 
-   .. image:: figures/rack_truck.jpg
+   .. image:: figures/electronics_pickup.jpg
 
    *The rack on a truck for transport.*
+
 
 -  drive the truck to the cleanroom
 
