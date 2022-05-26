@@ -306,13 +306,13 @@ Specifying Guide Star Magnitude
 
 It is helpful if you have an accurate estimate of the magnitude of your guide star in the MagAO-X WFS bandpass. This is a critical parameter for optimizing the AO loop setup for your science, and being close will save time on sky. For most objects, standard I band will be the closest approximation. Note that we have found that SIMBAD reported magnitudes can be as much as ~1 magnitude bright, especially for redder stars. We find much better agreement using the USNO UCAC4 photometry or DENIS survey I magnitude.
 
-MagAO-X WFS bandpasses with atm model:
+Alternately you can use Gaia G band magnitude and correct the color to the WFS bandpasses.  These curves give an estimate of the color correction
+for Gaia G to WFS 65/35 (blue) and WFS Halpha/IR (orange) for main sequence stars (solid) and giants (dotted) by spectral type.  Computed using Pickles stellar models and Gaia G-band public filter curves.
+
+MagAO-X WFS and Gaia G bandpasses with atm model:
 
 .. image:: WFS-Gaia-curves.png
    :alt: WFS and Gaia G bandpasses
-
-Alternately you can use Gaia G band magnitude and correct the color to the WFS bandpasses.  These curves give an estimate of the color correction
-for Gaia G to WFS 65/35 (blue) and WFS Halpha/IR (orange) for main sequence stars (solid) and giants (dotted) by spectral type.  Computed using Pickles stellar models and Gaia G-band public filter curves.
 
 .. image:: GaiaG_to_MagAO-X_WFS_color_conversion.png
    :alt: Gaia to WFS curves
