@@ -308,14 +308,16 @@ It is helpful if you have an accurate estimate of the magnitude of your guide st
 
 MagAO-X WFS bandpasses with atm model:
 
-.. image:: WFS-curves.png
-   :alt: WFS bandpasses
+.. image:: WFS-Gaia-curves.png
+   :alt: WFS and Gaia G bandpasses
 
 Alternately you can use Gaia G band magnitude and correct the color to the WFS bandpasses.  These curves give an estimate of the color correction
 for Gaia G to WFS 65/35 (blue) and WFS Halpha/IR (orange) for main sequence stars (solid) and giants (dotted) by spectral type.  Computed using Pickles stellar models and Gaia G-band public filter curves.
 
 .. image:: GaiaG_to_MagAO-X_WFS_color_conversion.png
    :alt: Gaia to WFS curves
+   
+:static:`Download Gaia to WFS color curves <ref/filters/GaiaG_WFS_color_conversion.csv>`
    
 MagAO-X conversion to Sloan filter system
 -----------------------------------------
