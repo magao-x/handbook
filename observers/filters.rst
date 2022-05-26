@@ -316,6 +316,17 @@ for Gaia G to WFS 65/35 (blue) and WFS Halpha/IR (orange) for main sequence star
 
 .. image:: GaiaG_to_MagAO-X_WFS_color_conversion.png
    :alt: Gaia to WFS curves
+   
+MagAO-X conversion to Sloan filter system
+-----------------------------------------
+
+.. image:: MagAOXfilters_SDSSfilters.png
+   :alt: Plot of MagAO-X and Sloan filter transmission curves
+   
+.. image:: MagAOXfilters_toSDSSfilters_color_conversion.png
+   :alt: Sloan - MagAO-X colors
+
+:static:`Download color curves <ref/filters/MagAOXfilters_toSDSSfilters_color_conversion.csv>`
 
 
    
