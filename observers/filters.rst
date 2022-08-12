@@ -315,7 +315,10 @@ MagAO-X WFS and Gaia G bandpasses with atm model:
    :alt: WFS and Gaia G bandpasses
 
 .. image:: GaiaG_to_MagAO-X_WFS_color_conversion.png
-   :alt: Gaia to WFS curves
+   :alt: Gaia to WFS curves by spectral type
+   
+.. image:: GaiaG_to_MagAO-X_WFS_color_conversion-ByBPRPcolor.png
+   :alt: Gaia to WFS curves by Gaia BP-RP color
    
 :static:`Download Gaia to WFS color curves <ref/filters/GaiaG_WFS_color_conversion.csv>`
    
