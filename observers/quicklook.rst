@@ -8,7 +8,7 @@ Note that ``exao1`` is part of the instrument, and ships back and forth to Chile
 1. It will not be available for several weeks while it is in transit, and
 2. It has a different IP and host-name when it's at University of Arizona than when it's at Las Campanas Observatory.
 
-We call this the "quick-look" system, but it delivers final FITS files ready for your instrument pipeline. The data written by the instrument are converted as they become available over the course of an observation, so you can start ``rsync``ing your data immediately.
+We call this the "quick-look" system, but it delivers final FITS files ready for your instrument pipeline. The data written by the instrument are converted as they become available over the course of an observation, so you can start to ``rsync`` your data immediately.
 
 Preliminaries
 -------------
@@ -60,7 +60,7 @@ You can SSH via exao0 if your SSH client supports the ``-J`` option (which most 
 
     yourComputer$ ssh -J 'ssh myusername@exao0.as.arizona.edu' guestobs@exao1.lco.cl
 
-If this is the first time you are connecting to both ``exao0`` and ``exao``, you will have to accept two key fingerprints with ``yes``.
+If this is the first time you are connecting to both ``exao0`` and ``exao1``, you will have to accept two key fingerprints with ``yes``.
 
 Browsing the data
 -----------------
