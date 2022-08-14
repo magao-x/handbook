@@ -1,7 +1,12 @@
-Accessing data for quick-look purposes
-======================================
+Accessing data as a guest observer
+==================================
 
-The Adaptive optics Operator Computer, aka AOC or exao1, has been set up with guest observer quick-look functionality using an account named ``guestobs``.
+The Adaptive optics Operator Computer, aka AOC or ``exao1``, has been set up with guest observer data access functionality using an account named ``guestobs``.
+
+Note that ``exao1`` is part of the instrument, and ships back and forth to Chile for observing runs. That means two things:
+
+1. It will not be available for several weeks while it is in transit, and
+2. It has a different IP and host-name when it's at University of Arizona than when it's at Las Campanas Observatory.
 
 Preliminaries
 -------------
@@ -15,8 +20,22 @@ The key consists of a private half, probably named something like ``id_ed25519``
 Connecting
 ----------
 
-From on-site at Las Campanas
-^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+When MagAO-X is in the lab
+^^^^^^^^^^^^^^^^^^^^^^^^^^
+
+Log in using the ``guestobs`` account to verify everything works and that you have access (accepting the key fingerprint if needed)::
+
+    % ssh guestobs@exao1.as.arizona.edu
+    The authenticity of host 'exao1.as.arizona.edu (128.196.208.35)' can't be established.
+    ED25519 key fingerprint is SHA256:Azbcyun8qHxuhl0GE9AyG1cPajNPnfKlTQCwTfCMFT0.
+    Are you sure you want to continue connecting (yes/no/[fingerprint])? yes
+    Warning: Permanently added 'exao1.as.arizona.edu' (ED25519) to the list of known h
+    Last login: Thu Apr  7 15:28:49 2022 from 10.8.22.67
+    [guestobs@exao1] $
+
+
+When MagAO-X is at Las Campanas, and so are you
+^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
 
 When located at Las Campanas, the operator computer can be reached from the ``LCO-STAFF`` network at the address exao1.lco.cl.
 
@@ -30,8 +49,8 @@ Log in using the ``guestobs`` account to verify everything works and that you ha
     Last login: Thu Apr  7 15:28:49 2022 from 10.8.22.67
     [guestobs@exao1] $
 
-From off-site
-^^^^^^^^^^^^^
+When MagAO-X is at Las Campanas, and you are off-site
+^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
 
 You will need a user account on exao0, a computer in our lab at The University of Arizona, which has firewall rules permitting access to the Las Campanas Observatory machines.
 
@@ -40,7 +59,7 @@ You can SSH via exao0 if your SSH client supports the ``-J`` option (which most 
     yourComputer$ ssh -J 'ssh myusername@exao0.as.arizona.edu' guestobs@exao1.lco.cl
 
 Browsing the data
-^^^^^^^^^^^^^^^^^
+-----------------
 
 The quicklook data are rooted in ``/data/users/guestobs/quicklook/``. So, for example, ``/data/users/guestobs/quicklook/XXXXXX/`` will contain::
 
@@ -64,8 +83,30 @@ Downloading quick-look images
 
 You can use ``rsync`` to get your images out for quick looking. The path is constructed as follows: ``/data/users/guestobs/quicklook/<email>/<obs_name>/``.
 
-From on-site at Las Campanas
-^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+When MagAO-X is in the lab
+^^^^^^^^^^^^^^^^^^^^^^^^^^
+
+Here's an example::
+
+    $ rsync -a --progress \
+        guestobs@exao1.as.arizona.edu:/data/users/guestobs/quicklook/jrmales@arizona.edu/testQuicklook/ \
+        ./testQuicklook/
+
+    receiving file list ... done
+    created directory ./testQuicklook
+    camsci1/camsci1_20220417230302255087061.fits
+        8640 100%   31.25kB/s    0:00:00 (xfer#3429, to-check=1436/4867)
+    camsci1/camsci1_20220417230302258540922.fits
+        8640 100%   31.13kB/s    0:00:00 (xfer#3430, to-check=1435/4867)
+    [... many lines omitted ...]
+
+    sent 5016 bytes  received 221150763 bytes  23279555.68 bytes/sec
+    total size is 221081847  speedup is 1.00
+
+Re-running this command will only sync changed files.
+
+When MagAO-X is at Las Campanas, and so are you
+^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
 
 Here's an example::
 
@@ -84,10 +125,10 @@ Here's an example::
     sent 5016 bytes  received 221150763 bytes  23279555.68 bytes/sec
     total size is 221081847  speedup is 1.00
 
-Re-running this command later in the observation will only sync changed files.
+Re-running this command will only sync changed files.
 
-From off-site
-^^^^^^^^^^^^^
+When MagAO-X is at Las Campanas, and you are off-site
+^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
 
 Here's an example::
 
@@ -106,4 +147,4 @@ Here's an example::
     sent 5016 bytes  received 221150763 bytes  23279555.68 bytes/sec
     total size is 221081847  speedup is 1.00
 
-Re-running this command later in the observation will only sync changed files.
+Re-running this command will only sync changed files.
