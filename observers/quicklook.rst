@@ -8,6 +8,8 @@ Note that ``exao1`` is part of the instrument, and ships back and forth to Chile
 1. It will not be available for several weeks while it is in transit, and
 2. It has a different IP and host-name when it's at University of Arizona than when it's at Las Campanas Observatory.
 
+We call this the "quick-look" system, but it delivers final FITS files ready for your instrument pipeline. The data written by the instrument are converted as they become available over the course of an observation, so you can start ``rsync``ing your data immediately.
+
 Preliminaries
 -------------
 
@@ -58,10 +60,12 @@ You can SSH via exao0 if your SSH client supports the ``-J`` option (which most 
 
     yourComputer$ ssh -J 'ssh myusername@exao0.as.arizona.edu' guestobs@exao1.lco.cl
 
+If this is the first time you are connecting to both ``exao0`` and ``exao``, you will have to accept two key fingerprints with ``yes``.
+
 Browsing the data
 -----------------
 
-The quicklook data are rooted in ``/data/users/guestobs/quicklook/``. So, for example, ``/data/users/guestobs/quicklook/XXXXXX/`` will contain::
+The data are rooted in ``/data/users/guestobs/quicklook/``. So, for example, ``/data/users/guestobs/quicklook/XXXXXX/`` will contain::
 
     [guestobs@exao1] $ ls /data/users/guestobs/quicklook/XXXXXX/
     YYYYY
@@ -73,15 +77,15 @@ and an individual group will contain a folder per science camera::
     camsci1
     camsci2
 
-You can use your favorite tool to browse, but we recommend ``rsync`` to get quick-look images. (See below.) You may log out of exao1::
+You can use your favorite tool to browse, but we recommend ``rsync`` to handle the large numbers of images. (See the following section.) You may log out of exao1 before continuing::
 
     [guestobs@exao1] $ logout
     $
 
-Downloading quick-look images
------------------------------
+Downloading science data
+------------------------
 
-You can use ``rsync`` to get your images out for quick looking. The path is constructed as follows: ``/data/users/guestobs/quicklook/<email>/<obs_name>/``.
+You can use ``rsync`` to get your images out. The path is constructed as follows: ``/data/users/guestobs/quicklook/<email>/<obs_name>/``.
 
 When MagAO-X is in the lab
 ^^^^^^^^^^^^^^^^^^^^^^^^^^
@@ -125,7 +129,7 @@ Here's an example::
     sent 5016 bytes  received 221150763 bytes  23279555.68 bytes/sec
     total size is 221081847  speedup is 1.00
 
-Re-running this command will only sync changed files.
+Re-running this command will only sync changed files. During an observation, new frames will be processed in chunks as they are written.
 
 When MagAO-X is at Las Campanas, and you are off-site
 ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
@@ -147,4 +151,4 @@ Here's an example::
     sent 5016 bytes  received 221150763 bytes  23279555.68 bytes/sec
     total size is 221081847  speedup is 1.00
 
-Re-running this command will only sync changed files.
+Re-running this command will only sync changed files. During an observation, new frames will be processed in chunks as they are written.
