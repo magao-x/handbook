@@ -12,13 +12,13 @@
 #    Trans_max: 0.0430747 [maximum transmission]
 #
 # Vega Zero Point Flux Densities (calculated):
-#    f_lambda_0: 0.00875975 [W/m^3 above atm]
-#    f_nu_0:     2237.08 [Jy above atm]
+#    f_lambda_0: 0.00875802 [W/m^3 above atm]
+#    f_nu_0:     2.23689e-23 [Jy above atm]
 #    f_phot_0:   3.85825e+16 [photons/s/m^3 above atm]
 #
 # Vega Zero Point Fluxes (calculated):
-#    F_W_0: 6.84822e-09 [W at telescope aperture]
-#    F_phot_0:   1.29927e+09 [photons/s at detector]
+#    F_W_0: 6.84686e-09 [W at telescope aperture]
+#    F_phot_0:   1.29926e+09 [photons/s at detector]
 #
 #####################################################################
 # lambda [m]             transmission
