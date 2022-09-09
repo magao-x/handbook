@@ -291,7 +291,7 @@ Camsci1/2 not responding
 If ``camsci1`` and/or ``camsci2`` stop responding, first attempt to restart the control software with ``xctrl restart``.  If this does not restore operation, the PICam library needs to be reset.  Perform the following steps:
 
 1. Turn power off for both cameras.  Note that you will not be able to verify detector temperature but this can not be avoided.
-2. Stop both ``camsci`` control processes.  Either use xctrl or go to the tmux session and use ctrl-c. 
+2. Stop both ``camsci`` control processes.  Either use xctrl or go to the tmux session and use ctrl-c.
 3. In a terminal on ICC, go to ``/opt/MagAOX/source/MagAOX/apps/picamCtrl`` and run the script "cleanPI.sh".  This removes lock files.
 4. Re-start both control processes.
 5. Power up both cameras
@@ -335,5 +335,9 @@ Difficulties with NVIDIA proprietary drivers
    ``dkms`` installed *should* prevent needing to do this, but an
    uninstall and reinstall over SSH will also remedy it.
 3. Runfile installs can be uninstalled with
-   ``/usr/local/cuda/bin/cuda-uninstaller``
+   ``/usr/local/cuda/bin/cuda-uninstaller``. This may leave a vestigial
+   ``/usr/local/cudaXX.YY`` folder (where ``XX.YY`` is a version number)
+   that can most likely be safely removed. (It's probably just some
+   temporary files that the installer didn't create and is too polite
+   to remove.)
 

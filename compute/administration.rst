@@ -120,7 +120,11 @@ won’t work if the driver is loaded.
     original X configuration file”)
 
 6.  Use ``sudo /usr/local/cuda/bin/cuda-uninstaller`` to uninstall CUDA
-    (checking all available options before choosing “Done”)
+    (checking all available options before choosing “Done”) This may leave a
+    vestigial ``/usr/local/cudaXX.YY`` folder (where ``XX.YY`` is a version
+    number) that can most likely be safely removed. (It's probably just some
+    temporary files that the installer didn't create and is too polite
+    to remove.)
 
 7.  Remove the boot options that disable the driver.
 
@@ -169,16 +173,22 @@ and it may be worth upgrading to see if any of our bugs are fixed.
    -  NVIDIA (all machines)
 
       1. ``sudo /usr/bin/nvidia-uninstall``
-      2. ``cd /opt/MagAOX/vendor/cuda`` and
+      2. Use ``sudo /usr/local/cuda/bin/cuda-uninstaller`` to uninstall CUDA
+         (checking all available options before choosing “Done”) This may leave a
+         vestigial ``/usr/local/cudaXX.YY`` folder (where ``XX.YY`` is a version
+         number) that can most likely be safely removed. (It's probably just some
+         temporary files that the installer didn't create and is too polite
+         to remove.)
+      3. ``cd /opt/MagAOX/vendor/cuda`` and
          ``bash cuda_11.1.1_455.32.00_linux.run --extract=/tmp/cuda11``
          (or as appropriate for the version of CUDA you have)
-      3. Become root: ``/usr/bin/sudo -i``
-      4. ``cd /tmp/cuda11``
-      5. Verify ``realpath $(which cc)`` is ``/usr/bin/gcc`` (and not
+      4. Become root: ``/usr/bin/sudo -i``
+      5. ``cd /tmp/cuda11``
+      6. Verify ``realpath $(which cc)`` is ``/usr/bin/gcc`` (and not
          the DevToolset-7 one)
-      6. ``export IGNORE_PREEMPT_RT_PRESENCE=1``
-      7. Run the installer: ``bash NVIDIA-Linux-x86_64-455.32.00.run``
-      8. On next reboot, verify ``nvidia-smi`` works and shows all cards
+      7. ``export IGNORE_PREEMPT_RT_PRESENCE=1``
+      8. Run the installer: ``bash NVIDIA-Linux-x86_64-455.32.00.run``
+      9. On next reboot, verify ``nvidia-smi`` works and shows all cards
 
    -  EDT (RTC, ICC)
 
