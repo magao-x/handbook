@@ -21,22 +21,26 @@ Two pupil masks are currently available, in addition to "open" (no mask).
      - Description
      - abs. throughput
      - design file
-     - file scale [m/pix]
+     - scale in telescope pupil [m/pix]
+     - scale at coronagraph pupil [mm/pix]
    * - open
      - No mask, just the telescope pupil.  Note: design file includes mask over bump.
      - 100%
      - :static:`magMask.fits.gz <coronagraph/lyot/magMask.fits.gz>`
      - 0.0067528
+     - 0.0093501
    * - bump-mask 
      - Undersized pupil, oversized central obscuration, oversized spiders, and mask over bump
      - 86.75%
      - :static:`bumpMask.fits.gz <coronagraph/lyot/bumpMask.fits.gz>`
      - 0.0067528
+     - 0.0093501
    * - fat-spider 
      - Same as bump-mask, but one extra-oversized spider.  Intended for kernel-phase type WFS. 
      - 
      -
      -
+     - 
      
 Focal Plane Masks
 +++++++++++++++++++++++++++++    
