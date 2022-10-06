@@ -296,6 +296,7 @@ controlling application:
    $ exit
    $ xctrl startup camwfs #<-change if a different camera
 
+After this occurs, you will need to re-start the CACAO loop processes so they re-connect to the camwfs shmim.
 
 Camsci1/2 not responding
 ~~~~~~~~~~~~~~~~~~~~~~~~
