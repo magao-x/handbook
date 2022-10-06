@@ -273,16 +273,28 @@ shutdown the controlling application.
 
    $ xctrl shutdown camwfs
 
-then do these steps as root:
+You will next need to switch from user ``xsup`` to yourself:
+
+.. code-block:: bash
+
+   $ su <your-user-name>
+   <password>
+
+then do these steps to reload the EDT driver:
 
 .. code-block:: bash
 
    $ cd /opt/EDTpdv
-   $ ./edt_unload
-   $ ./edt_load
+   $ sudo ./edt_unload
+   $ sudo ./edt_load
 
-This will reset the kernel module and restore operation. Now restart the
-controlling application with ``xctrl startup camwfs``.
+This will reset the kernel module and restore operation. Now return to ``xsup`` and restart the
+controlling application:
+
+.. code-block:: bash
+   
+   $ exit
+   $ xctrl startup camwfs #<-change if a different camera
 
 
 Camsci1/2 not responding
