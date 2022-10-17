@@ -73,7 +73,7 @@ The solution is to :doc:`shut down <operating/shutdown>` and then clear
 
 .. code-block:: bash
 
-   you$ su xsup
+   you$ xsupify
    xsup$ cd /milk/shm
    xsup$ rm *
 

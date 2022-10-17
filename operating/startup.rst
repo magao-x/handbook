@@ -222,7 +222,7 @@ To setup the GUIs on exao1 (AOC) as user ``xsup``:
    Continue for ``camsci2``, ``camlowfs``, ``camtip``, and ``camacq``.
 
    **Note:** This needs to read shmims, and should be run as ``xsup`` if
-   you’re not logged in as ``xsup`` already (i.e. ``su xsup`` before
+   you’re not logged in as ``xsup`` already (i.e. ``xsupify`` before
    running ``rtimv``).
 
 4. Launch ``pupilGuideGUI``
