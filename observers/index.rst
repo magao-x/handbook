@@ -9,4 +9,4 @@ Information For Observers
    planning
    reduction
    datapolicy
-   quicklook
+   data_access
