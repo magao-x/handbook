@@ -9,8 +9,8 @@ The as-designed pixel scale is 6 milliarcseconds per pixel in camsci1 and camsci
 2022B
 ^^^^^
 
-For data taken in Oct 2022 or later, ``camsci1`` and ``camsci2`` images are written with all necessary orientation flips already applied.
 To place north-up-east-left, rotate them CCW by ``PARANG``.
+For data taken after October 2022, it is not necessary to flip either ``camsci1`` or ``camsci2`` image orientation .
 
 *Astrometric solution TBD.*
 
