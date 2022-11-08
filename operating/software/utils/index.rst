@@ -5,6 +5,7 @@ Utilities
     :maxdepth: 1
 
     xctrl
+    lookyloo
     logdump
     cursesINDI
     getINDI
