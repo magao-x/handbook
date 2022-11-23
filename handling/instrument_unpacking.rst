@@ -28,25 +28,34 @@ Preparations
 
 -  If the legs will be used, make sure the 3 geophones (blue cables) are untangled in the basket and can reach their respective legs (see number and letter markings)
 
+   .. image:: figures/inst_unpack_box_render.png
+
+   *Illustration of the instrument table shipping system*
 
 Open The Box
 ------------
 
--  Place the large box with the optical bench in the unpacking area, setting it down on 4 furniture dollies as shown.
+-  Place the large box with the optical bench in the unpacking area, setting it down on 4 furniture dollies as shown. 
 
-Note: the removable side wall should be facing towards the outer garage door
-
-   .. image:: figures/inst_unpack_box_render.png
-
-   *Illustration of the instrument table shipping system*
+Note: Use caution when first driving on to the pentalift as the lift will settle under the weight.
 
    .. image:: figures/inst_unpack_box_onto_dollies.jpg
 
    *Using the forklift to set the box down on 4 furniture dollies*
 
+Note: the removable side wall should be facing towards the outer garage door
+
+   .. image:: figures/inst_unpack_box_onto_dollies.jpg
+
+   *Using the forklift to set the box down on 4 furniture dollies*
+ 
 -  Install the handles on the removable side panel in the outward direction (they are stowed inward for shipping)
 
--  Remove all but two bolts from the side panel
+-  Remove all but two bolts from the side panel.  The pentalift can be used to access the upper bolts as shown.
+
+   .. image:: figures/lco_box_work_smarter_not_harder.jpg
+
+   *Using the pentalift to access the upper bolts on the door*
 
 -  With 4 workers standing by to handle the panel, remove the final bolts.  The panel fits very snugly so it should not fall out on its on.
 
@@ -132,9 +141,7 @@ NOTE: The cart parts are labeled with A B C D, and they should be oriented to ma
 
 -  Attach the 2x 2-wire lifting harnasses to the cart, and then to the load-spreader (which should still be on the crane)
 
--  Install the guide pins on opposite corners
-
--  Reposition the laod spreader to the cart position
+-  Reposition the load spreader to the cart position
 
 -  slowly Lift the cart up to the bottom of the table
 
@@ -146,11 +153,11 @@ CAUTION: guide the cart around the wire springs.
 
 -  While the cart is suspended, note its weight on the scale.
 
--  Loosely isntall 2 outboard bolts (through the thick brackets) to the bottom of the table.
+-  Loosely install 2 outboard bolts (through the thick brackets) to the bottom of the table.
 
 NOTE: it may be necessary to loosen some of the cart bolts
 
--  Replace the guide pins with bolts.  There are now a total of 4 bolts installed
+-  Using those bolts as guides, raise the cart until all 4 bolts can be installed
 
 -  Tighten the 4 bolts
 
