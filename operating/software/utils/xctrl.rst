@@ -8,7 +8,7 @@ and the test bed) for startup, shutdown, quick status checks, and
 inspection of MagAO-X apps.
 
 To use ``xctrl``, open a terminal window on (or SSH in to) the computer
-you want to control. (You do not need to ``su xsup`` for ``xctrl``.)
+you want to control. (You do not need to ``xsupify`` for ``xctrl``.)
 Then, commands take the form of ``xctrl VERB [PROCNAME] ...`` where the
 ``VERB``\ s are explained below. Most commands can be run without a
 ``PROCNAME`` and will target all the configured processes by default.

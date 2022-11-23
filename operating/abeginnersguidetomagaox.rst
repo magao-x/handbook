@@ -120,7 +120,7 @@ Check rtc:
 .. code-block:: bash
 
     ssh rtc
-    su xsup
+    xsupify
     cd
     bash ./cacao_startup_woofer.sh
     bash ./cacao_startup_tweeter.sh
@@ -135,7 +135,7 @@ Now check icc:
 .. code-block:: bash    
 
     ssh icc
-    su xsup
+    xsupify
     cd
     bash ./cacao_startup_dmncpc.sh
     xctrl startup
@@ -149,7 +149,7 @@ Now check aoc:
 .. code-block:: bash
 
     ssh aoc
-    su xsup
+    xsupify
     cd
     xctrl startup
     xctrl status
@@ -167,7 +167,7 @@ Now we need to check isICC and isRTC to make sure the INDI servers are connected
 .. code-block:: bash
 
     ssh icc
-    su xsup
+    xsupify
     getINDI
 
 If there is no response, ie:
@@ -259,7 +259,7 @@ if camtip-sw has an error appear in the INDI log that lead it to shutdown, the p
 .. code-block:: bash
 
     ssh icc
-    su xsup
+    xsupify
     xctrl status        # to verify the process is dead
     xctrl restart camtip-sw
 
@@ -326,7 +326,7 @@ Specifically, for dmwoofer and dmtweeter:
 .. code-block:: bash
 
     ssh rtc
-    su xsup
+    xsupify
     cd
     bash ./cacao_startup_woofer.sh
     bash .cacao_startup_tweeter.sh
@@ -338,7 +338,7 @@ For dmncpc
 .. code-block:: bash
 
     ssh icc
-    su xsup
+    xsupify
     cd    
     bash ./cacao_startup_dmncpc.sh
     xctrl restart isICC
@@ -395,7 +395,7 @@ If the rtimv viewer for camwfs appears all white, and the cameraGUI for it is bl
 .. code-block:: bash
 
     ssh rtc
-    su xsup
+    xsupify
     tmux a -t camwfs
 
 This should give a log. If it has an error in it that has stopped the funtion (e.g. "no serial response"), you need to restart the driver. This is most easily done by doing **ctrl-c** to stop the process, and then the up-arrow key to get the correct command. Press enter. The rtimv image should look right, and the cameraGUI should no longer be blank. Detach the tmux shell with **ctrl-b + d**, and then you can close the connection to rtc and the terminal.
@@ -584,7 +584,7 @@ Open another terminal (henceforth terminal #2):
 .. code-block:: bash
 
     ssh rtc
-    su xsup
+    xsupify
     cd /opt/MagAOX/cacao/tweeter
     ./aolconf
 
@@ -595,7 +595,7 @@ Now, open another terminal (terminal #3) and ssh to rtc:
 
 .. code-block:: bash
 
-    su xsup
+    xsupify
     cd
     procCTRL
 
@@ -650,7 +650,7 @@ To save the Response Matrix:
 .. code-block:: bash
 
     ssh rtc
-    su xsup
+    xsupify
     cd /opt/MagAOX/cacao/tweeter
     ls -l zrespM.fits
 
@@ -681,7 +681,7 @@ Closing the Loop!
 .. code-block:: bash
 
     ssh rtc
-    su xsup
+    xsupify
     tmux ls # to look for aol1mkmodes
     tmux attach -t aol1mkmodes
 
@@ -809,7 +809,7 @@ Open a new terminal:
 .. code-block:: bash
 
     ssh icc
-    su xsup
+    xsupify
     cd
     dm_eye_doctor 7624 ncpcModes camsci1 5 2...10 0.25
 
@@ -948,7 +948,7 @@ open a terminal:
 .. code-block:: bash
 
     ssh icc
-    su xsup
+    xsupify
     xctrl status # everything should be dead if ICC rebooted
     xctrl startup
     xctrl status # everything should be green again

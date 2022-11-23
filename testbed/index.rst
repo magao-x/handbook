@@ -425,7 +425,7 @@ To startup exao0, open a new terminal and ssh with your account into exao0. Alwa
 .. code:: text
 
    $ ssh exao0
-   $ su xsup
+   $ xsupify
 
 Startup and shutdown with ``xctrl``
 ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
