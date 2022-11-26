@@ -116,25 +116,28 @@ Lyot Stops
      - design file
      - scale in telescope pupil [m/pix]
      - scale at coronagraph pupil [mm/pix]
+     - Image
    * - LyotLg1
      - Lyot Large 1
      - 63.82%
      - :static:`lyotMaskLarge1.fits.gz <coronagraph/lyot/lyotMaskLarge1.fits.gz>`
      - 0.0067528
      - 0.0093501
+     - .. image:: coronagraph_LyotLg1.png
    * - LyotLg2 
      - Lyot Large 2
      - 57.32
      - :static:`lyotMaskLarge2.fits.gz <coronagraph/lyot/lyotMaskLarge2.fits.gz>`
      - 0.0067528
      - 0.0093501
+     - .. image:: coronagraph_LyotLg2.png
    * - LyotSm
      - Lyot Small
      - 33.35%
      - :static:`lyotMaskSmall.fits.gz <coronagraph/lyot/lyotMaskSmall.fits.gz>`
      - 0.0067528
      - 0.0093501
-     
+     - .. image:: coronagraph_LyotSm.png
      
 Phase Apodized Pupil Lyot Coronagraph
 --------------------------------------
