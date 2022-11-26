@@ -311,13 +311,13 @@ for Gaia G to WFS 65/35 (blue) and WFS Halpha/IR (orange) for main sequence star
 
 MagAO-X WFS and Gaia G bandpasses with atm model:
 
-.. image:: WFS-Gaia-curves.png
+.. image:: figures/WFS-Gaia-curves.png
    :alt: WFS and Gaia G bandpasses
 
-.. image:: GaiaG_to_MagAO-X_WFS_color_conversion.png
+.. image:: figures/GaiaG_to_MagAO-X_WFS_color_conversion.png
    :alt: Gaia to WFS curves by spectral type
    
-.. image:: GaiaG_to_MagAO-X_WFS_color_conversion-ByBPRPcolor.png
+.. image:: figures/GaiaG_to_MagAO-X_WFS_color_conversion-ByBPRPcolor.png
    :alt: Gaia to WFS curves by Gaia BP-RP color
    
 :static:`Download Gaia to WFS color curves <ref/filters/GaiaG_WFS_color_conversion.csv>`
@@ -325,10 +325,10 @@ MagAO-X WFS and Gaia G bandpasses with atm model:
 MagAO-X conversion to Sloan filter system
 -----------------------------------------
 
-.. image:: MagAOXfilters_SDSSfilters.png
+.. image:: figures/MagAOXfilters_SDSSfilters.png
    :alt: Plot of MagAO-X and Sloan filter transmission curves
    
-.. image:: MagAOXfilters_toSDSSfilters_color_conversion.png
+.. image:: figures/MagAOXfilters_toSDSSfilters_color_conversion.png
    :alt: Sloan - MagAO-X colors
 
 :static:`Download color curves <ref/filters/MagAOXfilters_toSDSSfilters_color_conversion.csv>`

@@ -139,9 +139,9 @@ Lyot Stops
      - 0.0093501
      - .. image:: coronagraph_LyotSm.png
      
-Phase Apodized Pupil Lyot Coronagraph (PIAALC)
---------------------------------------
-Phase-induced amplitude apodization optics reshape the beam in the pupil and focal planes, enabling more starlight suppression at low angular separations and higher throughput at large angular separations.
+PIAA Classical Lyot Coronagraph (PIAACLC)
+------------------------------------------
+Phase-induced amplitude apodization (PIAA) optics reshape the beam in the pupil and focal planes, enabling more starlight suppression at low angular separations and higher throughput at large angular separations.
 
 Inverse apodization optics after the focal plane mask correct for off-axis field effects to remove comatic distortions on companions. Inverse PIAA optics are identical to forward PIAA optics. Optical path according to naming convention is PIAA0->PIAA1->fpm->iPIAA1->iPIAA0.
 
