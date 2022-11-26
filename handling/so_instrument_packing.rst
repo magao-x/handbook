@@ -36,7 +36,7 @@ Initial Conditions
 Preparations
 ------------
 
--  While still power up, secure all optics for transport
+-  While still powered up, secure all optics for transport
 
 -  Check that all components on table are securely fastened.
 
