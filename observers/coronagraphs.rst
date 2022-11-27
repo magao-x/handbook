@@ -1,12 +1,6 @@
 Coronagraphs
 =============================
 
-Vector Apodizing Phase Plate (vAPP)
------------------------------------
-
-To be documented.
-
-
 Classical Lyot
 -----------------------------
 
@@ -190,3 +184,16 @@ Coronagraph performance simulations
             :alt: Inverse-SNR equivalent for different coronagraph arrangements at 656nm
      - .. image:: figures/coronagraph_SNR_900.png
             :alt: Inverse-SNR equivalent for different coronagraph arrangements at 900nm   
+   * - BW: 651nm-661nm
+       :static:`656 throughput <figures/coronagraph_throughput_656.csv>`
+       :static:`656 contrast <figures/coronagraph_contrast_656.csv>`
+     - BW: 855nm-945nm
+       :static:`900 throughput <figures/coronagraph_throughput_900.csv>`
+       :static:`900 contrast <figures/coronagraph_contrast_900.csv>`
+
+
+Vector Apodizing Phase Plate (vAPP)
+-----------------------------------
+
+To be documented.
+
