@@ -123,21 +123,21 @@ Lyot Stops
      - :static:`lyotMaskLarge1.fits.gz <coronagraph/lyot/lyotMaskLarge1.fits.gz>`
      - 0.0067528
      - 0.0093501
-     - .. image:: /figures/coronagraph_LyotLg1.png
+     - .. image:: figures/coronagraph_LyotLg1.png
    * - LyotLg2 
      - Lyot Large 2
      - 57.32
      - :static:`lyotMaskLarge2.fits.gz <coronagraph/lyot/lyotMaskLarge2.fits.gz>`
      - 0.0067528
      - 0.0093501
-     - .. image:: /figures/coronagraph_LyotLg2.png
+     - .. image:: figures/coronagraph_LyotLg2.png
    * - LyotSm
      - Lyot Small
      - 33.35%
      - :static:`lyotMaskSmall.fits.gz <coronagraph/lyot/lyotMaskSmall.fits.gz>`
      - 0.0067528
      - 0.0093501
-     - .. image:: /figures/coronagraph_LyotSm.png
+     - .. image:: figures/coronagraph_LyotSm.png
      
 PIAA Classical Lyot Coronagraph (PIAACLC)
 ------------------------------------------
@@ -145,9 +145,10 @@ Phase-induced amplitude apodization (PIAA) optics reshape the beam in the pupil 
 
 Inverse apodization optics after the focal plane mask correct for off-axis field effects to remove comatic distortions on companions. Inverse PIAA optics are identical to forward PIAA optics. Optical path according to naming convention is PIAA0->PIAA1->fpm->iPIAA1->iPIAA0.
 
-The optical schematic is described in Guyon et al 2010:
-.. image:: /figures/coronagraph_Guyon_2010_PIAALC.png
+The process of pupil remapping before and after the focal plane is illustrated in Guyon et al 2010:
 
+.. image:: figures/coronagraph_Guyon_2010_PIAALC.png
+   :alt: Drawing of pupil remapping
 
 .. list-table:: PIAA optics
    :header-rows: 1
@@ -161,21 +162,31 @@ The optical schematic is described in Guyon et al 2010:
      - 10
      - :static:`piaa0.fits.gz <figures/coronagraph_piaa0.fits.gz>
      - 0.151e-5
-     - .. image:: /figures/coronagraph_PIAA0.png
+     - .. image:: figures/coronagraph_PIAA0.png
    * - PIAA1
      - 10
      - :static:`piaa1.fits.gz <figures/coronagraph_piaa1.fits.gz>
      - 0.151e-5
-     - .. image:: /figures/coronagraph_PIAA1.png
+     - .. image:: figures/coronagraph_PIAA1.png
      
-HCIPy simulations comparing different configurations of apodization optics, focal plane masks and Lyot masks.
+     
+Coronagraph performance simulations
+------------------------------------------
 
-656nm (λ/D = 20.81marcsec)
-.. image:: /figures/coronagraph_throughput_656.png
-.. image:: /figures/coronagraph_contrast_656.png
-.. image:: /figures/coronagraph_SNR_656.png
-
-900nm (λ/D = 28.56marcsec)
-.. image:: /figures/coronagraph_throughput_900.png
-.. image:: /figures/coronagraph_contrast_900.png
-.. image:: /figures/coronagraph_SNR_900.png
+.. list-table:: 
+   :header-rows: 1
+   
+   * - 656nm simulations (λ/D = 20.81marcsec) 
+     - 900nm simulations (λ/D = 28.56marcsec)
+   * - .. image:: figures/coronagraph_throughput_656.png
+            :alt: Throughput for different coronagraph arrangements at 656nm
+     - .. image:: figures/coronagraph_throughput_900.png
+            :alt: Throughput for different coronagraph arrangements at 900nm
+   * - .. image:: figures/coronagraph_contrast_656.png
+            :alt: Throughput for different coronagraph arrangements at 656nm
+     - .. image:: figures/coronagraph_contrast_900.png
+            :alt: Contrast for different coronagraph arrangements at 900nm
+   * - .. image:: figures/coronagraph_SNR_656.png
+            :alt: Inverse-SNR equivalent for different coronagraph arrangements at 656nm
+     - .. image:: figures/coronagraph_SNR_900.png
+            :alt: Inverse-SNR equivalent for different coronagraph arrangements at 900nm   
