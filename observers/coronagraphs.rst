@@ -160,12 +160,12 @@ The process of pupil remapping before and after the focal plane is illustrated i
      - Height map (um)
    * - PIAA0
      - 10
-     - :static:`piaa0.fits.gz <figures/coronagraph_piaa0.fits.gz>
+     - :static:`piaa0.fits.gz <figures/coronagraph_piaa0.fits.gz>`
      - 0.151e-5
      - .. image:: figures/coronagraph_PIAA0.png
    * - PIAA1
      - 10
-     - :static:`piaa1.fits.gz <figures/coronagraph_piaa1.fits.gz>
+     - :static:`piaa0.fits.gz <figures/coronagraph_piaa0.fits.gz>`
      - 0.151e-5
      - .. image:: figures/coronagraph_PIAA1.png
      
