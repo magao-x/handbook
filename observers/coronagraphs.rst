@@ -170,8 +170,8 @@ Coronagraph performance simulations
 .. list-table:: 
    :header-rows: 1
    
-   * - 656nm simulations (λ/D = 20.81marcsec, BW: 651nm-661nm) 
-     - 900nm simulations (λ/D = 28.56marcsec, BW: 855nm-945nm)
+   * - 656nm simulations (λ/D = 20.81marcsec, BW = 651nm-661nm) 
+     - 900nm simulations (λ/D = 28.56marcsec, BW = 855nm-945nm)
    * - .. image:: figures/coronagraph_throughput_656.png
             :alt: Throughput for different coronagraph arrangements at 656nm
      - .. image:: figures/coronagraph_throughput_900.png
@@ -180,22 +180,18 @@ Coronagraph performance simulations
             :alt: Throughput for different coronagraph arrangements at 656nm
      - .. image:: figures/coronagraph_contrast_900.png
             :alt: Contrast for different coronagraph arrangements at 900nm
-   * - .. image:: figures/coronagraph_poisson_SNR_656.png
+   * - .. image:: figures/coronagraph_SNR_poisson_656.png
             :alt: Inverse-Poisson SNR equivalent for different coronagraph arrangements at 656nm
-     - .. image:: figures/coronagraph_poisson_SNR_900.png
+     - .. image:: figures/coronagraph_SNR_poisson_900.png
             :alt: Inverse-Poisson SNR equivalent for different coronagraph arrangements at 900nm 
-   * - .. image:: figures/coronagraph_speckle_SNR_656.png
+   * - .. image:: figures/coronagraph_SNR_speckle_656.png
             :alt: Inverse-Speckle SNR equivalent for different coronagraph arrangements at 656nm
-     - .. image:: figures/coronagraph_speckle_SNR_900.png
+     - .. image:: figures/coronagraph_SNR_speckle_900.png
             :alt: Inverse-Speckle SNR equivalent for different coronagraph arrangements at 900nm           
-   * - Simulated throughput data for 656nm 
-      :static:`<figures/coronagraph_throughput_656.csv>`
-     - Simulated throughput data for 900nm 
-      :static:`<figures/coronagraph_throughput_900.csv>`
-   * - Simulated contrast data for 656nm 
-      :static:`<figures/coronagraph_contrast_656.csv>`
-     - Simulated contrast data for 900nm 
-      :static:`<figures/coronagraph_contrast_900.csv>`
+   * - :static:`Simulated throughput data for 656nm <figures/coronagraph_throughput_656.csv>`
+     - :static:`Simulated throughput data for 900nm <figures/coronagraph_throughput_900.csv>`
+   * - :static:`Simulated contrast data for 656nm <figures/coronagraph_contrast_656.csv>`
+     - :static:`Simulated contrast data for 900nm <figures/coronagraph_contrast_900.csv>`
 
 
 Vector Apodizing Phase Plate (vAPP)
