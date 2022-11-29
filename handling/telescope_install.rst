@@ -79,12 +79,6 @@ Rig Onto Cart
 
 -  Ensure that the 8 large bolts on the cart are snug but not tight
 
--  Install the guide pins along one side of table
-
-   .. image:: figures/cart_lift_guide_pin.jpg
-
-   *One of the guide pins installed, visible at the lower right corner of table*
-
 
 -  Attach the lifting wire-harness to each side of the cart.  The hooks should point outward.
 
@@ -114,16 +108,14 @@ Rig Onto Cart
    uncontrolled
 
 -  Slowly lift the cart (**320 lbs**) until it is touching the bottom
-   of the table.  Ensure the guide pins go into the outboard slots in the brackets.
+   of the table.
 
    .. image:: figures/cart_lift_tofrom_table.jpg
 
    *The cart being lifted to the bottom of the table.  Note the direction of the hooks.*
 
--  Install the 2 bolts opposite the guide-pins. Loosen bolts
+-  Install the 4 bolts. Loosen bolts
    on the cart as needed.
-
--  Remove the 2 guide-pins, and replace with bolts.  There are a total of 4 bolts now installed.
 
 -  Once the cart is bolted to the table bottom, while **320 lbs** is
    still on the crane, tighten all cart bolts. Do not over-tighten, make
@@ -153,8 +145,7 @@ Rig Onto Cart
 
 -  Position two people to remove the legs from under the table
 
--  Begin SLOWLY lifting the table off the legs. The weight of the table + cart is
-   **1920 lbs**
+-  Begin SLOWLY lifting the table off the legs.
 
 -  Go up 0.5inch then stop and inspect the platters.  Use a long flathead screwdriver to very gently pry any stuck platters off bottom of table.
 
@@ -271,7 +262,7 @@ Install MagAO-X On The Platform
 
 -  Position a person at each corner of the instrument to stabilize it
 
--  Lift the instrument with cart [**1920 lbs**] into position over the
+-  Lift the instrument with cart into position over the
    legs
 
 -  While keeping the instrument level, very slowly lower it into
