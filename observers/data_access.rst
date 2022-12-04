@@ -17,7 +17,7 @@ First, you will need an SSH key pair. Generating one is outside the scope of thi
 
 The key consists of a private half, probably named something like ``id_ed25519``, and a public half, named something like ``id_ed25519.pub``. (Note: ``id_rsa`` and ``id_dsa`` keys are not usable with MagAO-X. You may use ECDSA or ED25519 keys.)
 
-**Send the contents of the ``.pub`` file to the operator, keeping the private part private.**
+**Send the contents of the ".pub" file to the operator, keeping the private part private.**
 
 Connecting
 ----------
