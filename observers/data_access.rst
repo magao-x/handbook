@@ -15,9 +15,9 @@ Preliminaries
 
 First, you will need an SSH key pair. Generating one is outside the scope of this document, but GitHub has a `good guide <https://docs.github.com/en/authentication/connecting-to-github-with-ssh/generating-a-new-ssh-key-and-adding-it-to-the-ssh-agent>`_. (You can choose Mac, Windows, or Linux, and you need only follow the steps under the first heading: "Generating a new SSH key".)
 
-The key consists of a private half, probably named something like ``id_ed25519``, and a public half, named something like ``id_ed25519.pub``. Send the contents of the ``.pub`` file to the operator, keeping the private part private.
+The key consists of a private half, probably named something like ``id_ed25519``, and a public half, named something like ``id_ed25519.pub``. (Note: ``id_rsa`` and ``id_dsa`` keys are not usable with MagAO-X. You may use ECDSA or ED25519 keys.)
 
-(Note: ``id_rsa`` and ``id_dsa`` keys are not usable with MagAO-X. You may use ECDSA or ED25519 keys.)
+**Send the contents of the ``.pub`` file to the operator, keeping the private part private.**
 
 Connecting
 ----------
