@@ -65,4 +65,4 @@ Help output
 Daemon mode
 -----------
 
-The AOC runs an instance of lookyloo that just stays open forever, watching for new observation intervals to start. You can check its status with ``systemctl status lookyloo`` or tail its logs with ``sudo journalctl -fu lookyloo`` (both commands on AOC).
+The AOC runs an instance of lookyloo that just stays open forever, watching for new observation intervals to start. You can check its status with ``systemctl status lookyloo`` or tail its logs with ``sudo journalctl -fu lookyloo`` (both commands on AOC). The corresponding service unit is found at ``/etc/systemd/system/lookyloo.service``.

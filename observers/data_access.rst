@@ -148,5 +148,5 @@ So, for example, here's mock output of ``tree /data/obs/ -L 4``::
             └── 2022-12-03_04
                 └── HD20121 -> /data/obs/2022B/2022-12-03_04/HD20121/warrenbfoster@arizona.edu
 
-    Datestamps are in a format that suggests the fact they span a day boundary: ``2022-04-11_12`` contains observations from the night of April 11 (local time) through the morning of April 12. (This matches the naming of our observing logs.)
+Datestamps are in a format that suggests the fact they span a day boundary: ``2022-04-11_12`` contains observations from the night of April 11 (Chilean local time) through the morning of April 12. (This matches the naming of our observing logs.)
 
