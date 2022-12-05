@@ -1,14 +1,16 @@
 Accessing data as a guest observer
 ==================================
 
-The Adaptive optics Operator Computer, aka AOC or ``exao1``, has been set up with guest observer data access functionality using an account named ``guestobs``.
+MagAO-X (but not all visiting instruments) record data in a compressed format. Standard FITS-formatted data with full headers is produced during observations, becoming available within a few minutes of the start of the observation. This document explains how to access it.
 
-Note that ``exao1`` is part of the instrument, and ships back and forth to Chile for observing runs. That means two things:
+**Extremely short version, for those who just need a refresher:** ``rsync -kaz --progress guestobs@exao1.lco.cl:/data/obs/vizzy@xwcl.science/ ./my_obs/``
+
+Observation data are exported to the Adaptive optics Operator Computer, aka AOC or ``exao1``. Note that ``exao1`` is part of the instrument, and ships back and forth to Chile for observing runs. That means two things:
 
 1. It will not be available for several weeks while it is in transit, and
 2. It has a different IP and host-name when it's at University of Arizona than when it's at Las Campanas Observatory.
 
-We call this the "quick-look" system, but it delivers final FITS files ready for your instrument pipeline. The data written by the instrument are converted as they become available over the course of an observation, so you can start to ``rsync`` your data immediately.
+Guest observers will access exao1 with SSH and (preferably) rsync. (Users on Windows may be able to use WinSCP or rclone.)
 
 Preliminaries
 -------------
@@ -21,6 +23,8 @@ The key consists of a private half, probably named something like ``id_ed25519``
 
 Connecting
 ----------
+
+This is **different** depending on whether MagAO-X is in Tucson or at LCO.
 
 When MagAO-X is in the lab
 ^^^^^^^^^^^^^^^^^^^^^^^^^^
@@ -54,46 +58,35 @@ Log in using the ``guestobs`` account to verify everything works and that you ha
 When MagAO-X is at Las Campanas, and you are off-site
 ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
 
-You will need a user account on exao0, a computer in our lab at The University of Arizona, which has firewall rules permitting access to the Las Campanas Observatory machines.
-
-You can SSH via exao0 if your SSH client supports the ``-J`` option (which most do)::
-
-    yourComputer$ ssh -J 'ssh myusername@exao0.as.arizona.edu' guestobs@exao1.lco.cl
-
-If this is the first time you are connecting to both ``exao0`` and ``exao1``, you will have to accept two key fingerprints with ``yes``.
+*Contact the MagAO-X team for updated instructions.*
 
 Browsing the data
 -----------------
 
-The data are rooted in ``/data/users/guestobs/quicklook/``. So, for example, ``/data/users/guestobs/quicklook/2022A/`` will contain::
+Your data are rooted in ``/data/obs/your@email.com/``. So, for example, ``/data/obs/jrmales@arizona.edu/2022B/`` will contain::
 
-    [guestobs@exao1] $ ls /data/users/guestobs/quicklook/2022A/
-    2022-04-04_05
-    2022-04-09_10
+    [guestobs@exao1] $ ls /data/obs/jrmales@arizona.edu/2022B/
+    2022-10-22_23
     [... and so on ...]
 
 and an individual night will contain a folder per target::
 
-    [guestobs@exao1] $ ls /data/users/guestobs/quicklook/2022A/2022-04-09_10/
-    targetA
-    starB
-    targetC
-    UNKNOWN
-    cubes
+    [guestobs@exao1] $ ls /data/obs/jrmales@arizona.edu/2022B/2022-12-02_03
+    tet01OriC
     [... and so on ...]
 
-When there is no catalog target active, the observations will be grouped under the folder ``UNKNOWN``. Note that some cameras used for engineering and AO science save cubes without metadata by default. If you don't know if you need those, it's safe to ignore any ``cubes`` folder you may see.
+When there is no catalog target active, the observations will be grouped under the folder ``UNKNOWN``. (In rare cases there could be no catalog header at all, which will result in a ``_no_target_`` folder name.)
 
-Within the target folder are folders for every "observation name" set at the instrument::
+Within the target folder are folders for every observation interval (i.e. toggle of the "recording" switch)::
 
-    [guestobs@exao1] $ ls /data/users/guestobs/quicklook/2022A/2022-04-09_10/targetA/
-    targetA_with_sparkles
-    targetA_without_sparkles
+    [guestobs@exao1] $ ls /data/obs/jrmales@arizona.edu/2022B/2022-12-02_03/tet01OriC/
+    camacq-astrom_20221203T071725
+    tet1Orib-astrometry-50-50-infocus_20221203T082958
     [... and so on ...]
 
-And within those, a folder for each science camera that was actively recording::
+Note that the UT start timestamp is appended to the name to prevent collisions. Within those folders, there is a folder for each science camera that was actively recording (usually just camsci1 and camsci2)::
 
-    [guestobs@exao1] $ ls /data/users/guestobs/quicklook/2022A/2022-04-09_10/targetA/targetA_with_sparkles/
+    [guestobs@exao1] $ ls /data/obs/jrmales@arizona.edu/2022B/2022-12-02_03/tet01OriC/tet1Orib-astrometry-50-50-infocus_20221203T082958/
     camsci1
     camsci2
 
@@ -102,35 +95,14 @@ You can use your favorite tool to browse, but we recommend ``rsync`` to handle t
 Downloading science data
 ------------------------
 
-You can use ``rsync`` to get your images out. The path is constructed as follows: ``/data/users/guestobs/quicklook/<semester>/<datestamp>/<catalog name of object>/<obs_name>/<device>/``.
+You can use ``rsync`` to get your images out. Here's an example to download/update all images (from all semesters) for the observer ``vizzy@xwcl.science``, skipping those you already have::
 
-So, for example, here's mock output of ``tree /data/users/guestobs/quicklook/2022A/ -L 4``::
-
-    /data/users/guestobs/quicklook/2022A/
-    ├── 2022-04-09_10
-    │   ├── cubes
-    │   │   └── targetA_with_sparkles
-    │   │       └── camwfs
-    │   └── targetA
-    │       └── targetA_with_sparkles
-    │           ├── camsci1
-    │           └── camsci2
-    [... and so on ...]
-
-Datestamps are in a format that suggests the fact they span a day boundary: ``2022-04-11_12`` contains observations from the night of April 11 through the morning of April 12. (This matches the naming of our observing logs.)
-
-
-When MagAO-X is in the lab
-^^^^^^^^^^^^^^^^^^^^^^^^^^
-
-Here's an example to retrieve all camsci1 images from observations of targetA on 2022-04-09/10 under the title "targetA_with_sparkles"::
-
-    $ rsync -a --progress \
-        guestobs@exao1.as.arizona.edu:/data/users/guestobs/quicklook/2022A/2022-04-09_10/targetA/targetA_with_sparkles/camsci1/ \
-        ./testQuicklook/
+    $ rsync -kaz --progress \
+        guestobs@exao1.magao-x.org:/data/obs/vizzy@xwcl.science/ \
+        ./my_magao-x_obs/
 
     receiving file list ... done
-    created directory ./testQuicklook
+    created directory ./my_magao-x_obs
     camsci1/camsci1_20220417230302255087061.fits
         8640 100%   31.25kB/s    0:00:00 (xfer#3429, to-check=1436/4867)
     camsci1/camsci1_20220417230302258540922.fits
@@ -140,50 +112,41 @@ Here's an example to retrieve all camsci1 images from observations of targetA on
     sent 5016 bytes  received 221150763 bytes  23279555.68 bytes/sec
     total size is 221081847  speedup is 1.00
 
-Re-running this command will only sync changed files. During an observation, new frames will be processed in chunks as they are written.
+The ``-k`` option ensures directories are copied with their full contents (rather than symbolic links). The ``-a`` "archives" (copies recursively, preserving metadata). The ``-z`` option compresses the files in transit.
 
-When MagAO-X is at Las Campanas, and so are you
-^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+Re-running this command will only sync changed files. During an observation, new frames will be processed in chunks as they are written, so you may want to re-run this command periodically.
 
-Here's an example to retrieve all camsci1 images from observations of targetA on 2022-04-09/10 under the title "targetA_with_sparkles"::
+The paths are constructed as follows: ``/data/obs/<observer email>/<semester>/<datestamp>/<catalog name of object>/<purpose>_<start UT>/<device>/``.
 
-    $ rsync -a --progress \
-        guestobs@exao1.lco.cl:/data/users/guestobs/quicklook/2022A/2022-04-09_10/targetA/targetA_with_sparkles/camsci1/ \
-        ./testQuicklook/
+So, for example, here's mock output of ``tree /data/obs/ -L 4``::
 
-    receiving file list ... done
-    created directory ./testQuicklook
-    camsci1/camsci1_20220417230302255087061.fits
-        8640 100%   31.25kB/s    0:00:00 (xfer#3429, to-check=1436/4867)
-    camsci1/camsci1_20220417230302258540922.fits
-        8640 100%   31.13kB/s    0:00:00 (xfer#3430, to-check=1435/4867)
-    [... many lines omitted ...]
+    /data/obs/
+    ├── 2022B
+    │   ├── 2022-12-02_03
+    │   │   └── tet01OriC
+    │   │       └── jrmales@arizona.edu
+    │   └── 2022-12-03_04
+    │       ├── gam02Vel
+    │       │   └── jrmales@arizona.edu
+    │       ├── HD20121
+    │       │   └── warrenbfoster@arizona.edu
+    │       └── PDS201
+    │           └── lclose@as.arizona.edu
+    ├── jrmales@arizona.edu
+    │   └── 2022B
+    │       ├── 2022-12-02_03
+    │       │   └── tet01OriC -> /data/obs/2022B/2022-12-02_03/tet01OriC/jrmales@arizona.edu
+    │       └── 2022-12-03_04
+    │           └── gam02Vel -> /data/obs/2022B/2022-12-03_04/gam02Vel/jrmales@arizona.edu
+    ├── lclose@as.arizona.edu
+    │   └── 2022B
+    │       └── 2022-12-03_04
+    │           └── PDS201 -> /data/obs/2022B/2022-12-03_04/PDS201/lclose@as.arizona.edu
+    ├── lookyloo_success.txt
+    └── warrenbfoster@arizona.edu
+        └── 2022B
+            └── 2022-12-03_04
+                └── HD20121 -> /data/obs/2022B/2022-12-03_04/HD20121/warrenbfoster@arizona.edu
 
-    sent 5016 bytes  received 221150763 bytes  23279555.68 bytes/sec
-    total size is 221081847  speedup is 1.00
+    Datestamps are in a format that suggests the fact they span a day boundary: ``2022-04-11_12`` contains observations from the night of April 11 (local time) through the morning of April 12. (This matches the naming of our observing logs.)
 
-Re-running this command will only sync changed files. During an observation, new frames will be processed in chunks as they are written.
-
-When MagAO-X is at Las Campanas, and you are off-site
-^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
-
-You will need your SSH key enrolled on both exao0 and exao1 to access the observations as they come in, from off-site.
-
-Here's an example to retrieve all camsci1 images from observations of targetA on 2022-04-09/10 under the title "targetA_with_sparkles"::
-
-    $ rsync -a --progress -e 'ssh -J guestobs@exao0.as.arizona.edu' \
-        guestobs@exao1.lco.cl:/data/users/guestobs/quicklook/2022A/2022-04-09_10/targetA/targetA_with_sparkles/camsci1/ \
-        ./testQuicklook/
-
-    receiving file list ... done
-    created directory ./testQuicklook
-    camsci1/camsci1_20220417230302255087061.fits
-        8640 100%   31.25kB/s    0:00:00 (xfer#3429, to-check=1436/4867)
-    camsci1/camsci1_20220417230302258540922.fits
-        8640 100%   31.13kB/s    0:00:00 (xfer#3430, to-check=1435/4867)
-    [... many lines omitted ...]
-
-    sent 5016 bytes  received 221150763 bytes  23279555.68 bytes/sec
-    total size is 221081847  speedup is 1.00
-
-Re-running this command will only sync changed files. During an observation, new frames will be processed in chunks as they are written.

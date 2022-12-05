@@ -22,9 +22,9 @@ Help output
 -----------
 
 ::
-    xsup@exao1:~$ lookyloo -h
-    usage: lookyloo [-h] [-d] [-r] [-i] [-C] [-S] [-v] [-t TITLE] [-p] [-s SEMESTER] [-c CAMERA] [-X DATA_ROOT] [-O]
-                    [-D OUTPUT_DIR] [--xrif2fits-cmd XRIF2FITS_CMD]
+
+    usage: lookyloo [-h] [-d] [-r] [-i] [-C] [-S] [-v] [-t TITLE] [-e OBSERVER_EMAIL] [-p] [-s SEMESTER] [-c CAMERA]
+                    [-X DATA_ROOT] [-O] [-T] [-D OUTPUT_DIR] [--xrif2fits-cmd XRIF2FITS_CMD]
 
     options:
     -h, --help            show this help message and exit
@@ -40,6 +40,9 @@ Help output
     -v, --verbose         Turn on debug output
     -t TITLE, --title TITLE
                             (ignored in daemon mode) Title of observation to collect
+    -e OBSERVER_EMAIL, --observer-email OBSERVER_EMAIL
+                            (ignored in daemon mode) Skip observations that are not by this observer (matches substrings, case-
+                            independent)
     -p, --partial-match-ok
                             (ignored in daemon mode) A partial match (title provided is found anywhere in recorded title) is
                             processed
@@ -52,8 +55,10 @@ Help output
                             Search directory for telem and rawimages subdirectories, repeat to specify multiple roots. (default:
                             ['/opt/MagAOX', '/srv/icc/data', '/srv/rtc/data'])
     -O, --omit-telemetry  Whether to omit references to telemetry files
+    -T, --omit-symlink-tree
+                            Whether to skip constructing the parallel structure of symlinks organizing observations by observer
     -D OUTPUT_DIR, --output-dir OUTPUT_DIR
-                            output directory, defaults to /data/users/guestobs/quicklook
+                            output directory, defaults to /data/obs
     --xrif2fits-cmd XRIF2FITS_CMD
                             Specify a path to an alternative version of xrif2fits here if desired
 
