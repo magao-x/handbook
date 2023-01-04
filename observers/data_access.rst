@@ -58,7 +58,23 @@ Log in using the ``guestobs`` account to verify everything works and that you ha
 When MagAO-X is at Las Campanas, and you are off-site
 ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
 
-*Contact the MagAO-X team for updated instructions.*
+Access to ``exao1`` from off-site is via ``exao0`` in our lab at University of Arizona, which has special access to ``exao1`` from off-site. SSH supports an option called ``ProxyJump``, used with ``-J``, to pass connections via another machine. To connect via ``exao0`` over SSH::
+
+    % ssh -J guestobs@exao0.as.arizona.edu guestobs@exao1.lco.cl
+    [guestobs@exao1] $
+
+Edit your SSH config file to save this option with a shorthand name. (On macOS and Linux, ``mkdir -p .ssh`` and then create or edit ``~/.ssh/config``.) Here is an example::
+
+    Host exao0
+    HostName exao0.as.arizona.edu
+    User guestobs
+
+    Host exao1-lco
+    HostName exao1.lco.cl
+    ProxyJump exao0
+    User guestobs
+
+Now you can do ``ssh exao1-lco`` and that extra step will be taken care of. Importantly, you can use this for ``rsync`` as well! The ``user@host`` part of the ``rsync`` command (``guestobs@exao1.magao-x.org`` in the example below) can be replaced with ``exao1-lco``.
 
 Browsing the data
 -----------------
