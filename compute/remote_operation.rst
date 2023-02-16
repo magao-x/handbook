@@ -1,233 +1,180 @@
 Remote operation
 ================
 
-The MagAO-X software is designed for use on Linux with CentOS 7, and the
-included `provisioning
-script <https://github.com/magao-x/MagAOX/blob/master/setup/provision.sh>`__
-will automatically set up a fresh install on a computer running that OS.
-However, most of us don’t use CentOS 7 on our personal computers.
-Furthermore, the provisioning script will create users and groups, applying
-configuration you probably don't want!
+MagAO-X can be operated entirely remotely as long as the prerequisites (power, dry air, networking) are met. The easiest way to adjust settings is with the web UI, but for full control you will want a virtual machine (VM).
 
-If you don't fancy installing the full set of dependencies by hand,
-or you're on a Windows or macOS machine, you should use a virtual
-machine (VM). A virtual machine is a simulated computer (running
-whatever “guest OS” you like) that runs as a program on your computer’s
-OS (which we call the “host OS”). This virtual machine can then be used
-to operate all the normal MagAO-X GUI and CLI tools and control the real
-instrument.
+Configuring the virtual machine is done from the command line. Example commands are shown after a ``$`` or ``ubuntu@primary:~$`` (which you don't type yourself as part of the command), and output is on un-prefixed lines.
 
-Conceptually, you just create a virtual CentOS computer and go through
-the normal installation process on it. To automate this process, and
-make certain customizations for speed and convenience, there’s
-`Vagrant <https://www.vagrantup.com/>`__. Vagrant can start a virtual
-machine from a pre-made image, run your install script, and configure
-things like forwarding network ports from the VM to your host OS.
+You will want to first install Multipass, a virtual machine manager specifically for Ubuntu Linux VMs. Follow the `instructions on their website <https://multipass.run/install>`_ to install.
 
-As it happens, MagAO-X has a
-`Vagrantfile <https://github.com/magao-x/MagAOX/blob/master/Vagrantfile>`__
-specifying the setup process to minimize the number of manual steps.
+::
 
-Prerequisites
--------------
-
--  ``git`` — Preinstalled on most Linuxes, install with
-   ``xcode-select --install`` on macOS, see
-   `below <#additional-notes-for-windows-users>`__ for Windows
--  `VirtualBox <https://www.virtualbox.org/>`__ — Preferred
-   virtualization backend, available for free. (`download <https://www.virtualbox.org/wiki/Downloads>`__, `install instructions <https://www.virtualbox.org/manual/ch02.html>`__)
--  `Vagrant <https://www.vagrantup.com/>`__ — Program to automate
-   creation / provisioning of development VMs (`download <https://www.vagrantup.com/downloads>`__, `install instructions <https://www.vagrantup.com/docs/installation>`__)
-
-.. warning::
-
-   **Linux users, follow instructions on the respective download pages before
-   using** ``apt`` **or** ``yum`` **to install Vagrant or VirtualBox. The
-   default packages will not work properly.**
-
-   For VirtualBox, the `Linux downloads page <https://www.virtualbox.org/wiki/Linux_Downloads>`__
-   offers direct links to ``.rpm`` and ``.deb`` packages which you can
-   install, or you can read down the page for information on adding VirtualBox
-   packages to your OS package index.
-
-   For Vagrant, the `download page <https://www.vagrantup.com/downloads>`__
-   explains how to add their updated packages to your package manager, which
-   you should do first so that ``apt`` (or ``yum``) finds the up-to-date
-   version.
+   multipass launch -n primary 22.04
+   multipass stop
+   multipass set local.primary.disk=20GiB
+   multipass set local.primary.cpus=4
+   multipass exec primary -- bash -c "git clone --depth=1 https://github.com/magao-x/MagAOX.git && cd MagAOX/setup/ && bash -lx provision.sh"
 
 
-Additional notes for Windows users
-~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+Create the virtual machine
+--------------------------
 
-*Windows use isn’t tested automatically, and things may break
-unexpectedly…*
+**Windows users note:** you should run ``multipass set local.privileged-mounts=true`` to enable file transfers. Read `here <https://multipass.run/docs/privileged-mounts>`_ about the security implications this setting has for Windows.
 
-1. It’s probably easiest to get ``git`` from
-   `Anaconda <https://docs.anaconda.com/anaconda/install/windows/>`__ if
-   you’re already using it (use ``conda install git`` at the Anaconda
-   command line)
-2. ``git`` needs to be configured not to alter line endings. After
-   installing git, you should do
-   ``git config --global core.autocrlf false`` *before* cloning MagAOX.
-   (However, if you use ``git`` for other things, you may not want this
-   to be a global setting.)
-3. The existence of a ``windows_host.txt`` advisory file is **required**
-   for provisioning to succeed. (Its presence tells the scripts to work
-   around functionality that is missing on Windows hosts.)
-4. The section below on `Using GUIs in the VM <#Using-GUIs-in-the-VM>`__
-   needs to be expanded with instructions for Windows. (Basically, we
-   need to figure out which of the X11 servers for Windows works with
-   ``vagrant ssh`` in the current configuration.) Until then, no GUIs in
-   Windows.
+In a new terminal window, to create a VM with Ubuntu version 22.04::
 
-Setup
------
+   $ multipass launch -n primary 22.04
+   Launched: primary
+   Mounted '/Users/YOURUSERNAME' into 'primary:Home'
 
-1. Ensure ``vagrant`` command is available:
+Verify you can connect to it::
 
-   .. code:: text
+   $ multipass shell
+   [... some lines omitted ...]
+   ubuntu@primary:~$
 
-      $ vagrant --help
-      Usage: vagrant [options] <command> [<args>]
-      ...
+Commands within the VM will be prefixed with ``ubuntu@primary:~$`` (though ``~`` may change), and "host" commands will continue to be prefixed with ``$``. Your home directory will be available under ``~/Home``. This is one way to get files into and out of the VM. ::
 
-2. Clone `magao-x/MagAOX <https://github.com/magao-x/MagAOX>`__ (if
-   necessary) and ``cd`` into MagAOX
+   $ ls ~/Home
+   [... list of all your files ...]
 
-   .. code:: text
+Now, exit the VM shell::
 
-      $ git clone https://github.com/magao-x/MagAOX.git
-      Cloning into 'MagAOX'...
-      ...
+   ubuntu@primary:~$ exit
+   $
 
-      $ cd MagAOX
+The first thing to do after creating the VM is to stop it (which is just like shutting down a "real" physical computer) and adjust some settings::
 
-3. **Windows only:** Create a new blank file named ``windows_host.txt``
-   in the MagAOX folder.
+   $ multipass stop
+   $ multipass set local.primary.disk=20GiB
+   $ multipass set local.primary.cpus=4
 
-4. Run ``vagrant up``
+This ensures you have enough space in the VM to install the MagAO-X software. (You can change the number of CPUs allocated to the VM to a number other than four if you want.)
 
-   .. code:: text
+Now, boot the virtual machine::
 
-      $ vagrant up
+   $ multipass start
 
-   If prompted, enter your password to configure NFS exports. (See `this
-   doc <https://www.vagrantup.com/docs/synced-folders/nfs.html#root-privilege-requirement>`__
-   for information on eliminating that prompt.)
+Notice that we didn't specify ``-n primary``. The name ``primary`` is special, and is used as the default for many commands when nothing else is specified.
 
-   **Note:** The ``vagrant up`` step is CPU and bandwidth intensive the
-   first time, as it will download an OS image and all of the MagAO-X
-   dependencies, then compile them. Subsequent ``vagrant up``\ s will
-   just boot the existing machine.
+Wait a minute for the VM to start, then connect your terminal to the VM with::
 
-Don’t be alarmed by the output from ``vagrant up``. Provisioning is very
-noisy, and messages in red aren’t necessarily errors. Successful
+   $ multipass shell
+   ubuntu@primary:~$
+
+Next, within the VM, obtain a copy of the MagAO-X software and install scripts. Using ``git`` we clone the MagAOX repository::
+
+   ubuntu@primary:~$ git clone --depth=1 https://github.com/magao-x/MagAOX.git
+   Cloning into 'MagAOX'...
+   remote: Enumerating objects: 1040, done.
+   remote: Counting objects: 100% (1040/1040), done.
+   remote: Compressing objects: 100% (907/907), done.
+   remote: Total 1040 (delta 166), reused 642 (delta 100), pack-reused 0
+   Receiving objects: 100% (1040/1040), 2.13 MiB | 1.04 MiB/s, done.
+   Resolving deltas: 100% (166/166), done.
+
+Go to the ``setup`` subdirectory::
+
+   ubuntu@primary:~$ cd MagAOX/setup/
+
+Run the provisioning script::
+
+   ubuntu@primary:~/MagAOX/setup$ bash provision.sh
+
+Now, wait a while. Don't be alarmed by the amount of output! Provisioning is very
+noisy, and messages in red aren't necessarily errors. Successful
 provisioning will end with the message
 
 ::
 
    Provisioning complete
 
-What to do if you don’t see ``Provisioning complete``
+Now, on to :ref:`vm_usage`.
+
+What to do if you don't see ``Provisioning complete``
 ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
 
 Most likely that means an error occurred running the provisioning
 scripts and they did not finish. That can happen if a big download gets
-interrupted, for example. It’s always safe to run ``vagrant provision``
-and it’ll re-run only necessary steps, which may be enough to get you to
+interrupted, for example. It's always safe to run ``bash provision.sh``
+again. It'll re-run only necessary steps, which may be enough to get you to
 ``Provisioning complete``.
 
-If that doesn’t resolve the issue, you’ll need the complete provisioning
+If that doesn't resolve the issue, you'll need the complete provisioning
 output to get help. The following command will save it to a file
-``provision.log``, which you can then email or Slack to someone who can
-help.
+``provision.log`` in your home folder on the host machine, which you can then email or Slack to someone who can help. ::
 
-::
+   ubuntu@primary:~/MagAOX/setup$ bash provision.sh | tee ~/Home/provision.log
 
-   $ vagrant provision | tee provision.log
+Resetting the VM
+~~~~~~~~~~~~~~~~
+
+If you need to reset the VM, start by copying any data you need out of it (e.g. to ``~/Home``). Then, to **delete it forever**, use these commands::
+
+   multipass stop primary
+   multipass delete primary
+   multipass purge
+
+To recreate the VM, follow the instructions from the top of the page again.
+
+Also, in the unlikely event you encounter this error (maybe upon reinstalling multipass)::
+
+   The client is not authenticated with the Multipass service.
+   Please use 'multipass authenticate' before proceeding.
+
+this `forum post <https://discourse.ubuntu.com/t/unable-to-authorize-the-client-and-cannot-set-a-passphrase-workaround/28321>`_ explains recovery steps.
+
+
+.. _vm_usage:
 
 Usage
 -----
 
-
-Configuring the VM to use your SSH key
-~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+Configuring the VM to connect
+~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
 
 Before you can remotely control MagAO-X, a little post-provisioning
 configuration is required. You must have a user account on MagAO-X with
-an SSH key file configured. This will probably be called something like
-``~/.ssh/id_ecdsa`` on your host computer (with the contents of the corresponding file
-``~/.ssh/id_ecdsa.pub`` added to `~/.ssh/authorized_keys` on the MagAO-X
-computers).
+an SSH key file configured. For the preconfigured tunnels to work, that key must not have a passphrase.
 
-With the username and key file handy, go to the folder where you cloned
-the ``MagAOX`` repository. There will be a subfolder called ``vm/``
-where the provisioning process placed a lot of files. In ``vm/ssh/``
-edit the ``config`` file. It should look like::
+If you have a key pair named ``id_ed25519`` in your computer's ``~/.ssh/`` folder, this appears at ``~/Home/.ssh/`` in the VM. Copy it into place:
 
-   IdentityFile /vagrant/vm/ssh/magaox_ssh_key
-   Host aoc
-      HostName exao1.magao-x.org
-   Host rtc
-      HostName rtc
-      ProxyJump aoc
-   Host icc
-      HostName icc
-      ProxyJump aoc
-   Host *
-      User YOURUSERNAME
 
-which you should update with the username you use on MagAO-X computers.
-Notice the line at the top that says
-``IdentityFile /vagrant/vm/ssh/magaox_ssh_key``. This tells the VM to
-use the private key file at ``vm/ssh/magaox_ssh_key`` from the host to
-authenticate you.
+   $ multipass shell
+   ubuntu@primary:~$ cp ~/Home/.ssh/id_ed25519 ~/.ssh/id_ed25519
+   ubuntu@primary:~$ chmod 600 ~/.ssh/id_ed25519
 
-Copy the private key file you identified before and rename it
-to ``magaox_ssh_key`` and store it in the same directory as ``config``::
+Next, you will need to edit the VM's ``~/.ssh/config`` file to add your username. ::
 
-   cp ~/.ssh/id_ecdsa vm/ssh/magaox_ssh_key
+   $ multipass shell
+   ubuntu@primary:~$ nano ~/.ssh/config
 
-SSH is very picky about file permissions, so ensure it's correctly limited to your user account::
-
-   $ ls -l vm/ssh/magaox_ssh_key
-   -rw-------  1 josephlong  staff  411 Apr 20 12:23 vm/ssh/magaox_ssh_key
-
-If you don't see ``-rw-------`` in the ``ls`` output, set permissions as follows::
-
-   chmod u=rw,g=,o= vm/ssh/magaox_ssh_key
+will open a text editor. At the end of the file, the line ``User YOURUSERNAME`` should be changed to reflect your MagAO-X username.
 
 Connecting to the VM
 ^^^^^^^^^^^^^^^^^^^^
 
-To connect to the VM, use ``vagrant ssh``. You’ll be logged in as user
-``vagrant`` with no password, and the command prompt in your shell will
-change to something like this::
+The ``multipass shell`` command we have been using above connects you to the VM. The following should be done within a VM except where otherwise noted.
 
-   [vagrant@centos7] $
-
-The rest of the commands in this section are to be run in a
-``vagrant ssh`` session, unless otherwise noted.
-
-(Note: under some circumstances you will get a worrying-sounding message
-about ``Xauthority``. As long as things are working, it should be ignored.)
+Note: under some circumstances you will get a worrying-sounding message
+about ``Xauthority``. As long as things are working, it should be ignored.
 
 .. _check_vm_connectivity:
 
 Check connectivity to MagAO-X
 ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
 
-To ensure everything’s configured correctly, from a ``vagrant ssh``
+To ensure everything's configured correctly, from a ``multipass shell``
 session run ``ssh aoc``, type ``yes`` at the prompt (if needed)
 then ``exit``::
 
-   [vagrant@centos7] $ ssh aoc
+   ubuntu@primary:~$ ssh aoc
    The authenticity of host 'exao1.magao-x.org (128.196.208.35)' can't be established.
    ECDSA key fingerprint is SHA256:NZB0hJzTYb5+g6JH/mrLdC7PNB1h8UTb74bStipmfDE.
    Are you sure you want to continue connecting (yes/no/[fingerprint])? yes
    Warning: Permanently added '128.196.208.35' (ECDSA) to the list of known hosts.
    [you@exao1] $ exit
-   [vagrant@centos7] $
+   ubuntu@primary:~$
 
 Start tunnels
 ^^^^^^^^^^^^^
@@ -242,7 +189,7 @@ The proclist for VM usage is in
 Running ``xctrl startup`` to start the tunnels should result in output
 like::
 
-   [vagrant@centos7 ~]$ xctrl startup
+   ubuntu@primary:~$ xctrl startup
    Session vm_aoc_milkzmq does not exist
    Session vm_aoc_indi does not exist
    Created tmux session for vm_aoc_milkzmq
@@ -254,21 +201,21 @@ And you can check their status with ``xctrl status`` or ``xctrl peek``.
 
 ::
 
-   [vagrant@centos7 ~]$ xctrl status
+   ubuntu@primary:~$ xctrl status
    vm_aoc_indi: running (pid: 6147)
    vm_aoc_milkzmq: running (pid: 6148)
 
 Using GUIs in the VM
 ~~~~~~~~~~~~~~~~~~~~
 
-The VM is configured to be “headless”, meaning there’s no graphical
+The VM is configured to be “headless”, meaning there's no graphical
 display window. However, we can still build and run MagAO-X GUIs as long
 as your host OS has an X11 server (most Linux systems do by default, but
 you will need `XQuartz <https://www.xquartz.org/>`__ on macOS).
 
-If you’re unfamiliar with SSH X forwarding, the short version is that
+If you're unfamiliar with SSH X forwarding, the short version is that
 the app runs on the VM but the window pops up like any other window on
-your own computer (the host). SSH (i.e. ``vagrant ssh``) is the
+your own computer (the host). SSH (i.e. ``multipass shell``) is the
 transport that moves information about the window back and forth to the
 GUI app, which is still running inside the VM.
 
@@ -282,12 +229,23 @@ GUI app, which is still running inside the VM.
    |                  +----------------------+|
    +------------------------------------------+
 
+Assuming you have an SSH key on your host computer already, we need to teach multipass about it::
+
+   $ multipass exec primary -- bash -c "echo `cat ~/.ssh/id_ed25519.pub` >> ~/.ssh/authorized_keys"
+
+This adds the key as an authorized one for connecting to the VM. (We were connecting a different way when we did ``multipass shell`` earlier.)
+
+The following incantation will connect a GUI-capable SSH session to your multipass VM and leave you at a VM prompt::
+
+   $ ssh -Y ubuntu@$(multipass exec primary -- hostname -I | awk '{ print $1 }' )
+   ubuntu@primary:~$
+
 So, to start the ``coronAlignGUI``, you could do...
 
 ::
 
-   host$ vagrant ssh
-   vm$ coronAlignGUI
+   $ ssh -Y ubuntu@$(multipass exec primary -- hostname -I | awk '{ print $1 }' )
+   ubuntu@primary:~$ coronAlignGUI
 
 …and the coronagraph alignment GUI will come up like any other window on
 your host machine.
@@ -306,26 +264,26 @@ another.
 
 The AOC workstation runs a ``mzmqServer`` process that re-serves the
 images it replicates from the rest of the instrument using compression
-and a limit of 1 FPS. This ensures it doesn’t overwhelm your home
+and a limit of 1 FPS. This ensures it doesn't overwhelm your home
 internet connection.
 
 (Napkin math: 1024 \* 1024 \* 16 bit, or one ``camsci1`` frame, is ~2
 MB. 2 MByte / second is 16 Mbit / second, more than compressed HD video
-streams. And that’s just one camera!)
+streams. And that's just one camera!)
 
 The list of images re-served by AOC is kept in
 ``/opt/MagAOX/config/mzmqServerAOC.conf`` (`view on
 GitHub <https://github.com/magao-x/config/blob/master/mzmqServerAOC.conf>`__).
 
 After confirming the tunnel ``vm_aoc_milkzmq`` is running
-(``xctrl status``), start a ``milkzmqClient``. For this example we’ll
+(``xctrl status``), start a ``milkzmqClient``. For this example we'll
 connect to ``camwfs`` and ``camwfs_dark``:
 
 ::
 
-   milkzmqClient -p 9000 localhost camwfs camwfs_dark &
+   ubuntu@primary:~$ milkzmqClient -p 9000 localhost camwfs camwfs_dark &
 
-(We’ve used ``&`` at the end of the command to background the client, so
+(We've used ``&`` at the end of the command to background the client, so
 just hit enter again to get a normal prompt back after its startup
 messages.)
 
@@ -338,7 +296,7 @@ Start the viewer with
 
 ::
 
-   rtimv -c rtimv_camwfs.conf
+   ubuntu@primary:~$ rtimv -c rtimv_camwfs.conf
 
 and it should pop up a window like this:
 
