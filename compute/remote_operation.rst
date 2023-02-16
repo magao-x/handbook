@@ -7,15 +7,6 @@ Configuring the virtual machine is done from the command line. Example commands 
 
 You will want to first install Multipass, a virtual machine manager specifically for Ubuntu Linux VMs. Follow the `instructions on their website <https://multipass.run/install>`_ to install.
 
-::
-
-   multipass launch -n primary 22.04
-   multipass stop
-   multipass set local.primary.disk=20GiB
-   multipass set local.primary.cpus=4
-   multipass exec primary -- bash -c "git clone --depth=1 https://github.com/magao-x/MagAOX.git && cd MagAOX/setup/ && bash -lx provision.sh"
-
-
 Create the virtual machine
 --------------------------
 
@@ -33,7 +24,7 @@ Verify you can connect to it::
    [... some lines omitted ...]
    ubuntu@primary:~$
 
-Commands within the VM will be prefixed with ``ubuntu@primary:~$`` (though ``~`` may change), and "host" commands will continue to be prefixed with ``$``. Your home directory will be available under ``~/Home``. This is one way to get files into and out of the VM. ::
+Notice that the shell prompt has changed to ``ubuntu@primary:~$``. Commands within the VM will be prefixed with ``ubuntu@primary:~$`` (though ``~`` may change), and "host" commands will continue to be prefixed with ``$``. Your home directory will be available inside the VM under ``~/Home``. This is one way to get files into and out of the VM. ::
 
    $ ls ~/Home
    [... list of all your files ...]
@@ -111,9 +102,9 @@ Resetting the VM
 
 If you need to reset the VM, start by copying any data you need out of it (e.g. to ``~/Home``). Then, to **delete it forever**, use these commands::
 
-   multipass stop primary
-   multipass delete primary
-   multipass purge
+   $ multipass stop primary
+   $ multipass delete primary
+   $ multipass purge
 
 To recreate the VM, follow the instructions from the top of the page again.
 
@@ -137,27 +128,26 @@ Before you can remotely control MagAO-X, a little post-provisioning
 configuration is required. You must have a user account on MagAO-X with
 an SSH key file configured. For the preconfigured tunnels to work, that key must not have a passphrase.
 
-If you have a key pair named ``id_ed25519`` in your computer's ``~/.ssh/`` folder, this appears at ``~/Home/.ssh/`` in the VM. Copy it into place:
+If you have a key pair named ``id_ed25519`` in your computer's ``~/.ssh/`` folder, this appears at ``~/Home/.ssh/`` in the VM. Copy it into place::
 
 
    $ multipass shell
    ubuntu@primary:~$ cp ~/Home/.ssh/id_ed25519 ~/.ssh/id_ed25519
    ubuntu@primary:~$ chmod 600 ~/.ssh/id_ed25519
 
-Next, you will need to edit the VM's ``~/.ssh/config`` file to add your username. ::
+Next, you will need to edit the VM's ``~/.ssh/config`` file to add your username. Open a text editor::
 
    $ multipass shell
    ubuntu@primary:~$ nano ~/.ssh/config
 
-will open a text editor. At the end of the file, the line ``User YOURUSERNAME`` should be changed to reflect your MagAO-X username.
+At the end of the file, the line ``User YOURUSERNAME`` should be changed to reflect your MagAO-X username. Save and exit.
 
 Connecting to the VM
 ^^^^^^^^^^^^^^^^^^^^
 
 The ``multipass shell`` command we have been using above connects you to the VM. The following should be done within a VM except where otherwise noted.
 
-Note: under some circumstances you will get a worrying-sounding message
-about ``Xauthority``. As long as things are working, it should be ignored.
+Note: under some circumstances you will get a worrying-sounding message about ``Xauthority``. As long as things are working, it should be ignored.
 
 .. _check_vm_connectivity:
 
@@ -165,14 +155,9 @@ Check connectivity to MagAO-X
 ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
 
 To ensure everything's configured correctly, from a ``multipass shell``
-session run ``ssh aoc``, type ``yes`` at the prompt (if needed)
-then ``exit``::
+session run ``ssh aoc``, verify your shell prompt changes to ``exao1``, then ``exit``::
 
    ubuntu@primary:~$ ssh aoc
-   The authenticity of host 'exao1.magao-x.org (128.196.208.35)' can't be established.
-   ECDSA key fingerprint is SHA256:NZB0hJzTYb5+g6JH/mrLdC7PNB1h8UTb74bStipmfDE.
-   Are you sure you want to continue connecting (yes/no/[fingerprint])? yes
-   Warning: Permanently added '128.196.208.35' (ECDSA) to the list of known hosts.
    [you@exao1] $ exit
    ubuntu@primary:~$
 
