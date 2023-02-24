@@ -67,7 +67,6 @@ Rig Onto Cart
 
    **CAUTION:** only push on the legs, not the table itself
 
-
 -  Continue rolling the instrument through the garage door into the
    unpacking area
 
@@ -95,7 +94,7 @@ Rig Onto Cart
 -  Lift the load spreader, and position it over the instrument
 
 -  Being careful to not bump the instrument, lower the load spreader
-   and attach the lifting harness D rings. Use 2x shackles to extend the
+   and attach the lifting harness D rings. Use 4x shackles to extend the
    length to reach the cart on the floor.
 
    .. image:: figures/cart_lift_extensions.jpg
@@ -158,6 +157,8 @@ Rig Onto Cart
 
 -  Set the cart down on its wheels.
 
+-  Re-check the cart bolts.  Tighten any that are loose to 1/4 turn past when the washers stop moving.
+
 Transport MagAO-X To Clay
 -------------------------
 
@@ -174,7 +175,7 @@ Transport MagAO-X To Clay
    *Pentalift raised to truck height.*
 
 
--  Install the come-along and place the plates across the gap.
+-  Place the plates across the gap.
 
 -  Move MagAO-X onto the truck using the come-along
 
@@ -237,7 +238,9 @@ Moving the Legs to the Summit
 
 -  Next carefully roll legs onto the lift gate.
 
--  Remove dollies from legs before going into elevator
+-  Remove dollies from legs before going into elevator.
+
+-  Bring the load spreader and rigging up with the legs.
 
 Install MagAO-X On The Platform
 -------------------------------

@@ -19,7 +19,7 @@ Advanced Preparations and Scheduling
 
 -  Schedule delivery of a telehandler forklift.
 
--  Obtain the gantry crane from URIC
+-  Obtain the gantry crane from URIC.  It may need to be washed (i.e. take to a car wash).
 
 -  Order dessicant, thermal blankets, shrink wrap, and tape as needed
 

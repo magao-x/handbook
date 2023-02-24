@@ -41,11 +41,20 @@ Disconnecting BMC ribbon cables
 
 The BMC ribbon cables run from the DM in MagAO-X, through a strain relief clamp, to interface panels on the outside of the electronics rack. For shipment, they are bagged and coiled into a compartment on MagAO-X itself.
 
-Work from top to bottom on the MagAO-X side panel with an assistant. Collect ESD bags, scotch tape, hex drivers, bubble wrap, and the plate to cover the ribbon cable stowage cavity.
+Required workers: 2 minimum, 3 preferred.
+
+Required equipment:
+    
+    - ESD bags
+    - scotch tape
+    - hex drivers
+    - bubble wrap
+    - plate to cover the ribbon cable stowage cavity.
+    - Cleanroom gown, cap, mask, gloves for each worker
 
 **Are you grounded? Is your assistant grounded? Verify that unbuttoning the grounding strap lead causes the ESD monitor to alarm.**
 
-For every lettered interface plate, repeat these steps:
+For every lettered interface plate, repeat these steps, working from top to bottom on the MagAO-X side panel with an assistant.:
 
 1. Loosen 4x captive hex cap head bolts securing the plate that sandwiches the ribbon cable to its connector
 2. Remove plate and ribbon cable, taking care not to dislodge the springy contact array component (which remains on the interface panel
