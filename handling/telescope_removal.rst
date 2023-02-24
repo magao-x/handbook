@@ -22,8 +22,11 @@ Shutdown
 
    - Ensure that `stagepickoff` in the `out` position.
    - Place the k-mirror at 180 degrees.
+   - Select the CH4-Cont and CH4-875 filters on fwsci1/2
+   - turn off power for all devices on MagAO-X following the regular shutdown procedure.
    - use the `shutdown -h now` command to halt both RTC and ICC
-   - turn off power for all devices on MagOA-X.
+   - once the computers are off, turn off all things in the rack.
+
 
 -  Remove blower hose and cover the hole.
 
