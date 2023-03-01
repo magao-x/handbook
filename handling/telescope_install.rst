@@ -54,6 +54,19 @@ Preparations
    -  Partially assemble cart, leaving one long side off
    -  Store cart out of the way so table can roll into unpacking area
 
+-  Dome 
+
+   -  The NASE platform shoud be clear and ready for MagAO-X installation
+   -  The dome jib crane should be set to "3 hairs" speed 
+
+-  XKID
+ 
+   -  If XKID is pre-cooling on the platform:
+
+      -  move the electronics to the dome floor
+      -  move the dewar to the corner of the platform
+      -  ensure cables are routed to minimize interference
+
 Rig Onto Cart
 -------------
 
@@ -245,16 +258,14 @@ Moving the Legs to the Summit
 Install MagAO-X On The Platform
 -------------------------------
 
+-  Ensure the dome jib crane is set to "3 hairs" speed
+
 -  Position the telescope so that the elevator has access to the NASE
    platform
 
--  Raise MagAO-X and the legs to the NASE platform
+-  Put MagAO-X on the NASE platform
 
--  Move the legs onto the platform, as close as possible to the
-   telescope leaving room for lifting the instrument into place.
-
--  Align the legs in X (parallel to the guider ring) so that only a
-   push in Y (towards the telescope) is needed (best effort)
+-  Put the legs on the elevator and raise it the platform
 
 -  Set the alignment pin system on the legs for receiving the
    instrument, and ensure that the platters are centered on the legs.
@@ -265,13 +276,16 @@ Install MagAO-X On The Platform
 
 -  Position a person at each corner of the instrument to stabilize it
 
--  Lift the instrument with cart into position over the
-   legs
+-  Lift the instrument with cart until it will clear the legs
+
+-  Move the legs under the instrument.
+
+-  Ensure that the table pads are centered
 
 -  While keeping the instrument level, very slowly lower it into
    position using the alignment pins.
 
--  If one side touches first platters will move and repeat last few steps until platters are centerd and pins are centered (UPDATE once/if Jack screws arrive)
+-  If one side touches first platters will move and repeat last few steps until platters are centered and pins are centered 
 
 -  Once on the legs, unload the crane to the cart weight of **320
    lbs** and re-position the load spreader for the cart
@@ -279,8 +293,6 @@ Install MagAO-X On The Platform
    .. image:: figures/inst_platform_loadspreader.png
 
    *Adjusting the load spreader for the cart.*
-
--  Now pre-load the crane again to 320 lbs.
 
 -  With the crane supporting the cart weight, remove the 4
    bolts attaching the cart to the table
@@ -311,7 +323,7 @@ Transport Electronics
 
    *The electronics rack has many delicate connectors on the side.*
 
--  strap the rack securely to the truck
+-  strap the rack securely to the truck using the D-rings (do not compresss the foam on the top with straps)
 
    .. image:: figures/electronics_pickup.jpg
 
