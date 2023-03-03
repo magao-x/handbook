@@ -337,6 +337,11 @@ Transport Electronics
 Install Electronics and Cable
 -----------------------------
 
+- If needed, unplug from UPS power outlet to free up sockets:
+   - MIKE CCD controller
+   - telescope's ADC (after retracting)
+   - others' fiber media converter
+
 -  Place the rack in position next to the instrument. Leave enough
    room behind it so that the door can open.
 
