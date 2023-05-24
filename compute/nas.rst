@@ -1,9 +1,35 @@
 Network Attached Storage
 ========================
 
-Network attached storage (NAS), sometimes simply called "the file server" is a place we can store large amounts of data that is administered by the Steward Observatory Computer Support Group for common use by astronomy research groups (while keeping the data private).
+Network attached storage (NAS), sometimes simply called "the file server" is a place we can store large amounts of data that is administered by the Steward Observatory Computer Support Group for common use.
 
 The Steward NAS is on the Steward wired network at ``matrix.as.arizona.edu`` (``10.130.133.220``) exposed over SMB/CIFS. Currently (May 2023), we are allocated 15 TB of space.
+
+Using the Steward NAS
+---------------------
+
+The easiest way to use the Steward NAS is to copy files on a MagAO-X machine to ``/srv/nas``. This path hooks up to the ``jrmales`` "share" on the NAS. The files will then be visible on any other computer with the ``/srv/nas`` mount. For organization, make a ``/srv/nas/users/<your username>`` folder to hold your files.
+
+You can also access the share from your own computer, as described in the next section.
+
+Connecting your own computer to the Steward NAS
+-----------------------------------------------
+
+Your first step should be to install :doc:`tailscale` following instructions for your operating system. Then, to connect:
+
+**macOS:** On macOS, open Finder and then go to the "Go" menu and select "Connect to Server..." (alternatively, hit command-K). The top text box accepts a URL for connection, which should be ``smb://YOURNETID@10.130.133.220/jrmales`` where ``YOURNETID`` is, well, your NetID from University of Arizona. You can "favorite" the url using the "+" button at lower left. Click "Connect". You will be prompted for a password, which is just your NetID password.
+
+This will pop open a window with the contents of the ``jrmales`` share on the NAS. You'll also have a new entry in the sidebar of your Finder window labeled ``10.130.133.220``. (Clicking that takes you to the top level list of shares, from which you can drill down into ``jrmales``.)
+
+You can also drag icons from the Finder onto a terminal to get their full path, so you can do things like::
+
+    % fitsheader /Volumes/jrmales/obs/2023A/2023-03-08_09/jdl@fastmail.com/20230309T094454_camacq_walking_in/camacq/camacq_20230309094657696886820.fits
+
+This lets you view the header of a file without explicitly copying it to the local machine first.
+
+**Linux:** You may need to install additional tools to access CIFS/SMB shares from Linux. These are usually called something like "samba" or "cifs-utils". Consult documentation for your Linux distribution or the ever-helpful Google.
+
+**Windows:** Consult Sebastiaan Haffert, Ph.D., the best Windowser in astronomy.
 
 Connecting a server to the Steward NAS
 --------------------------------------
@@ -54,22 +80,3 @@ Use ``systemctl daemon-reload`` and then ``systemctl start srv-nas.automount``. 
     drwxr-xr-x. 3 xsup magaox        17 Apr 17 16:58 ..
     drwxrwx---. 2 xsup magaox         0 Apr 24 09:43 fits
     drwxrwx---. 2 xsup magaox         0 Apr 24 09:38 obs
-
-Connecting your own computer to the Steward NAS
------------------------------------------------
-
-Your first step should be to install :doc:`tailscale` following instructions for your operating system. Then, to connect:
-
-**macOS:** On macOS, open Finder and then go to the "Go" menu and select "Connect to Server..." (alternatively, hit command-K). The top text box accepts a URL for connection, which should be ``smb://YOURNETID@10.130.133.220/jrmales`` where ``YOURNETID`` is, well, your NetID from University of Arizona. You can "favorite" the url using the "+" button at lower left. Click "Connect". You will be prompted for a password, which is just your NetID password.
-
-This will pop open a window with the contents of the ``jrmales`` share on the NAS. You'll also have a new entry in the sidebar of your Finder window labeled ``10.130.133.220``. (Clicking that takes you to the top level list of shares, from which you can drill down into ``jrmales``.)
-
-You can also drag icons from the Finder onto a terminal to get their full path, so you can do things like::
-
-    % fitsheader /Volumes/jrmales/obs/2023A/2023-03-08_09/jdl@fastmail.com/20230309T094454_camacq_walking_in/camacq/camacq_20230309094657696886820.fits
-
-This lets you view the header of a file without explicitly copying it to the local machine first.
-
-**Linux:** You may need to install additional tools to access CIFS/SMB shares from Linux. These are usually called something like "samba" or "cifs-utils". Consult documentation for your Linux distribution or the ever-helpful Google.
-
-**Windows:** Consult Sebastiaan Haffert, Ph.D., the best Windowser in astronomy.
