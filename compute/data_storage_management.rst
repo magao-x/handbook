@@ -17,7 +17,7 @@ Restoring failed drives
 ~~~~~~~~~~~~~~~~~~~~~~~
 
 If a drive has been removed and reinserted, you should check to make
-sure it’s reassembled after reboot.
+sure it's reassembled after reboot.
 
 1. Check ``/proc/mdstat`` for missing drives
 

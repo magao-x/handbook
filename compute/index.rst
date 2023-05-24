@@ -12,6 +12,9 @@ The MagAO-X computing system.
    networking
    data_storage_management
    computer_setup/computer_setup
+   ssl_certs
+   nas
+   tailscale
 
 Computer Architecture
 ---------------------
@@ -23,9 +26,8 @@ The computers that run MagAO-X are:
 -  The Adaptive optics Operator Computer (AOC) *TODO*
 
 While on the University of Arizona network, the RTC is known as
-``exao2.as.arizona.edu`` (``10.130.133.207``) and the ICC as
-``exao3.as.arizona.edu`` (``10.130.133.208``). Both ICC and RTC run
-modified Linux kernels optimized for low and predictable latency.
+``exao2.as.arizona.edu``and the ICC as
+``exao3.as.arizona.edu``. (At Las Campanas, they are ``.lco.cl``.)
 
 Real Time Controller
 ~~~~~~~~~~~~~~~~~~~~
