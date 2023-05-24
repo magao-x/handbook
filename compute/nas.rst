@@ -17,6 +17,7 @@ Or, on Ubuntu::
     apt install cifs-utils
 
 Make a new file in ``/root`` and lock down its permissions::
+
     sudo su
     cd
     touch steward_nas.credentials
@@ -39,7 +40,7 @@ These instructions are designed for a MagAO-X machine, with an ``xsup`` user acc
     # id xsup
     uid=1000(xsup) gid=1000(xsup) groups=1000(xsup),10(wheel),100(users),1011(magaox),1012(magaox-dev)
 
-Finally, put the mount information (and the large number of mount options) into ``/etc/fstab``. The line below should be modified to replace ``uid=1000,gid=1011`` with the numbers from the last step, if different. These options have the effect of making every file appear to be owned by ``xsup``/``magaox``, with permissions for all ``magaox`` group users to modify it. (This is necessary because the user database on MagAO-X is separate from the University of Arizona directory.)
+Finally, put the mount information (and the large number of mount options) into ``/etc/fstab``. The line below should be modified to replace ``uid=1000,gid=1011`` with the numbers from the last step, if different. These options have the effect of making every file appear to be owned by ``xsup``/``magaox``, with permissions for all ``magaox`` group users to modify it. (This is necessary because the user database on MagAO-X is separate from the University of Arizona directory.) ::
 
     //10.130.133.220/jrmales  /srv/nas  cifs  noauto,x-systemd.automount,nofail,x-systemd.device-timeout=10s,x-systemd.requires=network.target,vers=default,credentials=/root/steward_nas.credentials,uid=1000,gid=1011,forceuid,forcegid,file_mode=0660,dir_mode=0770  0 0
 
