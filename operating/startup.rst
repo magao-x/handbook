@@ -60,12 +60,12 @@ System Powerup
 
 4. RTC Power-On
 
-   1.  **IMPORTANT** ensure that instcool is powered on to provide
+   1.  **CRITICAL** ensure that instcool is powered on to provide
        liquid cooling to the RTC.
    2.  using the pwrGUI, power on ``comprtc``
-   3.  wait at least 90 sec to allow the motherboard KVM module to
+   3.  **IMPORTANT** wait at least 90 sec to allow the motherboard KVM module to
        initialize
-   4.  open firefox, and navigate to ``192.168.0.170``:
+   4.  open firefox, and navigate to ``192.168.0.170`` (or use the "Moxa DIO" bookmark)
    5.  login (if required, password provided to those who need it)
    6.  in the left menu, select ``I/O Setting -> DO Channels`` |image1|
    7.  in the main frame, click on ``RTC-PWR``, which will open a new
@@ -74,44 +74,61 @@ System Powerup
        selected, and check the box under Pulse Start. Then press the
        ``Submit`` button at the bottom. This remotely presses the ATX
        power button on the RTC.
-   9.  Next open a new tab in firefox, and navigate to 192.168.0.21, and
-       login (password provided to those who need it): |image3|
-   10. Press the ``Launch`` button after Remote Control: |image4|
-   11. This brings up a video display of the RTC VGA output. Use the
-       display to monitor progress. It will likely hang with a message
+   9.  **IMPORTANT** Immediately on AOC as xsup in home, run the command:
+
+       ::
+
+          [xsup@exao1 ~]$ ./jviewer-starter/jviewer-starter 192.168.0.21 &``.
+
+       Note that if you do not do this right away, the iKVM module will not register as a keyboard.
+   10. This brings up a video display of the RTC VGA output. Use the
+       display to monitor progress. It will sometimes hang with a message
        to press F1 as shown: |image5|
-   12. This message is meaningless. When this message appears, press F1.
+   11. This message is meaningless. When this message appears, press F1.
        Do NOT alter any settings. Immediately press F10 (Save Changes
        and Reset) and hit enter to say Yes. A soft keyboard can be
        brought up from the dispaly controls to facilitate these
        interactions: |image6|
-   13. Once the boot finishes, use ``nvidia-smi`` to be sure all GPUs
-       are visible (currently 3 on RTC, 1 on ICC).
-   14. If a GPU has ``fallen off the bus``, see the troubleshooting
+   12. Once the boot finishes, use ``nvidia-smi`` in a terminal on RTC to be sure all GPUs
+       are visible (currently 3 on RTC).
+   13. If a GPU has ``fallen off the bus``, see the troubleshooting
        guide for steps to take.
 
 5. ICC Power-On
 
-   1.  **IMPORTANT** ensure that instcool is powered on to provide
-       liquid cooling to the ICC.
+   1.  **CRITICAL** ensure that instcool is powered on to provide
+       liquid cooling to the ICCC.
    2.  using the pwrGUI, power on ``compicc``
-   3.  wait at least 90 sec to allow the motherboard KVM module to
+   3.  **IMPORTANT** wait at least 90 sec to allow the motherboard KVM module to
        initialize
-   4.  open firefox, and navigate to 192.168.0.170
+   4.  open firefox, and navigate to ``192.168.0.170`` (or use the "Moxa DIO" bookmark)
    5.  login (if required, password provided to those who need it)
-   6.  in the left menu, select ``I/O Setting -> DO Channels``
+   6.  in the left menu, select ``I/O Setting -> DO Channels`` |image1|
    7.  in the main frame, click on ``ICC-PWR``, which will open a new
-       window
-   8.  under 1. Current Setting, ensure that ``Pulse Output`` is
+       window: |image2|
+   8.  Under [1. Current Setting], ensure that ``Pulse Output`` is
        selected, and check the box under Pulse Start. Then press the
        ``Submit`` button at the bottom. This remotely presses the ATX
-       power button on the ICC.
-   9.  Next open a new tab in firefox, and navigate to 192.168.0.22, and
-       login (password provided to those who need it)
-   10. Press the ``Launch`` button after Remote Control. This brings up
-       a video display of the ICC VGA output.
-   11. Use the display to monitor progress. ICC should progress to the
-       loging prompt without incident.
+       power button on the RTC.
+   9.  **IMPORTANT** Immediately on AOC as xsup in home, run the command:
+
+       ::
+
+          [xsup@exao1 ~]$ ./jviewer-starter/jviewer-starter 192.168.0.22 &``.
+
+       Note that if you do not do this right away, the iKVM module will not register as a keyboard.
+   10. This brings up a video display of the ICC VGA output. Use the
+       display to monitor progress. It will sometimes hang with a message
+       to press F1 as shown: |image5|
+   11. This message is meaningless. When this message appears, press F1.
+       Do NOT alter any settings. Immediately press F10 (Save Changes
+       and Reset) and hit enter to say Yes. A soft keyboard can be
+       brought up from the dispaly controls to facilitate these
+       interactions: |image6|
+   12. Once the boot finishes, use ``nvidia-smi`` in a terminal on ICC to be sure all GPUs
+       are visible (currently 1 on ICC).
+   13. If a GPU has ``fallen off the bus``, see the troubleshooting
+       guide for steps to take.
 
 Software Startup
 ----------------
@@ -120,16 +137,14 @@ Software Startup
 
    -  ssh to RTC with ``ssh rtc``
 
-   -  First start cacao ``dmcomb`` processes. Woofer first, then
-      tweeter. Note that these startup scripts are located in xsup’s
-      home directory.
+   -  First start cacao processes. This is done with a startup script in the cacao directory:
 
       ::
 
-         [xsup@exao2 ~]$ bash ./cacao_startup_woofer.sh
-         [xsup@exao2 ~]$ bash ./cacao_startup_tweeter.sh
+         [xsup@exao2 ~]$ cd /opt/MagAOX/cacao
+         [xsup@exao2 cacao]$ bash ./startup.sh
 
-   -  Use fpsCTRL to verify that both dmcombs are running:
+   -  Use ``milk-fpsCTRL`` to verify that both ``dmch2disp-00`` and ``dmch2disp-01`` are running:
 
    -  Now start MagAO-X
 
@@ -141,18 +156,14 @@ Software Startup
 
 2. ICC
 
-   -  ssh to ICC with ``ssh icc``
-
-   -  First start cacao ``dmcomb`` processes for the dmncpc. Note that
-      these startup scripts are located in xsup’s home directory.
+   -  First start cacao processes. This is done with a startup script in the cacao directory:
 
       ::
 
-         [xsup@exao3 ~]$ cd /opt/MagAOX/cacao/working/ncpc_mwfs
-         [xsup@exao3 ncpc_mwfs]$ source cacaovars.ncpc_mwfs.bash
-         [xsup@exao3 ncpc_mwfs]$ cacao-setup ncpc_mwfs
+         [xsup@exao3 ~]$ cd /opt/MagAOX/cacao
+         [xsup@exao3 cacao]$ bash ./startup.sh
 
-   -  Use fpsCTRL to verify that the dmcomb is running:
+   -  Use ``milk-fpsCTRL`` to verify that ``dmch2disp-02`` is running:
 
    -  Now start MagAO-X
 
@@ -166,70 +177,27 @@ Software Startup
    correctly, and/or need to be re-done. Symptoms include not seeing
    either RTC or ICC (or both) processes in INDI on AOC, or crashed
    xindiserver processes (isICC or isRTC). The cause is elusive. The fix
-   is to shutdown and restart MagAO-X software (``xctrl shutdown``) on
+   is to shutdown and restart MagAO-X software (``xctrl shutdown --all``) on
    each machine – possibly also on AOC. You do not need to shutdown the
    cacao processes.
 
 GUI Setup
 ---------
 
-To setup the GUIs on exao1 (AOC) as user ``xsup``:
-
-1. If not already done, open the power control GUI:
+To setup the GUIs on exao1 (AOC) as user ``xsup``, run the command:
 
    ::
 
-      [xsup@exao1 ~]$ pwrGUI &
+      [xsup@exao1 ~]$ magaox_guis.sh
 
-2. For each of the 3 DMs:
-
-   -  woofer:
-
-      ::
-
-         [xsup@exao1 ~]$ dmCtrlGUI dmwoofer &
-         [xsup@exao1 ~]$ bash dmdisp.sh woofer &
-         [xsup@exao1 ~]$ bash dmnorm.sh woofer &
-
-   **Note:** that the script argument is different from the dmCtrlGUI
-   command. (TODO: this needs to be normalized, and these scripts need
-   to be made better).
-
-   -  tweeter:
-
-      ::
-
-         [xsup@exao1 ~]$ dmCtrlGUI dmtweeter &
-         [xsup@exao1 ~]$ bash dmdisp.sh tweeter &
-         [xsup@exao1 ~]$ bash dmnorm.sh tweeter &
-
-   -  ncpc:
-
-      ::
-
-         [xsup@exao1 ~]$ dmCtrlGUI dmncpc &
-         [xsup@exao1 ~]$ bash dmdisp.sh ncpc &
-         [xsup@exao1 ~]$ bash dmnorm.sh ncpc &
-
-3. Launch camera viewers, e.g. for ``camwfs`` and ``camsci1``:
+Some windows will need to be rearranged.  The DM displays should self-normalize.  If they do not, the following command should fix it:
 
    ::
 
-      [xsup@exao1 ~]$ rtimv -c rtimv_camwfs.conf & 
-      [xsup@exao1 ~]$ rtimv -c rtimv_camsci1.conf &
+      [xsup@exao1 ~]$ bash dmnorm.sh tweeter &
 
-   These commands are using configuration files specific to each camera.
-   Continue for ``camsci2``, ``camlowfs``, ``camtip``, and ``camacq``.
+where you replace `tweeter` with either `woofer` or `ncpc` as necessary.
 
-   **Note:** This needs to read shmims, and should be run as ``xsup`` if
-   you’re not logged in as ``xsup`` already (i.e. ``xsupify`` before
-   running ``rtimv``).
-
-4. Launch ``pupilGuideGUI``
-
-   ::
-
-      [xsup@exao1 ~]$ pupilGuideGUI
 
 Preparing For Operation
 -----------------------
