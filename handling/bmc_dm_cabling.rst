@@ -1,5 +1,7 @@
-Decabling and recabling of Boston Micromachines deformable mirror
+MEMS DM Cabling
 =================================================================
+
+Instructions for cabling and de-cabling the BMC MEMS deformable mirrors in MagAO-X.
 
 Use gloves, hairnets, masks, and gowns in addition to the precautions below while handling the deformable mirror cables.
 
@@ -87,6 +89,23 @@ Cover the connection plates on the electronics rack.
 Reconnecting BMC ribbon cables
 ------------------------------
 
+Required workers: 2 minimum, 3 preferred.
+
+Required equipment:
+
+    - grounding system connected
+    - hex drivers
+    - small flathead screwdriver (to use as a pry-bar)
+    - needle nose pliers (smaller the better, for stuck pin removal)
+    - Cleanroom gown, cap, mask, gloves for each worker
+    - clean N2 spray gun
+    - Isopropyl
+    - Acetone
+    - Lint free wipes
+
+
+**Are you grounded? Is your assistant grounded? Verify that unbuttoning the grounding strap lead causes the ESD monitor to alarm.**
+
 The detailed procedure is described in section 3.2 of MagAO-X PSR Document :download:`2.2 Deformable Mirrors <../appendices/psr/2_2_Deformable_Mirrors.pdf>`.
 
 One extra tip: each set of ribbon cables has a large and legible letter designation, and a much smaller letter/number/letter designation.
@@ -101,5 +120,9 @@ If you're holding a cable that says "E" on it, inspect the end of the cable to s
 
 .. image:: figures/bmc_letter_small_plate.jpg
     :width: 50%
+
+If a pin sticks, very carefully pull it out using needle nose pliers.  Do not drop it.  Insert it back into the removable connector in the same orientation.
+
+If removable connector is stuck and can't be removed with fingers, very carefully use a small flathead screwdriver to pry it off from one side.  Do not allow the screw driver to touch any contacts.
 
 Finish by checking actuator functionality, following `this notebook on the RTC <https://github.com/magao-x/magpyx/blob/master/notebooks/connection_doctor_example.ipynb>`_
