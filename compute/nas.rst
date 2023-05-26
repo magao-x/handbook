@@ -29,7 +29,7 @@ This lets you view the header of a file without explicitly copying it to the loc
 
 **Linux:** You may need to install additional tools to access CIFS/SMB shares from Linux. These are usually called something like "samba" or "cifs-utils". Consult documentation for your Linux distribution or the ever-helpful Google.
 
-**Windows:** Consult Sebastiaan Haffert, Ph.D., the best Windowser in astronomy.
+**Windows:** Open a Windows Explorer window (e.g. your Documents folder) and click in the address bar. Type in ``\\10.130.133.220\jrmales`` to provoke a login window to appear. In the username field, enter ``YOURNETID@arizona.edu``, and in the password field use the NetID password. Upon successful authentication, the window will show the contents of the ``jrmales`` share on the Steward NAS.
 
 Connecting a server to the Steward NAS
 --------------------------------------
