@@ -11,15 +11,9 @@ involved. To set up a new instrument computer, follow the steps below.
 Once the BIOS and OS are setup, you can `run the provisioning
 scripts <#run-provisioning-scripts>`__.
 
-The instrument computers use CentOS 7 for two reasons:
-
--  It has a long window of support, and will receive security and
-   bug-fix updates `until June 30,
-   2024 <https://en.wikipedia.org/wiki/CentOS#End-of-support_schedule>`__.
--  It (or, equivalently, RHEL 7) is a supported platform for our more
-   niche hardware like DMs and framegrabbers.
-
 Once the hardware has been connected up, setup proceeds as follows.
+
+**Important note about reinstalls vs. fresh installs:** At this point in the project, we are unlikely to have a completely fresh set of hardware and drives to set up. The below instructions were written under that assumption, so take care not to perform destructive actions like repartitioning on drives with data you want to keep. See :ref:`migration` for examples of what those data might be.
 
 BIOS
 ----
@@ -27,6 +21,8 @@ BIOS
 For a new main board, the BIOS should be updated to the latest version.
 This is necessary to ensure that the USB ports behave properly, as well
 as to ensure that the iKVM module works.
+
+The following settings should also be changed within the BIOS setup menu (reboot, then press F1 when prompted to enter).
 
 For all of AOC/ICC/RTC
 ~~~~~~~~~~~~~~~~~~~~~~
@@ -80,57 +76,24 @@ For ICC/RTC
 OS Installation
 ---------------
 
-Boot into CentOS 7 x86_64 install media (ISOs
-`here <http://isoredirect.centos.org/centos/7/isos/x86_64/>`__) and
-proceed with interactive installation following these choices.
+The computers in MagAO-X run Rocky Linux 9.
 
-Language
-~~~~~~~~
+**Workstations:** If you are installing a workstation, go to https://rockylinux.org/alternative-images and download the appropriate KDE ISO (x86_64, version 9). (**Note:** As of July 27, 2023, when you get to the desktop there is a message about the KDE Connect daemon crashing immediately after boot. It can be safely ignored.)
 
-Language: English (United States)
+**Rack computers:** If you are installing one of the rack computers, go to https://rockylinux.org/download and download the appropriate minimal ISO (x86_64, version 9).
+
+Burn it to a USB drive using Balena Etcher, or ``dd``, or similar. Reboot, choosing to enter BIOS setup (F1 key when prompted), then use the arrow keys to switch over to the boot menu. Make your USB device the first-choice boot device. Use F10 to save and exit BIOS and boot. Choose to install Rocky Linux with the arrow keys and hit enter to select.
+
+**Workstations:** Double-click the "Install to Hard Drive" icon at upper left.
+
+**Rack computers:** The image will boot directly into the installer. The installer is graphical, so use the iKVM or a connected VGA monitor plus keyboard and mouse to continue.
+
+At the prompt choose "English (United States)" as the language for the installer. After clicking "Continue" you'll be at the ``Installation Summary`` page. Click on the following headings to make configuration changes before beginning installation:
 
 Network & Hostname
 ~~~~~~~~~~~~~~~~~~
 
-In the box at lower left, fill in the machine name (i.e. ``exao1`` for
-AOC, ``exao2`` for RTC, ``exao3`` for ICC).
-
-For each Ethernet controller listed on the left, click to select and
-click “Configure” to bring up the settings, and select the “IPv4
-Settings” panel.
-
-If the IP address in the table from `the Networking
-Doc <../networking.md>`__ is not “n/a (DHCP)”, select Method: “Manual”
-from the dropdown under “IPv4 Settings”.
-
-In the “Addresses” panel, click “Add” and enter the appropriate address
-from `the Networking Doc <../networking.md>`__ table under “Network
-Connections”.
-
-To confirm the link works, ``Ctrl-Alt-F2`` gets you to a command prompt.
-
-Try pinging Google:
-
-::
-
-   $ ping 8.8.8.8
-   ...
-   # Hit Ctrl-C after a few seconds
-   ^C
-
-Verify “0% packet loss”.
-
-And the MagAO-X internal router:
-
-::
-
-   $ ping 192.168.0.1
-   # Hit Ctrl-C after a few seconds
-   ^C
-
-Verify “0% packet loss”.
-
-To return to the main installer, hit ``Ctrl-Alt-F6``.
+In the box at lower left, fill in the machine name (i.e. ``exao1`` for AOC, ``exao2`` for RTC, ``exao3`` for ICC). Configuring network adapters will happen after installation, once we change how the adapter names are selected.
 
 Date & Time
 ~~~~~~~~~~~
@@ -144,7 +107,7 @@ Partitions
 -  Select “I will configure partitioning”
 -  On 2x 512 drives:
 
-   -  500 MiB ``/boot`` - RAID 1
+   -  1 GiB ``/boot`` - RAID 1
    -  16 GiB swap - RAID 1
    -  The rest as ``/`` - RAID 1
 
@@ -169,7 +132,7 @@ Detailed steps
 -  Then press ``+`` button:
 
    -  Mount Point: ``/boot``
-   -  Desired Capacity: ``500 MiB``
+   -  Desired Capacity: ``1 GiB``
    -  Now press ``Modify``
 
       -  Select the 2x 500 GB O/S drives (Ctrl-click)
@@ -239,12 +202,6 @@ From the list on the Left:
 
 -  Select “Minimal install”
 
-From the list on the right:
-
--  Select “Development Tools”
--  Select “Debugging Tools”
--  Select “System Administration Tools”
-
 **AOC:**
 
 From the list on the Left:
@@ -261,8 +218,8 @@ Begin the installation
 Users
 ~~~~~
 
--  Set ``root`` password
--  Create normal (admin) user account for use after reboot
+-  Set ``root`` password, choose to ``Lock root account`` so it cannot be used to log in
+-  Create ``xdev`` user account (full name "MagAO-X Developer", but xdev to friends) for use after reboot. Use the usual password. **Check "Make this user administrator".**
 
 After OS installation
 ---------------------
@@ -275,7 +232,7 @@ Update
 ~~~~~~
 
 -  Log in as ``root``
--  Run ``yum update -y``
+-  Run ``dnf update -y``. You may also be prompted to accept some signing keys with ``y``.
 
 Check RAID status
 ~~~~~~~~~~~~~~~~~
@@ -291,32 +248,21 @@ SystemD, udev, and Dell have conspired to implement something called
 “predictable network interface names” that could more accurately be
 called “unpredictable network interface names”.
 
-To prevent the network interface names from changing every time we move
-a PCIe card in our instrument, we use the almost-undocumented `Scheme
-4 <https://access.redhat.com/documentation/en-us/red_hat_enterprise_linux/7/html/networking_guide/ch-consistent_network_device_naming#sec-Naming_Schemes_Hierarchy>`__
-naming scheme, where the entire hardware MAC address is placed in the
-interface name to guarantee it never changes.
+**Rocky 9.2:**
 
-To enable this scheme, follow the procedure from `this ServerFault
-answer <https://serverfault.com/a/981965/45043>`__.
+The old way seems to have gone, but there are now ""`SystemD Link Files <https://access.redhat.com/documentation/en-us/red_hat_enterprise_linux/9/html/configuring_and_managing_networking/consistent-network-interface-device-naming_configuring-and-managing-networking#assigning-additional-names-to-network-interface-using-systemd-link-files_consistent-network-interface-device-naming>`_"?
 
-1. ``sudo cp /usr/lib/udev/rules.d/80-net-name-slot.rules /etc/udev/rules.d``
+1. ``sudo mkdir -p /etc/systemd/network && sudo vim /etc/systemd/network/10-ethernet-mac-addr-names.link``
 
-2. Edit ``/etc/udev/rules.d/80-net-name-slot.rules`` to replace
+2. Enter, for example::
 
-   ::
+      [Match]
+      OriginalName=*
 
-      NAME=="", ENV{ID_NET_NAME_ONBOARD}!="", NAME="$env{ID_NET_NAME_ONBOARD}"
-      NAME=="", ENV{ID_NET_NAME_SLOT}!="", NAME="$env{ID_NET_NAME_SLOT}"
-      NAME=="", ENV{ID_NET_NAME_PATH}!="", NAME="$env{ID_NET_NAME_PATH}"
+      [Link]
+      NamePolicy=mac
 
-   with
-
-   ::
-
-      NAME=="", ENV{ID_NET_NAME_MAC}!="", NAME="$env{ID_NET_NAME_MAC}"
-
-3. **Reboot**
+3. **Reboot and verify the existence of /dev/en<hex mac>**
 
 Configure network connections
 ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
@@ -328,39 +274,9 @@ a seat at the computer. (However, this happens much less often than
 rearranging GPUs and confusing NetworkManager with renumbered ``enXpY``
 devices.)
 
--  Use ``ip a`` or ``nmcli`` to verify the new network names. For
-   example, this ``nmcli`` output is from RTC:
+-  Use ``ip a`` or ``nmcli`` to verify the new network names.
 
-   ::
-
-      $ nmcli
-      enx2cfda1c6db1b: connected to www-lco
-          "Intel I210"
-          ethernet (igb), 2C:FD:A1:C6:DB:1B, hw, mtu 1500
-          ip4 default
-          inet4 200.28.147.222/24
-          route4 200.28.147.0/24
-          route4 0.0.0.0/0
-          inet6 fe80::e645:b705:d502:3b34/64
-          route6 fe80::/64
-          route6 ff00::/8
-
-      enx2cfda1c6db1a: connected to instrument
-              "Intel I210"
-              ethernet (igb), 2C:FD:A1:C6:DB:1A, hw, mtu 1500
-              inet4 192.168.0.11/24
-              route4 192.168.0.0/24
-              inet6 fe80::58e3:d9ad:61be:f235/64
-              route6 fe80::/64
-              route6 ff00::/8
-      [...]
-
--  **If the strings ``connected to www-lco`` or ``www-ua``, and
-   ``connected to instrument`` appear in the ``nmcli`` output, you may
-   be finished.** If the connection profiles do not automatically find
-   the renamed devices, read on.
-
--  Unplug the instrument and other interfaces and run ``nmcli`` again,
+-  Unplug the ``instrument`` and other interfaces and run ``nmcli`` again,
    noting which of the interfaces shows up as connected
 
 -  Copy the full name (``enxaabbccddeeff``) of the interface that is
@@ -370,8 +286,7 @@ devices.)
    there is only ``www-ua``, ``www-lco``, and ``instrument`` (**Note:**
    ICC has ``icc-to-rtc`` and RTC has ``rtc-to-icc`` to configure, which
    are a pair of NICs for low-latency transfer. ICC additionally has
-   ``camsci1`` and ``camsci2``. Until we rewrite this document, consult
-   the Networking doc for their config.)
+   ``camsci1`` and ``camsci2``. Consult the :doc:`../networking` doc for their config.)
 
 -  Edit the ``www-*`` connections to ensure the “Device” field is set to
    the interface name you just copied
@@ -397,10 +312,12 @@ devices.)
 
    -  Under ``IPv4 CONFIGURATION`` ensure
       ``Never use this network for default route`` is **not** checked
-   -  At the bottom of the list, ensure ``Automatically connect`` and
-      ``Available to all users`` **are** checked
+   -  At the bottom of the list, ensure ``Available to all users`` **is** checked
+   -  Ensure ``Automatically connect`` **is** checked, unless you are at the telescope
 
--  Repeat for ``www-lco``
+-  Highlight ``www-lco`` and hit ``Enter``
+
+   -  At the bottom of the list, ensure ``Automatically connect`` is **not** checked (unless you are at the telescope)
 
 -  Trust connections internal to the instrument:
    ``sudo nmcli con modify instrument connection.zone trusted``
@@ -432,8 +349,15 @@ devices.)
               route6 fe80::/64
 
 -  Verify that the internet is reachable from the instrument
-   (e.g. ``ping 8.8.8.8``) and the new config works to ping the machine
+   (e.g. ``ping 8.8.8.8``) and the new config works to ping the machine
    from outside
+
+Configure Tailscale
+~~~~~~~~~~~~~~~~~~~
+
+See the :doc:`../tailscale` section of the handbook for install instructions.
+
+If this is a migration from an old install, you will need ``/var/lib/tailscale/tailscaled.state`` from the old machine. See :ref:`migration`.
 
 Configure ``/data`` array options
 ---------------------------------
@@ -453,8 +377,12 @@ Setup ssh
 -  Now configure ``sshd``. Do this by editing ``/etc/ssh/sshd_config``
    as follows:
 
-   Allow only ecdsa and ed25519:
-   ``#HostKey /etc/ssh/ssh_host_rsa_key   #HostKey /etc/ssh/ssh_host_dsa_key   HostKey /etc/ssh/ssh_host_ecdsa_key   HostKey /etc/ssh/ssh_host_ed25519_key``
+   Allow only ecdsa and ed25519::
+
+      #HostKey /etc/ssh/ssh_host_rsa_key
+      #HostKey /etc/ssh/ssh_host_dsa_key
+      HostKey /etc/ssh/ssh_host_ecdsa_key
+      HostKey /etc/ssh/ssh_host_ed25519_key``
 
    Disable password authentication: ``PasswordAuthentication no``
 
@@ -640,10 +568,12 @@ so ``source /etc/profile.d/*.sh`` to keep working in the same terminal
 Perform ``xsup`` key management
 -------------------------------
 
-A new installation will generate new SSH keys for ``xsup``. If you have
+A new installation will generate new SSH keys for ``xsup``.
+
+If you have
 an existing ``.ssh`` folder for the machine role (ICC, RTC, AOC) you’re
 setting up, you can just copy its contents over the new
-``/home/xsup/.ssh/`` (taking care not to change permissions).
+``/home/xsup/.ssh/`` (taking care not to change permissions). See :ref:`migration`.
 
 If not, you must ensure passwordless SSH works bidirectionally by
 installing other servers’ ``xsup`` keys and installing your own in their
@@ -690,3 +620,17 @@ Verify bootloader installation / RAID correctness
 -  Shutdown, pop **all** data drives
 -  Ensure boot proceeds without dropping to recovery prompt
 -  Replace all data drives, boot with everything in place
+
+.. _migration:
+
+Migrating data from a previous installation
+-------------------------------------------
+
+There are several very important files to retain when reinstalling the operating system.
+
+  - ``/var/lib/tailscale/tailscaled.state`` -- this file allows the machine to keep its name and IP address on the tailnet
+  - ``/etc/ssh/ssh_host_*_key*`` -- these files allow clients to connect over SSH without triggering a scary warning and requiring manual intervention
+  - ``/home/xsup/.ssh/{authorized_keys,id_ed25519,id_ed25519.pub,known_hosts}`` -- these files allow ``xsup`` to connect to other MagAO-X machines without prompting for host key verification
+  - ``/etc/{passwd,group,shadow}`` -- these files contain the UID and GID mappings and user passwords to restore
+
+You may additionally want to back up the user home directories to retain their configuration files, though they should store data on the `/data` partition.

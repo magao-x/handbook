@@ -23,11 +23,11 @@ The computers that run MagAO-X are:
 
 -  The Instrument Control Computer (ICC)
 -  The Real Time control Computer (RTC)
--  The Adaptive optics Operator Computer (AOC) *TODO*
+-  The Adaptive optics Operator Computer (AOC)
 
-While on the University of Arizona network, the RTC is known as
-``exao2.as.arizona.edu``and the ICC as
-``exao3.as.arizona.edu``. (At Las Campanas, they are ``.lco.cl``.)
+We use Rocky Linux 9 because it is based on Red Hat Enterprise Linux, which our vendors sort-of support. However, Red Hat no longer supports the KDE graphical desktop environment we use, which leaves us in a bit of a pickle.
+
+For consistency, we use Rocky Linux 9 with KDE on our operator workstation (AOC), and Rocky Linux 9 server on ICC and RTC, which are used headless.
 
 Real Time Controller
 ~~~~~~~~~~~~~~~~~~~~
