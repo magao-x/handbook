@@ -8,6 +8,21 @@ their roles. For reference:
 -  ``exao2`` — RTC
 -  ``exao3`` — ICC
 
+Topology
+--------
+
+**University of Arizona**
+
+.. figure:: ua_network.svg
+   :alt: Schematic representation of the connections between our lab computers when at home at University of Arizona
+
+   Schematic representation of the connections between our lab computers when at home at University of Arizona
+
+
+**Las Campanas Observatory**
+
+TODO
+
 Ubuntu and NetworkManager and ufw and firewalld
 -----------------------------------------------
 
