@@ -100,7 +100,9 @@ fwfpm position: `lyotlg`
      
 Lyot Stops
 +++++++++++++++++++++++++++++    
-     
+We have experimented with three Lyot stops with different characteristics.  The labels "Large" and "Small" here refer to the clear aperture, i.e. large means a large clear aperture and therefore higher throughput.  In practice we have used only `LyotLg1` for observations. `LyotSm` is
+presently removed from the instrument.
+
 .. list-table:: Lyot Stops
    :header-rows: 1
   
