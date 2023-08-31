@@ -39,6 +39,7 @@ The first thing to do after creating the VM is to stop it (which is just like sh
    $ multipass stop
    $ multipass set local.primary.disk=20GiB
    $ multipass set local.primary.cpus=4
+   $ multipass set local.primary.memory=8G
 
 This ensures you have enough space in the VM to install the MagAO-X software. (You can change the number of CPUs allocated to the VM to a number other than four if you want.)
 
