@@ -1,7 +1,11 @@
-Virtual machine for remote operation
-====================================
+Running MagAO-X from your own computer
+======================================
 
-MagAO-X can be operated entirely remotely as long as the prerequisites (power, dry air, networking) are met. The easiest way to adjust settings is with the web UI, but for full control you will want a virtual machine (VM).
+MagAO-X can be operated entirely remotely as long as the prerequisites (power, dry air, networking) are met. The easiest way to adjust settings is with the web UI, but for full control you will want to set up the various other GUIs.
+
+If you use Linux for day-to-day computing (and it's either Ubuntu 22.04 or Rocky/CentOS/RHEL 9) you can use the automated provisioning scripts to install the GUIs directly on your machine, following the instructions beginning at :ref:`automated_provisioning`. When prompted by ``pre_provision.sh``, choose ``workstation`` as the role. (For other distributions and versions of Linux, anything's possible with enough effort, but automated provisioning scripts will only be useful as a guide.)
+
+If you do not run Linux (or you run Linux but prefer to keep your system pristine) this document explains how to install MagAO-X in a virtual machine (VM). The VM can then be deleted and recreated as many times as you like without interfering with your host machine.
 
 Configuring the virtual machine is done from the command line. Example commands are shown after a ``$`` or ``ubuntu@primary:~$`` (which you don't type yourself as part of the command), and output is on un-prefixed lines.
 

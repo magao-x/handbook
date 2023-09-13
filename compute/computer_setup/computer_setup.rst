@@ -473,6 +473,8 @@ goes wrong, so make sure it’s working!**
     1. ``sudo yum install -y yum-versionlock``
     2. ``sudo yum versionlock kernel kernel-headers kernel-devel``
 
+.. _automated_provisioning:
+
 Perform (mostly) automated provisioning
 ---------------------------------------
 
