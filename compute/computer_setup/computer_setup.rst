@@ -388,6 +388,11 @@ Setup ssh
 
 -  And finally, restart the sshd ``systemctl restart sshd``
 
+Setup network attached storage (NAS)
+------------------------------------
+
+Follow the steps in :doc:`../nas` to create the ``/srv/nas`` mount.
+
 AOC only: GPU drivers setup
 ---------------------------
 
