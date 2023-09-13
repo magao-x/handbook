@@ -1,5 +1,5 @@
-Remote operation
-================
+Virtual machine for remote operation
+====================================
 
 MagAO-X can be operated entirely remotely as long as the prerequisites (power, dry air, networking) are met. The easiest way to adjust settings is with the web UI, but for full control you will want a virtual machine (VM).
 

@@ -2,8 +2,7 @@ Instrument computer setup guide
 ===============================
 
 The setup process for the instrument computers (ICC, RTC, AOC) is
-automated (to the extent possible) by scripts in the
-```setup/`` <https://github.com/magao-x/MagAOX/tree/master/setup>`__
+automated (to the extent possible) by scripts in the ``setup/``
 folder of `magao-x/MagAOX <https://github.com/magao-x/MagAOX>`__.
 
 Unfortunately, not *everything* can be automated when real hardware is
@@ -13,7 +12,7 @@ scripts <#run-provisioning-scripts>`__.
 
 Once the hardware has been connected up, setup proceeds as follows.
 
-**Important note about reinstalls vs. fresh installs:** At this point in the project, we are unlikely to have a completely fresh set of hardware and drives to set up. The below instructions were written under that assumption, so take care not to perform destructive actions like repartitioning on drives with data you want to keep. See :ref:`migration` for examples of what those data might be.
+**Important note about reinstalls vs. fresh installs:** At this point in the project, we are unlikely to have a completely fresh set of hardware and drives to set up. The below instructions were written under the assumption of a fresh install, so take care not to perform destructive actions like repartitioning on drives with data you want to **keep**. See :ref:`migration` for examples of what those data might be.
 
 BIOS
 ----
