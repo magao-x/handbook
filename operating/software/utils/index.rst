@@ -14,3 +14,4 @@ Utilities
     indiserver
     eyedoctor
     fdpr
+    shmimTCP
