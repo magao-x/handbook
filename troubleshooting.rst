@@ -258,15 +258,14 @@ controller software, e.g. for the woofer:
    -  Follow procedure for computer reboot. Ensure all hardware is in a
       safe condition, including powered-off if needed, before rebooting.
 
-EDT Framegrabber Problems (camwfs and camlowfs)
+EDT Framegrabber Problems (camwfs)
 ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
 
 The EDT PCIe framegrabber occassionally stops responding. The main
 symptom of this is no data from ``camwfs``, and no response on the
-serial over camera link. This has not yet been observed on ``camlowfs``
-(which does not use serial over C.L.).
+serial over camera link. 
 
-If ``camwfs`` (or any EDT camera) stops responding on serial, first
+If ``camwfs`` stops responding on serial (evident in logs, probably frame corruption), first
 shutdown the controlling application.
 
 .. code-block:: bash
@@ -305,7 +304,7 @@ If ``camsci1`` and/or ``camsci2`` stop responding, first attempt to restart the 
 
 1. Turn power off for both cameras.  Note that you will not be able to verify detector temperature but this can not be avoided.
 2. Stop both ``camsci`` control processes.  Either use xctrl or go to the tmux session and use ctrl-c.
-3. In a terminal on ICC, go to ``/opt/MagAOX/source/MagAOX/apps/picamCtrl`` and run the script "cleanPI.sh".  This removes lock files.
+3. In a terminal on ICC, go to ``/opt/MagAOX/source/MagAOX/apps/picamCtrl`` and run the script ``cleanPI.sh`` as root.  This removes lock files.
 4. Re-start both control processes.
 5. Power up both cameras
 
@@ -354,3 +353,24 @@ Difficulties with NVIDIA proprietary drivers
    temporary files that the installer didn't create and is too polite
    to remove.)
 
+Computer Fails to Boot
+~~~~~~~~~~~~~~~~~~~~~~
+
+There may be several reasons for this.  
+
+Examples with known fixes:
+^^^^^^^^^^^^^^^^^^^^^^^^^^
+
+- Startup screen frozen at "initalizing" and Q-Code A9
+
+  - This probably means that the BIOS has lost its setup, and is trying to use a GPU for video display
+  - Shutdown and fully power down. 
+  - If you have a new mobo CR2032 battery, replace it now
+  - Remove GPUs (i.e. by disconnecting the PCIe expansion cable from the host card on the mobo).
+  - Install the VGA cable on the mobo (see manual for location)
+  - Alternatively, you may be able to plug a monitor into the GPU
+  - Boot, and press the del key over and over again until you see "Enter Setup" in the lower right corner.
+  - Follow the BIOS setup guide
+  - Reboot (F10, save settings).
+  - Now shutdown, fully power down, and reinstall/reconnect all GPUS.
+  - Reboot.
