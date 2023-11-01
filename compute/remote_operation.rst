@@ -133,12 +133,12 @@ Before you can remotely control MagAO-X, a little post-provisioning
 configuration is required. You must have a user account on MagAO-X with
 an SSH key file configured. For the preconfigured tunnels to work, that key must not have a passphrase.
 
-If you have a key pair named ``id_ed25519`` in your computer's ``~/.ssh/`` folder, this appears at ``~/Home/.ssh/`` in the VM. Copy it into place::
+If you have a key pair in your computer's ``~/.ssh/`` folder, this appears at ``~/Home/.ssh/`` in the VM. (Note: RSA keys are not allowed.) Copy it into place::
 
 
    $ multipass shell
-   ubuntu@primary:~$ cp ~/Home/.ssh/id_ed25519 ~/.ssh/id_ed25519
-   ubuntu@primary:~$ chmod 600 ~/.ssh/id_ed25519
+   ubuntu@primary:~$ cp ~/Home/.ssh/id_* ~/.ssh/
+   ubuntu@primary:~$ chmod u=r,g=,o= ~/.ssh/id_*
 
 Next, you will need to edit the VM's ``~/.ssh/config`` file to add your username. Open a text editor::
 
