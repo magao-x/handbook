@@ -77,7 +77,7 @@ OS Installation
 
 The computers in MagAO-X run Rocky Linux 9.
 
-**Workstations:** If you are installing a workstation, go to https://rockylinux.org/alternative-images and download the appropriate KDE ISO (x86_64, version 9). (**Note:** As of July 27, 2023, when you get to the desktop there is a message about the KDE Connect daemon crashing immediately after boot. It can be safely ignored.)
+**Workstations:** If you are installing a workstation, go to https://rockylinux.org/alternative-images and download the appropriate KDE ISO (x86_64, version 9). (**Note:** As of July 27, 2023, when you get to the installer desktop there is a message about the KDE Connect daemon crashing immediately after boot. It can be safely ignored.)
 
 **Rack computers:** If you are installing one of the rack computers, go to https://rockylinux.org/download and download the appropriate minimal ISO (x86_64, version 9).
 
@@ -232,6 +232,7 @@ Update
 
 -  Log in as ``root``
 -  Run ``dnf update -y``. You may also be prompted to accept some signing keys with ``y``.
+-  Install a few essentials ``dnf install -y git tmux vim nano curl``
 
 Check RAID status
 ~~~~~~~~~~~~~~~~~
@@ -358,6 +359,10 @@ See the :doc:`../tailscale` section of the handbook for install instructions.
 
 If this is a migration from an old install, you will need ``/var/lib/tailscale/tailscaled.state`` from the old machine. See :ref:`migration`.
 
+You should also trust the `tailscale0` interface in the firewall::
+
+   sudo firewall-cmd --zone trusted --add-interface tailscale0 && sudo firewall-cmd --zone trusted --add-interface tailscale0 --permanent
+
 Configure ``/data`` array options
 ---------------------------------
 
@@ -373,19 +378,11 @@ Setup ssh
 -  Install a key for at least one user in their ``.ssh`` folder, and
    make sure they can log in with it without requiring a password.
 
--  Now configure ``sshd``. Do this by editing ``/etc/ssh/sshd_config``
-   as follows:
+-  Now configure ``sshd`` to require key-based authentication. Do this by creating a file with ``sudo vim /etc/ssh/sshd_config.d/disable_password.conf``::
 
-   Allow only ecdsa and ed25519::
+      PasswordAuthentication no
 
-      #HostKey /etc/ssh/ssh_host_rsa_key
-      #HostKey /etc/ssh/ssh_host_dsa_key
-      HostKey /etc/ssh/ssh_host_ecdsa_key
-      HostKey /etc/ssh/ssh_host_ed25519_key``
-
-   Disable password authentication: ``PasswordAuthentication no``
-
--  And finally, restart the sshd ``systemctl restart sshd``
+-  And finally, reload the sshd ``systemctl reload sshd``
 
 Setup network attached storage (NAS)
 ------------------------------------
@@ -638,5 +635,6 @@ There are several very important files to retain when reinstalling the operating
   - ``/etc/ssh/ssh_host_*_key*`` -- these files allow clients to connect over SSH without triggering a scary warning and requiring manual intervention
   - ``/home/xsup/.ssh/{authorized_keys,id_ed25519,id_ed25519.pub,known_hosts}`` -- these files allow ``xsup`` to connect to other MagAO-X machines without prompting for host key verification
   - ``/etc/{passwd,group,shadow}`` -- these files contain the UID and GID mappings and user passwords to restore
+  - ``/etc/systemd/system/renew_certificates.service.d/override.conf`` -- API credentials used by the ``lego`` command to renew HTTPS certificates used by the web UI
 
 You may additionally want to back up the user home directories to retain their configuration files, though they should store data on the `/data` partition.
