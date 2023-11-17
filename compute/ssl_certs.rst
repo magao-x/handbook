@@ -8,13 +8,17 @@ Brand-new certificates
 
 1. ``xsupify``
 2. ``export VULTR_API_KEY=``...  (Using `Vultr API <https://go-acme.github.io/lego/dns/vultr/>`_ as an example)
-3. ``lego --email lynx@magao-x.org --dns vultr --domains exao1.magao-x.org --domains exao2.magao-x.org --domains exao3.magao-x.org run`` (answering ``Y`` if prompted to accept terms)
+3. ``lego --email lynx@magao-x.org --dns vultr --domains exao1.magao-x.org run`` (answering ``Y`` if prompted to accept terms)
 4. New certificates will now be in ``/home/xsup/.lego`` on AOC.
 
 Renew certificates
 ------------------
 
-5. ``lego --email lynx@magao-x.org --dns vultr --domains exao1.magao-x.org --domains exao2.magao-x.org --domains exao3.magao-x.org renew``
+5. ``lego --email lynx@magao-x.org --dns vultr --domains exao1.magao-x.org renew``
+
+There is a timer unit installed with the ``lego`` tool by the provisioning process on AOC (only).
+
+The required secret is set in ``/etc/systemd/system/renew_certificates.service.d/override.conf``, which must be populated manually on fresh installs.
 
 .. _sup_certs:
 
