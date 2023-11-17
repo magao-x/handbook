@@ -25,9 +25,8 @@ to install it.
 Installation
 ~~~~~~~~~~~~
 
-We use the ``mamba`` tool and require root access to install packages, so become root first:
+We use the ``mamba`` tool and require root access to install packages, so become root first::
 
-::
    you$ sudo -i
    root$
 
@@ -175,7 +174,7 @@ into the environment. A (possibly incomplete) list:
 
    cd /opt/MagAOX/source/MagAOX/setup/steps && \
    bash install_purepyindi.sh && \
-   bash install_imagestreamio_python.sh && \
+   sudo /opt/conda/bin/pip install /opt/MagAOX/source/milk/src/ImageStreamIO/ && \
    bash install_magpyx.sh && \
    bash install_sup.sh
 
@@ -196,6 +195,6 @@ SSH to the other machines and:
 
       cd /opt/MagAOX/source/MagAOX/setup/steps && \
       bash install_purepyindi.sh && \
-      bash install_imagestreamio_python.sh && \
+      sudo /opt/conda/bin/pip install /opt/MagAOX/source/milk/src/ImageStreamIO/ && \
       bash install_magpyx.sh && \
       bash install_sup.sh
