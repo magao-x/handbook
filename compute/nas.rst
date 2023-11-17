@@ -8,7 +8,7 @@ The Steward NAS is on the Steward wired network at ``matrix.as.arizona.edu`` (``
 Using the Steward NAS
 ---------------------
 
-The easiest way to use the Steward NAS is to copy files on a MagAO-X machine to ``/srv/nas``. This path hooks up to the ``jrmales`` "share" on the NAS. The files will then be visible on any other computer with the ``/srv/nas`` mount. For organization, make a ``/srv/nas/users/<your username>`` folder to hold your files.
+The easiest way to use the Steward NAS is to copy files on a MagAO-X machine to ``/srv/nas``. This path hooks up to the ``jrmales0`` "share" on the NAS. The files will then be visible on any other computer with the ``/srv/nas`` mount. For organization, make a ``/srv/nas/users/<your username>`` folder to hold your files.
 
 You can also access the share from your own computer, as described in the next section.
 
@@ -17,19 +17,19 @@ Connecting your own computer to the Steward NAS
 
 Your first step should be to install :doc:`tailscale` following instructions for your operating system. Then, to connect:
 
-**macOS:** On macOS, open Finder and then go to the "Go" menu and select "Connect to Server..." (alternatively, hit command-K). The top text box accepts a URL for connection, which should be ``smb://YOURNETID@10.130.133.220/jrmales`` where ``YOURNETID`` is, well, your NetID from University of Arizona. You can "favorite" the url using the "+" button at lower left. Click "Connect". You will be prompted for a password, which is just your NetID password.
+**macOS:** On macOS, open Finder and then go to the "Go" menu and select "Connect to Server..." (alternatively, hit command-K). The top text box accepts a URL for connection, which should be ``smb://YOURNETID@10.130.133.220/jrmales0`` where ``YOURNETID`` is, well, your NetID from University of Arizona. You can "favorite" the url using the "+" button at lower left. Click "Connect". You will be prompted for a password, which is just your NetID password.
 
-This will pop open a window with the contents of the ``jrmales`` share on the NAS. You'll also have a new entry in the sidebar of your Finder window labeled ``10.130.133.220``. (Clicking that takes you to the top level list of shares, from which you can drill down into ``jrmales``.)
+This will pop open a window with the contents of the ``jrmales0`` share on the NAS. You'll also have a new entry in the sidebar of your Finder window labeled ``10.130.133.220``. (Clicking that takes you to the top level list of shares, from which you can drill down into ``jrmales0``.)
 
 You can also drag icons from the Finder onto a terminal to get their full path, so you can do things like::
 
-    % fitsheader /Volumes/jrmales/obs/2023A/2023-03-08_09/jdl@fastmail.com/20230309T094454_camacq_walking_in/camacq/camacq_20230309094657696886820.fits
+    % fitsheader /Volumes/jrmales0/obs/2023A/2023-03-08_09/jdl@fastmail.com/20230309T094454_camacq_walking_in/camacq/camacq_20230309094657696886820.fits
 
 This lets you view the header of a file without explicitly copying it to the local machine first.
 
 **Linux:** You may need to install additional tools to access CIFS/SMB shares from Linux. These are usually called something like "samba" or "cifs-utils". Consult documentation for your Linux distribution or the ever-helpful Google.
 
-**Windows:** Open a Windows Explorer window (e.g. your Documents folder) and click in the address bar. Type in ``\\10.130.133.220\jrmales`` to provoke a login window to appear. In the username field, enter ``YOURNETID@arizona.edu``, and in the password field use the NetID password. Upon successful authentication, the window will show the contents of the ``jrmales`` share on the Steward NAS.
+**Windows:** Open a Windows Explorer window (e.g. your Documents folder) and click in the address bar. Type in ``\\10.130.133.220\jrmales0`` to provoke a login window to appear. In the username field, enter ``YOURNETID@arizona.edu``, and in the password field use the NetID password. Upon successful authentication, the window will show the contents of the ``jrmales0`` share on the Steward NAS.
 
 Connecting a server to the Steward NAS
 --------------------------------------
@@ -68,9 +68,9 @@ These instructions are designed for a MagAO-X machine, with an ``xsup`` user acc
 
 Finally, put the mount information (and the large number of mount options) into ``/etc/fstab``. The line below should be modified to replace ``uid=1000,gid=1011`` with the numbers from the last step, if different. These options have the effect of making every file appear to be owned by ``xsup``/``magaox``, with permissions for all ``magaox`` group users to modify it. (This is necessary because the user database on MagAO-X is separate from the University of Arizona directory.) ::
 
-    //10.130.133.220/jrmales  /srv/nas  cifs  noauto,x-systemd.automount,nofail,x-systemd.device-timeout=10s,x-systemd.requires=network.target,vers=default,credentials=/root/steward_nas.credentials,uid=1000,gid=1011,forceuid,forcegid,file_mode=0660,dir_mode=0770  0 0
+    //10.130.133.220/jrmales0  /srv/nas  cifs  noauto,x-systemd.automount,nofail,x-systemd.device-timeout=10s,x-systemd.requires=network.target,vers=default,credentials=/root/steward_nas.credentials,uid=1000,gid=1011,forceuid,forcegid,file_mode=0660,dir_mode=0770  0 0
 
-This specifies that ``/srv/nas`` should point to ``//10.130.133.220/jrmales``, the per-group folder we were given in the Steward NAS. The options ``noauto,x-systemd.automount,nofail,x-systemd.device-timeout=10s,x-systemd.requires=network.target`` try to minimize the annoyance of (re-)booting the machine in a situation where it cannot reach ``matrix.as.arizona.edu``.
+This specifies that ``/srv/nas`` should point to ``//10.130.133.220/jrmales0``, the per-group folder we were given in the Steward NAS. The options ``noauto,x-systemd.automount,nofail,x-systemd.device-timeout=10s,x-systemd.requires=network.target`` try to minimize the annoyance of (re-)booting the machine in a situation where it cannot reach ``matrix.as.arizona.edu``.
 
 Use ``systemctl daemon-reload`` and then ``systemctl start srv-nas.automount``. Check if the mount came up by doing ``ls /srv/nas``::
 
