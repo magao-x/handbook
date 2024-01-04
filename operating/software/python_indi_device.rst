@@ -19,7 +19,8 @@ Having decided on a name—for our purposes, let's call it ``yourNewApp``—you 
 2. Update the template.
 
     1. ``apps/yourNewApp/Makefile`` will have a line saying ``APP=pythonIndiExample``. Update that to ``APP=yourNewApp``
-    2. The ``apps/yourNewApp/pyproject.toml`` file needs a few changes. It will look something like this::
+    2. The ``apps/yourNewApp/yourNewApp.py`` file contains a line that reads ``class PythonIndiExample(XDevice):``. Replace ``PythonIndiExample`` with ``YourNewApp``. (By Python convention, classes are capitalized, even though the app was called ``pythonIndiExample`` without the initial capital.)
+    3. The ``apps/yourNewApp/pyproject.toml`` file needs a few changes. It will look something like this::
 
         [build-system]
         requires = ["hatchling"]
@@ -37,8 +38,8 @@ Having decided on a name—for our purposes, let's call it ``yourNewApp``—you 
         [project.scripts]
         pythonIndiExample = "pythonIndiExample:PythonIndiExample.console_app"
 
-       Find-and-replace ``pythonIndiExample`` with ``yourNewApp``.
-    3. Finally, you need to rename ``apps/yourNewApp/pythonIndiExample.py`` to ``apps/yourNewApp/yourNewApp.py``.
+       Find-and-replace ``pythonIndiExample`` with ``yourNewApp``. Similarly, replace ``PythonIndiExample`` with ``YourNewApp``.
+    4. Finally, you need to rename ``apps/yourNewApp/pythonIndiExample.py`` to ``apps/yourNewApp/yourNewApp.py``.
 
 At this point, you should install your new app. Go into ``apps/yourNewApp/`` and run ``make install``. This registers a link from the ``yourNewApp`` command to the implementation in ``yourNewApp.py``.
 
@@ -163,3 +164,7 @@ Then attach to the tmux session as you would for any other app::
 .. note::
 
     After hitting Ctrl-C to kill your app, give it a second to cleanly exit and deregister from the indiserver. That way you have a better chance of starting up next time without needing to restart the indiserver process as well.
+
+.. warning::
+
+    Remember to **add** and commit your new ``apps/yourNewApp`` folder and the ``mydoodad.conf`` file in ``/opt/MagAOX/config``, and to push your changes to GitHub.
