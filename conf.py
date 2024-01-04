@@ -18,7 +18,9 @@
 # -- Project information -----------------------------------------------------
 
 project = 'MagAO-X Instrument Handbook'
-copyright = '2019, Extreme Wavefront Control Lab, The University of Arizona'
+from datetime import date
+yr = date.today().year
+copyright = f'{yr}, Extreme Wavefront Control Lab, The University of Arizona'
 author = 'Extreme Wavefront Control Lab, The University of Arizona'
 
 
