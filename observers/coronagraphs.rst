@@ -103,37 +103,127 @@ Lyot Stops
 We have experimented with three Lyot stops with different characteristics.  The labels "Large" and "Small" here refer to the clear aperture, i.e. large means a large clear aperture and therefore higher throughput.  In practice we have used only `LyotLg1` for observations. `LyotSm` is
 presently removed from the instrument.
 
-.. list-table:: Lyot Stops
+.. list-table:: LyotLg1
    :header-rows: 1
-  
-   * - fwlyot Position
-     - Description
-     - abs. throughput
-     - design file
-     - scale in telescope pupil [m/pix]
-     - scale at coronagraph pupil [mm/pix]
-     - Image
-   * - LyotLg1
-     - Lyot Large 1
-     - 63.82%
-     - :static:`lyotMaskLarge1.fits.gz <coronagraph/lyot/lyotMaskLarge1.fits.gz>`
-     - 0.0067528
-     - 0.0093501
+
+   * - parameter
+     - value
+     - notes
+   * - fwlyot Position 
+     - LyotLg1 
+     -
+   * - Throughput
+     - 63.8%
+     - not incl. FPM 
+   * - Image 
      - .. image:: figures/coronagraph_LyotLg1.png
-   * - LyotLg2 
-     - Lyot Large 2
-     - 57.32
-     - :static:`lyotMaskLarge2.fits.gz <coronagraph/lyot/lyotMaskLarge2.fits.gz>`
+     -
+   * - Outer Diam.
+     - 7.020 mm 
+     - at 9 mm pupil plane 
+   * - Inner Diam.
+     - 4.620 mm 
+     -
+   * - Spider Width
+     - 0.383 mm 
+     -
+   * - Bump Diam 
+     - 1.149 mm 
+     -
+   * - FITS file 
+     - :static:`lyotMaskLarge1.fits.gz <coronagraph/lyot/lyotMaskLarge1.fits.gz>`
+     - 
+   * - FITS scale at M1 
      - 0.0067528
+     - m/pixel 
+   * - FITS scale at fwlyot 
      - 0.0093501
+     - 0.0093501
+   * - DXF File 
+     - :static:`LyotStop_large1.DXF <coronagraph/lyot/LyotStop_large1.DXF>`
+     -
+
+.. list-table:: LyotLg2
+   :header-rows: 1
+
+   * - parameter
+     - value
+     - notes
+   * - fwlyot Position 
+     - LyotLg2
+     -
+   * - Throughput
+     - 57.3%
+     - not incl. FPM 
+   * - Image 
      - .. image:: figures/coronagraph_LyotLg2.png
-   * - LyotSm
-     - Lyot Small
-     - 33.35%
-     - :static:`lyotMaskSmall.fits.gz <coronagraph/lyot/lyotMaskSmall.fits.gz>`
+     -
+   * - Outer Diam.
+     - 8.041 mm 
+     - at 9 mm pupil plane 
+   * - Inner Diam.
+     - 3.600 mm 
+     -
+   * - Spider Width
+     - 0.383 mm
+     -
+   * - Bump Diam 
+     - 1.149 mm
+     -
+   * - FITS file 
+     - :static:`lyotMaskLarge2.fits.gz <coronagraph/lyot/lyotMaskLarge2.fits.gz>`
+     - 
+   * - FITS scale at M1 
      - 0.0067528
+     - m/pixel 
+   * - FITS scale at fwlyot 
      - 0.0093501
+     - 0.0093501
+   * - DXF File 
+     - :static:`LyotStop_large2.DXF <coronagraph/lyot/LyotStop_large2.DXF>`
+     -
+
+.. list-table:: LyotSm
+   :header-rows: 1
+
+   * - parameter
+     - value
+     - notes
+   * - fwlyot Position 
+     - LyotSm
+     - removed from instrument
+   * - Throughput
+     - 33.35%
+     - not incl. FPM 
+   * - Image 
      - .. image:: figures/coronagraph_LyotSm.png
+     -
+   * - Outer Diam.
+     - 7.800 mm 
+     - at 9 mm pupil plane 
+   * - Inner Diam.
+     - 3.800 mm 
+     -
+   * - Spider Width
+     - 0.383 mm
+     -
+   * - Bump Diam 
+     - 1.149 mm
+     -
+   * - FITS file 
+     - :static:`lyotMaskSmall.fits.gz <coronagraph/lyot/lyotMaskSmall.fits.gz>`
+     - 
+   * - FITS scale at M1 
+     - 0.0067528
+     - m/pixel 
+   * - FITS scale at fwlyot 
+     - 0.0093501
+     - 0.0093501
+   * - DXF File 
+     - :static:`LyotStop_small.DXF <coronagraph/lyot/LyotStop_small.DXF>`
+     -
+
+
      
 PIAA Classical Lyot Coronagraph (PIAACLC)
 ------------------------------------------
