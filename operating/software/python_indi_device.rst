@@ -168,3 +168,40 @@ Then attach to the tmux session as you would for any other app::
 .. warning::
 
     Remember to **add** and commit your new ``apps/yourNewApp`` folder and the ``mydoodad.conf`` file in ``/opt/MagAOX/config``, and to push your changes to GitHub.
+
+Logging to console and disk
+---------------------------
+
+Python XDevices log to ``/opt/MagAOX/logs/`` with some differences from their C++ brethren. Logs for a particular device are grouped in a "folder", a filesystem construct frequently used to organize logically related files.
+
+Considering again our example ``mydoodad`` device, its logs will be found in ``/opt/MagAOX/logs/mydoodad/``. After starting the app a few times, you will notice that the latest log file is the only one with a name ending in ``.log`` (e.g. ``mydoodad_2024-01-14T122245.log``) and the rest end in ``.gz`` (e.g. ``mydoodad_2024-01-14T122231.log.gz``). Every time the device starts, it compresses old logs with ``gzip`` to save a little space. On Linux and macOS there is a ``zcat`` command that decompresses and outputs the log file in one step.
+
+**Examples:**
+
+* ``zcat mydoodad_2024-01-14T122231.log.gz`` -- decompress and output ``mydoodad_2024-01-14T122231.log.gz`` to the terminal
+* ``zcat mydoodad_2024-01-14T122231.log.gz | less`` -- decompress and review ``mydoodad_2024-01-14T122231.log.gz`` with a scrolling pager
+* ``tail -f $(less /opt/MagAOX/logs/mydoodad | tail -n 1)`` -- when the device is running, watch the file log as it is written. (Note that restarting the device will open a new log file, so you'll have to Ctrl-C and run this command again.)
+
+**So, how do you add your own output to these logs?** You use the Python :py:mod:`logging` module. The XDevice has a logger instance available in your ``loop()`` method as ``self.log``, so ``self.log.debug("Wow!")`` will result in a line like ``2024-01-14T19:36:16.734742000 DEBUG Wow! (mydoodad:loop:123)`` in your log file.
+
+.. note::
+
+    Using ``self.log.debug(...)`` is a shorter way of saying ``logging.getLogger(self.name).debug(...)``.
+
+The allowed levels are ``debug``, ``info``, ``warning`` (also called ``warn``), ``error``, and ``critical`` (also called ``fatal``). If you instead wrote ``self.log.warning("Wow!")`` you would see ``2024-01-14T19:36:16.734742000 WARNING Wow! (mydoodad:loop:123)`` in your log file. In fact, you will also see it on the console in the tmux session for ``mydoodad``. (Become xsup with ``xsupify`` and then ``tmux at -t mydoodad``.) Logs with the level ``info`` and above are written to the console.
+
+**What if you want to see debug logs on the console?** There are a few command-line options available when starting an XDevice::
+
+        options:
+    -c CONFIG_FILE, --config-file CONFIG_FILE
+                            Path to config file, repeat to merge multiple, last one wins for repeated top-
+                            level keys
+    -h, --help            Print usage information
+    -v, --verbose         Enable debug logging
+    --dump-config         Dump final configuration state as TOML and exit
+    -n NAME, --name NAME  Device name for INDI
+    -a, --all-verbose     Set global log level to DEBUG
+
+The ``-v`` option will enable logging your debug messages to the console. (They are always logged to the file.) 
+
+The ``-a`` option will enable debug logging to console and file for your app as well as any other libraries that use the standard Python logging framework. This can be useful to see exactly what PurePyINDI2 is doing, but can be overwhelming for code that uses e.g. matplotlib, or numba.
