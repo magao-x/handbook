@@ -180,7 +180,7 @@ Considering again our example ``mydoodad`` device, its logs will be found in ``/
 
 * ``zcat mydoodad_2024-01-14T122231.log.gz`` -- decompress and output ``mydoodad_2024-01-14T122231.log.gz`` to the terminal
 * ``zcat mydoodad_2024-01-14T122231.log.gz | less`` -- decompress and review ``mydoodad_2024-01-14T122231.log.gz`` with a scrolling pager
-* ``tail -f $(less /opt/MagAOX/logs/mydoodad | tail -n 1)`` -- when the device is running, watch the file log as it is written. (Note that restarting the device will open a new log file, so you'll have to Ctrl-C and run this command again.)
+* ``tail -f $(ls /opt/MagAOX/logs/mydoodad/ | tail -n 1)`` -- when the device is running, watch the file log as it is written. (Note that restarting the device will open a new log file, so you'll have to Ctrl-C and run this command again.)
 
 **So, how do you add your own output to these logs?** You use the Python :py:mod:`logging` module. The XDevice has a logger instance available in your ``loop()`` method as ``self.log``, so ``self.log.debug("Wow!")`` will result in a line like ``2024-01-14T19:36:16.734742000 DEBUG Wow! (mydoodad:loop:123)`` in your log file.
 
