@@ -11,21 +11,23 @@ To align the pupil on the tweeter, we perform the F-Test.
 
 Prepare the system:
 
-* **fwpupil.filterName** in open
+* **fwpupil.filterName** in **open**
 
-* **fwfpm.filterName** in **flat**
+* **fwfpm.filterName** in **open**
 
-* **stagelosel.presetName** in **pupil**
+* **fwlyot.filterName** in **open**
 
-* **fwlowfs.filterName** in **z** (or whichever filter works the best for conditions)
+* **fwscind.filterName** in **pupil**
 
-* configure **camlowfs** so that you can see the pupil without saturating.
+* **fwsci1.filterName** in **z** (or whichever filter works the best for conditions)
 
-* as needed, move **stagelowfs** to focus the pupil image.  You want to be somewhat out of focus to see the test pattern well.
+* configure **camsci1** so that you can see the pupil without saturating.
 
-Now put the test pattern on the tweeter with the dmCtrl GUI for dmtweeter.  Press the **load test** button (if not already done) and then **set test**.
+* as needed, move **stagesci1** to focus the pupil image.  You want to be somewhat out of focus to see the test pattern well.  The preset **fpm** works well.
 
-Next, use the "Pupil Steering" section of the pupilguideGUI to align the pupil on the tweeter using the arrow keypad .  The following figure demonstrateds what a good alignment looks like.  
+Now put the test pattern on the tweeter with **Pupil Alignment GUI** for dmtweeter.  Press the **set test** under **tweeter**
+
+Next, use the "Pupil Steering" section to align the pupil on the tweeter using the arrow keypad .  The following figure demonstrates what a good alignment looks like.  
 
 .. image:: f-test-good.png
     :width: 500
@@ -38,8 +40,12 @@ When done, press the **zero test** button on dmCtrl GUI for dmtweeter.
 Pyramid Alignment
 ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
 
+Sorry we haven't documented this.  Volunteers welcome.
+
 Coronagraph Alignment
 ------------------------------------
+
+NOTE: these steps are out of date compared to how we now do it.  Talk to Jared or Sebastiaan for more info.
 
 Due to their (lack of) intrinsic repeatability, the three wheels holding the coronagraph components must be adjusted every time they are moved.  Aligning the coronagraph should proceed in the following order so that wheels do not need to be moved after adjustment.  The first step "Pupil Mask Alignment" *should be conducted every time the system is started up*.
 

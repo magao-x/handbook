@@ -1,5 +1,5 @@
-Startup
-=======
+System Startup
+===============
 
 Once the instrument has been unpacked and cabled, begin startup from
 System Powerup. Subsequent (nightly/daily) re-startup should generally
@@ -78,7 +78,7 @@ System Powerup
 
        ::
 
-          [xsup@exao1 ~]$ ./jviewer-starter/jviewer-starter 192.168.0.21 &``.
+          [xsup@exao1 ~]$ ./jviewer-starter/jviewer-starter 192.168.0.21 &
 
        Note that if you do not do this right away, the iKVM module will not register as a keyboard.
    10. This brings up a video display of the RTC VGA output. Use the
@@ -114,7 +114,7 @@ System Powerup
 
        ::
 
-          [xsup@exao1 ~]$ ./jviewer-starter/jviewer-starter 192.168.0.22 &``.
+          [xsup@exao1 ~]$ ./jviewer-starter/jviewer-starter 192.168.0.22 &
 
        Note that if you do not do this right away, the iKVM module will not register as a keyboard.
    10. This brings up a video display of the ICC VGA output. Use the
@@ -198,104 +198,6 @@ Some windows will need to be rearranged.  The DM displays should self-normalize.
 
 where you replace `tweeter` with either `woofer` or `ncpc` as necessary.
 
-
-Preparing For Operation
------------------------
-
-The steps below assume that the above steps are complete. This will
-generally be the instrument state on a daily basis.
-
-1. If the tweeter is going to be used, turn on the dry air supply (N2
-   bottle for now) and wait for the relative humidity to drop below 15%.
-   This will take a while, but while you wait…
-
-2. Ensure MagAO-X processes are started on ICC and RTC
-
-   ::
-
-      [[xsup@exao1 ~]$ ssh icc
-      icc$ xctrl startup
-      icc$ xctrl status
-      # verify processes are all green/running
-      icc$ exit
-      [[xsup@exao1 ~]$ ssh rtc
-      rtc$ xctrl startup
-      rtc$ xctrl status
-      # verify processes are all green/running
-      rtc$ exit
-
-3. Power up the necessary components for what you want to do, e.g. for
-   lab work using AO + camsci1:
-
-   -  pdu0: source (calibration light source)
-   -  pdu1: ttmmod (pyramid modulation mirror), ttmpupil (pupil tracking
-      mirror), dmwoofer (low order upstream DM), dmncpc (low order
-      non-common-path DM)
-   -  pdu2: camsci1
-   -  dcdu1: shsci1 (camera shutter)
-   -  usbdu0: camtip (Basler viewing pyramid tip)
-
-   This is a minimal list. To adjust focus and filters on camsci1,
-   you’ll also need:
-
-   -  pdu2 and usbdu0: stagezaber
-   -  usbdu0 and dcdu0: fwscind
-   -  dcdu0: fwpupil, fwsci1
-   -  dcdu1: fwbs
-
-   With even more things to power up for camsci2, etc. Be sure to home
-   stages that need it before use! (They’ll appear as ``NOTHOMED`` in
-   their ``fsm`` INDI property.)
-
-4. Load and set the flat on both dmwoofer and dmncpc right away to give
-   time for creep to creep.
-
-5. Now ``Set`` the pupil TTM and ``Set`` the pyramid modulator TTM. If
-   the PSF isn’t centered on camtip, use the arrows (bottom left of
-   pupilGuideGUI interface) to change the voltage bias. The central
-   button changes the voltage step size.
-
-6. **Once the tweeter relative humidity is less than 15%**, power it on
-   (it’s on pdu1)
-
-7. Optimize PSF quality with `The Eye
-   Doctor <software/utils/eyedoctor>`__, starting with the ``camtip``
-   PSF
-
-   ::
-
-      [[xsup@exao1 ~]$ ssh icc
-      icc$ dm_eye_doctor 7626 wooferModes camtip 10 2 1.0
-      icc$ dm_eye_doctor 7626 wooferModes camtip 10 2...10 0.5
-      icc$ dm_eye_doctor 7626 wooferModes camtip 10 2...35 0.05
-
-   If you want to save this optimized woofer flat, you can do that on
-   RTC:
-
-   ::
-
-      [[xsup@exao1 ~]$ ssh rtc
-      rtc$ dm_eye_doctor_update_flat dmwoofer
-
-8. Optimize the non-common-path correction with The Eye Doctor and
-   ``camsci1``
-
-   ::
-
-      icc$ dm_eye_doctor 7624 ncpcModes camsci1 5 2 1.0
-      icc$ dm_eye_doctor 7624 ncpcModes camsci1 5 2…10 0.5
-      icc$ dm_eye_doctor 7624 ncpcModes camsci1 5 2...35 0.05
-      # note: still on icc
-      icc$ dm_eye_doctor_update_flat dmncpc
-
-Now you’re ready to do things with the instrument!
-
-Open http://localhost:8000/ (or tunnel it to your computer from AOC) to
-use the web UI for filter wheels, stage positions, streamwriter and
-shutter toggles, etc. You can also control the instrument via the AOC
-indiserver on port 7624 with your favorite tool (``cursesINDI``,
-`PurePyINDI <https://github.com/magao-x/purepyindi>`__, or what have
-you).
 
 .. |image1| image:: moxa_dio_do.png
 .. |image2| image:: moxa_dialog.png

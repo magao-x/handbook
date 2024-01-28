@@ -7,7 +7,6 @@ Utilities
     xctrl
     lookyloo
     logdump
-    cursesINDI
     getINDI
     setINDI
     evalINDI
