@@ -60,7 +60,7 @@ If any of these are off the instrument probably won't work.
 5. Now ``set`` the pupil TTM and ``set`` the pyramid modulator TTM on the "Pupil Alignment GUI. 
 
 6. At this point you should see a PSF image on `camtip`.   If you don't use the system block diagram to troubleshoot.  
-   The most likely causes are your forgot to power something on (the source?) and `stagepickoff` is in wrong position.
+   The most likely causes are that you forgot to power something on (the source?) or that `stagepickoff` is in the wrong position.
 
 7. Now you can proceed to alignment
 
