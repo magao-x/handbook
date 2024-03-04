@@ -82,8 +82,9 @@ provisioning will end with the message
 ::
 
    Provisioning complete
+   You now need to log out and back in for group changes to take effect
 
-Now, on to :ref:`vm_usage`.
+As the message says, you should exit the VM with ``exit``, and return to your host command prompt. Now, on to :ref:`vm_usage`.
 
 What to do if you don't see ``Provisioning complete``
 ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
