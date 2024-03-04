@@ -20,9 +20,12 @@ In a new terminal window, to create a VM with Ubuntu version 22.04::
 
    $ multipass launch -n magao-x-vm 22.04
    Launched: magao-x-vm
-   Mounted '/Users/YOURUSERNAME' into 'magao-x-vm:Home'
 
-Verify you can connect to it::
+You should mount your home directory into the VM::
+
+   $ multipass mount $HOME magao-x-vm:/home/ubuntu/Home
+
+Next, verify you can connect to the VM and get a shell prompt::
 
    $ multipass shell magao-x-vm
    [... some lines omitted ...]
@@ -193,6 +196,8 @@ And you can check their status with ``xctrl status`` or ``xctrl peek``.
    vm_aoc_indi: running (pid: 6147)
    vm_aoc_milkzmq: running (pid: 6148)
 
+(For the SSH tunnel apps, this can be misleading, as "running" doesn't necessarily mean "connected". That is why we checked that ``ssh aoc`` worked separately, above.)
+
 Using GUIs in the VM
 ~~~~~~~~~~~~~~~~~~~~
 
@@ -217,9 +222,11 @@ GUI app, which is still running inside the VM.
    |                  +----------------------+|
    +------------------------------------------+
 
-Assuming you have an SSH key on your host computer already, we need to teach multipass about it::
+Assuming you have an SSH key on your host computer already, we need to teach multipass about it. Back on the host computer, we do::
 
    $ multipass exec magao-x-vm -- bash -c "echo `cat ~/.ssh/id_ed25519.pub` >> ~/.ssh/authorized_keys"
+
+(Note the difference between the backtick quote and the straight single quote is important here.)
 
 This adds the key as an authorized one for connecting to the VM. (We were connecting a different way when we did ``multipass shell`` earlier.)
 
@@ -227,6 +234,8 @@ The following incantation will connect a GUI-capable SSH session to your multipa
 
    $ ssh -Y ubuntu@$(multipass exec magao-x-vm -- hostname -I | awk '{ print $1 }' )
    ubuntu@magao-x-vm:~$
+
+(If prompted with ``Are you sure you want to continue connecting (yes/no/[fingerprint])?`` just say ``yes``.)
 
 So, to start the ``coronAlignGUI``, you could do...
 
@@ -263,6 +272,9 @@ The list of images re-served by AOC is kept in
 ``/opt/MagAOX/config/mzmqServerAOC.conf`` (`view on
 GitHub <https://github.com/magao-x/config/blob/master/mzmqServerAOC.conf>`__).
 
+Establish a milkzmq connection for the cameras you want
+^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+
 After confirming the tunnel ``vm_aoc_milkzmq`` is running
 (``xctrl status``), start a ``milkzmqClient``. For this example we'll
 connect to ``camwfs`` and ``camwfs_dark``:
@@ -274,6 +286,9 @@ connect to ``camwfs`` and ``camwfs_dark``:
 (We've used ``&`` at the end of the command to background the client, so
 just hit enter again to get a normal prompt back after its startup
 messages.)
+
+Launch rtimv
+^^^^^^^^^^^^
 
 The configuration in ``/opt/MagAOX/config`` includes ``rtimv`` config
 files named for the various cameras (see the ``shmim_name`` options in
