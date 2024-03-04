@@ -201,16 +201,17 @@ And you can check their status with ``xctrl status`` or ``xctrl peek``.
 Using GUIs in the VM
 ~~~~~~~~~~~~~~~~~~~~
 
-The VM is configured to be “headless”, meaning there's no graphical
-display window. However, we can still build and run MagAO-X GUIs as long
-as your host OS has an X11 server (most Linux systems do by default, but
-you will need `XQuartz <https://www.xquartz.org/>`__ on macOS).
+The VM is configured to be “headless”, meaning there's no graphical display window. It is possible to run a virtual desktop with multipass, as `described in their docs for "Using RDP" <https://multipass.run/docs/set-up-a-graphical-interface#heading--using-rdp>`_. However, it's better to show MagAO-X software in windows that you can move around like other applications on your computer.
+
+The way to do this is with X11 (the `next section <https://multipass.run/docs/set-up-a-graphical-interface#heading--using-x11-forwarding>`_ of their docs). Most Linux systems support X11 applications by default, but you will need to install `XQuartz <https://www.xquartz.org/>`__ on macOS, if you haven't already.
+
+Windows users should consult the `Multipass docs <https://multipass.run/docs/set-up-a-graphical-interface#heading--x11-on-windows>`_ for their options. It appears that VcXsrv is the most up-to-date free option for a Windows X11 server, downloadable `here <https://github.com/marchaesen/vcxsrv/releases/download/21.1.10/vcxsrv-64.21.1.10.0.installer.exe>`_.
 
 If you're unfamiliar with SSH X forwarding, the short version is that
 the app runs on the VM but the window pops up like any other window on
-your own computer (the host). SSH (i.e. ``multipass shell``) is the
-transport that moves information about the window back and forth to the
-GUI app, which is still running inside the VM.
+your own computer (the host). SSH (i.e. ``multipass shell``) is the
+transport that moves information about the window like mouse clicks and keypresses back and forth to the
+GUI app, which lives inside the VM.
 
 .. code:: text
 
