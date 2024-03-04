@@ -7,7 +7,7 @@ If you use Linux for day-to-day computing (and it's either Ubuntu 22.04 or Rocky
 
 If you do not run Linux (or you run Linux but prefer to keep your system pristine) this document explains how to install MagAO-X in a virtual machine (VM). The VM can then be deleted and recreated as many times as you like without interfering with your host machine.
 
-Configuring the virtual machine is done from the command line. Example commands are shown after a ``$`` or ``ubuntu@primary:~$`` (which you don't type yourself as part of the command), and output is on un-prefixed lines.
+Configuring the virtual machine is done from the command line. Example commands are shown after a ``$`` or ``ubuntu@magao-x-vm:~$`` (which you don't type yourself as part of the command), and output is on un-prefixed lines.
 
 You will want to first install Multipass, a virtual machine manager specifically for Ubuntu Linux VMs. Follow the `instructions on their website <https://multipass.run/install>`_ to install.
 
@@ -18,49 +18,47 @@ Create the virtual machine
 
 In a new terminal window, to create a VM with Ubuntu version 22.04::
 
-   $ multipass launch -n primary 22.04
-   Launched: primary
-   Mounted '/Users/YOURUSERNAME' into 'primary:Home'
+   $ multipass launch -n magao-x-vm 22.04
+   Launched: magao-x-vm
+   Mounted '/Users/YOURUSERNAME' into 'magao-x-vm:Home'
 
 Verify you can connect to it::
 
-   $ multipass shell
+   $ multipass shell magao-x-vm
    [... some lines omitted ...]
-   ubuntu@primary:~$
+   ubuntu@magao-x-vm:~$
 
-Notice that the shell prompt has changed to ``ubuntu@primary:~$``. Commands within the VM will be prefixed with ``ubuntu@primary:~$`` (though ``~`` may change), and "host" commands will continue to be prefixed with ``$``. Your home directory will be available inside the VM under ``~/Home``. This is one way to get files into and out of the VM. ::
+Notice that the shell prompt has changed to ``ubuntu@magao-x-vm:~$``. Commands within the VM will be prefixed with ``ubuntu@magao-x-vm:~$`` (though ``~`` may change), and "host" commands will continue to be prefixed with ``$``. Your home directory will be available inside the VM under ``~/Home``. This is one way to get files into and out of the VM. ::
 
    $ ls ~/Home
    [... list of all your files ...]
 
 Now, exit the VM shell::
 
-   ubuntu@primary:~$ exit
+   ubuntu@magao-x-vm:~$ exit
    $
 
 The first thing to do after creating the VM is to stop it (which is just like shutting down a "real" physical computer) and adjust some settings::
 
-   $ multipass stop
-   $ multipass set local.primary.disk=20GiB
-   $ multipass set local.primary.cpus=4
-   $ multipass set local.primary.memory=8G
+   $ multipass stop magao-x-vm
+   $ multipass set local.magao-x-vm.disk=20GiB
+   $ multipass set local.magao-x-vm.cpus=4
+   $ multipass set local.magao-x-vm.memory=8G
 
 This ensures you have enough space in the VM to install the MagAO-X software. (You can change the number of CPUs allocated to the VM to a number other than four if you want.)
 
 Now, boot the virtual machine::
 
-   $ multipass start
+   $ multipass start magao-x-vm
 
-Notice that we didn't specify ``-n primary``. The name ``primary`` is special, and is used as the default for many commands when nothing else is specified.
+You will see the message "Starting magao-x-vm" and a loading spinner. When the VM has started, you will be back at your host shell prompt. Wait a minute for the VM to start, then connect your terminal to the VM with::
 
-Wait a minute for the VM to start, then connect your terminal to the VM with::
-
-   $ multipass shell
-   ubuntu@primary:~$
+   $ multipass shell magao-x-vm
+   ubuntu@magao-x-vm:~$
 
 Next, within the VM, obtain a copy of the MagAO-X software and install scripts. Using ``git`` we clone the MagAOX repository::
 
-   ubuntu@primary:~$ git clone --depth=1 https://github.com/magao-x/MagAOX.git
+   ubuntu@magao-x-vm:~$ git clone --depth=1 https://github.com/magao-x/MagAOX.git
    Cloning into 'MagAOX'...
    remote: Enumerating objects: 1040, done.
    remote: Counting objects: 100% (1040/1040), done.
@@ -71,11 +69,11 @@ Next, within the VM, obtain a copy of the MagAO-X software and install scripts. 
 
 Go to the ``setup`` subdirectory::
 
-   ubuntu@primary:~$ cd MagAOX/setup/
+   ubuntu@magao-x-vm:~$ cd MagAOX/setup/
 
 Run the provisioning script::
 
-   ubuntu@primary:~/MagAOX/setup$ bash provision.sh
+   ubuntu@magao-x-vm:~/MagAOX/setup$ bash provision.sh
 
 Now, wait a while. Don't be alarmed by the amount of output! Provisioning is very
 noisy, and messages in red aren't necessarily errors. Successful
@@ -100,15 +98,15 @@ If that doesn't resolve the issue, you'll need the complete provisioning
 output to get help. The following command will save it to a file
 ``provision.log`` in your home folder on the host machine, which you can then email or Slack to someone who can help. ::
 
-   ubuntu@primary:~/MagAOX/setup$ bash provision.sh | tee ~/Home/provision.log
+   ubuntu@magao-x-vm:~/MagAOX/setup$ bash provision.sh | tee ~/Home/provision.log
 
 Resetting the VM
 ~~~~~~~~~~~~~~~~
 
 If you need to reset the VM, start by copying any data you need out of it (e.g. to ``~/Home``). Then, to **delete it forever**, use these commands::
 
-   $ multipass stop primary
-   $ multipass delete primary
+   $ multipass stop magao-x-vm
+   $ multipass delete magao-x-vm
    $ multipass purge
 
 To recreate the VM, follow the instructions from the top of the page again.
@@ -136,21 +134,20 @@ an SSH key file configured. For the preconfigured tunnels to work, that key must
 If you have a key pair in your computer's ``~/.ssh/`` folder, this appears at ``~/Home/.ssh/`` in the VM. (Note: RSA keys are not allowed.) Copy it into place::
 
 
-   $ multipass shell
-   ubuntu@primary:~$ cp ~/Home/.ssh/id_* ~/.ssh/
-   ubuntu@primary:~$ chmod u=r,g=,o= ~/.ssh/id_*
+   $ multipass shell magao-x-vm
+   ubuntu@magao-x-vm:~$ cp ~/Home/.ssh/id_* ~/.ssh/
+   ubuntu@magao-x-vm:~$ chmod u=r,g=,o= ~/.ssh/id_*
 
-Next, you will need to edit the VM's ``~/.ssh/config`` file to add your username. Open a text editor::
+Next, you will need to edit the VM's ``~/.ssh/config`` file to add your username. Still within the VM, open a text editor::
 
-   $ multipass shell
-   ubuntu@primary:~$ nano ~/.ssh/config
+   ubuntu@magao-x-vm:~$ nano ~/.ssh/config
 
 At the end of the file, the line ``User YOURUSERNAME`` should be changed to reflect your MagAO-X username. Save and exit.
 
 Connecting to the VM
 ^^^^^^^^^^^^^^^^^^^^
 
-The ``multipass shell`` command we have been using above connects you to the VM. The following should be done within a VM except where otherwise noted.
+The rest of this section should be done within a VM except where otherwise noted.
 
 Note: under some circumstances you will get a worrying-sounding message about ``Xauthority``. As long as things are working, it should be ignored.
 
@@ -162,9 +159,9 @@ Check connectivity to MagAO-X
 To ensure everything's configured correctly, from a ``multipass shell``
 session run ``ssh aoc``, verify your shell prompt changes to ``exao1``, then ``exit``::
 
-   ubuntu@primary:~$ ssh aoc
+   ubuntu@magao-x-vm:~$ ssh aoc
    [you@exao1] $ exit
-   ubuntu@primary:~$
+   ubuntu@magao-x-vm:~$
 
 Start tunnels
 ^^^^^^^^^^^^^
@@ -179,7 +176,7 @@ The proclist for VM usage is in
 Running ``xctrl startup`` to start the tunnels should result in output
 like::
 
-   ubuntu@primary:~$ xctrl startup
+   ubuntu@magao-x-vm:~$ xctrl startup
    Session vm_aoc_milkzmq does not exist
    Session vm_aoc_indi does not exist
    Created tmux session for vm_aoc_milkzmq
@@ -191,7 +188,7 @@ And you can check their status with ``xctrl status`` or ``xctrl peek``.
 
 ::
 
-   ubuntu@primary:~$ xctrl status
+   ubuntu@magao-x-vm:~$ xctrl status
    vm_aoc_indi: running (pid: 6147)
    vm_aoc_milkzmq: running (pid: 6148)
 
@@ -221,21 +218,21 @@ GUI app, which is still running inside the VM.
 
 Assuming you have an SSH key on your host computer already, we need to teach multipass about it::
 
-   $ multipass exec primary -- bash -c "echo `cat ~/.ssh/id_ed25519.pub` >> ~/.ssh/authorized_keys"
+   $ multipass exec magao-x-vm -- bash -c "echo `cat ~/.ssh/id_ed25519.pub` >> ~/.ssh/authorized_keys"
 
 This adds the key as an authorized one for connecting to the VM. (We were connecting a different way when we did ``multipass shell`` earlier.)
 
 The following incantation will connect a GUI-capable SSH session to your multipass VM and leave you at a VM prompt::
 
-   $ ssh -Y ubuntu@$(multipass exec primary -- hostname -I | awk '{ print $1 }' )
-   ubuntu@primary:~$
+   $ ssh -Y ubuntu@$(multipass exec magao-x-vm -- hostname -I | awk '{ print $1 }' )
+   ubuntu@magao-x-vm:~$
 
 So, to start the ``coronAlignGUI``, you could do...
 
 ::
 
-   $ ssh -Y ubuntu@$(multipass exec primary -- hostname -I | awk '{ print $1 }' )
-   ubuntu@primary:~$ coronAlignGUI
+   $ ssh -Y ubuntu@$(multipass exec magao-x-vm -- hostname -I | awk '{ print $1 }' )
+   ubuntu@magao-x-vm:~$ coronAlignGUI
 
 …and the coronagraph alignment GUI will come up like any other window on
 your host machine.
@@ -271,7 +268,7 @@ connect to ``camwfs`` and ``camwfs_dark``:
 
 ::
 
-   ubuntu@primary:~$ milkzmqClient -p 9000 localhost camwfs camwfs_dark &
+   ubuntu@magao-x-vm:~$ milkzmqClient -p 9000 localhost camwfs camwfs_dark &
 
 (We've used ``&`` at the end of the command to background the client, so
 just hit enter again to get a normal prompt back after its startup
@@ -286,7 +283,7 @@ Start the viewer with
 
 ::
 
-   ubuntu@primary:~$ rtimv -c rtimv_camwfs.conf
+   ubuntu@magao-x-vm:~$ rtimv -c rtimv_camwfs.conf
 
 and it should pop up a window like this:
 
