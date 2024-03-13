@@ -59,6 +59,32 @@ You will see the message "Starting magao-x-vm" and a loading spinner. When the V
    $ multipass shell magao-x-vm
    ubuntu@magao-x-vm:~$
 
+Authentication Error
+~~~~~~~~~~~~~~~~~~~~
+Also, in the unlikely event you encounter this error (maybe upon reinstalling multipass)::
+
+   The client is not authenticated with the Multipass service.
+   Please use 'multipass authenticate' before proceeding.
+
+this `forum post <https://discourse.ubuntu.com/t/unable-to-authorize-the-client-and-cannot-set-a-passphrase-workaround/28321>`_ explains recovery steps.
+
+
+Resetting the VM
+----------------
+
+If you need to reset the VM, start by copying any data you need out of it (e.g. to ``~/Home``). Then, to **delete it forever**, use these commands::
+
+   $ multipass stop magao-x-vm
+   $ multipass delete magao-x-vm
+   $ multipass purge
+
+To recreate the VM, follow the instructions from the top of the page again.
+
+.. _sw_install:
+
+Install MagAO-X Software
+------------------------
+
 Next, within the VM, obtain a copy of the MagAO-X software and install scripts. Using ``git`` we clone the MagAOX repository::
 
    ubuntu@magao-x-vm:~$ git clone --depth=1 https://github.com/magao-x/MagAOX.git
@@ -103,24 +129,6 @@ output to get help. The following command will save it to a file
 ``provision.log`` in your home folder on the host machine, which you can then email or Slack to someone who can help. ::
 
    ubuntu@magao-x-vm:~/MagAOX/setup$ bash provision.sh | tee ~/Home/provision.log
-
-Resetting the VM
-~~~~~~~~~~~~~~~~
-
-If you need to reset the VM, start by copying any data you need out of it (e.g. to ``~/Home``). Then, to **delete it forever**, use these commands::
-
-   $ multipass stop magao-x-vm
-   $ multipass delete magao-x-vm
-   $ multipass purge
-
-To recreate the VM, follow the instructions from the top of the page again.
-
-Also, in the unlikely event you encounter this error (maybe upon reinstalling multipass)::
-
-   The client is not authenticated with the Multipass service.
-   Please use 'multipass authenticate' before proceeding.
-
-this `forum post <https://discourse.ubuntu.com/t/unable-to-authorize-the-client-and-cannot-set-a-passphrase-workaround/28321>`_ explains recovery steps.
 
 
 .. _vm_usage:
