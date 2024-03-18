@@ -51,84 +51,66 @@ System Powerup
 3. The following devices should be powered up, and never powered off
    (unless you know what you’re doing):
 
-   -  swinst
+   -  swinst -- should already be on
+   -  instcool -- have someone watching for flow (and leaks) before toggling!
    -  dcpwr
    -  blower
-   -  fan1
-   -  fan2
-   -  instcool
+   -  fanmain
+   -  fanaux
 
 4. RTC Power-On
 
-   1.  **CRITICAL** ensure that instcool is powered on to provide
+   #.  **CRITICAL** ensure that instcool is powered on to provide
        liquid cooling to the RTC.
-   2.  using the pwrGUI, power on ``comprtc``
-   3.  **IMPORTANT** wait at least 90 sec to allow the motherboard KVM module to
-       initialize
-   4.  open firefox, and navigate to ``192.168.0.170`` (or use the "Moxa DIO" bookmark)
-   5.  login (if required, password provided to those who need it)
-   6.  in the left menu, select ``I/O Setting -> DO Channels`` |image1|
-   7.  in the main frame, click on ``RTC-PWR``, which will open a new
+   #.  using the pwrGUI, power on ``comprtc``
+   #.  open firefox, and navigate to ``192.168.0.170`` (or use the "Moxa DIO" bookmark)
+   #.  login (if required, password provided to those who need it)
+   #.  in the left menu, select ``I/O Setting -> DO Channels`` |image1|
+   #.  in the main frame, click on ``RTC-PWR``, which will open a new
        window: |image2|
-   8.  Under [1. Current Setting], ensure that ``Pulse Output`` is
+   #.  Under [1. Current Setting], ensure that ``Pulse Output`` is
        selected, and check the box under Pulse Start. Then press the
        ``Submit`` button at the bottom. This remotely presses the ATX
        power button on the RTC.
-   9.  **IMPORTANT** Immediately on AOC as xsup in home, run the command:
-
-       ::
-
-          [xsup@exao1 ~]$ ./jviewer-starter/jviewer-starter 192.168.0.21 &
-
-       Note that if you do not do this right away, the iKVM module will not register as a keyboard.
-   10. This brings up a video display of the RTC VGA output. Use the
-       display to monitor progress. It will sometimes hang with a message
-       to press F1 as shown: |image5|
-   11. This message is meaningless. When this message appears, press F1.
-       Do NOT alter any settings. Immediately press F10 (Save Changes
-       and Reset) and hit enter to say Yes. A soft keyboard can be
-       brought up from the dispaly controls to facilitate these
-       interactions: |image6|
-   12. Once the boot finishes, use ``nvidia-smi`` in a terminal on RTC to be sure all GPUs
-       are visible (currently 3 on RTC).
-   13. If a GPU has ``fallen off the bus``, see the troubleshooting
-       guide for steps to take.
+   #.  Wait for it to come up, and you can ssh in. (You should not need to babysit it over the KVM.)
 
 5. ICC Power-On
 
-   1.  **CRITICAL** ensure that instcool is powered on to provide
+   #.  **CRITICAL** ensure that instcool is powered on to provide
        liquid cooling to the ICCC.
-   2.  using the pwrGUI, power on ``compicc``
-   3.  **IMPORTANT** wait at least 90 sec to allow the motherboard KVM module to
+   #.  using the pwrGUI, power on ``compicc``
+   #.  **IMPORTANT** wait at least 90 sec to allow the motherboard KVM module to
        initialize
-   4.  open firefox, and navigate to ``192.168.0.170`` (or use the "Moxa DIO" bookmark)
-   5.  login (if required, password provided to those who need it)
-   6.  in the left menu, select ``I/O Setting -> DO Channels`` |image1|
-   7.  in the main frame, click on ``ICC-PWR``, which will open a new
+   #.  open firefox, and navigate to ``192.168.0.170`` (or use the "Moxa DIO" bookmark)
+   #.  login (if required, password provided to those who need it)
+   #.  in the left menu, select ``I/O Setting -> DO Channels`` |image1|
+   #.  in the main frame, click on ``ICC-PWR``, which will open a new
        window: |image2|
-   8.  Under [1. Current Setting], ensure that ``Pulse Output`` is
+   #.  Under [1. Current Setting], ensure that ``Pulse Output`` is
        selected, and check the box under Pulse Start. Then press the
        ``Submit`` button at the bottom. This remotely presses the ATX
        power button on the RTC.
-   9.  **IMPORTANT** Immediately on AOC as xsup in home, run the command:
+   #.  **IMPORTANT** Immediately on AOC as xsup in home, run the command:
 
        ::
 
           [xsup@exao1 ~]$ ./jviewer-starter/jviewer-starter 192.168.0.22 &
 
        Note that if you do not do this right away, the iKVM module will not register as a keyboard.
-   10. This brings up a video display of the ICC VGA output. Use the
+   #.  This brings up a video display of the ICC VGA output. Use the
        display to monitor progress. It will sometimes hang with a message
        to press F1 as shown: |image5|
-   11. This message is meaningless. When this message appears, press F1.
+   #.  This message is meaningless. When this message appears, press F1.
        Do NOT alter any settings. Immediately press F10 (Save Changes
        and Reset) and hit enter to say Yes. A soft keyboard can be
        brought up from the dispaly controls to facilitate these
        interactions: |image6|
-   12. Once the boot finishes, use ``nvidia-smi`` in a terminal on ICC to be sure all GPUs
-       are visible (currently 1 on ICC).
-   13. If a GPU has ``fallen off the bus``, see the troubleshooting
-       guide for steps to take.
+   #.  Without fail, ICC will lose a GPU, and shortly after, it will lock up. Just run ``watch nvidia-smi`` or something and wait until this happens.
+   #.  When it locks up, use the iKVM interface's power button to power off (not reset) ICC remotely.
+   #.  Power it up as before, and it should be fine from then on. (Although sometimes you have to do this dance twice.)
+   #.  Once the boot finishes, use ``nvidia-smi`` in a terminal on ICC to be sure all GPUs
+       are visible (currently two 2080Tis on ICC).
+   #.  If a GPU has ``fallen off the bus``, see :ref:`the troubleshooting guide <missing_gpu>` for steps to take.
 
 Software Startup
 ----------------
