@@ -19,8 +19,8 @@
 
 project = 'MagAO-X Instrument Handbook'
 from datetime import date
-yr = date.today().year
-copyright = f'{yr}, Extreme Wavefront Control Lab, The University of Arizona'
+today = date.today()
+copyright = f'{today.isoformat()}, Extreme Wavefront Control Lab, The University of Arizona'
 author = 'Extreme Wavefront Control Lab, The University of Arizona'
 
 
