@@ -15,12 +15,7 @@ camera is controlled by the ocam2KCtrl process with device name
 Note that MagAO-X apps normally need to be run as user ``xsup``.
 
 Each application runs in its own tmux session. This can be accessed (as
-xsup) using either tmux (``tmux a -t camwfs``) or using the
-`xctrl <../utils/xctrl>`__ utility:
-
-::
-
-   [xsup@exao2 ~]$ xctrl inspect camwfs
+xsup) using ``tmux a -t camwfs``
 
 See `xctrl <../utils/xctrl>`__ for additional tools to control and
 monitor MagAO-X applications. To follow the log use the
@@ -56,7 +51,7 @@ options:
 
 ::
 
-   [xsup@exao2 ~]$ /opt/MagAOX/bin/ocam2KCtrl -h`.
+   [xsup@exao2 ~]$ /opt/MagAOX/bin/ocam2KCtrl -h
 
 An example from the output of that command is
 
@@ -72,74 +67,15 @@ Finally, the description of this option is provided.
 Though the configuration file specified by the ``-n`` option is the
 normal method to configure an app, additional settings can be made using
 the command line for troubleshooting and development. Use the ``-c``
-option to specify an additional configuration file – any settings in
+option to specify an additional configuration file -- any settings in
 this file will override the defaults (but anything not overridden will
 still be set by the default). Any options passed as command-line
 arguments will override any settings in the configuration files.
 
-Standard Options
-----------------
-
-All MagAO-X applications accept the following options:
-
-+-------------+-------------+-------------+-------------+-------------+
-| Short       | Long        | Config-File | Type        | Description |
-|             |             | \*          |             |             |
-+=============+=============+=============+=============+=============+
-| ``-c``      | `           | config      | string      | A local     |
-|             | `--config`` |             |             | config file |
-+-------------+-------------+-------------+-------------+-------------+
-| ``-h``      | ``--help``  |             | none        | Print this  |
-|             |             |             |             | message and |
-|             |             |             |             | exit        |
-+-------------+-------------+-------------+-------------+-------------+
-| ``-p``      | ``--        | loopPause   | unsigned    | The main    |
-|             | loopPause`` |             | long        | loop pause  |
-|             |             |             |             | time in ns  |
-+-------------+-------------+-------------+-------------+-------------+
-| ``-P``      | ``--R       | RTPriority  | unsigned    | The         |
-|             | TPriority`` |             |             | real-time   |
-|             |             |             |             | priority    |
-|             |             |             |             | (0-99)      |
-+-------------+-------------+-------------+-------------+-------------+
-| ``-L``      | `           | lo          | string      | The         |
-|             | `--logDir`` | gger.logDir |             | directory   |
-|             |             |             |             | for log     |
-|             |             |             |             | files       |
-+-------------+-------------+-------------+-------------+-------------+
-|             | `           | lo          | string      | The         |
-|             | `--logExt`` | gger.logExt |             | extension   |
-|             |             |             |             | for log     |
-|             |             |             |             | files       |
-+-------------+-------------+-------------+-------------+-------------+
-|             | ``--m       | logger      | string      | The maximum |
-|             | axLogSize`` | .maxLogSize |             | size of log |
-|             |             |             |             | files       |
-+-------------+-------------+-------------+-------------+-------------+
-|             | ``--w       | logger      | unsigned    | The log     |
-|             | ritePause`` | .writePause | long        | thread      |
-|             |             |             |             | pause time  |
-|             |             |             |             | in ns       |
-+-------------+-------------+-------------+-------------+-------------+
-|             | ``--logT    | logger.lo   | int         | The log     |
-|             | hreadPrio`` | gThreadPrio |             | thread      |
-|             |             |             |             | priority    |
-+-------------+-------------+-------------+-------------+-------------+
-| ``-l``      | ``-         | logg        | string      | The log     |
-|             | -logLevel`` | er.logLevel |             | level       |
-+-------------+-------------+-------------+-------------+-------------+
-| ``-n``      | ``--name``  | name        | string      | The name of |
-|             |             |             |             | the         |
-|             |             |             |             | a           |
-|             |             |             |             | pplication, |
-|             |             |             |             | specifies   |
-|             |             |             |             | config.     |
-+-------------+-------------+-------------+-------------+-------------+
-
-\* In the “Config-File” column, the syntax ``section.keyword`` means
+The syntax ``logger.logDir`` means
 that in the config file this option is set as follows:
 
 ::
 
-   [section]
-   keyword=value
+   [logger]
+   logDir=value
