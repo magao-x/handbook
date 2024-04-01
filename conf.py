@@ -78,13 +78,7 @@ latex_documents = [
 #   - Enforces a maximum width on images included as a brute force
 #     method of making more content fit on a page.
 _latex_preamble = r'''
-
-\usepackage{fancyhdr}
-\usepackage[yyyymmdd,hhmmss]{datetime}
-\pagestyle{fancy}
-\rfoot{Compiled on \today\ at \currenttime}
-\cfoot{}
-\lfoot{Page \thepage}
+\usepackage{datetime2}
 \usepackage{etoolbox}
 \makeatletter
 \patchcmd{\chapter}{\if@openright\cleardoublepage\else\clearpage\fi}{}{}{}
@@ -104,6 +98,11 @@ _latex_preamble = r'''
 '''
 latex_elements = {
     'preamble': _latex_preamble,
+    'atendofbody': r'''
+
+Built at \DTMnow
+
+'''
 }
 
 # Add Matomo analytics
