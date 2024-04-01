@@ -12,6 +12,7 @@ jobs:
           pip3 install --user -r requirements.txt
           bash generate_pdfs.sh
           make html
+          ls _build/html/_static/handling/
       - name: Add SSH key
         env:
             SSH_AUTH_SOCK: /tmp/ssh_agent.sock

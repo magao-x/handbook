@@ -19,9 +19,8 @@
 
 project = 'MagAO-X Instrument Handbook'
 from datetime import date
-today = date.today()
-built_at = f" (Updated {today.isoformat()})"
-copyright = f'{today.year}, Extreme Wavefront Control Lab, The University of Arizona'
+yr = date.today().year
+copyright = f'{yr}, Extreme Wavefront Control Lab, The University of Arizona'
 author = 'Extreme Wavefront Control Lab, The University of Arizona'
 
 
@@ -68,17 +67,18 @@ html_static_path = ['_static']
 
 latex_documents = [
     # (startdocname, targetname, title, author, documentclass, toctree_only)
-    ('handling/electronics_packing', 'electronics_packing.tex', 'Packing the MagAO-X Electronics at LCO' + built_at, author, 'howto', False),
-    ('handling/instrument_packing', 'instrument_packing.tex', 'Packing the MagAO-X Table at LCO for Shipment' + built_at, author, 'howto', False),
-    ('handling/telescope_install', 'telescope_install.tex', 'Installing MagAO-X on the Telescope' + built_at, author, 'howto', False),
-    ('handling/telescope_removal', 'telescope_removal.tex', 'Removing MagAO-X from the Telescope' + built_at, author, 'howto', False),
-    ('handling/bmc_dm_cabling', 'bmc_dm_cabling.tex', 'Decabling and recabling of Boston Micromachines deformable mirror' + built_at, author, 'howto', False),
+    ('handling/electronics_packing', 'electronics_packing.tex', 'Packing the MagAO-X Electronics at LCO', author, 'howto', False),
+    ('handling/instrument_packing', 'instrument_packing.tex', 'Packing the MagAO-X Table at LCO for Shipment', author, 'howto', False),
+    ('handling/telescope_install', 'telescope_install.tex', 'Installing MagAO-X on the Telescope', author, 'howto', False),
+    ('handling/telescope_removal', 'telescope_removal.tex', 'Removing MagAO-X from the Telescope', author, 'howto', False),
+    ('handling/bmc_dm_cabling', 'bmc_dm_cabling.tex', 'Decabling and recabling of Boston Micromachines deformable mirror', author, 'howto', False),
 ]
 
 #   - Disable page-clearing for chapter titles
 #   - Enforces a maximum width on images included as a brute force
 #     method of making more content fit on a page.
 _latex_preamble = r'''
+\usepackage{datetime2}
 \usepackage{etoolbox}
 \makeatletter
 \patchcmd{\chapter}{\if@openright\cleardoublepage\else\clearpage\fi}{}{}{}
@@ -98,6 +98,11 @@ _latex_preamble = r'''
 '''
 latex_elements = {
     'preamble': _latex_preamble,
+    'atendofbody': r'''
+
+Built at \DTMnow
+
+'''
 }
 
 # Add Matomo analytics
