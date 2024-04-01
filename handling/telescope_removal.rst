@@ -21,15 +21,14 @@ Shutdown
 -  Power down all of MagAO-X
 
    - Ensure that `stagepickoff` in the `out` position.
-   - Place the k-mirror at 180 degrees.
-   - Select the CH4-Cont and CH4-875 filters on fwsci1/2
+   - Place the k-mirror at 0 degrees.
+   - Select the Ha-narrow and CH4-875 filters on fwsci1/2
    - turn off power for all devices on MagAO-X following the regular shutdown procedure.
    - use the `shutdown -h now` command to halt both RTC and ICC
    - once the computers are off, turn off all things in the rack.
 
 
 -  Remove blower hose and cover the hole.
-
 
 -  Remove all cables
 
@@ -58,9 +57,6 @@ Shutdown
 
 Rig Onto Cart
 -------------
-
--  Position the telescope so that the elevator has access to the NASE
-   platform
 
 -  Lower table legs onto the casters by turning the 16 leveling bolts,
    and remove the metal pads
@@ -107,8 +103,8 @@ Rig Onto Cart
 
    *The cart being lifted to the bottom of the table.*
 
--  Install the 4 bolts attaching the cart to the table. Loosen bolts
-   on the cart as needed.
+-  Install the 4 bolts attaching the cart to the table.  Use only the 4 outboard bolts. Loosen bolts
+   on the cart as needed to adjust.
 
 -  Once the cart is bolted to the table bottom, while **320 lbs** is
    still on the crane, tighten all cart bolts. Do not over-tighten, make
@@ -116,6 +112,10 @@ Rig Onto Cart
    excessive stress on the table.
 
 -  Install the triangle stabilizing ropes between the crane hook and
+
+-  Reposition the load spreader center to the instrument + cart
+   position marked on it.
+
    the lifting fixture IAW the below figure. Tighten, but do not cause
    them to pick the load.
 
@@ -124,20 +124,15 @@ Rig Onto Cart
    *The triangle stabilizing ropes should be tight, but not become the
    lifting point for the load.*
 
-
--  Reposition the load spreader center to the instrument + cart
-   position marked on it.
-
 -  Ensure that there is room to move the legs out from under the
-   table, opening the garage door into the cleanroom if necessary.
+   table towards the telescope.
 
--  Position a person at each corner of the cart to stabilize it during
+-  Position a person at each end of the cart to stabilize it during
    the lift.
 
 -  Position two people to remove the legs from under the table
 
--  Lift the table off the legs. The weight of the table + cart is
-   **1920 lbs**
+-  Lift the table off the legs.
 
 -  Move the legs out from under the table.
 
