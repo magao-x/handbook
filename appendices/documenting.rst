@@ -77,12 +77,6 @@ You will need Python 3.5 or newer (with ``pip``) and a recent version of
    `Anaconda <https://www.anaconda.com/distribution/>`__ is a popular
    installer.)
 
-   Note: on Ubuntu 24 you can instead run this command:
-
-   .. code-block:: bash 
-
-      $ sudo apt install python3-sphinx python3-sphinx-rtd-theme 
-
 3. Ensure ``sphinx-build`` is on the path by running ``which sphinx-build``
    at the prompt
 
@@ -97,28 +91,6 @@ You will need Python 3.5 or newer (with ``pip``) and a recent version of
 
 You now have a copy of the sources for the handbook. If you’re just
 editing an existing document, :ref:`skip ahead <edit-and-publish>`.
-
-Installing for windows
-~~~~~~~~~~~~~~~~~~~~~~
-
-1. Download and Install `Git Bash <https://git-scm.com/download/win>`__. Git Bash is an application 
-   for Windows that emulates a Unix command line environment for Git
-
-2. Download and Install `Anaconda <https://docs.anaconda.com/anaconda/install/windows/>`__. 
-
-3. In order for ``pip install`` and python to work properly in Git Bash from the previous section, 
-   you must open the PowerShell and run this command: ``source /c/Path/to/anaconda3/Scripts/activate``. 
-   You should now be able to restart Git Bash and successfully run ``pip``.
-
-4. You will then need to generate a ssh key pair. To generate a public/private key pair run ``ssh-keygen -t ed25519`` in Git Bash.
-
-5. A key fingerprint will be generated. This will need to be copied and pasted in your github account under 'Settings' -> 'SSH and GPG keys'.
-   Click 'New SSH key' and paste the key fingerprint under key. Click 'Add SSH key'.  
-
-6. Back in Git Bash, you will need to run the command: ``ssh -T git@github.com`` to test
-   the connection. If everything is done correctly, it will tell you it has been successfully authenticated. If it 
-   states permission denied, you need to ensure everything is correctly set up. If errors persist, try deleting
-   the keys, generate a new pair, and try again.
 
 Creating a brand new document
 ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~

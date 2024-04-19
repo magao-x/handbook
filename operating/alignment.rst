@@ -7,7 +7,7 @@ System Pupil Alignment
 Tweeter Pupil Alignment (F-Test)
 ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
 
-To align the pupil on the tweeter, we perform the F-Test (which is actually an R).
+To align the pupil on the tweeter, we perform the F-Test.
 
 Prepare the system:
 
@@ -19,49 +19,23 @@ Prepare the system:
 
 * **fwscind.filterName** in **pupil**
 
-* **fwsci1.filterName** in **z** (in almost all cases you should align in `z` for repeatability)
+* **fwsci1.filterName** in **z** (or whichever filter works the best for conditions)
 
 * configure **camsci1** so that you can see the pupil without saturating.
 
-* Move **stagesci1** to preset **fpm**.
+* as needed, move **stagesci1** to focus the pupil image.  You want to be somewhat out of focus to see the test pattern well.  The preset **fpm** works well.
 
-Now put the test pattern on the tweeter with **Pupil Alignment GUI** for dmtweeter.  Press the **set test** under **Tweeter**
+Now put the test pattern on the tweeter with **Pupil Alignment GUI** for dmtweeter.  Press the **set test** under **tweeter**
 
-Next, use the "TTM Pupil" section to align the pupil on the tweeter using the arrow keypad.
-The following figure demonstrates what a good alignment looks like.
+Next, use the "Pupil Steering" section to align the pupil on the tweeter using the arrow keypad .  The following figure demonstrates what a good alignment looks like.  
 
 .. image:: f-test-good.png
     :width: 500
     :align: center
+    
+Note that you may need to change the focus by moving **stagelowfs**.
 
-
-When done, press the **zero test** button on dmCtrl GUI uner **Tweeter**.
-
-NCPC Pupil Alignment (J-Test)
-~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
-
-To align the pupil on the NCPC DM, we perform the J-Test.
-
-Prepare the system:
-
-* **fwpupil.filterName** in **open**
-
-* **fwfpm.filterName** in **open**
-
-* **fwlyot.filterName** in **open**
-
-* **fwscind.filterName** in **pupil**
-
-* **fwsci1.filterName** in **z** (in almost all cases you should align in `z` for repeatability)
-
-* configure **camsci1** so that you can see the pupil without saturating.
-
-* Move **stagesci1** to preset **jtest**.
-
-Now put the test pattern on the NCPC with **Pupil Alignment GUI** for dmncpc.  Press the **set test** under **NCPC**
-
-Next, use the "TTM Peri" section to align the pupil on the tweeter using the arrow keypad.
-The following figure demonstrates what a good alignment looks like.
+When done, press the **zero test** button on dmCtrl GUI for dmtweeter.
 
 Pyramid Alignment
 ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
@@ -88,14 +62,14 @@ Find and mark the pupil position on **camlowfs**:
 
 * **stagelosel.presetName** in **pupil**
 
-* **fwlowfs.filterName** in **z**
+* **fwlowfs.filterName** in **z** 
 
 * **camlowfs** settings can be adjusted.  Typical settings are
-
+  
   - **exptime** = **0.05**
-
+  
   - **readout_speed** = **emccd_17MHz**
-
+  
   - **vshift_speed** = **3_3us**
 
 * **camlowfs.shutter** to **open**
@@ -107,7 +81,7 @@ Find and mark the pupil position on **camlowfs**:
 .. image:: camlowfs_tgt.png
     :width: 500
     :align: center
-
+    
 Now align the desired pupil mask.  First select the presets for the mask:
 
 * **fwpupil.filterName** in desired position (e.g. **bump-mask**)
@@ -119,28 +93,28 @@ Now open coronaAlignGUI and use the "Pupil Plane" buttons to move the mask.  The
 .. image:: bump-mask_aligned.png
     :width: 500
     :align: center
-
+    
 Do not move fwpupil anymore.
 
 Lyot Stop Alignment
 ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
 
-* Set **fwfpm.filterName**:
+* Set **fwfpm.filterName**: 
 
 - if you are using the Lyot FPM, or any other transmissive FP optic:
 
     + select the desired mask
-
+    
     + **stagelosel.presetName** = fpm
-
+    
     + using the coronaAlignGUI "Lyot Plane" left-right buttons, move the spot so it is not obstructing the beam.  You will see two approx equal images (one is a ghost).
-
-    + adjust **dmncp** focus using such that the spots are roughly in focus.
-
+    
+    + adjust **dmncp** focus using such that the spots are roughly in focus. 
+    
     + note that you may need to adjust **camlowfs** due to saturation
-
+ 
  - otherwise, select **open**
-
+ 
 * **fwscind.filterName** = **pupil**
 
 * **stagescibs** = **none** (any position will actually work)
@@ -164,7 +138,7 @@ and adjust Lyot Plane with coronaAlignGUI until aligned.  See the below figure:
 .. image:: fwlyot_lyotlg1_aligned.png
     :width: 500
     :align: center
-
+    
 Focal Plane Mask Alignment
 ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
 
@@ -186,7 +160,7 @@ Now adjust Focal Plane with coronaAlignGUI until aligned.  The post-coronagraph 
     :width: 500
     :align: center
 
-Now run eye-doctor to optimize the FPM alignment with the following command
+Now run eye-doctor to optimize the FPM alignment with the following command 
 
 .. code::
 

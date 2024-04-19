@@ -13,11 +13,9 @@ The MagAO-X computing system.
    networking
    data_storage_management
    computer_setup/computer_setup
-   computer_setup/migration
-   computer_setup/install_magaox_rpi
    ssl_certs
    nas
-   vpn
+   tailscale
 
 Computer Architecture
 ---------------------
