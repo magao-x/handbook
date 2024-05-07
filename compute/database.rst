@@ -5,15 +5,7 @@ The MagAO-X telemetry database is a PostgreSQL database running on AOC that coll
 
 The database is designed to be a central repository for all telemetry data produced by the instrument, and to provide a simple interface for querying and visualizing that data.
 
-Usage
------
-
-(First, set up the database as described in :ref:`setup_telemetry_database`. For use on a non-instrument computer or a cluster, see :ref:`setup_telemetry_database_nosudo`)
-
-**TODO:** how to perform a query in the notebooks on exao1 and plot the result.
-
-**TODO:** how to view / edit the Grafana dashboards.
-
+First, you will need to set up the database as described in :ref:`setup_telemetry_database`.
 
 .. _maintenance:
 
@@ -79,10 +71,13 @@ Next, use ``setup/steps/configure_postgresql.sh`` in the MagAOX repository to cr
 Setup
 -----
 
+This is for setting up on the instrument (most likely AOC / exao1). For use on a non-instrument computer or a cluster, see :ref:`setup_telemetry_database_nosudo`.
+
 Prerequisites
 ~~~~~~~~~~~~~
 
-PostgreSQL version 14 or newer should be installed. The setup shell scripts include a `configure_postgresql.sh <https://github.com/magao-x/MagAOX/blob/dev/setup/steps/configure_postgresql.sh>`_ script to run on AOC which does several things. It
+PostgreSQL version 14 or newer should be installed. The setup shell scripts include a `configure_postgresql.sh <https://github.com/magao-x/MagAOX/blob/dev/setup/steps/configure_postgresql.sh>`_ script to run on AOC which does several things. It:
+
 * adds a line to the ``/etc/postgresql/14/main/pg_hba.conf`` file telling it to search ``/etc/postgresql/14/main/pg_hba.conf.d/*.conf`` for additional configuration,
 * creates that directory and a file within it that enables network access to the PostgreSQL server from the instrument LAN,
 * enables the postgresql SystemD service, starts it (if needed), and reloads the configuration files
