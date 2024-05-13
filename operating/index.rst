@@ -19,10 +19,10 @@ Viewing camera output and DM input (really, any shared memory image) uses
 
    startup
    daily_startup
+   on_sky
    daily_shutdown
    shutdown
    alignment
-   on_sky
    software/python_indi_device
    software/guis/index
    software/utils/index
