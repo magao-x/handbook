@@ -8,6 +8,7 @@ The MagAO-X computing system.
 
    remote_operation
    python
+   database
    administration
    networking
    data_storage_management

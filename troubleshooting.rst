@@ -91,6 +91,8 @@ Believe it or not, this can be a sign of insufficient disk space.
 Consult ``df -h`` and see if any of the filesystems have ``Use%`` of
 100%.
 
+.. _missing_gpu:
+
 Lockup / Missing GPUs / ``nvidia-smi`` errors
 ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
 
