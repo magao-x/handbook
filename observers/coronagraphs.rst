@@ -48,7 +48,7 @@ fwfpm position: `lyotsm`
    :header-rows: 1
   
    * - lambda [um]
-     - spot size [lam/D]
+     - spot radius [lam/D]
      - opt. dens.
    * - 0.600
      - 3.285
@@ -76,7 +76,7 @@ fwfpm position: `lyotlg`
    :header-rows: 1
   
    * - lambda [um]
-     - spot size [lam/D]
+     - spot radius [lam/D]
      - opt. dens.
    * - 0.600
      - 5.47
