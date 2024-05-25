@@ -32,7 +32,7 @@ Shutdown
 
 -  Remove all cables
 
-   -  See detailed procedure for removing 2K DM cables
+   -  See detailed procedure for removing MEMS DM cables
 
 -  Electronics Rack
 
@@ -42,9 +42,11 @@ Shutdown
 
 -  Instrument
 
+   -  Install window cover
    -  Remove eyepiece
    -  Remove bumpers and pusher hardware
    -  Remove air connection
+   -  Remove the PEPS II 
    -  Tape over any exposed holes (from cables, etc)
    -  Secure any loose cables
    -  Shrink wrap the instrument
@@ -67,7 +69,7 @@ Rig Onto Cart
 
    -  **CAUTION:** be careful to not bump the legs with the cart
 
--  Ensure that the 8 large bolts on the cart are snug but not tight
+-  The 8 large bolts on the cart should just be touching the washers, but the washers should still spin.
 
 -  Attach the lifting wire-harness to each side of the cart
 
@@ -84,14 +86,14 @@ Rig Onto Cart
 -  Lift the load spreader, and position it over the instrument
 
 -  Being careful to not bump the instrument, lower the load spreader
-   and attach the lifting harness D rings. Use 3x shackles to extend the
+   and attach the lifting harness D rings. Use 4x shackles to extend the
    length to reach the cart on the floor.
 
    .. image:: figures/cart_lift_extensions.jpg
 
    *Lifting harnesses attached with shackle extensions*
 
--  Position a person at each corner of the cart
+-  Position a person at each end of the cart
 
    **CAUTION:** Do not allow the cart to bump the legs or the table
    uncontrolled
@@ -107,15 +109,14 @@ Rig Onto Cart
    on the cart as needed to adjust.
 
 -  Once the cart is bolted to the table bottom, while **320 lbs** is
-   still on the crane, tighten all cart bolts. Do not over-tighten, make
+   still on the crane, tighten all cart bolts. Do not over-tighten: make
    1/4 turn after the washers are no longer free. This is to avoid
    excessive stress on the table.
-
--  Install the triangle stabilizing ropes between the crane hook and
 
 -  Reposition the load spreader center to the instrument + cart
    position marked on it.
 
+-  Install the triangle stabilizing ropes between the crane hook and 
    the lifting fixture IAW the below figure. Tighten, but do not cause
    them to pick the load.
 
@@ -179,6 +180,8 @@ Transport MagAO-X To The Clean room
 -  Next, using the come-along, carefully move MagAO-X onto the lift
    gate.
 
+-  Move MagAO-X into the cleanroom.
+
 -  Return to the top with the flatbed and move
    the legs to the cleanroom.
 
@@ -223,8 +226,8 @@ Transport Electronics
 Remove AOC from Control Room
 ----------------------------
 
--  power down AOC
+-  power down AOC and COC
 
 -  remove monitors and pack
 
--  move AOC to cleanroom.
+-  move AOC and COC to cleanroom.
