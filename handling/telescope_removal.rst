@@ -20,19 +20,18 @@ Shutdown
 
 -  Power down all of MagAO-X
 
-   - Ensure that `stagepickoff` in the `out` position.
+   - Ensure that ``stagepickoff`` in the ``tel`` position.
    - Place the k-mirror at 0 degrees.
    - Select the Ha-narrow and CH4-875 filters on fwsci1/2
    - turn off power for all devices on MagAO-X following the regular shutdown procedure.
-   - use the `shutdown -h now` command to halt both RTC and ICC
+   - use the ``shutdown -h now`` command to halt both RTC and ICC
    - once the computers are off, turn off all things in the rack.
-
 
 -  Remove blower hose and cover the hole.
 
 -  Remove all cables
 
-   -  See detailed procedure for removing MEMS DM cables
+   -  See :ref:`detailed procedure <bmc_dm_cabling>` for removing MEMS DM cables
 
 -  Electronics Rack
 
@@ -50,12 +49,12 @@ Shutdown
    -  Tape over any exposed holes (from cables, etc)
    -  Secure any loose cables
    -  Shrink wrap the instrument
-   -  Install solar blanked over shrink wrap
+   -  Install solar blanket over shrink wrap
 
 -  Cart and Rigging
 
    -  Verify all cart hardware is in-hand
-   -  Verify two wire harnesses are in hand
+   -  Verify two wire harnesses are in-hand
 
 Rig Onto Cart
 -------------
