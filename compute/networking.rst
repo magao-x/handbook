@@ -21,7 +21,11 @@ Topology
 
 **Las Campanas Observatory**
 
-TODO
+.. figure:: lco_network.svg
+   :alt: Schematic representation of the connections between our computers when at the telescope at Las Campanas Observatory
+
+   Schematic representation of the connections between our computers when at the telescope at Las Campanas Observatory
+
 
 Ubuntu and NetworkManager and ufw and firewalld
 -----------------------------------------------
