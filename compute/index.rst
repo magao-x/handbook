@@ -15,7 +15,7 @@ The MagAO-X computing system.
    computer_setup/computer_setup
    ssl_certs
    nas
-   tailscale
+   vpn
 
 Computer Architecture
 ---------------------

@@ -15,7 +15,7 @@ You can also access the share from your own computer, as described in the next s
 Connecting your own computer to the Steward NAS
 -----------------------------------------------
 
-Your first step should be to install :doc:`tailscale` following instructions for your operating system. Then, to connect:
+Your first step should be to install the :doc:`vpn` following instructions for your operating system. Then, to connect:
 
 **macOS:** On macOS, open Finder and then go to the "Go" menu and select "Connect to Server..." (alternatively, hit command-K). The top text box accepts a URL for connection, which should be ``smb://YOURNETID@10.130.133.220/jrmales0`` where ``YOURNETID`` is, well, your NetID from University of Arizona. You can "favorite" the url using the "+" button at lower left. Click "Connect". You will be prompted for a password, which is just your NetID password.
 

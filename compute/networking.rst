@@ -13,7 +13,7 @@ Topology
 
 **University of Arizona**
 
-.. figure:: ua_network.svg
+.. figure:: ua_network.drawio.svg
    :alt: Schematic representation of the connections between our lab computers when at home at University of Arizona
 
    Schematic representation of the connections between our lab computers when at home at University of Arizona

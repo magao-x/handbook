@@ -352,10 +352,10 @@ devices.)
    (e.g. ``ping 8.8.8.8``) and the new config works to ping the machine
    from outside
 
-Configure Tailscale
-~~~~~~~~~~~~~~~~~~~
+Configure VPN
+~~~~~~~~~~~~~
 
-See the :doc:`../tailscale` section of the handbook for install instructions.
+See the :doc:`../vpn` section of the handbook for install instructions.
 
 If this is a migration from an old install, you will need ``/var/lib/tailscale/tailscaled.state`` from the old machine. See :ref:`migration`.
 
@@ -631,7 +631,7 @@ Migrating data from a previous installation
 
 There are several very important files to retain when reinstalling the operating system.
 
-  - ``/var/lib/tailscale/tailscaled.state`` -- this file allows the machine to keep its name and IP address on the tailnet
+  - ``/var/lib/tailscale/tailscaled.state`` -- this file allows the machine to keep its name and IP address on the VPN
   - ``/etc/ssh/ssh_host_*_key*`` -- these files allow clients to connect over SSH without triggering a scary warning and requiring manual intervention
   - ``/home/xsup/.ssh/{authorized_keys,id_ed25519,id_ed25519.pub,known_hosts}`` -- these files allow ``xsup`` to connect to other MagAO-X machines without prompting for host key verification
   - ``/etc/{passwd,group,shadow}`` -- these files contain the UID and GID mappings and user passwords to restore

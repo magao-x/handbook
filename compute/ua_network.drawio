@@ -4,7 +4,7 @@
       <root>
         <mxCell id="0" />
         <mxCell id="1" parent="0" />
-        <mxCell id="75fUI03RNpnLS7jkSlaE-75" value="Tailscale servers" style="rounded=0;whiteSpace=wrap;html=1;fillColor=#dae8fc;strokeColor=#6c8ebf;verticalAlign=bottom;" parent="1" vertex="1">
+        <mxCell id="75fUI03RNpnLS7jkSlaE-75" value="VPN servers" style="rounded=0;whiteSpace=wrap;html=1;fillColor=#dae8fc;strokeColor=#6c8ebf;verticalAlign=bottom;" parent="1" vertex="1">
           <mxGeometry x="230" y="860" width="130" height="90" as="geometry" />
         </mxCell>
         <mxCell id="75fUI03RNpnLS7jkSlaE-55" value="Steward Server Room" style="rounded=0;whiteSpace=wrap;html=1;fillColor=none;align=left;verticalAlign=top;dashed=1;dashPattern=1 4;" parent="1" vertex="1">
