@@ -21,7 +21,7 @@ Topology
 
 **Las Campanas Observatory**
 
-.. figure:: lco_network.svg
+.. figure:: lco_network.drawio.svg
    :alt: Schematic representation of the connections between our computers when at the telescope at Las Campanas Observatory
 
    Schematic representation of the connections between our computers when at the telescope at Las Campanas Observatory
