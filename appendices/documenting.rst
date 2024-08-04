@@ -77,6 +77,12 @@ You will need Python 3.5 or newer (with ``pip``) and a recent version of
    `Anaconda <https://www.anaconda.com/distribution/>`__ is a popular
    installer.)
 
+   Note: on Ubuntu 24 you can instead run this command:
+
+   .. code-block:: bash 
+
+      $ sudo apt install python3-sphinx python3-sphinx-rtd-theme 
+
 3. Ensure ``sphinx-build`` is on the path by running ``which sphinx-build``
    at the prompt
 
