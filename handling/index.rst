@@ -16,6 +16,7 @@ Handling Procedures
     electronics_unpacking
     instrument_unpacking
     telescope_install
+    legs_air_setup
     telescope_removal
     electronics_packing
     instrument_packing
