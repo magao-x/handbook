@@ -1,9 +1,12 @@
 Telemetry and File Inventory Database
 =====================================
+  
+The MagAO-X telemetry database is a PostgreSQL database running on AOC that collects device telemetry from the ``.bintel`` 
+and ``.ndjson.gz`` files produced by instrument devices across the computers in MagAO-X. It also tracks the inventory of 
+files for replication to backup volumes and remote sites.
 
-The MagAO-X telemetry database is a PostgreSQL database running on AOC that collects device telemetry from the ``.bintel`` and ``.ndjson.gz`` files produced by instrument devices across the computers in MagAO-X. It also tracks the inventory of files for replication to backup volumes and remote sites.
-
-The database is designed to be a central repository for all telemetry data produced by the instrument, and to provide a simple interface for querying and visualizing that data.
+The database is designed to be a central repository for all telemetry data produced by the instrument, and to provide a 
+simple interface for querying and visualizing that data.
 
 First, you will need to set up the database as described in :ref:`setup_telemetry_database`.
 
@@ -15,7 +18,8 @@ Maintenance
 Backfilling existing data
 ~~~~~~~~~~~~~~~~~~~~~~~~~
 
-There are a couple of times you may want to backfill the database. If you're starting from scratch with an empty database, or if the ``dbIngest`` processes are interrupted and need to catch up, you can perform the backfill with:
+There are a couple of times you may want to backfill the database. If you're starting from scratch with an empty database, 
+or if the ``dbIngest`` processes are interrupted and need to catch up, you can perform the backfill with:
 
 1. ``xtelemdb inventory``
 
@@ -28,7 +32,9 @@ Repeat these steps on every instrument computer that needs to be caught up.
 Reinitialize the database
 ~~~~~~~~~~~~~~~~~~~~~~~~~
 
-If the database gets messed up, it's no big deal. The contents should be entirely reproducible given the same set of files on the three instrument computers. (How to fill in data that's already been shunted off to backup drives... is another matter. TODO)
+If the database gets messed up, it's no big deal. The contents should be entirely reproducible given the same set of 
+files on the three instrument computers. (How to fill in data that's already been shunted off to backup drives... is 
+another matter. TODO)
 
 Level 1: Remove data from tables, keeping tables/indices/views the same
 ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
@@ -41,7 +47,8 @@ Using ``sudo -u postgres psql xtelem`` to connect to the ``xtelem`` database as 
     TRUNCATE TABLE file_origins CASCADE;
     COMMIT;
 
-Adjust as needed for other tables. (Use ``\dt`` at the ``xtelem=#`` prompt to list.) Continue with the :ref:`backfill procedure <maintenance>`.
+Adjust as needed for other tables. (Use ``\dt`` at the ``xtelem=#`` prompt to list.) Continue with 
+the :ref:`backfill procedure <maintenance>`.
 
 Level 2: Remove tables and views
 ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
@@ -52,7 +59,8 @@ Using ``sudo -u postgres psql xtelem`` to connect to the ``xtelem`` database as 
     DROP TABLE file_origins CASCADE;
     COMMIT;
 
-Use the ``xtelemdb setup`` command to re-create the tables and views, then continue with the :ref:`backfill procedure <maintenance>`.
+Use the ``xtelemdb setup`` command to re-create the tables and views, then continue with 
+the :ref:`backfill procedure <maintenance>`.
 
 Level 3: Remove database and roles (users)
 ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
@@ -63,7 +71,9 @@ Using ``sudo -u postgres psql xtelem`` to connect to the ``xtelem`` database as 
     DROP ROLE xsup;
     DROP ROLE xtelem;
 
-Next, use ``setup/steps/configure_postgresql.sh`` in the MagAOX repository to create the database. Then, use the ``xtelemdb setup`` command to re-create the tables and views, and continue with the :ref:`backfill procedure <maintenance>`.
+Next, use ``setup/steps/configure_postgresql.sh`` in the MagAOX repository to create the database. Then, 
+use the ``xtelemdb setup`` command to re-create the tables and views, and continue with 
+the :ref:`backfill procedure <maintenance>`.
 
 
 .. _setup_telemetry_database:
@@ -71,12 +81,15 @@ Next, use ``setup/steps/configure_postgresql.sh`` in the MagAOX repository to cr
 Setup
 -----
 
-This is for setting up on the instrument (most likely AOC / exao1). For use on a non-instrument computer or a cluster, see :ref:`setup_telemetry_database_nosudo`.
+This is for setting up on the instrument (most likely AOC / exao1). For use on a non-instrument computer or a cluster, 
+see :ref:`setup_telemetry_database_nosudo`.
 
 Prerequisites
 ~~~~~~~~~~~~~
 
-PostgreSQL version 14 or newer should be installed. The setup shell scripts include a `configure_postgresql.sh <https://github.com/magao-x/MagAOX/blob/dev/setup/steps/configure_postgresql.sh>`_ script to run on AOC which does several things. It:
+PostgreSQL version 14 or newer should be installed. The setup shell scripts include 
+a `configure_postgresql.sh <https://github.com/magao-x/MagAOX/blob/dev/setup/steps/configure_postgresql.sh>`_ script 
+to run on AOC which does several things. It:
 
 * adds a line to the ``/etc/postgresql/14/main/pg_hba.conf`` file telling it to search ``/etc/postgresql/14/main/pg_hba.conf.d/*.conf`` for additional configuration,
 * creates that directory and a file within it that enables network access to the PostgreSQL server from the instrument LAN,
@@ -127,7 +140,9 @@ After running them, ensure:
 Setup from CLI
 ~~~~~~~~~~~~~~
 
-Code to interact with the telemetry database is centralized in ``magaox`` Python package, which is maintained in the main magao-x/MagAOX repository. On AOC, the package is installed in the default conda environment. To update the installed version, run ``make python_install`` in ``/opt/MagAOX/source/MagAOX`` with a developer account.
+Code to interact with the telemetry database is centralized in ``magaox`` Python package, which is maintained in the main 
+magao-x/MagAOX repository. On AOC, the package is installed in the default conda environment. To update the installed version, 
+run ``make python_install`` in ``/opt/MagAOX/source/MagAOX`` with a developer account.
 
 After installation, there is an ``xtelemdb`` command available::
 
@@ -139,7 +154,9 @@ After installation, there is an ``xtelemdb`` command available::
 
     {setup,inventory,backfill}
 
-We want to set up the database, so run ``xtelemdb setup``. Note that you will have to do this step as ``xsup`` or else get the message ``ERROR Tried to get password from /opt/MagAOX/secrets/xtelemdb_password`` and a ``PermissionError``. That could look like this::
+We want to set up the database, so run ``xtelemdb setup``. Note that you will have to do this step as ``xsup`` or else 
+get the message ``ERROR Tried to get password from /opt/MagAOX/secrets/xtelemdb_password`` and a ``PermissionError``. 
+That could look like this::
 
     $ xsupify
     xsup@exao1:~$ xtelemdb setup
@@ -167,7 +184,10 @@ Check that the tables you expect were created::
 Start device processes
 ~~~~~~~~~~~~~~~~~~~~~~
 
-The proclist for each instrument computer will launch a ``dbIngest`` device process at ``xctrl startup``. (These are named ``dbIngestAOC``, ``dbIngestRTC``, and ``dbIngestICC``.) If they were started before the database became available, they will probably have crashed. Use ``xctrl restart dbIngestAOC`` to start the device on AOC, and modify accordingly for the other two machines.
+The proclist for each instrument computer will launch a ``dbIngest`` device process at ``xctrl startup``. 
+(These are named ``dbIngestAOC``, ``dbIngestRTC``, and ``dbIngestICC``.) If they were started before the database 
+became available, they will probably have crashed. Use ``xctrl restart dbIngestAOC`` to start the device on AOC, and 
+modify accordingly for the other two machines.
 
 
 .. _setup_telemetry_database_nosudo:
@@ -175,7 +195,8 @@ The proclist for each instrument computer will launch a ``dbIngest`` device proc
 Setup a personal copy of the database
 -------------------------------------
 
-PostgreSQL is a full database system which generally requires administrator access to install. However, in cluster computing settings where you don't have ``sudo``, you may still install a database using ``conda`` / ``mamba``.
+PostgreSQL is a full database system which generally requires administrator access to install. However, in cluster 
+computing settings where you don't have ``sudo``, you may still install a database using ``conda`` / ``mamba``.
 
 Installing a personal PostgreSQL
 ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
