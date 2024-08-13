@@ -8,7 +8,7 @@ Introduction
 MagAO-X is an experimental coronagraphic extreme adaptive optics system.  It seeks to employ the latest cutting-edge technologies to demonstrate the highest
 possible contrast at the smallest possible inner working angles, to enable exoplanet, circumstellar disk, and other high contrast and/or high resolution astronomical observations. 
 
-MagAO-X is a PI instrument, still undergoing commissioning.  Operation of MagAO-X is very complex, and requires 
+MagAO-X is a PI instrument and its operation is very complex.  Observing with MagAO-X requires 
 the support of a large team both at the telescope and in the lab to prepare it for telescope observations.  
 We welcome scientific proposals, for either astronomy observations or technical/instrumentation experiments, from Magellan Consortium members 
 in collaboration with the MagAO-X team.  Any such proposals must be approved by the MagAO-X PI prior to submission.
@@ -24,7 +24,7 @@ We will provide a list of co-author names and affiliations for any such MagAO-X 
 
 Proposals
 ===========================
-To propose to use MagAO-X in collaboration with the team, please send the following to the MagAO-X PI (Jared Males, jrmales@arizona.edu) at least 72 hrs
+To propose to use MagAO-X in collaboration with the team, please send at minimum the following to the MagAO-X PI (Jared Males, jrmales@arizona.edu) at least 72 hrs
 prior to your institution's deadline:
 
 - The project title.
@@ -32,11 +32,9 @@ prior to your institution's deadline:
 - An abstract providing basic scientific and technical information about the project.
 - List of targets, with RA and Dec. 
 
-This information will be used by the MagAO-X team to assess technical feasibility, and ensure that there are no conflicts between various
+A full proposal is preferred.  This information will be used by the MagAO-X team to assess technical feasibility, and ensure that there are no conflicts between various
 users of MagAO-X.  This latter need is crucial given the limited telescope time available and the relatively small number of targets
 in our performance envelopes.
-
-
 
 The H-alpha Proto-Planet Survey
 ==================================
@@ -216,7 +214,7 @@ The ultimate science goals for MagAO-X involve very high contrast observations o
 
 Laboratory Experiments
 ============================
-MagAO-X is often set up in the eXtreme Wavefront Control Laboratory (XWCL) at Steward Observatory, where it is available for conducting experiments and demonstrations.  We welcome such efforts, and will work to support them.  This includes providing remote access to the instrument when appropriate. Please contact Jared Males (jrmales@arizona.edu) to discuss.
+MagAO-X is often set up in the eXtreme Wavefront Control Laboratory (XWCL) at Steward Observatory, where it is available for conducting experiments and demonstrations. It is also often available at LCO when not on the telesscope for remote operations. We welcome such efforts, and will work to support them.  This includes providing remote access to the instrument when appropriate. Please contact Jared Males (jrmales@arizona.edu) to discuss.
 
 Publications based on lab experiments will folow the same co-author agreement described in Collaborations above.
 
