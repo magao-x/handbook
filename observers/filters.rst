@@ -325,7 +325,7 @@ MagAO-X WFS and Gaia G bandpasses with atm model:
 MagAO-X conversion to Sloan filter system
 -----------------------------------------
 
-.. image:: figures/MagAOXfilters_SDSSfilters.png
+.. image:: figures/MagAOX-Sloan-Filter-Transmission.png
    :alt: Plot of MagAO-X and Sloan filter transmission curves
    
 .. image:: figures/MagAOXfilters_toSDSSfilters_color_conversion.png
