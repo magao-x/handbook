@@ -98,6 +98,18 @@ You will need Python 3.5 or newer (with ``pip``) and a recent version of
 You now have a copy of the sources for the handbook. If you’re just
 editing an existing document, :ref:`skip ahead <edit-and-publish>`.
 
+Installing for windows
+~~~~~~~~~~~~~~~~~~~~~~
+
+1. Download and Install `Git Bash <https://git-scm.com/download/win>`__. Git Bash is an application 
+   for Windows that emulates a Unix command line environment for Git
+
+2. Download and Install `Anaconda <https://docs.anaconda.com/anaconda/install/windows/>`__. 
+
+3. In order for ``pip install`` and python to work properly in Git Bash from the previous section, 
+   you must open the PowerShell and run this command: ``source /c/Path/to/anaconda3/Scripts/activate``. 
+   You should now be able to restart Git Bash and successfully run ``pip``.
+
 Creating a brand new document
 ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
 
