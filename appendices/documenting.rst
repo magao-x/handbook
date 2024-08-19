@@ -110,6 +110,11 @@ Installing for windows
    you must open the PowerShell and run this command: ``source /c/Path/to/anaconda3/Scripts/activate``. 
    You should now be able to restart Git Bash and successfully run ``pip``.
 
+4. Once you create a ssh key in github, you will need to run the command: ``ssh -T git@github.com`` to test
+   the connection. If everything is done correctly, it will tell you it has been successfully authenticated. If it 
+   states permission denied, you need to ensure everything is correctly set up. If errors persist, try deleting
+   the keys, generate a new pair, and try again.
+
 Creating a brand new document
 ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
 
