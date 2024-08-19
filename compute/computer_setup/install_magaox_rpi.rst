@@ -1,3 +1,10 @@
+.. raw:: html
+
+    <style> .red {color:red} </style>
+
+.. role:: red
+
+
 Installing MagAO-X on a Raspberry Pi
 ====================================
 
@@ -8,10 +15,15 @@ Configuring the Raspberry Pi
 Prepare the MicroSD card
 ~~~~~~~~~~~~~~~~~~~~~~~~
 
-The first step is to download the Raspberry Pi Imager from the `Raspberry Pi Website <https://www.raspberrypi.com/software/>`__. The MicroSD card can then 
-be inserted into your computer. Now open the Raspberry Imager and select the Raspberry Pi Device you have, the operating system (OS) (Ubuntu server 24.04 LTS), 
-and the storage (your MicroSD card). To access the OS customization, use ``ctrl+shift+x``. This is where you can set hostname, username password, 
-etc. It is crucial that you 'Enable SSH' in the OS customization. Now click 'next' and 'write' to install the OS on the Micro SD card. 
+The first step is to use a Raspberry Pi imaging tool to image an SD card. On Windows, you can download the Raspberry Pi Imager from the `Raspberry Pi Website <https://www.raspberrypi.com/software/>`__.) 
+The MicroSD card can then be inserted into your computer. Now open the Raspberry Imager and select the Raspberry Pi Device you have, the operating system (OS) 
+(Ubuntu server 24.04 LTS), and the storage (your MicroSD card). To access the OS customization, use ``ctrl+shift+x``. This is where you can set hostname, 
+username password, etc. 
+
+.. note::
+    It is crucial that you 'Enable SSH' in the OS customization. 
+
+Now click 'next' and 'write' to install the OS on the Micro SD card.
 
 In the MicroSD, update ``cmdline.txt`` by adding the following string to the end: ``ip=192.168.0.5::192.168.0.1:255.255.255.0:rpi:eth0:off``. Note that 
 this ip can be changed to match your desired static ip settings.
@@ -21,9 +33,10 @@ Boot the Raspberry Pi
 ~~~~~~~~~~~~~~~~~~~~~
 
 Insert the MicroSD card back into the Raspberry Pi. If you are using your PC, you can use an ethernet cable to connect the Raspberry Pi to your PC 
-(you may need an Ethernet to USB C adapter). You can now power up the Raspberry Pi (This may take a couple minutes to boot). While this is booting, 
-go to 'Settings', then 'Ethernet'. In here, edit the IP assignment to Manual, the IPv4 address to something similar to 192.168.0.6, and the IPv4 mask 
-to something similar to 255.255.255.0. 
+(you may need an Ethernet to USB C adapter). You can now power up the Raspberry Pi (This may take a couple minutes to boot). 
+
+While this is booting, go to 'Settings' on your computer, then 'Ethernet'. In here, edit the IP assignment to Manual, the IPv4 address to something similar 
+to 192.168.0.6, and the IPv4 mask to something similar to 255.255.255.0. This needs to be the same as what was added to ``cmdline.txt``.
 
 After this is complete, go to your terminal and ping the Raspberry Pi's IPv4 address ``ping 192.168.0.5`` to ensure 
 it is receiving you. Then SSH into the Raspberry Pi ``ssh 192.168.0.5``.    
