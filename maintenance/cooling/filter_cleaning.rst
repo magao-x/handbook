@@ -25,7 +25,7 @@ Precautions
     Do not dump glycol down a sink drain or into the environment.
 
 .. warning::
-    All liquid cooled systems must be off prior to turning off `instCool`
+    All liquid cooled components must be off prior to turning off `instCool`
 
 Procedure 
 ----------
@@ -42,7 +42,8 @@ Procedure
    
 2. Initial Conditions.
 
-   - RTC, ICC, and all cameras off.
+   - RTC, ICC, and liquid cooled cameras (camwfs, camsci1, camsci2) off.
+   - instCool on
 
 3. Remove the lower cover plate labeld "cooling access" on the input side of the electronics rack to 
 expose the cooler control panel.
