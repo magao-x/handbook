@@ -44,7 +44,7 @@ E.g.: a search for 1e-4 planets at 250 mas around a 10th mag guide star isn't go
 than 0.8" seeing.  However, there are usually worthwhile projects which could be performed in such conditions that
 would make better use of the telescope.
 
-All proposal to use MagAO-X must include a statement of maximum usable seeing, and a backup plan for if seeing exceeds
+All proposals to use MagAO-X must include a statement of maximum usable seeing, and a backup plan for if seeing exceeds
 this value or if weather prevents executing the main plan. This is not intended to be a second science proposal.
 An example could be: "Backup plans: the maximum usable seeing for this project is 0.6''.
 If average seeing exceeds this value or clouds prevent closing the loop on this guide star,
