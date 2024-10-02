@@ -1,5 +1,5 @@
-Migrating data from a previous installation
-===========================================
+Migrating data from an existing installation
+============================================
 
 There are several very important files to retain when reinstalling the operating system.
 
