@@ -45,7 +45,7 @@ Shutdown
    -  Remove eyepiece
    -  Remove bumpers and pusher hardware
    -  Remove air connection
-   -  Remove the PEPS II 
+   -  Remove the PEPS II
    -  Tape over any exposed holes (from cables, etc)
    -  Secure any loose cables
    -  Shrink wrap the instrument
@@ -115,7 +115,7 @@ Rig Onto Cart
 -  Reposition the load spreader center to the instrument + cart
    position marked on it.
 
--  Install the triangle stabilizing ropes between the crane hook and 
+-  Install the triangle stabilizing ropes between the crane hook and
    the lifting fixture IAW the below figure. Tighten, but do not cause
    them to pick the load.
 

@@ -22,3 +22,4 @@ Handling Procedures
     instrument_packing
     so_instrument_packing
     bmc_dm_cabling
+    lco_remote_ops
