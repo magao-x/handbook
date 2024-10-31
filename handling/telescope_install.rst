@@ -307,6 +307,8 @@ Install MagAO-X On The Platform
 
 -  Conduct the daytime alignment procedure per alignment plan
 
+See detailed alignment procedure :download:`Aligning MagAO-X to the Telescope <../appendices/aligning_magao-x_to_the_scope.pdf>`
+
 
 Transport Electronics
 ---------------------
