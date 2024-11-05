@@ -2,13 +2,13 @@ Setting up the PEPS II and DM air system
 ========================================
 
 This procedure details how to set up the air supply for the self-leveling floating table system (PEPS II) and the MEMS DMs. 
-The procedure was documented in the LCO clean room, but these steps should be mimicked when installed MagAO-X on the telescope.
+The procedure was documented in the LCO clean room, but these steps should be mimicked when installing MagAO-X on the telescope.
 
 Estimated time to complete if MagAO-X is not on legs: 1.0 hr
 Estimated time to complete if just setting up air: 0.5 hr
 
 
-If MagAO-X has yet to be Installed on the Legs
+If MagAO-X has yet to be installed on the Legs
 ---------------------------------------------------
 
 
@@ -70,7 +70,7 @@ Step 2: Take the long part of the plastic air tubing and lead to the instrument.
 
    .. image:: figures/cleanroom_air_yfitting.jpeg
 
-Step 3: Connect any one side of the y-fitting to the tubing connected to the air flow regulator. This portion of the air supply will go to the DM chambers for humidity mitigation.
+Step 3: Connect any one side of the y-fitting to the tubing connected to the air flow regulator. This portion of the air supply will go to the DM chambers for humidity control.
 
    .. image:: figures/dm_air_regulator.jpeg
 
