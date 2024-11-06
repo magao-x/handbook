@@ -13,6 +13,8 @@ Initial Conditions
 
 -  Instrument on Magellan Clay Nasmyth Platform, operating.
 
+.. _tel_remove_shutdown::
+
 Shutdown
 ------------
 
@@ -20,7 +22,7 @@ Shutdown
 
 -  Power down all of MagAO-X
 
-   - Ensure that ``stagepickoff`` in the ``tel`` position.
+   - Ensure that ``stagepickoff`` is in the ``tel`` position.
    - Place the k-mirror at 0 degrees.
    - Select the Ha-narrow and CH4-875 filters on fwsci1/2
    - turn off power for all devices on MagAO-X following the regular shutdown procedure.
@@ -115,8 +117,8 @@ Rig Onto Cart
 -  Reposition the load spreader center to the instrument + cart
    position marked on it.
 
--  Install the triangle stabilizing ropes between the crane hook and
-   the lifting fixture IAW the below figure. Tighten, but do not cause
+-  Install the triangle stabilizing ropes between the crane hook and 
+   the lifting fixture in accordance with the below figure. Tighten, but do not cause
    them to pick the load.
 
    .. image:: figures/stabilizers.jpg

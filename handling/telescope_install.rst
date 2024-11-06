@@ -16,7 +16,10 @@ Initial Conditions
 Preparations
 ------------
 
--  Shutdown MagAO-X
+-  If operating, shut down MagAO-X.
+
+   - Make sure to leave stages/wheels in positions that are safe for transportation
+   - Complete procedure in the :ref:`telescope removal procedure <tel_remove_shutdown>`
 
 -  Prepare Legs for Move
 
@@ -157,7 +160,7 @@ Rig Onto Cart
 
 -  Position two people to remove the legs from under the table
 
--  Begin SLOWLY lifting the table off the legs.
+-  Begin SLOWLY lifting the table off the legs. Once table is fully supported by the crane, the scale will read around 2000 lbs (as of March 2024).
 
 -  Go up 0.5inch then stop and inspect the platters.  Use a long flathead screwdriver to very gently pry any stuck platters off bottom of table.
 
