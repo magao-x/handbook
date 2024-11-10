@@ -144,6 +144,7 @@ from either camera.
 4. To record the current star location (or rather its average) you need to take a reference with:
 
     ::
+
        [xsup@icc ncpc-rootdir]$ cacao-aorun-026-takeref -n 20000
 
     You can change the number of measurements averaged to suit based on the exposure time of the camera in use.  This
