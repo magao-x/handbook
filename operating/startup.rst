@@ -90,27 +90,7 @@ System Powerup
        selected, and check the box under Pulse Start. Then press the
        ``Submit`` button at the bottom. This remotely presses the ATX
        power button on the RTC.
-   #.  **IMPORTANT** Immediately on AOC as xsup in home, run the command:
-
-       ::
-
-          [xsup@exao1 ~]$ ./jviewer-starter/jviewer-starter 192.168.0.21 &
-
-       Note that if you do not do this right away, the iKVM module will not register as a keyboard.
-   #.  This brings up a video display of the ICC VGA output. Use the
-       display to monitor progress. It will sometimes hang with a message
-       to press F1 as shown: |image5|
-   #.  This message is meaningless. When this message appears, press F1.
-       Do NOT alter any settings. Immediately press F10 (Save Changes
-       and Reset) and hit enter to say Yes. A soft keyboard can be
-       brought up from the display controls to facilitate these
-       interactions: |image6|
-   #.  Without fail, ICC will lose a GPU, and shortly after, it will lock up. Just run ``watch nvidia-smi`` or something and wait until this happens.
-   #.  When it locks up, use the iKVM interface's power button to power off (not reset) ICC remotely.
-   #.  Power it up as before, and it should be fine from then on. (Although sometimes you have to do this dance twice.)
-   #.  Once the boot finishes, use ``nvidia-smi`` in a terminal on ICC to be sure all GPUs
-       are visible (currently two 2080Tis on ICC).
-   #.  If a GPU has ``fallen off the bus``, see :ref:`the troubleshooting guide <missing_gpu>` for steps to take.
+   #.  Wait for it to come up, and you can ssh in. (You should not need to babysit it over the KVM.)
 
 Software Startup
 ----------------
