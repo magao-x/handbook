@@ -38,6 +38,7 @@ Shutdown
 -  Electronics Rack
 
    -  Ensure that roll-out shelves are restrained
+   -  Power off the UPS located in the electronics rack
    -  Close and lock doors
    -  Tape keys down
 

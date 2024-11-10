@@ -358,6 +358,8 @@ Install Electronics and Cable
 
 -  Install all cables but the 2K DM cables
 
+- Power on the UPS located in the electronics rack
+
 Install AOC in Control Room
 ---------------------------
 
