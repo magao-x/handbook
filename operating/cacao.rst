@@ -44,10 +44,7 @@ Terminal Interface Setup
    can do this by pressing `ctrl` and using the scroll wheel on the mouse.  `ctrl +` and `ctrl -` also work.
 
 .. note::
-     The above steps are ripe for scripting.  Someday a grad student will pay enough attention to CACAO and rise to the challenge.
-
-.. note::
-     Joseph you are the only person who will read this, you are not allowed to prompt grad students nor help any brave souls who dare to venture here.
+     The above steps are ripe for scripting.  Volunteers needed.
 
 Graphical User Interface
 -------------------------
@@ -148,6 +145,31 @@ from either camera.
        [xsup@icc ncpc-rootdir]$ cacao-aorun-026-takeref -n 20000
 
     You can change the number of measurements averaged to suit based on the exposure time of the camera in use.  This
-    sets the convergence
+    sets the convergence point of the loop.
+
+Troubleshooting
+~~~~~~~~~~~~~~~~~
+If the loop isn't working, for instance you close the loop and it runs away immediately, try the following:
+
+1. After taking a reference, look at the output of the reference subtraction with:
+
+   ::
+
+      [xsup@icc ~]$ milk-shmimmon aol2_imWFS2
+
+   and then use the `ncpcModes` slider GUI to put tilt on the NCPC DM. Do the numbers change in a
+   consistent way for different tilts? If not, restart the fitter process:
+
+   ::
+
+      [xsup@icc ~]$ xctrl restart camflowfs-fit
+
+   changing the process accordingly
+
+2. Verify in cacao that `wfs2cmodeval-1.option.MODENORM=OFF`
+
+3. Re-run steps 2,3,and 4 under "Low Order T/T Loop" above.  Note especially that you need to run step 4 if you run step 3.
+
+
 
 
