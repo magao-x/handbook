@@ -73,9 +73,5 @@ If any of these are off the instrument probably won't work.
 
 
 
-.. |image1| image:: moxa_dio_do.png
-.. |image2| image:: moxa_dialog.png
-.. |image3| image:: rtc_ikvm_login.png
-.. |image4| image:: rtc_ikvm_launch.png
-.. |image5| image:: rtc_ikvm_f1.png
-.. |image6| image:: rtc_save_and_exit_yes.png
+.. |image1| image:: figures/moxa_dio_do.png
+.. |image2| image:: figures/moxa_dialog.png
