@@ -42,7 +42,7 @@ The main goal here is to shutoff "the expensive stuff".  Namely:
  - ttmperi
 
 
-Cameras (each of camsci1 camsci2 camwfs, but not camflowfs and camllowfs):
+Cameras (each of camsci1 camsci2 camwfs, camvisx, but not camflowfs and camllowfs):
  - close the shutter
  - warm up to 20C (use cameraGUI, change setpoint)
  - wait for it to finish
