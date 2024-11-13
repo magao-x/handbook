@@ -96,6 +96,16 @@ High-order Loop
 
     [xsup@rtc tweeter-vispyr-rootdir]$ cacao-calib-apply default
 
+4. After loading a calibration, you probably want to optimize the multiplication coefficients (which we also refer
+   to as leaks, though there's a 1 minus in there).  The standard setup is
+
+   ::
+
+    [xsup@rtc tweeter-vispyr-rootdir]$ hoblockleaks 5 0.98
+
+   which sets the MCs for block 5 and above to 0.98 (leak of 0.02). Global multiplication coefficient should be 1.
+   This is how we normally operate the system on sky.
+
 Low-order T/T Loop
 -------------------
 
