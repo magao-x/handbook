@@ -148,6 +148,14 @@ from either camera.
 
       [xsup@icc ncpc-rootdir]$ cacao-calib-apply llowfsTT
 
+   Now the following processes should be running in `cacao-fpsctrl-TUI` (the right hand CACAO terminal)
+
+     - wfs2cmodeval-2
+     - mvalC2dm-2
+     - mfilt-2
+     - DMch2disp-02
+     - acquWFS-2
+
 4. To record the current star location (or rather its average) you need to take a reference with:
 
     ::
@@ -155,13 +163,17 @@ from either camera.
        [xsup@icc ncpc-rootdir]$ cacao-aorun-026-takeref -n 20000
 
     You can change the number of measurements averaged to suit based on the exposure time of the camera in use.  This
-    sets the convergence point of the loop.
+    sets the convergence point of the loop.  Now Check that the `acquWFS-2` processes is updating `aol2_imWFS2` with:
+
+    ::
+
+      [xsup@icc ~]$ milk-shmimmon aol2_imWFS2
 
 Troubleshooting
 ~~~~~~~~~~~~~~~~~
 If the loop isn't working, for instance you close the loop and it runs away immediately, try the following:
 
-1. After taking a reference, look at the output of the reference subtraction with:
+1. After taking a reference, make sure to look at the output of the reference subtraction with:
 
    ::
 
@@ -172,11 +184,15 @@ If the loop isn't working, for instance you close the loop and it runs away imme
 
    ::
 
-      [xsup@icc ~]$ xctrl restart camflowfs-fit
+      [xsup@icc ~]$ xctrl restart camflowfs-fit / camflowfs-avg-fit / camllowfs-fit / camllowfs-avg-fit
 
-   changing the process accordingly
+   selecting the process accordingly
 
-2. Verify in cacao that `wfs2cmodeval-1.option.MODENORM=OFF`
+2. Verify in `cacao-fpsctrl-TUI` (the right hand CACAO terminal) that:
+
+   - `wfs2cmodeval-2.option.MODENORM=OFF`
+   - `acquWFS-2.comp.WFSrefsub=ON`
+   - `acquWFS-2.comp.****=OFF` (all other things but WFSrefsub off)
 
 3. Re-run steps 2,3,and 4 under "Low Order T/T Loop" above.  Note especially that you need to run step 4 if you run step 3.
 
