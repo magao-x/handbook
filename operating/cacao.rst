@@ -96,15 +96,6 @@ High-order Loop
 
     [xsup@rtc tweeter-vispyr-rootdir]$ cacao-calib-apply default
 
-4. After loading a calibration, you probably want to optimize the multiplication coefficients (which we also refer
-   to as leaks, though there's a 1 minus in there).  The standard setup is
-
-   ::
-
-    [xsup@rtc tweeter-vispyr-rootdir]$ hoblockleaks 5 0.98
-
-   which sets the MCs for block 5 and above to 0.98 (leak of 0.02). Global multiplication coefficient should be 1.
-   This is how we normally operate the system on sky.
 
 Low-order T/T Loop
 -------------------
@@ -148,13 +139,16 @@ from either camera.
 
       [xsup@icc ncpc-rootdir]$ cacao-calib-apply llowfsTT
 
-   Now the following processes should be running in `cacao-fpsctrl-TUI` (the right hand CACAO terminal)
+   Now the following processes should be running in `cacao-fpsctrl-TUI` (the right hand CACAO terminal).
+   These should all be green:
 
      - wfs2cmodeval-2
      - mvalC2dm-2
      - mfilt-2
      - DMch2disp-02
      - acquWFS-2
+
+   It is ok if other processes are green.
 
 4. To record the current star location (or rather its average) you need to take a reference with:
 
