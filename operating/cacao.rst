@@ -167,14 +167,7 @@ Troubleshooting
 ~~~~~~~~~~~~~~~~~
 If the loop isn't working, for instance you close the loop and it runs away immediately, try the following:
 
-1. After taking a reference, make sure to look at the output of the reference subtraction with:
-
-   ::
-
-      [xsup@icc ~]$ milk-shmimmon aol2_imWFS2
-
-   and then use the `ncpcModes` slider GUI to put tilt on the NCPC DM. Do the numbers change in a
-   consistent way for different tilts? If not, restart the fitter process:
+1. Restart the fitter process:
 
    ::
 
