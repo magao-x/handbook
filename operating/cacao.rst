@@ -169,37 +169,28 @@ If the loop isn't working or is behaving erratically, for instance you close the
 
 0. In cursesINDI, there are a variety of parameters that can be adjusted to fix or optimize the behavior of the FLOWFS loop.
 
-::
+   - camflowfs-fit.deltaPixThresh [pixels]
 
-camflowfs-fit.deltaPixThresh [pixels]
+   This regularizes magnitude of the Tip/Tilt commands sent to the NCPC DM via CACAO. E.g., for a value of 2 pixels, if the pixel            coordinates for the center-of-light is more than 2 pixels away from the max value pixel coordinates on camflowfs (or camllowfs), no 
+   command will be sent. This is useful for, e.g., a hot pixel in a corner of the current ROI.
 
-This regularizes magnitude of the Tip/Tilt commands sent to the NCPC DM via CACAO. E.g., for a value of 2 pixels, if the pixel coordinates for the center-of-light is more than 2 pixels away from the max value pixel coordinates on camflowfs (or camllowfs), no command will be sent. This is useful for, e.g., a hot pixel in a corner of the current ROI.
+   - camflowfs-fit.sigmaMaxThreshDown and camflowfs-fit.sigmaMaxThreshDown
 
-:: 
+   This sets upper/lower sigma clipping thresholds for RMS pixel values of the max pixel value in the current ROI, frame-by-frame. This      has a 5 seconds circular buffer (can be modified using `camflowfs-fit.statstime`). If the max pixel value falls outside these             thresholds, no command will be sent to the NCPC DM. This is useful for, e.g., intermittent clouds or seeing bursts.
 
-camflowfs-fit.sigmaMaxThreshDown and camflowfs-fit.sigmaMaxThreshDown
+   - camflowfs-fit.sigmapixthresh
 
-This sets upper/lower sigma clipping thresholds for RMS pixel values of the max pixel value in the current ROI, frame-by-frame. This has a 5 seconds circular buffer (can be modified using `camflowfs-fit.statstime`). If the max pixel value falls outside these thresholds, no command will be sent to the NCPC DM. This is useful for, e.g., intermittent clouds or seeing bursts.
+   This sets a sigma clipping threshold for the center-of-light pixel coordinate, frame-by-frame. This has a 5 seconds circular buffer       (can be modified using `camflowfs-fit.statstime`).
 
-:: 
+   - camflowfs-fit.dx and camflowfs-fit.dy [pixels]
 
-camflowfs-fit.sigmapixthresh
-
-This sets a sigma clipping threshold for the center-of-light pixel coordinate, frame-by-frame. This has a 5 seconds circular buffer (can be modified using `camflowfs-fit.statstime`).
-
-:: 
-
-camflowfs-fit.dx and camflowfs-fit.dy [pixels]
-
-This sets an additive value to the tip/tilt commands sent to the NCPC DM via CACAO. This is useful for, e.g., moving the PSF on camflowfs as an alternative to nudging the focal plane mask using coronAlignGUI.
+   This sets an additive value to the tip/tilt commands sent to the NCPC DM via CACAO. This is useful for, e.g., moving the PSF on           camflowfs as an alternative to nudging the focal plane mask using coronAlignGUI.
 
 1. Restart the fitter process:
 
 In cursesINDI, use:
 
-:: 
-
-camflowfs-fit.reset
+- camflowfs-fit.reset
 
 Toggle this to do a soft reset of the camflowfs-fit process. This should avoid needing to rerun steps 2 through 5.
 
