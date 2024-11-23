@@ -20,14 +20,14 @@ The ESD monitor must be connected to the system, to power, and to the personnel 
     - 2 wrist straps with buttons to attach the leads
     - 1 AC to DC power converter with black "headphone jack" plug
 
-2. Connect: 
+2. Connect:
 
     1. RJ11 between black terminals and jacks on ESD monitor (**Note:** Missing/loose RJ11 connections do NOT trigger the 'grounding lost' alarm.)
     2. each curly wrist strap lead to a black terminal's yellow banana plug receptacle and to the button connection on the wrist strap (see image)
-    
+
         .. image:: figures/esd_monitor_user_terminal.jpg
             :width: 50%
-    
+
     3. The ground leads:
 
         - **If you have a grounding mat,** connect it to the jack labeled "MAT" on the plastic enclosure
@@ -46,7 +46,7 @@ The BMC ribbon cables run from the DM in MagAO-X, through a strain relief clamp,
 Required workers: 2 minimum, 3 preferred.
 
 Required equipment:
-    
+
     - ESD bags
     - scotch tape
     - hex drivers
@@ -125,4 +125,24 @@ If a pin sticks, very carefully pull it out using needle nose pliers.  Do not dr
 
 If removable connector is stuck and can't be removed with fingers, very carefully use a small flathead screwdriver to pry it off from one side.  Do not allow the screw driver to touch any contacts.
 
-Finish by checking actuator functionality, following `this notebook on the RTC <https://github.com/magao-x/magpyx/blob/master/notebooks/connection_doctor_example.ipynb>`_
+Check actuator functionality (2K only)
+--------------------------------------
+
+Once enough of the system is up that you can :doc:`start CACAO <../operating/cacao>`, you can compare a newly acquired response matrix to an historical one.
+
+.. note::
+
+    CACAO commands change frequently, compare the following to the latest `CACAO docs <https://cacao-org.github.io/docs/cacao_acquire_linear_response.html>`_ (unless those have changed names too).
+
+To acquire a linear response matrix, CACAO must be seeing wavefront sensor images and combining DM channels into commands (which in turn must be written by the ``dmtweeter`` MagAO-X process). Then, you can (from the ``tweeter-vispyr-rootdir`` as described in :doc:`../operating/cacao`)::
+
+    $ cacao-mkDMpokemodes -z 5 -c 25
+    $ cacao-aorun-030-acqlinResp -n 4 HpokeC
+    $ cacao-aorun-031-RMHdecode
+    $ cacao-aorun-032-RMmkmask
+
+This updates ``/data/cacao/tweeter-vispyr/tweeter-vispyr-rootdir/conf/zrespM.fits`` (you can ``stat`` it to confirm it was modified). That response matrix can then be compared with a reference response matrix, e.g., ``/data/cacao/tweeter-vispyr/tweeter-vispyr-calibs/lco_1564modes_20220418_224654/RMmodesWFS/zrespM-H.fits`` to find any actuators with flaky connectionss.
+
+Open http://exao2.magao-x.org:9999/ (equivalently, ``rtc:9999`` from AOC) and make a copy of the ``connection_doctor_YYYY-MM-DD`` notebook (based on `this notebook <https://github.com/magao-x/magpyx/blob/master/notebooks/connection_doctor_example.ipynb>`_). Update the ``zrespM_ref =`` variable to hold the path to the reference response matrix, and ``zrespM =`` to ``/data/cacao/tweeter-vispyr/tweeter-vispyr-rootdir/conf/zrespM.fits``.
+
+Run the rest of the cells. Flaky actuators will be identified with a particular connector, which can be cleaned and re-seated.
