@@ -3,11 +3,11 @@ Accessing data as a guest observer
 
 MagAO-X (but not all visiting instruments) record data in a compressed format. Standard FITS-formatted data with full headers is produced during observations, becoming available within a few minutes of the start of the observation. This document explains how to access it.
 
-**Extremely short version, for those who just need a refresher:** ``rsync -kaz --progress guestobs@exao1.lco.cl:/data/obs/vizzy@xwcl.science/ ./my_obs/``
+**Extremely short version, for those who just need a refresher:** ``rsync -rtz --progress guestobs@exao1.lco.cl:/data/obs/vizzy@xwcl.science/ ./my_obs/``
 
 Observation data are exported to the Adaptive optics Operator Computer, aka AOC or ``exao1``. Note that ``exao1`` is part of the instrument, and ships back and forth to Chile for observing runs. That means two things:
 
-1. It will not be available for several weeks while it is in transit, and
+1. It will not be available for several weeks if it is in transit, and
 2. It has a different IP and host-name when it's at University of Arizona than when it's at Las Campanas Observatory.
 
 Guest observers will access exao1 with SSH and (preferably) rsync. (Users on Windows may be able to use WinSCP or rclone.)
@@ -100,9 +100,9 @@ You can use your favorite tool to browse, but we recommend ``rsync`` to handle t
 Downloading science data
 ------------------------
 
-You can use ``rsync`` to get your images out. Here's an example to download/update all images (from all semesters) for the observer ``vizzy@xwcl.science``, skipping those you already have::
+You can use ``rsync`` to get your images out. Here's an example to download/update images from semester 2024A for the observer ``vizzy@xwcl.science``, skipping those you already have::
 
-    $ rsync -rz --progress \
+    $ rsync -rtz --progress \
         guestobs@exao1.lco.cl:/data/obs/2024A/vizzy@xwcl.science/ \
         ./my_magao-x_obs/
 
@@ -117,9 +117,9 @@ You can use ``rsync`` to get your images out. Here's an example to download/upda
     sent 5016 bytes  received 221150763 bytes  23279555.68 bytes/sec
     total size is 221081847  speedup is 1.00
 
-The ``-z`` option compresses the files in transit. If you're on-site where MagAO-X lives (when it's at UA or LCO), you can omit ``-z``, as the compression overhead will waste more time than it saves.
+The ``-z`` option compresses the files in transit. **If you're on-site where MagAO-X lives (when it's at UA or LCO), you can omit ``-z``, as the compression overhead will waste more time than it saves.**
 
-Re-running this command will only sync changed files. During an observation, new frames will be processed in chunks as they are written, so you may want to re-run this command periodically.
+Re-running this command will only sync changed files (assuming the file modification times are accurate/unchanged). During an observation, new frames will be processed in chunks as they are written, so you may want to re-run this command periodically.
 
 The paths are constructed as follows: ``/data/obs/<observer email>/<semester>/<datestamp>/<catalog name of object>/<purpose>_<start UT>/<device>/``.
 
