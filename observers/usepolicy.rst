@@ -2,63 +2,45 @@
 Instrument Use Policy
 ******************************
 
-Introduction
+Introduction 
 ===========================
 
 MagAO-X is an experimental coronagraphic extreme adaptive optics system.  It seeks to employ the latest cutting-edge technologies to demonstrate the highest
-possible contrast at the smallest possible inner working angles, to enable exoplanet, circumstellar disk, and other high contrast and/or high resolution astronomical observations.
+possible contrast at the smallest possible inner working angles, to enable exoplanet, circumstellar disk, and other high contrast and/or high resolution astronomical observations. 
 
-MagAO-X is a PI instrument and its operation is very complex.  Observing with MagAO-X requires
-the support of a large team both at the telescope and in the lab to prepare it for telescope observations.
-We welcome scientific proposals, for either astronomy observations or technical/instrumentation experiments, from Magellan Consortium members
+MagAO-X is a PI instrument, still undergoing commissioning.  Operation of MagAO-X is very complex, and requires 
+the support of a large team both at the telescope and in the lab to prepare it for telescope observations.  
+We welcome scientific proposals, for either astronomy observations or technical/instrumentation experiments, from Magellan Consortium members 
 in collaboration with the MagAO-X team.  Any such proposals must be approved by the MagAO-X PI prior to submission.
 
 
 Collaborations
 ============================
-To use MagAO-X, you must first agree to offer co-authorship on any publications which include MagAO-X data to members of the MagAO-X
-team who have supported your observations.
+To use MagAO-X, you must first agree to offer co-authorship on any publications which include MagAO-X data to members of the MagAO-X 
+team who have supported your observations.  
 This will include researchers (including students, post-docs, and faculty) who have helped develop, implement, and test the various
-observing modes, algorithms, and technologies as implemented in MagAO-X, in addition to the specific team members at the telescope for your run.
+observing modes, algorithms, and technologies as implemented in MagAO-X, in addition to the specific team members at the telescope for your run. 
 We will provide a list of co-author names and affiliations for any such MagAO-X publications when requested.
 
 Proposals
 ===========================
-To propose to use MagAO-X in collaboration with the team, please send at minimum the following to the MagAO-X PI (Jared Males, jrmales@arizona.edu) at least 72 hrs
+To propose to use MagAO-X in collaboration with the team, please send the following to the MagAO-X PI (Jared Males, jrmales@arizona.edu) at least 72 hrs
 prior to your institution's deadline:
 
 - The project title.
 - A complete list of researchers outside the MagAO-X team collaborating on the project.
 - An abstract providing basic scientific and technical information about the project.
-- List of targets, with RA and Dec.
+- List of targets, with RA and Dec. 
 
-A full proposal is preferred.  This information will be used by the MagAO-X team to assess technical feasibility, and ensure that there are no conflicts between various
+This information will be used by the MagAO-X team to assess technical feasibility, and ensure that there are no conflicts between various
 users of MagAO-X.  This latter need is crucial given the limited telescope time available and the relatively small number of targets
 in our performance envelopes.
 
-Backup Plans
-~~~~~~~~~~~~~~~
-As an instrument optimized for short wavelengths, and in particular H-alpha SDI observations,
-MagAO-X does not perform optimally in all seeing and wind (jetstream) conditions.
-E.g.: a search for 1e-4 planets at 250 mas around a 10th mag guide star isn't going to be successful in worse
-than 0.8" seeing.  However, there are usually worthwhile projects which could be performed in such conditions that
-would make better use of the telescope.
-
-All proposals to use MagAO-X must include a statement of maximum usable seeing, and a backup plan for if seeing exceeds
-this value or if weather prevents executing the main plan. This is not intended to be a second science proposal.
-An example could be: "Backup plans: the maximum usable seeing for this project is 0.6''.
-If average seeing exceeds this value or clouds prevent closing the loop on this guide star,
-we will conduct follow-up observations in z-band of previously identified companions to bright stars in order to
-confirm common proper motion."  That is just an example, you can choose the seeing, etc, and we can help give advice
-about that.
-
-Note that you could in principle use LDSS3 for your backup plan, though there is some overhead in switching and some
-planning for the masks would be needed. We have successfully switched in the middle of the night so it is possible.
 
 
 The H-alpha Proto-Planet Survey
 ==================================
-Currently, our team's key astronomy science project is the MagAO-X H-alpha Protoplanet Survey, MaXProtoPlanetS.  Lead by Co-PI Laird Close, this is a
+Currently, our team's key astronomy science project is the MagAO-X H-alpha Protoplanet Survey, MaXProtoPlanetS.  Lead by Co-PI Laird Close, this is a 
 survey of nearby young stars to look for planetary mass companions using the H-alpha accretion signature.  Collaborations within the context of this survey are welcome, contact Laird Close (lclose@arizona.edu) to discuss.
 
 This project is one of the key performance drivers of the first phase of MagAO-X, and one of our main motivations for developing this instrument.  As such, many of the well-known targets are reserved as part of this survey.  Below is the current list of reserved targets, which will be updated periodically as we revise selection criteria,
@@ -66,8 +48,8 @@ and before the proposal cycle for planned runs.  (The below list is currently on
 
 .. list-table:: Reserved Targets
    :header-rows: 1
-
-   * - Star Name
+   
+   * - Star Name 
      - RA
      - Dec
    * - HD 377
@@ -217,11 +199,11 @@ and before the proposal cycle for planned runs.  (The below list is currently on
    * - HD 34700
      - 05:19:41.40
      - 05:38:42.77
-   * - RX J1604.3-2130A
-     - 16:04:21.6
+   * - RX J1604.3-2130A  
+     - 16:04:21.6 
      - -21:30:28.5
-   * - HD 135244B
-     - 15:15:48.43
+   * - HD 135244B 
+     - 15:15:48.43 
      - -37:09:16.0
 
 
@@ -234,7 +216,7 @@ The ultimate science goals for MagAO-X involve very high contrast observations o
 
 Laboratory Experiments
 ============================
-MagAO-X is often set up in the eXtreme Wavefront Control Laboratory (XWCL) at Steward Observatory, where it is available for conducting experiments and demonstrations. It is also often available at LCO when not on the telesscope for remote operations. We welcome such efforts, and will work to support them.  This includes providing remote access to the instrument when appropriate. Please contact Jared Males (jrmales@arizona.edu) to discuss.
+MagAO-X is often set up in the eXtreme Wavefront Control Laboratory (XWCL) at Steward Observatory, where it is available for conducting experiments and demonstrations.  We welcome such efforts, and will work to support them.  This includes providing remote access to the instrument when appropriate. Please contact Jared Males (jrmales@arizona.edu) to discuss.
 
 Publications based on lab experiments will folow the same co-author agreement described in Collaborations above.
 

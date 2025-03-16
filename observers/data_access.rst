@@ -3,11 +3,11 @@ Accessing data as a guest observer
 
 MagAO-X (but not all visiting instruments) record data in a compressed format. Standard FITS-formatted data with full headers is produced during observations, becoming available within a few minutes of the start of the observation. This document explains how to access it.
 
-**Extremely short version, for those who just need a refresher:** ``rsync -rtz --progress guestobs@exao1.lco.cl:/data/obs/vizzy@xwcl.science/ ./my_obs/``
+**Extremely short version, for those who just need a refresher:** ``rsync -kaz --progress guestobs@exao1.lco.cl:/data/obs/vizzy@xwcl.science/ ./my_obs/``
 
 Observation data are exported to the Adaptive optics Operator Computer, aka AOC or ``exao1``. Note that ``exao1`` is part of the instrument, and ships back and forth to Chile for observing runs. That means two things:
 
-1. It will not be available for several weeks if it is in transit, and
+1. It will not be available for several weeks while it is in transit, and
 2. It has a different IP and host-name when it's at University of Arizona than when it's at Las Campanas Observatory.
 
 Guest observers will access exao1 with SSH and (preferably) rsync. (Users on Windows may be able to use WinSCP or rclone.)
@@ -74,36 +74,47 @@ Edit your SSH config file to save this option with a shorthand name. (On macOS a
     ProxyJump exao0
     User guestobs
 
-Now you can do ``ssh exao1-lco`` and that extra step will be taken care of. Importantly, you can use this for ``rsync`` as well! The ``user@host`` part of the ``rsync`` command (``guestobs@exao1.lco.cl`` in the example below) can be replaced with ``exao1-lco``.
+Now you can do ``ssh exao1-lco`` and that extra step will be taken care of. Importantly, you can use this for ``rsync`` as well! The ``user@host`` part of the ``rsync`` command (``guestobs@exao1.magao-x.org`` in the example below) can be replaced with ``exao1-lco``.
 
 Browsing the data
 -----------------
 
-Your data are rooted in ``/data/obs/$SEMESTER/$EMAIL/``. So, for example, ``/data/obs/2024A/jrmales@arizona.edu/`` will contain::
+Your data are rooted in ``/data/obs/your@email.com/``. So, for example, ``/data/obs/jrmales@arizona.edu/2022B/`` will contain::
 
-    [guestobs@exao1] $ ls /data/obs/2024A/jrmales@arizona.edu/
-    2024-02-07_004357_vib_all_loops_off
-    2024-02-07_004444_vib_all_loops_off
+    [guestobs@exao1] $ ls /data/obs/jrmales@arizona.edu/2022B/
+    2022-10-22_23
     [... and so on ...]
 
-One folder is created for every observation interval (i.e. toggle of the "recording" switch). Within those folders, there is a folder for each science camera that was actively recording (usually just camsci1 and camsci2)::
+and an individual night will contain a folder per target::
 
-    [guestobs@exao1] $ ls /data/obs/2024A/jrmales@arizona.edu/2024-02-07_004444_vib_all_loops_off/
+    [guestobs@exao1] $ ls /data/obs/jrmales@arizona.edu/2022B/2022-12-02_03
+    tet01OriC
+    [... and so on ...]
+
+When there is no catalog target active, the observations will be grouped under the folder ``UNKNOWN``. (In rare cases there could be no catalog header at all, which will result in a ``_no_target_`` folder name.)
+
+Within the target folder are folders for every observation interval (i.e. toggle of the "recording" switch)::
+
+    [guestobs@exao1] $ ls /data/obs/jrmales@arizona.edu/2022B/2022-12-02_03/tet01OriC/
+    camacq-astrom_20221203T071725
+    tet1Orib-astrometry-50-50-infocus_20221203T082958
+    [... and so on ...]
+
+Note that the UT start timestamp is appended to the name to prevent collisions. Within those folders, there is a folder for each science camera that was actively recording (usually just camsci1 and camsci2)::
+
+    [guestobs@exao1] $ ls /data/obs/jrmales@arizona.edu/2022B/2022-12-02_03/tet01OriC/tet1Orib-astrometry-50-50-infocus_20221203T082958/
     camsci1
     camsci2
-    [... and so on ...]
-
-Note that the UT start timestamp is appended to the folder name to prevent collisions. So, toggling the observation off and back on will create a new folder for the new "start" time.
 
 You can use your favorite tool to browse, but we recommend ``rsync`` to handle the large numbers of images. (See the following section.)
 
 Downloading science data
 ------------------------
 
-You can use ``rsync`` to get your images out. Here's an example to download/update images from semester 2024A for the observer ``vizzy@xwcl.science``, skipping those you already have::
+You can use ``rsync`` to get your images out. Here's an example to download/update all images (from all semesters) for the observer ``vizzy@xwcl.science``, skipping those you already have::
 
-    $ rsync -rtz --progress \
-        guestobs@exao1.lco.cl:/data/obs/2024A/vizzy@xwcl.science/ \
+    $ rsync -kaz --progress \
+        guestobs@exao1.magao-x.org:/data/obs/vizzy@xwcl.science/ \
         ./my_magao-x_obs/
 
     receiving file list ... done
@@ -117,17 +128,41 @@ You can use ``rsync`` to get your images out. Here's an example to download/upda
     sent 5016 bytes  received 221150763 bytes  23279555.68 bytes/sec
     total size is 221081847  speedup is 1.00
 
-The ``-z`` option compresses the files in transit. **If you're on-site where MagAO-X lives (when it's at UA or LCO), you can omit ``-z``, as the compression overhead will waste more time than it saves.**
+The ``-k`` option ensures directories are copied with their full contents (rather than symbolic links). The ``-a`` "archives" (copies recursively, preserving metadata). The ``-z`` option compresses the files in transit.
 
-Re-running this command will only sync changed files (assuming the file modification times are accurate/unchanged). During an observation, new frames will be processed in chunks as they are written, so you may want to re-run this command periodically.
+Re-running this command will only sync changed files. During an observation, new frames will be processed in chunks as they are written, so you may want to re-run this command periodically.
 
 The paths are constructed as follows: ``/data/obs/<observer email>/<semester>/<datestamp>/<catalog name of object>/<purpose>_<start UT>/<device>/``.
 
-So, for example, here's mock output of ``tree /data/obs/ -L 3``::
+So, for example, here's mock output of ``tree /data/obs/ -L 4``::
 
     /data/obs/
-    ├── 2024A
-    │   ├── aweinberger@carnegiescience.edu
-    │   │   ├── 2024-03-20_002551_HD12345_smlyot_zi
-    │   │   ├── 2024-03-20_012527_HD12345_smlyot_zi
-    [...]
+    ├── 2022B
+    │   ├── 2022-12-02_03
+    │   │   └── tet01OriC
+    │   │       └── jrmales@arizona.edu
+    │   └── 2022-12-03_04
+    │       ├── gam02Vel
+    │       │   └── jrmales@arizona.edu
+    │       ├── HD20121
+    │       │   └── warrenbfoster@arizona.edu
+    │       └── PDS201
+    │           └── lclose@as.arizona.edu
+    ├── jrmales@arizona.edu
+    │   └── 2022B
+    │       ├── 2022-12-02_03
+    │       │   └── tet01OriC -> /data/obs/2022B/2022-12-02_03/tet01OriC/jrmales@arizona.edu
+    │       └── 2022-12-03_04
+    │           └── gam02Vel -> /data/obs/2022B/2022-12-03_04/gam02Vel/jrmales@arizona.edu
+    ├── lclose@as.arizona.edu
+    │   └── 2022B
+    │       └── 2022-12-03_04
+    │           └── PDS201 -> /data/obs/2022B/2022-12-03_04/PDS201/lclose@as.arizona.edu
+    ├── lookyloo_success.txt
+    └── warrenbfoster@arizona.edu
+        └── 2022B
+            └── 2022-12-03_04
+                └── HD20121 -> /data/obs/2022B/2022-12-03_04/HD20121/warrenbfoster@arizona.edu
+
+Datestamps are in a format that suggests the fact they span a day boundary: ``2022-04-11_12`` contains observations from the night of April 11 (Chilean local time) through the morning of April 12. (This matches the naming of our observing logs.)
+
