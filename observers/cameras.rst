@@ -164,6 +164,14 @@ camsci2
      -
      -
 
+.. warning::
+    The 16-bit readout saturates at 65535 counts, but saturation of the CCD wells can occur as low as 40000 counts. Examine the image for charge bleed and err on the side of caution.
+
+.. note::
+    For the purposes of reading the above table, the cameras are always operated in "high gain" mode. For EMCCD modes, the value in the table is divided by a selectable electron-multiplying gain factor of 1--1000 (e.g. when emgain is 10 then one electron in a pixel becomes ten, then those ten electrons are converted into counts using the gain factor from the table). As the detectors age, there is an additional factor between zero and one representing the degradation of the electron-multiplying circuitry.
+
+    Detailed gain characterization of the instrument requires further data collection.
+
 camlowfs
 --------------------
 
@@ -263,11 +271,3 @@ camlowfs
      - 5.47
      - 10.1
      - 18.6
-
-.. warning::
-    The 16-bit readout saturates at 65535 counts, but saturation of the CCD wells can occur as low as 40000 counts. Examine the image for charge bleed and err on the side of caution.
-
-.. note::
-    For the purposes of reading the above table, the cameras are always operated in "high gain" mode. For EMCCD modes, the value in the table is divided by a selectable electron-multiplying gain factor of 1--1000 (e.g. when emgain is 10 then one electron in a pixel becomes ten, then those ten electrons are converted into counts using the gain factor from the table). As the detectors age, there is an additional factor between zero and one representing the degradation of the electron-multiplying circuitry.
-
-    Detailed gain characterization of the instrument requires further data collection.
