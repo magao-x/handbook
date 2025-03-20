@@ -429,4 +429,29 @@ or similar, try these things:
        one-by-one.
 
 
+MagAO-X Application Won't Start
+~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+1. To determine what INDI device is not working, start with ``xctrl status``
+
+
+2. The solution may be as simple as running ``xctrl restart 'INDI device with problem'``
+
+
+3. If this doesn't work, run ``xsupify`` and run ``tmux a -t 'INDI device with problem'`` in here.
+
+   - This will give you more information about the issue.
+
+
+4. Ensure that everything is configured correctly in ``/opt/MagAOX/config``
+
+   - This files you will want to check are 
+     
+     - *'INDI device with problem'.conf*
+       - This file should look similar to the app: ``/opt/MagAOX/config-magaox/camlowfs-fit.conf``
+     - *proclist_SS.txt*
+       - The first column should be your INDI device name, and the second column should be the program executing with your device name.
+     - *isSS.conf*  
+       - Your INDI device name should be included in the list of drivers. 
+   
+   - Run ``xctrl restart 'INDI device with problem'`` again
 
