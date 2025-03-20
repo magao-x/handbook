@@ -9,17 +9,17 @@ Tweeter Pupil Alignment (F-Test)
 
 To align the pupil on the tweeter, we perform the F-Test (which is actually an R).
 
-Prepare the system:
+Prepare the system as in :doc:`daily_startup`, then configure:
 
-* **fwpupil.filterName** in **open**
+* **fwpupil** to **open**
 
-* **fwfpm.filterName** in **open**
+* **fwfpm** to **open**
 
-* **fwlyot.filterName** in **open**
+* **fwlyot** to **open**
 
-* **fwscind.filterName** in **pupil**
+* **fwscind** to **pupil**
 
-* **fwsci1.filterName** in **z** (in almost all cases you should align in `z` for repeatability)
+* **fwsci1** to **z** (in almost all cases you should align in ``z`` for repeatability)
 
 * configure **camsci1** so that you can see the pupil without saturating.
 
@@ -35,166 +35,81 @@ The following figure demonstrates what a good alignment looks like.
     :align: center
 
 
-When done, press the **zero test** button on dmCtrl GUI uner **Tweeter**.
+When done, use the Tweeter **zero test** button on the Alignment GUI.
 
 NCPC Pupil Alignment (J-Test)
 ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
 
 To align the pupil on the NCPC DM, we perform the J-Test.
 
-Prepare the system:
-
-* **fwpupil.filterName** in **open**
-
-* **fwfpm.filterName** in **open**
-
-* **fwlyot.filterName** in **open**
-
-* **fwscind.filterName** in **pupil**
-
-* **fwsci1.filterName** in **z** (in almost all cases you should align in `z` for repeatability)
-
-* configure **camsci1** so that you can see the pupil without saturating.
+The system should be configured for the F-test above. Next,
 
 * Move **stagesci1** to preset **jtest**.
 
-Now put the test pattern on the NCPC with **Pupil Alignment GUI** for dmncpc.  Press the **set test** under **NCPC**
+* Put the test pattern on the NCPC with the "Set Test" button next to "NCPC" on the **Pupil Alignment GUI**.
+
+* Press the **set test** under **NCPC**
 
 Next, use the "TTM Peri" section to align the pupil on the tweeter using the arrow keypad.
 The following figure demonstrates what a good alignment looks like.
 
+.. image::j-test_align.png
+
+    :width: 500
+    :align: center
+
+* Clear the J-test with the "clear test" button on the **Pupil Alignment GUI**
+
 Pyramid Alignment
 ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
 
-Sorry we haven't documented this.  Volunteers welcome.
+In the Alignment GUI, Tip Alignment should show "move woofer" above the directional buttons. Use the directional buttons to try and get all four pyramid pupils uniformly illuminated.
+
+Using the directional buttons under the "Pupil Fitting" section to move the pupil images on camwfs until the "Avg:" x and y displacements are less than 0.1 pixel.
+
+.. warning::
+
+    The "pupil tracking loop" is not used in lab mode, only on-sky.
+
+Close loop and refine pupil alignment
+~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+
+In a terminal on RTC/exao2, change directories to the CACAO "rootdir" in ``/opt/MagAOX/cacao/tweeter-vispyr/tweeter-vispyr-rootdir``.
+
+If CACAO is not yet started, the command ``/opt/MagAOX/cacao/startup`` will start it. The command ``cacao-calib-apply default`` makes symlinks expected by CACAO and loads appropriate references, and may be needed as well.
+
+In the ``holoop`` control GUI:
+
+1. zero all gains
+2. set global gain to 1
+3. apply a small nonzero gain to tip and tilt
+4. close the loop
+
+Close a number of tweeter modes > number of offloaded modes, then turn on t2w offload in the offloading GUI.
+
+Work your way up the mode blocks in the loop control GUI. As you close more modes, return to the directional buttons under the "Pupil Fitting" section of the Alignment GUI and try to keep the displacements under 0.1 pixel.
 
 Coronagraph Alignment
-------------------------------------
+---------------------
 
-NOTE: these steps are out of date compared to how we now do it.  Talk to Jared or Sebastiaan for more info.
+From the **camsci1** gui, set
 
-Due to their (lack of) intrinsic repeatability, the three wheels holding the coronagraph components must be adjusted every time they are moved.  Aligning the coronagraph should proceed in the following order so that wheels do not need to be moved after adjustment.  The first step "Pupil Mask Alignment" *should be conducted every time the system is started up*.
+    * **fwscind** to **pupil**
+    * **stagesci1** to **telsim**
+    
+With the camsci1 shutter **open**, take a new dark. This will serve as the reference for alignment.
 
-Also note that the pupil imaging optics are not repeatable, so if the fwscind lens is moved, or the stagelosel position is changed, the pupil will appear to shift.  This does not mean the pupil has actually shifted, but will complicate checking pupil positions.
+In the coronagraph alignment GUI: set **fwpupil** to **bump-mask**.
 
-Pupil Mask Alignment
-~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+The camsci1 viewer will show the difference image, making it easier to align with the (now obscured) spider arms of the pupil.
 
-Find and mark the pupil position on **camlowfs**:
+Use the "Pupil Plane" directional buttons on the coronagraph alignment GUI to align the mask to the pupil.
 
-* **fwpupil.filterName** in **open**
+.. image:: figures/bump_mask_alignment.png
 
-* **fwfpm.filterName** in **flat**
+   :width: 500
+   :align: center
 
-* **stagelosel.presetName** in **pupil**
+Once the bump mask is aligned, remember to close the shutter on camsci1 and **take a new dark**.
 
-* **fwlowfs.filterName** in **z**
-
-* **camlowfs** settings can be adjusted.  Typical settings are
-
-  - **exptime** = **0.05**
-
-  - **readout_speed** = **emccd_17MHz**
-
-  - **vshift_speed** = **3_3us**
-
-* **camlowfs.shutter** to **open**
-
-* adjust **stagelowfs** until features are sharp (spiders and bump).  Being slightly out of focus helps locate the bump effects.
-
-* mark the unobstructed pupil location.  The below figure shows a typical example on **camlowfs**
-
-.. image:: camlowfs_tgt.png
-    :width: 500
-    :align: center
-
-Now align the desired pupil mask.  First select the presets for the mask:
-
-* **fwpupil.filterName** in desired position (e.g. **bump-mask**)
-
-* **picomotors.picopupil** in desired position (matching **fwpupil**)
-
-Now open coronaAlignGUI and use the "Pupil Plane" buttons to move the mask.  The following figure shows a typical exampe of bump-mask alignment
-
-.. image:: bump-mask_aligned.png
-    :width: 500
-    :align: center
-
-Do not move fwpupil anymore.
-
-Lyot Stop Alignment
-~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
-
-* Set **fwfpm.filterName**:
-
-- if you are using the Lyot FPM, or any other transmissive FP optic:
-
-    + select the desired mask
-
-    + **stagelosel.presetName** = fpm
-
-    + using the coronaAlignGUI "Lyot Plane" left-right buttons, move the spot so it is not obstructing the beam.  You will see two approx equal images (one is a ghost).
-
-    + adjust **dmncp** focus using such that the spots are roughly in focus.
-
-    + note that you may need to adjust **camlowfs** due to saturation
-
- - otherwise, select **open**
-
-* **fwscind.filterName** = **pupil**
-
-* **stagescibs** = **none** (any position will actually work)
-
-* **fwsci1.filterName** = **CH4-875**
-
-* **fwlyot.filterName** = **open**
-
-* adjust **stagelowfs** until features are well defined.
-
-* mark the unobstructed pupil location.
-
-Now select the desired Lyot mask:
-
-* **fwlyot.filterName** = **LyotLg1** (e.g.)
-
-* **picomotors.picolyot** = **LyotLG1** (e.g.)
-
-and adjust Lyot Plane with coronaAlignGUI until aligned.  See the below figure:
-
-.. image:: fwlyot_lyotlg1_aligned.png
-    :width: 500
-    :align: center
-
-Focal Plane Mask Alignment
-~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
-
-- **fwscind.filterName** = **open**
-
-- **fwfpm.filterName** = **LyotLg** (or desired mask)
-
-- **picomotors.picofpm** = **LyotLg** (or desired mask)
-
-- **stagelosel.presetName** = **fpm**
-
-- center **camlowfs** ROI on lower spot.  32x32 may be necessary to avoid saturation
-
-- center **camsci1** on the image.  Once on the spot it should not be saturating in default parameters.
-
-Now adjust Focal Plane with coronaAlignGUI until aligned.  The post-coronagraph image on **camsci1** is the best indication of good alignment. Note that **dmncpc** also impacts alignment, and until it is also optimized you will probably find a dead band where FPM wheel alignment makes no difference.  The below image illustrates this condition:
-
-.. image:: fpm_aligned_pre_eye-doctor.png
-    :width: 500
-    :align: center
-
-Now run eye-doctor to optimize the FPM alignment with the following command
-
-.. code::
-
-   [icc]$ dm_eye_doctor 7624 ncpcModes camlowfs 3 2...10 0.1
-
-The following image illustrates a fairly good alignment of the Lyot coronagraph system:
-
-.. image:: fpm_aligned_post_eye-doctor.png
-    :width: 500
-    :align: center
-
+**Continue improving PSF quality with :doc:`software/fdpr`**
