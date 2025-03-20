@@ -9,8 +9,8 @@ camsci1
 
 .. list-table:: camsci1
    :header-rows: 0
-   
-   * - Manufacturer: 
+
+   * - Manufacturer:
      - Princeton Instruments
    * - Model
      - ProEM HS: 1024BX3
@@ -26,17 +26,17 @@ camsci1
      - 0.004 e/pix/sec at -55 C
    * - :term:`CIC`
      - 0.02 e-/pix/frame at 1000x EM gain
-     
+
 .. list-table:: camsci1 Performance
-   :header-rows: 2  
-  
+   :header-rows: 2
+
    * - Amplifier
      - Speed
      - :term:`RON`
-     - Gain 
+     - Gain
      - [e-/count]
      -
-   * - 
+   * -
      -
      - [e-]
      - High
@@ -78,14 +78,23 @@ camsci1
      - 2.65
      -
      -
-     
+
+
+.. warning::
+    The 16-bit readout saturates at 65535 counts, but saturation of the CCD wells can occur as low as 40000 counts. Examine the image for charge bleed and err on the side of caution.
+
+.. note::
+    For the purposes of reading the above table, the cameras are always operated in "high gain" mode. For EMCCD modes, the value in the table is multiplied by a selectable electron-multiplying gain factor of 1--1000. As the detectors age, there is an additional factor between zero and one representing the degradation of the electron-multiplying circuitry.
+
+
+
 camsci2
 --------------------
 
 .. list-table:: camsci2
    :header-rows: 0
-   
-   * - Manufacturer: 
+
+   * - Manufacturer:
      - Princeton Instruments
    * - Model
      - ProEM HS: 1024BX3
@@ -101,17 +110,17 @@ camsci2
      - 0.0064 e/pix/sec at -55 C
    * - :term:`CIC`
      - 0.02 e-/pix/frame at 1000x EM gain
-     
+
 .. list-table:: camsci2 Performance
-   :header-rows: 2  
-  
+   :header-rows: 2
+
    * - Amplifier
      - Speed
      - RON
-     - Gain 
+     - Gain
      - [e-/count]
      -
-   * - 
+   * -
      -
      - [e-]
      - High
@@ -153,14 +162,14 @@ camsci2
      - 2.21
      -
      -
-   
+
 camlowfs
 --------------------
 
 .. list-table:: camlowfs
    :header-rows: 0
-   
-   * - Manufacturer: 
+
+   * - Manufacturer:
      - Andor
    * - Model
      - iXon Ultra 897
@@ -176,20 +185,20 @@ camlowfs
      - 0.00015 e/pix/sec at -98.72 C
    * - CIC
      - 0.00119 events/pixel
-     
-     
+
+
 .. list-table:: camlowfs Performance
-   :header-rows: 2  
-  
+   :header-rows: 2
+
    * - Amplifier
      - Speed
      - RON
      - [e-]
      -
-     - Gain 
+     - Gain
      - [e-/count]
      -
-   * - 
+   * -
      -
      - High
      - Med
@@ -253,3 +262,9 @@ camlowfs
      - 5.47
      - 10.1
      - 18.6
+
+.. warning::
+    The 16-bit readout saturates at 65535 counts, but saturation of the CCD wells can occur as low as 40000 counts. Examine the image for charge bleed and err on the side of caution.
+
+.. note::
+    For the purposes of reading the above table, the cameras are always operated in "high gain" mode. For EMCCD modes, the value in the table is multiplied by a selectable electron-multiplying gain factor of 1--1000. As the detectors age, there is an additional factor between zero and one representing the degradation of the electron-multiplying circuitry.
