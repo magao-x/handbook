@@ -11,13 +11,13 @@ To align the pupil on the tweeter, we perform the F-Test (which is actually an R
 
 Prepare the system as in :doc:`daily_startup`, then configure:
 
-* **fwpupil** to **open**
+* **fwpupil** to **open** (in Coronagraph Alignment GUI)
 
 * **fwfpm** to **open**
 
 * **fwlyot** to **open**
 
-* **fwscind** to **pupil**
+* **fwscind** to **pupil** (in camsci1Ctrl)
 
 * **fwsci1** to **z** (in almost all cases you should align in ``z`` for repeatability)
 
@@ -60,12 +60,14 @@ The following figure demonstrates what a good alignment looks like.
 
 * Clear the J-test with the "clear test" button on the **Pupil Alignment GUI**
 
+* Return ``stagesci1`` to the ``fpm`` position
+
 Pyramid Alignment
 ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
 
-In the Alignment GUI, Tip Alignment should show "move woofer" above the directional buttons. Use the directional buttons to try and get all four pyramid pupils uniformly illuminated.
+* In the Alignment GUI, Tip Alignment should show "move woofer" above the directional buttons. Use the directional buttons to try and get all four pyramid pupils uniformly illuminated.
 
-Using the directional buttons under the "Pupil Fitting" section to move the pupil images on camwfs until the "Avg:" x and y displacements are less than 0.1 pixel.
+* Using the directional buttons under the "Pupil Fitting" section to move the pupil images on camwfs until the "Avg:" x and y displacements are less than 0.1 pixel.
 
 .. warning::
 
@@ -74,9 +76,7 @@ Using the directional buttons under the "Pupil Fitting" section to move the pupi
 Close loop and refine pupil alignment
 ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
 
-In a terminal on RTC/exao2, change directories to the CACAO "rootdir" in ``/opt/MagAOX/cacao/tweeter-vispyr/tweeter-vispyr-rootdir``.
-
-If CACAO is not yet started, the command ``/opt/MagAOX/cacao/startup`` will start it. The command ``cacao-calib-apply default`` makes symlinks expected by CACAO and loads appropriate references, and may be needed as well.
+If CACAO is not yet started, consult the :doc:`CACAO startup guide <cacao>`_.
 
 In the ``holoop`` control GUI:
 
@@ -112,4 +112,4 @@ Use the "Pupil Plane" directional buttons on the coronagraph alignment GUI to al
 
 Once the bump mask is aligned, remember to close the shutter on camsci1 and **take a new dark**.
 
-**Continue improving PSF quality with :doc:`software/fdpr`**
+**Continue improving PSF quality with :doc:`../software/fdpr`**
