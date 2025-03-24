@@ -17,7 +17,7 @@ Terminal Interface Setup
 
    ::
 
-     [xsup@rtc ~]$ cd /opt/MagAOX/cacao/tweeter-vispyr/tweeter-vispyer-rootdir
+     [xsup@rtc ~]$ cd /opt/MagAOX/cacao/tweeter-vispyr/tweeter-vispyr-rootdir
 
 
    For ICC the path is `/opt/MagAOX/cacao/ncpc/ncpc-rootdir`.  This should be done in the lower left and right hand
