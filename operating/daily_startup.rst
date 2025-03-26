@@ -21,8 +21,6 @@ If any of these are off, stop and investigate.  These are safety issues and you 
    -  pdu0.comprtc
    -  pdu0.dcpwr
    -  pdu0.swinst
-   -  pdu2.camllowfs
-   -  pdu2.camflowfs
 
 If any of these are off, the instrument probably won't work.
 
@@ -54,8 +52,8 @@ If any of these are off, the instrument probably won't work.
    -  pdu0: source, ttmperi (other devices are already on as above)
    -  pdu1: check that relative humidity is below 15% before powering dmncpc and dmtweeter, then power on all other devices
    -  pdu2: 
-         - if using ``camflowfs`` / ``camllowfs``:
-            - begin with cameras powered off
+         - if using ``camflowfs`` / ``camllowfs`` and they are not already powered up:
+            - begin with both cameras powered off
             - on exao3/ICC: ``xctrl shutdown camflowfs camllowfs``
             - power on both cameras
             - as a non-xsup user, on exao3/ICC, run ``sudo /opt/pvcam/drivers/in-kernel/pcie/hotplug_pcie.sh``, verify the number of "active cameras" it reports
@@ -77,12 +75,16 @@ If any of these are off, the instrument probably won't work.
    - ``set`` TTM Pupil
    - ``set`` TTM Peri
 
+9. **Optional, but recommended** Set the toggles on ``sysMonRTC.set_latency.toggle`` and ``sysMonICC.set_latency.toggle`` to "On".
+
 9. On the camwfs GUI, toggle ``synchro`` to "on", take a dark, and open the wavefront sensor shutter
 
-9. At this point you should see a PSF image on `camtip`.   If you do not, use the system block diagram to troubleshoot.
+10. At this point you should see a PSF image on `camtip`.   If you do not, use the system block diagram to troubleshoot.
    The most likely causes are that you forgot to power something on (the source?) or that `stagepickoff` is in the wrong position.
 
-10. Now you can proceed to :doc:`alignment`
+11. At this point you will probably want to start cooling down the cameras that have temperature control, as well.
+
+**Now you can proceed to :doc:`alignment`**
 
 .. |image1| image:: figures/moxa_dio_do.png
 .. |image2| image:: figures/moxa_dialog.png
