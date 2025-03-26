@@ -7,3 +7,5 @@ MagAO-X can be operated entirely remotely as long as the prerequisites (power, d
    :maxdepth: 2
 
    mac
+   linux
+   windows

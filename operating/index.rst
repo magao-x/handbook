@@ -29,5 +29,3 @@ Viewing camera output and DM input (really, any shared memory image) uses
    software/guis/index
    software/utils/index
    software/apps/index
-   abeginnersguidetomagaox
-

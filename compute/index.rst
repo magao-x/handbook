@@ -6,7 +6,6 @@ The MagAO-X computing system.
 .. toctree::
    :maxdepth: 1
 
-   remote_operation
    python
    database
    administration
