@@ -76,7 +76,7 @@ Pyramid Alignment
 Close loop and refine pupil alignment
 ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
 
-If CACAO is not yet started, consult the :doc:`CACAO startup guide <cacao>`_.
+If CACAO is not yet started, consult the :doc:`CACAO startup guide <cacao>`.
 
 In the ``holoop`` control GUI:
 
@@ -106,7 +106,6 @@ The camsci1 viewer will show the difference image, making it easier to align wit
 Use the "Pupil Plane" directional buttons on the coronagraph alignment GUI to align the mask to the pupil.
 
 .. image:: figures/bump_mask_alignment.png
-
    :width: 500
    :align: center
 

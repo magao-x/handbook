@@ -79,8 +79,7 @@ If any of these are off, the instrument probably won't work.
 
 9. On the camwfs GUI, toggle ``synchro`` to "on", take a dark, and open the wavefront sensor shutter
 
-10. At this point you should see a PSF image on `camtip`.   If you do not, use the system block diagram to troubleshoot.
-   The most likely causes are that you forgot to power something on (the source?) or that `stagepickoff` is in the wrong position.
+10. At this point you should see a PSF image on `camtip`.   If you do not, use the system block diagram to troubleshoot. The most likely causes are that you forgot to power something on (the source?) or that `stagepickoff` is in the wrong position.
 
 11. At this point you will probably want to start cooling down the cameras that have temperature control, as well.
 

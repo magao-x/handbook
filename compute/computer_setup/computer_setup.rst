@@ -12,7 +12,7 @@ scripts <#run-provisioning-scripts>`__.
 
 Once the hardware has been connected up, setup proceeds as follows.
 
-**Important note about reinstalls vs. fresh installs:** At this point in the project, we are unlikely to have a completely fresh set of hardware and drives to set up. The below instructions were written under the assumption of a fresh install, so take care not to perform destructive actions like repartitioning on drives with data you want to **keep**. See :ref:`migration` for examples of what those data might be.
+**Important note about reinstalls vs. fresh installs:** At this point in the project, we are unlikely to have a completely fresh set of hardware and drives to set up. The below instructions were written under the assumption of a fresh install, so take care not to perform destructive actions like repartitioning on drives with data you want to **keep**. See :doc:`migration` for examples of what those data might be.
 
 BIOS
 ----
@@ -359,7 +359,7 @@ Configure VPN
 
 See the :doc:`../vpn` section of the handbook for install instructions.
 
-If this is a migration from an old install, you will need ``/var/lib/tailscale/tailscaled.state`` from the old machine. See :ref:`migration`.
+If this is a migration from an old install, you will need ``/var/lib/tailscale/tailscaled.state`` from the old machine. See :doc:`migration`.
 
 You should also trust the `tailscale0` interface in the firewall::
 
@@ -578,7 +578,7 @@ A new installation will generate new SSH keys for ``xsup``.
 If you have
 an existing ``.ssh`` folder for the machine role (ICC, RTC, AOC) you’re
 setting up, you can just copy its contents over the new
-``/home/xsup/.ssh/`` (taking care not to change permissions). See :ref:`migration`.
+``/home/xsup/.ssh/`` (taking care not to change permissions). See :doc:`migration`.
 
 If not, you must ensure passwordless SSH works bidirectionally by
 installing other servers’ ``xsup`` keys and installing your own in their

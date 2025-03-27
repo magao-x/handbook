@@ -13,7 +13,7 @@ Initial Conditions
 
 -  Instrument on Magellan Clay Nasmyth Platform, operating.
 
-.. _tel_remove_shutdown::
+.. _tel_remove_shutdown:
 
 Shutdown
 ------------

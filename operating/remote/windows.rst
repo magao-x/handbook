@@ -6,7 +6,7 @@ Windows users can use WSL2 or multipass to set up.
 Multipass
 ---------
 
-You should run ``multipass set local.privileged-mounts=true`` to enable file transfers. Read `here <https://multipass.run/docs/privileged-mounts>`_ about the security implications this setting has for Windows.
+You should run ``multipass set local.privileged-mounts=true`` to enable file transfers. `Read here <https://multipass.run/docs/privileged-mounts>`_ about the security implications this setting has for Windows.
 
 In a new terminal window, to create a VM with Ubuntu version 24.04::
 
@@ -16,6 +16,8 @@ In a new terminal window, to create a VM with Ubuntu version 24.04::
 You should mount your home directory into the VM::
 
    $ multipass mount $HOME magao-x-vm:/home/ubuntu/Home
+
+(TODO: what is $HOME equivalent in Windows?)
 
 Next, verify you can connect to the VM and get a shell prompt::
 
@@ -117,7 +119,7 @@ provisioning will end with the message
    Provisioning complete
    You now need to log out and back in for group changes to take effect
 
-As the message says, you should exit the VM with ``exit``, and return to your host command prompt. Now, on to :ref:`vm_usage`.
+As the message says, you should exit the VM with ``exit``, and return to your host command prompt.
 
 What to do if you don't see ``Provisioning complete``
 ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
@@ -134,15 +136,14 @@ output to get help. The following command will save it to a file
 
    ubuntu@magao-x-vm:~/MagAOX/setup$ bash provision.sh | tee ~/Home/provision.log
 
-Usage
------
-
 Configuring the VM to connect
 ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
 
 Before you can remotely control MagAO-X, a little post-provisioning
 configuration is required. You must have a user account on MagAO-X with
 an SSH key file configured. For the preconfigured tunnels to work, that key must not have a passphrase.
+
+(TODO: where does Windows keep its key files?)
 
 If you have a key pair in your computer's ``~/.ssh/`` folder, this appears at ``~/Home/.ssh/`` in the VM. (Note: RSA keys are not allowed.) Copy it into place::
 
@@ -157,151 +158,7 @@ Next, you will need to edit the VM's ``~/.ssh/config`` file to add your username
 
 At the end of the file, the line ``User YOURUSERNAME`` should be changed to reflect your MagAO-X username. Save and exit.
 
-Connecting to the VM
-^^^^^^^^^^^^^^^^^^^^
+Next steps
+----------
 
-The rest of this section should be done within a VM except where otherwise noted.
-
-Note: under some circumstances you will get a worrying-sounding message about ``Xauthority``. As long as things are working, it should be ignored.
-
-Check connectivity to MagAO-X
-^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
-
-To ensure everything's configured correctly, from a ``multipass shell``
-session run ``ssh aoc``, verify your shell prompt changes to ``exao1``, then ``exit``::
-
-   ubuntu@magao-x-vm:~$ ssh aoc
-   [you@exao1] $ exit
-   ubuntu@magao-x-vm:~$
-
-Start tunnels
-^^^^^^^^^^^^^
-
-The ``xctrl`` script is installed during provisioning, and a default set
-of apps is configured to run on ``xctrl startup``. These apps launch SSH
-tunnels to the instrument.
-
-The proclist for VM usage is in
-`magao-x/config/proclist_vm.txt <https://github.com/magao-x/config/blob/master/proclist_vm.txt>`__.
-
-Running ``xctrl startup`` to start the tunnels should result in output
-like::
-
-   ubuntu@magao-x-vm:~$ xctrl startup
-   Session vm_aoc_milkzmq does not exist
-   Session vm_aoc_indi does not exist
-   Created tmux session for vm_aoc_milkzmq
-   Created tmux session for vm_aoc_indi
-   Executed in vm_aoc_milkzmq session: '/opt/MagAOX/bin/sshDigger -n vm_aoc_milkzmq'
-   Executed in vm_aoc_indi session: '/opt/MagAOX/bin/sshDigger -n vm_aoc_indi'
-
-And you can check their status with ``xctrl status`` or ``xctrl peek``.
-
-::
-
-   ubuntu@magao-x-vm:~$ xctrl status
-   vm_aoc_indi: running (pid: 6147)
-   vm_aoc_milkzmq: running (pid: 6148)
-
-(For the SSH tunnel apps, this can be misleading, as "running" doesn't necessarily mean "connected". That is why we checked that ``ssh aoc`` worked separately, above.)
-
-Using GUIs in the VM
-~~~~~~~~~~~~~~~~~~~~
-
-The VM is configured to be “headless”, meaning there's no graphical display window. It is possible to run a virtual desktop with multipass, as `described in their docs for "Using RDP" <https://multipass.run/docs/set-up-a-graphical-interface#heading--using-rdp>`_. However, it's better to show MagAO-X software in windows that you can move around like other applications on your computer.
-
-The way to do this is with X11 (the `next section <https://multipass.run/docs/set-up-a-graphical-interface#heading--using-x11-forwarding>`_ of their docs). Most Linux systems support X11 applications by default, but you will need to install `XQuartz <https://www.xquartz.org/>`__ on macOS, if you haven't already.
-
-Windows users should consult the `Multipass docs <https://multipass.run/docs/set-up-a-graphical-interface#heading--x11-on-windows>`_ for their options. It appears that VcXsrv is the most up-to-date free option for a Windows X11 server, downloadable `here <https://github.com/marchaesen/vcxsrv/releases/download/21.1.10/vcxsrv-64.21.1.10.0.installer.exe>`_.
-
-If you're unfamiliar with SSH X forwarding, the short version is that
-the app runs on the VM but the window pops up like any other window on
-your own computer (the host). SSH (i.e. ``multipass shell``) is the
-transport that moves information about the window like mouse clicks and keypresses back and forth to the
-GUI app, which lives inside the VM.
-
-.. code:: text
-
-   +------------------------------------------+
-   |                  +----------------------+|
-   |    Host OS       |          VM          ||
-   |                  |                      ||
-   |  [GUI window] <-SSH-> [MagAO-X GUI app] ||
-   |                  +----------------------+|
-   +------------------------------------------+
-
-Assuming you have an SSH key on your host computer already, we need to teach multipass about it. Back on the host computer, we do::
-
-   $ multipass exec magao-x-vm -- bash -c "echo `cat ~/.ssh/id_ed25519.pub` >> ~/.ssh/authorized_keys"
-
-(Note the difference between the backtick quote and the straight single quote is important here.)
-
-This adds the key as an authorized one for connecting to the VM. (We were connecting a different way when we did ``multipass shell`` earlier.)
-
-The following incantation will connect a GUI-capable SSH session to your multipass VM and leave you at a VM prompt::
-
-   $ ssh -Y ubuntu@$(multipass exec magao-x-vm -- hostname -I | awk '{ print $1 }' )
-   ubuntu@magao-x-vm:~$
-
-(If prompted with ``Are you sure you want to continue connecting (yes/no/[fingerprint])?`` just say ``yes``.)
-
-So, to start the ``coronAlignGUI``, you could do...
-
-::
-
-   $ ssh -Y ubuntu@$(multipass exec magao-x-vm -- hostname -I | awk '{ print $1 }' )
-   ubuntu@magao-x-vm:~$ coronAlignGUI
-
-…and the coronagraph alignment GUI will come up like any other window on
-your host machine.
-
-Be careful! Anything you do with these GUIs **controls the real
-instrument** (which is sort of the point, but it bears reiterating).
-
-Viewing camera outputs
-~~~~~~~~~~~~~~~~~~~~~~
-
-The realtime image viewer ``rtimv`` is built during provisioning. To get
-up-to-date imagery from the instrument, we can use
-`jaredmales/milkzmq <https://github.com/jaredmales/milkzmq>`__, a set of
-programs that relay shared memory image buffers from one computer to
-another.
-
-The AOC workstation runs a ``mzmqServer`` process that re-serves the
-images it replicates from the rest of the instrument using compression
-and a limit of 1 FPS. This ensures it doesn't overwhelm your home
-internet connection.
-
-(Napkin math: 1024 \* 1024 \* 16 bit, or one ``camsci1`` frame, is ~2
-MB. 2 MByte / second is 16 Mbit / second, more than compressed HD video
-streams. And that's just one camera!)
-
-The list of images re-served by AOC is kept in
-``/opt/MagAOX/config/mzmqServerAOC.conf`` (`view on
-GitHub <https://github.com/magao-x/config/blob/master/mzmqServerAOC.conf>`__).
-
-Launch rtimv
-^^^^^^^^^^^^
-
-The configuration in ``/opt/MagAOX/config`` includes ``rtimv`` config
-files named for the various cameras (see the ``shmim_name`` options in
-those files for hints about which images to replicate for a given
-camera).
-
-Start the viewer with
-
-::
-
-   ubuntu@magao-x-vm:~$ rtimv -c rtimv_camwfs.conf -Z -p 9000
-
-where ``-Z`` enables compression and ``-p 9000`` uses the direct
-connection to the AOC MilkZMQ server. It should pop up a window like
-this:
-
-.. figure:: example_rtimv_xrif2shmim.png
-   :alt: Example of rtimv viewer with 4 wavefront sensor pupils
-
-   Example of rtimv viewer with 4 wavefront sensor pupils
-
-For instructions on rtimv, consult its `user
-guide <https://github.com/jaredmales/rtimv/blob/master/doc/UserGuide.md#rtimv>`__.
+Usage of the multipass VM is described in the Linux guide under :ref:`multipass_usage`.

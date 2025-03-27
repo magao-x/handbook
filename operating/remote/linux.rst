@@ -3,7 +3,7 @@ Running MagAO-X from Linux
 
 As with everything in Linux, there are many ways to accomplish the same thing. 
 
-If you have a dedicated MagAO-X computer, you can set it up with Rocky Linux and the "workstation" MagAO-X role, following the :doc:`../compute/computer_setup/computer_setup` doc.
+If you have a dedicated MagAO-X computer, you can set it up with Rocky Linux and the "workstation" MagAO-X role, following the :doc:`../../compute/computer_setup/computer_setup` doc.
 
 If you want to keep MagAO-X separate from your other work, you still have two options.
 
@@ -141,7 +141,7 @@ provisioning will end with the message
    Provisioning complete
    You now need to log out and back in for group changes to take effect
 
-As the message says, you should exit the VM with ``exit``, and return to your host command prompt. Now, on to :ref:`vm_usage`.
+As the message says, you should exit the VM with ``exit``, and return to your host command prompt.
 
 What to do if you don't see ``Provisioning complete``
 ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
@@ -157,9 +157,6 @@ output to get help. The following command will save it to a file
 ``provision.log`` in your home folder on the host machine, which you can then email or Slack to someone who can help. ::
 
    ubuntu@magao-x-vm:~/MagAOX/setup$ bash provision.sh | tee ~/Home/provision.log
-
-Usage
------
 
 Configuring the VM to connect
 ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
@@ -181,8 +178,13 @@ Next, you will need to edit the VM's ``~/.ssh/config`` file to add your username
 
 At the end of the file, the line ``User YOURUSERNAME`` should be changed to reflect your MagAO-X username. Save and exit.
 
+.. _multipass_usage:
+
+Multipass VM Usage
+------------------
+
 Connecting to the VM
-^^^^^^^^^^^^^^^^^^^^
+~~~~~~~~~~~~~~~~~~~~
 
 The rest of this section should be done within a VM except where otherwise noted.
 

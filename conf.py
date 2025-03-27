@@ -19,8 +19,8 @@
 
 project = 'MagAO-X Instrument Handbook'
 from datetime import date
-today = date.today()
-copyright = f'{today.year}, Extreme Wavefront Control Lab, The University of Arizona'
+this_year = str(date.today().year)
+copyright = f'{this_year}, Extreme Wavefront Control Lab, The University of Arizona'
 author = 'XWCL'
 
 
@@ -44,7 +44,7 @@ templates_path = ['_templates']
 # List of patterns, relative to source directory, that match files and
 # directories to ignore when looking for source files.
 # This pattern also affects html_static_path and html_extra_path.
-exclude_patterns = ['_build', 'Thumbs.db', '.DS_Store']
+exclude_patterns = ['_build', 'Thumbs.db', '.DS_Store', '.venv']
 
 
 # -- Options for HTML output -------------------------------------------------
