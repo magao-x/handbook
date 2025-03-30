@@ -7,46 +7,58 @@ Before, aligning on a star, an initial alignment of the system must be performed
 
 System Startup
 ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
-   * Power on MagAO-X via the ``pwrGUI``.
-   * In the ``dmCtrl`` GUIs, set default flats on the woofer, tweeter, and NCPC DMs (TODO: INSERT PICTURE).
+   * Power on MagAO-X as documented in :doc:`Daily Startup <./daily_startup>`.
+   * For remote operations startup, consult :doc:`A Beginner's Guide to Using MagAO-X <./abeginnersguidetomagaox>`.
+   * In the ``dmCtrl`` GUIs, set default flats on the woofer, tweeter, and NCPC DMs as shown in the example below: |image1|
 
 In TTM modulator,
    * Under ``Frequency`` type 2000 and press the enter key.
    * Under ``Radius`` type 3 and press the enter key.
    * Click ``Set`` and again wait for the modulator status to update.
-   * Click ``Modulate`` (note that it will take a few minutes before the WFS begins modulating) (TODO: INSERT PICTURE)
+   * Click ``Modulate`` (note that it will take a few minutes before the WFS begins modulating): |image2|
 
 Pupil Alignment
 ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
 1. Tweeter
 
-   * From the ``camscixCtrl`` GUI (varies based on whether you are using camsci1 or camsci2), change ``fwscind`` to ``pupil``.
+   * From ``cursesINDI``: 
+     * **fwpupil.filterName** in **open**
+
+     * **fwfpm.filterName** in **open**
+
+     * **fwlyot.filterName** in **open**
+
+     * **fwscind.filterName** in **pupil**
+
+     * **fwsci1.filterName** in **z** (or whichever filter works the best for conditions)
+
    * In the  ``pupilAlignment`` GUI, under ``Tweeter``, click ``set test``.
-   * Use the arrows under ``TTM Pupil`` to adjust the illumination such that the black and white pattern appears symmetric on opposite sides of the DM: |image1|
+   * Use the arrows under ``TTM Pupil`` to adjust the illumination such that the black and white pattern appears symmetric on opposite sides of the DM: |image3|
    * Once the tweeter is evenly illuminated, click ``zero test``.
   
 
 2. NCPC
 
    * In the ``Pupil Alignment``  GUI under ``NCPC``, press ``Set Test``. 
-   * In ``camscixCtrl`` set ``stagescix`` to the ``J test`` focus position.  You should see a test pattern appear on the pupil. 
+   * In ``camsci1Ctrl`` set ``stagesci1`` to the ``J test`` focus position.  You should see a test pattern appear on the pupil. 
    * In the ``Pupil Alignment`` GUI below ``TTM Peri``, use the arrow keys to evenly illuminate the NCPC DM.
-   * The final result should look something like this: |image2|
-   * Once aligned, set ``stagescix`` back to FPM. 
+   * The final result should look something like this: |image4|
+   * Once aligned, set ``stagesci1`` back to FPM. 
 
 
 3. CamWFS
 
-   * In the ``Pupil Alignment``  GUI under ``Tip Alignment``, move the woofer until the pupils of the Pyramid WFS appear evenly illuminated on ``camwfs`` (TODO: INSERT PICTURE). 
-   * Use the 4 buttons under ``Camera Lens`` to center the Pyramid WFS pupils. Monitor the (x, y) values under ``Pupil Tracking Loop`` as you do this. Once the (x, y) values are close to 0, you may proceed to the next step.
+   * In the ``Pupil Alignment``  GUI under ``Tip Alignment``, move the woofer until the pupils of the Pyramid WFS appear evenly illuminated on ``camwfs`` (this doesn't need to be exact): |image5| 
+   * Use the 4 buttons under ``Camera Lens`` to center the Pyramid WFS pupils. Monitor the (x, y) values under ``Pupil Tracking Loop`` as you do this. Once the (x, y) values are <0.1, you may proceed to the next step.
 
 Closing the Loop
 ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
 In the ``HOloop`` GUI: 
-   * Close the higher order loop on the first 3 blocks (tip, tilt, and defocus) (TODO: Insert Picture).
+   * Close the higher order loop on the first 3 blocks (tip, tilt, and defocus) as shown: |image6|
    * Monitor the DM woofer and tweeter pupils to ensure that they are not saturating (the pupils will turn red if saturated).
    * Once the HO loop is stable, open the loop and toggle the ``synchro`` slider in the the  ``camWFS`` GUI. 
-   * After toggling ``synchro``, wait a few seconds before closing the HO loop on all blocks (TODO: Insert Picture).
+   * After toggling ``synchro``, wait a few seconds before closing the HO loop on more blocks.
+   * As you increase the number of blocks, continue monitoring the (x, y) values under ``Pupil Tracking Loop``, and adjust the ``Camera Lens`` as needed to keep the (x, y) values below 0.1.
 
 Bump Mask Alignment
 ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
@@ -103,7 +115,7 @@ Telescope Target Acquisition
 
    * Set the FPS on the ``camwfsctrl`` GUI to your desired frequency.
    * In CursesINDI, type ``fxngensync`` and toggle the state to ``On`` (see the `cursesINDI guide <./software/guis/cursesINDI>`__ if you need a refresher)
-   * Navigate to the upper left-hand corner of the ``Pupil Alignment`` GUI. The GUI looks like this: |image5|
+   * Navigate to the upper left-hand corner of the ``Pupil Alignment`` GUI. The GUI looks like this: |image7|
 
    In TTM modulator,
    
@@ -130,13 +142,13 @@ Otherwise:
 
 1. You should see a star appear on ``camacq``.
 
-   * TODO: Fill in this section with new ``camacq`` procedure. The star will look something like this when aligned on camacq: |image5|
+   * TODO: Fill in this section with new ``camacq`` procedure. The star will look something like this when aligned on camacq: |image8|
    * In the web interface, move the acquisition mirror to the ``Out`` position. Now, increase ``EM gain`` under ``camwfsctrl`` (for fainter targets an EM gain of ``600`` is sufficient). This will put more light on camwfs. 
    * Now, look at ``camwfs``. Reduce the step size under ``Move Telescope`` and finely adjust the telescope pointing until the pupils on ``camwfs`` appear evenly illuminated.
 
 2. Closing the Loop
 
-   * In the ``OffloadingCtrl`` GUI, drag the slider to ``On`` and set the gain to ``0.1``. |Image7|
+   * In the ``OffloadingCtrl`` GUI, drag the slider to ``On`` and set the gain to ``0.1``. |Image9|
    * In the ``holoop`` GUI, click ``Zero All`` to remove any existing loop gain settings.
    * Raise the global gain to ``1.0``.
    * Drag the slider from the ``Open`` to the ``Closed`` position. 
@@ -194,11 +206,15 @@ Focus Diversity Phase Retrieval (FDPR)
 ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
 See the `FDPR guide <./utils/fdpr>`__ for more info.
 
-.. |image1| image:: k_test.png
-.. |image2| image:: j_test.png
-.. |image3| image:: aoc_onsky_layout.png
-.. |image4| image:: acqfromguider.png
-.. |image5| image:: pupil_alignment_gui.png
-.. |image6| image:: cam_acq.png
-.. |image7| image:: offloading_ctrl_gui.png
-.. |image8| image:: loop_gain_dist.png
+.. |image1| image:: dm_setflat.png
+.. |image2| image:: modulating_pywfs.png  
+.. |image3| image:: k_test.png
+.. |image4| image:: j_test.png
+.. |image5| image:: aoc_onsky_layout.png
+.. |image6| image:: pywfs_illum.png  
+.. |image7| image:: loop_tt_defoc.png  
+.. |image8| image:: acqfromguider.png
+.. |image9| image:: pupil_alignment_gui.png
+.. |image10| image:: cam_acq.png
+.. |image11| image:: offloading_ctrl_gui.png
+.. |image12| image:: loop_gain_dist.png
