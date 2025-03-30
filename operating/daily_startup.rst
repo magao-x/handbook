@@ -4,7 +4,7 @@ Daily Startup
 The steps below assume that the steps in "System Powerup" are complete. This will
 generally be the instrument state on a daily basis.
 
-1. On the `pwrGUI` verify the following items are on:
+1. On the `pwrGUI` ninja tab, verify the following items are on:
 
    -  pdu3.blower
    -  pdu3.fanaux
@@ -13,62 +13,73 @@ generally be the instrument state on a daily basis.
 
 If any of these are off, stop and investigate.  These are safety issues and you should not go on.
 
-3.  On the `pwrGUI`,  verify that the following items are  on:
+2.  On the `pwrGUI` ninja tab, verify that the following items are on:
 
    -  pdu0.compicc
    -  pdu0.comprtc
    -  pdu0.dcpwr
    -  pdu0.swinst
-  
-If any of these are off the instrument probably won't work.  
 
-1. Ensure MagAO-X processes are started on AOC, ICC and RTC.  We do this by running `xctrl status` on each machine.
+If any of these are off, the instrument probably won't work.
 
 
    ::
 
       # starting with AOC:
-      [[xsup@exao1 ~]$ xctrl status
+      [xsup@exao1 ~]$ xctrl status
       # verify processes are all green/running
       # next on ICC:
-      [[xsup@exao1 ~]$ ssh icc
-      [[xsup@exao3 ~]$ xctrl status
+      [xsup@exao1 ~]$ ssh icc
+      [xsup@exao3 ~]$ xctrl status
       # verify processes are all green/running
-      [[xsup@exao3 ~]$ exit
+      [xsup@exao3 ~]$ exit
       # now for RTC:
-      [[xsup@exao1 ~]$ ssh rtc
-      [[xsup@exao2 ~]$ xctrl status
+      [xsup@exao1 ~]$ ssh rtc
+      [xsup@exao2 ~]$ xctrl status
       # verify processes are all green/running
-      [[xsup@exao2 ~]$ exit
+      [xsup@exao2 ~]$ exit
 
 2. Power up the MagAO-X components:
 
+5. On the ``pwrGUI`` user tab, power up the MagAO-X components:
+
    -  dcdu0: all devices
    -  dcdu1: all devices
-   -  pdu0: source, ttmperi (other devices are already one as above)
-   -  pdu1: all devices [check humidity before dmncpc and dmtweeter]
-   -  pdu2: all devices
-   -  pdu3: flippers, tableair.  camvisx and turbsim are maybe. (other devices are already on as above)
-   -  pduhcat: if you are using GMT HCAT, all devices on. (only in lab)
+   -  pdu0: source, ttmperi (other devices are already on as above)
+   -  pdu1: check that relative humidity is below 15% before powering dmncpc and dmtweeter, then power on all other devices
+   -  pdu2: 
+         - if using ``camflowfs`` / ``camllowfs`` and they are not already powered up:
+            - begin with both cameras powered off
+            - on exao3/ICC: ``xctrl shutdown camflowfs camllowfs``
+            - power on both cameras
+            - as a non-xsup user, on exao3/ICC, run ``sudo /opt/pvcam/drivers/in-kernel/pcie/hotplug_pcie.sh``, verify the number of "active cameras" it reports
+            - on exao3/ICC: ``xctrl startup camflowfs camllowfs``
+         - power on all other devices
+   -  pdu3: flippers, tableair.  camvisx and stageff are maybe. (other devices are already on as above)
+   -  pduhcat: if you are using GMT HCAT, all devices on. (only in lab, won't show up at telescope)
    -  usbdu0: all devices
-   -  usbdu1: camvisx is maybe.  all other devices.
+   -  usbdu1: all devices except camvisx (unless using VIS-X!)
 
-3. Set the flat on all three DMs.
+6. Set the flat on the ``dmwoofer``, ``dmtweeter``, and ``dmncpc``. (Note: this assumes :doc:`CACAO <cacao>` was already started up.)
 
 4. For lab work, put `stagepickoff` in `lab`.  At the telescope it must be in `tel` to see a star.
 
-5. Now ``set`` the pupil TTM and ``set`` the pyramid modulator TTM on the "Pupil Alignment GUI. 
+8. Now on the Alignment GUI:
+   - ``set`` the pyramid modulator under "Modulaion"
+   - enter the correct frequency and radius (e.g. 2000 Hz, 3 lambda / D) for your loop speed and hit enter (Note that your newly entered values won't appear until modulation begins.)
+   - click ``modulate``
+   - ``set`` TTM Pupil
+   - ``set`` TTM Peri
 
-6. At this point you should see a PSF image on `camtip`.   If you don't use the system block diagram to troubleshoot.  
-   The most likely causes are that you forgot to power something on (the source?) or that `stagepickoff` is in the wrong position.
+9. **Optional, but recommended** Set the toggles on ``sysMonRTC.set_latency.toggle`` and ``sysMonICC.set_latency.toggle`` to "On".
 
-7. Now you can proceed to alignment
+9. On the camwfs GUI, toggle ``synchro`` to "on", take a dark, and open the wavefront sensor shutter
 
+10. At this point you should see a PSF image on `camtip`.   If you do not, use the system block diagram to troubleshoot. The most likely causes are that you forgot to power something on (the source?) or that `stagepickoff` is in the wrong position.
 
+11. At this point you will probably want to start cooling down the cameras that have temperature control, as well.
 
-.. |image1| image:: moxa_dio_do.png
-.. |image2| image:: moxa_dialog.png
-.. |image3| image:: rtc_ikvm_login.png
-.. |image4| image:: rtc_ikvm_launch.png
-.. |image5| image:: rtc_ikvm_f1.png
-.. |image6| image:: rtc_save_and_exit_yes.png
+**Now you can proceed to :doc:`alignment`**
+
+.. |image1| image:: figures/moxa_dio_do.png
+.. |image2| image:: figures/moxa_dialog.png

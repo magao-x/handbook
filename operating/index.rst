@@ -18,15 +18,14 @@ Viewing camera output and DM input (really, any shared memory image) uses
    :maxdepth: 2
 
    startup
+   cacao
    daily_startup
+   alignment
    daily_shutdown
    shutdown
-   alignment
-   lab_to_sky
    dashboard
+   remote/index
    software/python_indi_device
    software/guis/index
    software/utils/index
    software/apps/index
-   abeginnersguidetomagaox   
-   
