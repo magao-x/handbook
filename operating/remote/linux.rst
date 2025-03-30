@@ -24,8 +24,8 @@ Configuring the virtual machine is done from the command line. Example commands 
 
 You will want to first install Multipass, a virtual machine manager specifically for Ubuntu Linux VMs on Linux, Windows, and macOS computers. Follow the `instructions on their website <https://multipass.run/install>`_ to install.
 
-Automated Creation
--------------------
+Create the virtual machine
+--------------------------
 
 After you have installed multipass, you can run `this script <https://gist.github.com/jaredmales/f7d9070ebc23e153966f03b8477102fc>`_ to attempt a fully automated setup and provisioning.  If that does not work, the below steps for manual provisioning will guide troubleshooting and recovery.
 
@@ -34,7 +34,7 @@ Manually Create the virtual machine
 
 In a new terminal window, to create a VM with Ubuntu version 24.04::
 
-   $ multipass launch -n magao-x-vm 24.04
+   $ multipass launch -n magao-x-vm 22.04
    Launched: magao-x-vm
 
 You should mount your home directory into the VM::
@@ -99,8 +99,6 @@ To recreate the VM, follow the instructions from the top of the page again.
 Manually Install MagAO-X Software
 -----------------------------------
 
-Note: you do not need to do this if the automated creation script worked above.
-
 Next, within the VM, obtain a copy of the MagAO-X software and install scripts. Using ``git`` we clone the MagAOX repository::
 
    ubuntu@magao-x-vm:~$ git clone --depth=1 https://github.com/magao-x/MagAOX.git
@@ -116,19 +114,7 @@ Go to the ``setup`` subdirectory::
 
    ubuntu@magao-x-vm:~$ cd MagAOX/setup/
 
-Run the pre-provisioning script to establish the workstation role::
-
-   ubuntu@magao-x-vm:~/MagAOX/setup$ MAGAOX_ROLE=workstation ./pre_provision.sh
-
-You need to reload the ubuntu user's groups, so now logout::
-
-   ubuntu@magao-x-vm:~/MagAOX/setup$ exit
-
-And log back in::
-
-   $ multipass shell magao-x-vm
-
-You can now run the provisioning script::
+Run the provisioning script::
 
    ubuntu@magao-x-vm:~/MagAOX/setup$ bash provision.sh
 

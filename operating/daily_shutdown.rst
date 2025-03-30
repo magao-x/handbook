@@ -1,7 +1,7 @@
 Daily Shutdown
 ===============
 
-These procedures are used for shutting down MagAO-X at the end of a work period.
+These procedures are used for shutting down MagAO-X at the end of a work day.  
 
 Rules to follow:
 
@@ -105,7 +105,7 @@ Remaining devices such as focus stages and filter wheels can be left on, which w
 Standard Daily Shutdown
 -----------------------
 
-If MagAO-X will be unused for a longer period of time (say a weekend), we typically shut down everything but computers, networking and cooling.
+If MagAO-X will be unused for a longer period of time (say a weekend), we typically shut down everything but computers, networking and cooling.  
 
 At the end of this, the following things will still be on:
 
@@ -113,16 +113,19 @@ At the end of this, the following things will still be on:
 - pdu0.comprtc
 - pdu0.dcpwr
 - pdu0.swinst
-- pdu2.camflowfs
-- pdu2.camllowfs
-- pdu3.blower
+- pdu3.blower 
 - pdu3.fanaux
 - pdu3.fanmain
-- pdu3.instcool
+- pdu3.instcool 
 
 **Note:** it is critical that you not shutdown instcool while compicc and/or comprtc are on!
 
 Follow the steps in :ref:`minimal_shutdown` above.
 
-Everything else (except the items listed above) can be shutdown in any order.  Occassional errors in the logs during shutdown may occur.
+fwtelsim and fwscind:
+
+- first power off on usbdu0
+- then power off on dcdu1
+
+Everything else (except the items listed above) can be shutdown in any order.  Occassional errors in the logs during shutdown may occur. 
 

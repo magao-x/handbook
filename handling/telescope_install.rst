@@ -16,10 +16,7 @@ Initial Conditions
 Preparations
 ------------
 
--  If operating, shut down MagAO-X.
-
-   - Make sure to leave stages/wheels in positions that are safe for transportation
-   - Complete procedure in the :ref:`telescope removal procedure <tel_remove_shutdown>`
+-  Shutdown MagAO-X
 
 -  Prepare Legs for Move
 
@@ -160,7 +157,7 @@ Rig Onto Cart
 
 -  Position two people to remove the legs from under the table
 
--  Begin SLOWLY lifting the table off the legs. Once table is fully supported by the crane, the scale will read around 2000 lbs (as of March 2024).
+-  Begin SLOWLY lifting the table off the legs.
 
 -  Go up 0.5inch then stop and inspect the platters.  Use a long flathead screwdriver to very gently pry any stuck platters off bottom of table.
 
@@ -310,8 +307,6 @@ Install MagAO-X On The Platform
 
 -  Conduct the daytime alignment procedure per alignment plan
 
-See detailed alignment procedure :download:`Aligning MagAO-X to the Telescope <../appendices/aligning_magao-x_to_the_scope.pdf>`
-
 
 Transport Electronics
 ---------------------
@@ -357,8 +352,6 @@ Install Electronics and Cable
 -  Check that the rack is stable and will not roll
 
 -  Install all cables but the 2K DM cables
-
-- Power on the UPS located in the electronics rack
 
 Install AOC in Control Room
 ---------------------------

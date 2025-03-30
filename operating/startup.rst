@@ -5,16 +5,16 @@ Once the instrument has been unpacked and cabled, begin startup from
 System Powerup. Subsequent (nightly/daily) re-startup should generally
 begin from “Preparing For Operation” below.
 
-The following assumes you're sitting at the AOC workstation, but it
+The following assumes you’re sitting at the AOC workstation, but it
 could be done anywhere with appropriate network tunnels. When one must
 SSH to different hosts, the one where the command should be run will be
 indicated before the prompt, like ``[xsup@exao1 ~]$ ls`` to run ``ls``
-on AOC in the ``~`` directory. (Don't type the ``[host $]`` prompt, or
+on AOC in the ``~`` directory. (Don’t type the ``[host $]`` prompt, or
 any comment lines starting with ``#``.)
 
 You should run these commands as the user ``xsup`` to ensure you can
 read shared memory images (shmims) and ``ssh`` around to RTC and ICC. If
-sitting at AOC, it's therefore best to be logged into the desktop as
+sitting at AOC, it’s therefore best to be logged into the desktop as
 ``xsup``.
 
 If working remotely, note that steps in RTC and ICC power-up must be
@@ -30,9 +30,9 @@ System Powerup
 
    ::
 
-      [xsup@exao1 ~]$ xctrl startup
+      [[xsup@exao1 ~]$ xctrl startup
       # you'll see some output as the processes start, wait a little bit
-      [xsup@exao1 ~]$ xctrl status
+      [[xsup@exao1 ~]$ xctrl status
       # verify processes are all green/running
 
 2. You should have power control now. AOC talks over the instrument
@@ -40,16 +40,16 @@ System Powerup
    control over INDI via several different interfaces: ``sup``,
    ``cursesINDI``, or ``pwrGUI``.
 
-   Since you're sitting at AOC, it's simplest to open ``pwrGUI``. You
+   Since you’re sitting at AOC, it’s simplest to open ``pwrGUI``. You
    should see switches appear.
 
    ::
 
-      [xsup@exao1 ~]$ pwrGUI &
+      [[xsup@exao1 ~]$ pwrGUI &
       # window should pop open with switches
 
 3. The following devices should be powered up, and never powered off
-   (unless you know what you're doing):
+   (unless you know what you’re doing):
 
    -  swinst -- should already be on
    -  instcool -- have someone watching for flow (and leaks) before toggling!
@@ -90,7 +90,27 @@ System Powerup
        selected, and check the box under Pulse Start. Then press the
        ``Submit`` button at the bottom. This remotely presses the ATX
        power button on the RTC.
-   #.  Wait for it to come up, and you can ssh in. (You should not need to babysit it over the KVM.)
+   #.  **IMPORTANT** Immediately on AOC as xsup in home, run the command:
+
+       ::
+
+          [xsup@exao1 ~]$ ./jviewer-starter/jviewer-starter 192.168.0.22 &
+
+       Note that if you do not do this right away, the iKVM module will not register as a keyboard.
+   #.  This brings up a video display of the ICC VGA output. Use the
+       display to monitor progress. It will sometimes hang with a message
+       to press F1 as shown: |image5|
+   #.  This message is meaningless. When this message appears, press F1.
+       Do NOT alter any settings. Immediately press F10 (Save Changes
+       and Reset) and hit enter to say Yes. A soft keyboard can be
+       brought up from the dispaly controls to facilitate these
+       interactions: |image6|
+   #.  Without fail, ICC will lose a GPU, and shortly after, it will lock up. Just run ``watch nvidia-smi`` or something and wait until this happens.
+   #.  When it locks up, use the iKVM interface's power button to power off (not reset) ICC remotely.
+   #.  Power it up as before, and it should be fine from then on. (Although sometimes you have to do this dance twice.)
+   #.  Once the boot finishes, use ``nvidia-smi`` in a terminal on ICC to be sure all GPUs
+       are visible (currently two 2080Tis on ICC).
+   #.  If a GPU has ``fallen off the bus``, see :ref:`the troubleshooting guide <missing_gpu>` for steps to take.
 
 Software Startup
 ----------------
@@ -104,7 +124,7 @@ Software Startup
       ::
 
          [xsup@exao2 ~]$ cd /opt/MagAOX/cacao
-         [xsup@exao2 cacao]$ bash ./startup
+         [xsup@exao2 cacao]$ bash ./startup.sh
 
    -  Use ``milk-fpsCTRL`` to verify that both ``dmch2disp-00`` and ``dmch2disp-01`` are running:
 
@@ -123,7 +143,7 @@ Software Startup
       ::
 
          [xsup@exao3 ~]$ cd /opt/MagAOX/cacao
-         [xsup@exao3 cacao]$ bash ./startup
+         [xsup@exao3 cacao]$ bash ./startup.sh
 
    -  Use ``milk-fpsCTRL`` to verify that ``dmch2disp-02`` is running:
 
@@ -161,5 +181,9 @@ Some windows will need to be rearranged.  The DM displays should self-normalize.
 where you replace `tweeter` with either `woofer` or `ncpc` as necessary.
 
 
-.. |image1| image:: figures/moxa_dio_do.png
-.. |image2| image:: figures/moxa_dialog.png
+.. |image1| image:: moxa_dio_do.png
+.. |image2| image:: moxa_dialog.png
+.. |image3| image:: rtc_ikvm_login.png
+.. |image4| image:: rtc_ikvm_launch.png
+.. |image5| image:: rtc_ikvm_f1.png
+.. |image6| image:: rtc_save_and_exit_yes.png

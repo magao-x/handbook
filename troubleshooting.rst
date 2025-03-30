@@ -89,7 +89,7 @@ Loop failing to close for no apparent reason and/or intermittent failures of CAC
 
 Believe it or not, this can be a sign of insufficient disk space.
 Consult ``df -h`` and see if any of the filesystems have ``Use%`` of
-100%.  This can also be checked in INDI with the sysMonitor process for the relevant compute (sysMonRTC, sysMonICC).
+100%.
 
 .. _missing_gpu:
 
@@ -376,57 +376,3 @@ Examples with known fixes:
   - Reboot (F10, save settings).
   - Now shutdown, fully power down, and reinstall/reconnect all GPUS.
   - Reboot.
-
-USB Device Communication Problems
-~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
-
-If USB controlled devices, such as filter wheels, focus stages, and rotation stages, have errors such as::
-
-   ERRNO: -42001 [Unknown error -42001] >TTY: tcgetattr returned error
-
-or::
-
-   USB Device 0403:6001:A9EF0AMU not found in udev
-
-or similar, try these things:
-
-.. note::
-   As of 2024A we are seeing occasional near-total scrambling of USB communications at LCO, probably due to grounding
-   problems.  If many, essentially all, USB devices appear to be having problems skip to step 3.
-
-1. Power cycle the problem device. 
-
-   - Note that not all USB devices have power control.  In this case skip to step 2.
-   - Be sure to power cycle both main power and the USB power if necessary 
-
-2. If power cycling the device did not fix it (or it doesn't have power control), next restart the software controller.
-   This may be necessary after power-cycling if the USB device was re-enumerated on the motherboard.
-
-   - Use `xctrl restart xxxx` where xxxx is the name of the device
-   - watch the logs to see if the device is "found in udev" 
-
-3. If the above steps do not work, the USB hub associated with the device may need to be reset.
-
-   - The following devices are not on the main USB hub, but plugged directly into the computer
-
-     - rhtweeter (RTC)
-     - ttmpupil (RTC)
-     - usbdu0 (RTC)
-     - rhncpc (ICC)
-     - temprack: lower and upper (ICC)
-     - usbdu1 (ICC)
-
-     For these devices you can try unplugging and replugging their USB cables directly on the motherboard
-
-   - If the above direct connection devices are not fixed by re-plugging, the computer will have to be rebooted.
-     Follow the procedure for doing so.
-
-   - Most USB devices are connected to the main 16-port USB hub.  This can be remotely power cycled to reboot it.
-     
-     - Power off `dcpwr` from the pdu using `pwrGUI`.  Wait a couple seconds, and power it back on.
-     - This will cause all of the USB devices to get new addresses/tty numbers, so the software will have to be 
-       restarted.It's probably easiest at this point to use `xctrl restart all` on ICC instead of restarting them 
-       one-by-one.
-
-
-

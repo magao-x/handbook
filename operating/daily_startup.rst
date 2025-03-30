@@ -10,8 +10,6 @@ generally be the instrument state on a daily basis.
    -  pdu3.fanaux
    -  pdu3.fanmain
    -  pdu3.instcool
-   -  usbdu0.rhtweeter
-   -  usbdu1.rhncpc
 
 If any of these are off, stop and investigate.  These are safety issues and you should not go on.
 
@@ -24,7 +22,6 @@ If any of these are off, stop and investigate.  These are safety issues and you 
 
 If any of these are off, the instrument probably won't work.
 
-3. Ensure MagAO-X processes are started on AOC, ICC and RTC.  We do this by running `xctrl status` on each machine.
 
    ::
 
@@ -42,8 +39,7 @@ If any of these are off, the instrument probably won't work.
       # verify processes are all green/running
       [xsup@exao2 ~]$ exit
 
-4. On actual MagAO-X, you should have all of the needed GUIs open.  On a remote machine, you will need
-   to setup GUIs to your liking.
+2. Power up the MagAO-X components:
 
 5. On the ``pwrGUI`` user tab, power up the MagAO-X components:
 
@@ -66,7 +62,7 @@ If any of these are off, the instrument probably won't work.
 
 6. Set the flat on the ``dmwoofer``, ``dmtweeter``, and ``dmncpc``. (Note: this assumes :doc:`CACAO <cacao>` was already started up.)
 
-7. For lab work, put `stagepickoff` in `lab`.  At the telescope it must be in `tel` to see a star.
+4. For lab work, put `stagepickoff` in `lab`.  At the telescope it must be in `tel` to see a star.
 
 8. Now on the Alignment GUI:
    - ``set`` the pyramid modulator under "Modulaion"
