@@ -4,14 +4,30 @@ Running MagAO-X from macOS
 Obtaining a copy of the MagAO-X software and virtual machine
 ------------------------------------------------------------
 
-The MagAO-X setup scripts in https://github.com/joseph-long/magao-x-setup/ are used to generate a virtual machine image on a regular schedule.
+The MagAO-X setup scripts in https://github.com/joseph-long/magao-x-setup/ are used to generate a virtual machine image on a regular schedule. Get the latest built image from the repository's "Actions" tab.
+
+   1. Go to the `list of successful build-vm runs <https://github.com/joseph-long/magao-x-setup/actions/workflows/build-vm.yml?query=is%3Asuccess>`_
+   2. Click on the most recent build (i.e. the first one in the list)
+   3. Scroll down to the "Artifacts"
+   4. Choose the ``utm_bundle_aarch64`` artifact
+
+      .. image:: build_artifacts.png
+   5. When the download completes, extract the archive, giving you ``MagAO-X.utm``, ``xvm_key``, and ``xvm_key.pub``
 
 Starting the virtual machine
 ----------------------------
 
 On macOS, the virtual machine is packaged as a UTM bundle. Install UTM `from its website <https://mac.getutm.app/>`_ (free) or the `Mac App Store <https://apps.apple.com/us/app/utm-virtual-machines/id1538878817>`_ ($).
 
-Move the MagAO-X VM bundle you downloaded out of your downloads folder and into a more permanent home. Double click it to open in UTM, and it will boot to a graphical desktop with ``xsup`` logged in.
+Move the MagAO-X VM bundle you downloaded out of your downloads folder and into a more permanent home. Double click it to open in UTM, and use the "play" button to start the virtual machine.
+
+.. image:: utm_picker.png
+
+Once the machine is booted, you will have a Linux (KDE) desktop set up akin to a MagAO-X control computer.
+
+.. image:: utm_booted.png
+
+Using the "pause" button in the toolbar will suspend the VM.
 
 Install an SSH key
 ------------------
@@ -144,7 +160,7 @@ And a camera GUI, e.g.::
 
    [xsup@xvm ~]$ cameraGUI camwfs &
 
-To get some windows that behave like normal macOS windows (except that they all belong to the XQuartz application).
+Now the MagAO-X GUI windows can behave like normal macOS windows (except that they all belong to the XQuartz application).
 
 .. image:: rtimv_mac_x11.png
 
