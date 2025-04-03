@@ -32,18 +32,7 @@ Minimal shutdown
 
 This procedure can be used if you expect to startup in a few hours, right away the next day, etc.
 
-The main goal here is to shutoff "the expensive stuff".  Namely:
-
-- dmtweeter
-- dmwoofer
-- dmncpc
-- camwfs
-- camsci1
-- camsci2
-- camlowfs
-- ttmmod
-- ttmpupil
-- ttmperi
+The main goal here is to shutoff "the expensive stuff".  (Specifically: dmtweeter, dmwoofer, dmncpc, camwfs, camsci1, camsci2, camlowfs, ttmmod, ttmpupil, ttmperi; more detailed instructions follow.)
 
 Cameras
 ~~~~~~~
