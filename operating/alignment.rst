@@ -109,8 +109,8 @@ Close a number of tweeter modes > number of offloaded modes, then turn on t2w of
 
 Work your way up the mode blocks in the loop control GUI. As you close more modes, return to the directional buttons under the "Pupil Fitting" section of the Alignment GUI and try to keep the displacements under 0.1 pixel.
 
-Coronagraph Alignment
----------------------
+Bump Mask Alignment
+-------------------
 
 From the **camsci1** gui, set
 
@@ -131,4 +131,58 @@ Use the "Pupil Plane" directional buttons on the coronagraph alignment GUI to al
 
 Once the bump mask is aligned, remember to close the shutter on camsci1 and **take a new dark**.
 
-**Continue improving PSF quality with :doc:`../software/fdpr`**
+**Continue improving PSF quality with `FDPR <./software/utils/fdpr>`__**
+
+Following FDPR, you should end up with a near diffraction-limited PSF that looks like this:
+
+.. image:: figures/fdpr_psf.png
+   :width: 500
+   :align: center
+
+|
+Coronagraph Alignment
+---------------------
+
+Knife Edge Alignment
+~~~~~~~~~~~~~~~~~~~~~
+
+From the **Coronagraph Alignment GUI**: set **fwfpm** to **knifemask**.
+
+In **camsci1Ctrl**, change: 
+
+* **ROI** to **512x512** and take a closed-shutter dark
+* **fwscind** to **ND1** 
+ 
+This will make the knife edge easier to align.
+
+Use the "Focal Plane" directional buttons on the coronagraph alignment GUI to bring the knife edge into view.
+
+Once the knife edge is relatively close to the PSF, click the camsci1 display and press **s** to monitor the PSF pixel counts.
+
+Once the pixel counts drop to about 3-4000, the knife edge is sufficiently aligned as shown below:
+
+.. image:: figures/knife_edge_img.png
+   :width: 500
+   :align: center
+
+|
+Lyot Stop Alignment
+~~~~~~~~~~~~~~~~~~~~~
+In **camsci1Ctrl**, change:
+
+* **fwscind** to **pupil**
+* **stagesci1** to **lyotlG-50/50**
+
+Now take an **open-shutter** dark frame.
+
+In the coronagraph alignment GUI, change **fwlyot** to your stop of choice (typically **LyotLg1**).
+
+Use the "Lyot Plane" directional buttons to center the Lyot stop on the pupil. 
+
+Below is an image of the **LyotLg1** stop after it has been aligned:
+
+.. image:: figures/lyot_stop_img.png
+   :width: 500
+   :align: center
+
+Congrats! You now have an aligned knife edge coronagraph!
