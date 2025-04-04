@@ -3,21 +3,36 @@ Alignment
 
 System Pupil Alignment
 -----------------------------------
+The following procedures make use of the **Pupil Alignment GUI** shown below:
 
+.. image:: figures/alignment_gui.png
+    :width: 750
+    :align: center
+
+| 
 Tweeter Pupil Alignment (F-Test)
 ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
 
 To align the pupil on the tweeter, we perform the F-Test (which is actually an R).
 
-Prepare the system as in :doc:`daily_startup`, then configure:
+Prepare the system as in :doc:`daily_startup`, then in **Coronagraph Alignment GUI**, configure:
 
-* **fwpupil** to **open** (in Coronagraph Alignment GUI)
+* **fwpupil** to **open**
 
 * **fwfpm** to **open**
 
 * **fwlyot** to **open**
 
-* **fwscind** to **pupil** (in camsci1Ctrl)
+The figure below shows the **Coronagraph Alignment GUI**:
+
+.. image:: figures/coro_alignment_gui.png
+    :width: 750
+    :align: center
+
+| 
+In camsci1Ctrl:
+
+* **fwscind** to **pupil**
 
 * **fwsci1** to **z** (in almost all cases you should align in ``z`` for repeatability)
 
@@ -25,10 +40,15 @@ Prepare the system as in :doc:`daily_startup`, then configure:
 
 * Move **stagesci1** to preset **fpm**.
 
+The camsci1Ctrl GUI is shown below:
+
+.. image:: figures/camsci1_gui.png
+    :width: 500
+    :align: center
+|
 Now put the test pattern on the tweeter with **Pupil Alignment GUI** for dmtweeter.  Press the **set test** under **Tweeter**
 
-Next, use the "TTM Pupil" section to align the pupil on the tweeter using the arrow keypad.
-The following figure demonstrates what a good alignment looks like.
+Next, use the "TTM Pupil" section to align the pupil on the tweeter using the arrow keypad .  The following figure demonstrates what a good alignment looks like.
 
 .. image:: f-test-good.png
     :width: 500
@@ -65,9 +85,9 @@ The following figure demonstrates what a good alignment looks like.
 Pyramid Alignment
 ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
 
-* In the Alignment GUI, Tip Alignment should show "move woofer" above the directional buttons. Use the directional buttons to try and get all four pyramid pupils uniformly illuminated.
+* In the **Pupil Alignment GUI**, Tip Alignment should show "move woofer" above the directional buttons. Use the directional buttons to try and get all four pyramid pupils uniformly illuminated.
 
-* Using the directional buttons under the "Pupil Fitting" section to move the pupil images on camwfs until the "Avg:" x and y displacements are less than 0.1 pixel.
+* Use the directional buttons under the "TTM Pupil" section to move the pupil images on camwfs until the "Avg:" x and y displacements are less than 0.1 pixel.
 
 .. warning::
 
