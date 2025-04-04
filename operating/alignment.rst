@@ -3,21 +3,36 @@ Alignment
 
 System Pupil Alignment
 -----------------------------------
+The following procedures make use of the **Pupil Alignment GUI** shown below:
 
+.. image:: figures/alignment_gui.png
+    :width: 750
+    :align: center
+
+| 
 Tweeter Pupil Alignment (F-Test)
 ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
 
 To align the pupil on the tweeter, we perform the F-Test (which is actually an R).
 
-Prepare the system as in :doc:`daily_startup`, then configure:
+Prepare the system as in :doc:`daily_startup`, then in **Coronagraph Alignment GUI**, configure:
 
-* **fwpupil** to **open** (in Coronagraph Alignment GUI)
+* **fwpupil** to **open**
 
 * **fwfpm** to **open**
 
 * **fwlyot** to **open**
 
-* **fwscind** to **pupil** (in camsci1Ctrl)
+The figure below shows the **Coronagraph Alignment GUI**:
+
+.. image:: figures/coro_alignment_gui.png
+    :width: 750
+    :align: center
+
+| 
+In camsci1Ctrl:
+
+* **fwscind** to **pupil**
 
 * **fwsci1** to **z** (in almost all cases you should align in ``z`` for repeatability)
 
@@ -25,10 +40,15 @@ Prepare the system as in :doc:`daily_startup`, then configure:
 
 * Move **stagesci1** to preset **fpm**.
 
+The camsci1Ctrl GUI is shown below:
+
+.. image:: figures/camsci1_gui.png
+    :width: 500
+    :align: center
+|
 Now put the test pattern on the tweeter with **Pupil Alignment GUI** for dmtweeter.  Press the **set test** under **Tweeter**
 
-Next, use the "TTM Pupil" section to align the pupil on the tweeter using the arrow keypad.
-The following figure demonstrates what a good alignment looks like.
+Next, use the "TTM Pupil" section to align the pupil on the tweeter using the arrow keypad .  The following figure demonstrates what a good alignment looks like.
 
 .. image:: f-test-good.png
     :width: 500
@@ -65,9 +85,9 @@ The following figure demonstrates what a good alignment looks like.
 Pyramid Alignment
 ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
 
-* In the Alignment GUI, Tip Alignment should show "move woofer" above the directional buttons. Use the directional buttons to try and get all four pyramid pupils uniformly illuminated.
+* In the **Pupil Alignment GUI**, Tip Alignment should show "move woofer" above the directional buttons. Use the directional buttons to try and get all four pyramid pupils uniformly illuminated.
 
-* Using the directional buttons under the "Pupil Fitting" section to move the pupil images on camwfs until the "Avg:" x and y displacements are less than 0.1 pixel.
+* Use the directional buttons under the "TTM Pupil" section to move the pupil images on camwfs until the "Avg:" x and y displacements are less than 0.1 pixel.
 
 .. warning::
 
@@ -89,8 +109,8 @@ Close a number of tweeter modes > number of offloaded modes, then turn on t2w of
 
 Work your way up the mode blocks in the loop control GUI. As you close more modes, return to the directional buttons under the "Pupil Fitting" section of the Alignment GUI and try to keep the displacements under 0.1 pixel.
 
-Coronagraph Alignment
----------------------
+Bump Mask Alignment
+-------------------
 
 From the **camsci1** gui, set
 
@@ -111,4 +131,58 @@ Use the "Pupil Plane" directional buttons on the coronagraph alignment GUI to al
 
 Once the bump mask is aligned, remember to close the shutter on camsci1 and **take a new dark**.
 
-**Continue improving PSF quality with :doc:`../software/fdpr`**
+**Continue improving PSF quality with `FDPR <./software/utils/fdpr>`__**
+
+Following FDPR, you should end up with a near diffraction-limited PSF that looks like this:
+
+.. image:: figures/fdpr_psf.png
+   :width: 500
+   :align: center
+
+|
+Coronagraph Alignment
+---------------------
+
+Knife Edge Alignment
+~~~~~~~~~~~~~~~~~~~~~
+
+From the **Coronagraph Alignment GUI**: set **fwfpm** to **knifemask**.
+
+In **camsci1Ctrl**, change: 
+
+* **ROI** to **512x512** and take a closed-shutter dark
+* **fwscind** to **ND1** 
+ 
+This will make the knife edge easier to align.
+
+Use the "Focal Plane" directional buttons on the coronagraph alignment GUI to bring the knife edge into view.
+
+Once the knife edge is relatively close to the PSF, click the camsci1 display and press **s** to monitor the PSF pixel counts.
+
+Once the pixel counts drop to about 3-4000, the knife edge is sufficiently aligned as shown below:
+
+.. image:: figures/knife_edge_img.png
+   :width: 500
+   :align: center
+
+|
+Lyot Stop Alignment
+~~~~~~~~~~~~~~~~~~~~~
+In **camsci1Ctrl**, change:
+
+* **fwscind** to **pupil**
+* **stagesci1** to **lyotlG-50/50**
+
+Now take an **open-shutter** dark frame.
+
+In the coronagraph alignment GUI, change **fwlyot** to your stop of choice (typically **LyotLg1**).
+
+Use the "Lyot Plane" directional buttons to center the Lyot stop on the pupil. 
+
+Below is an image of the **LyotLg1** stop after it has been aligned:
+
+.. image:: figures/lyot_stop_img.png
+   :width: 500
+   :align: center
+
+Congrats! You now have an aligned knife edge coronagraph!
