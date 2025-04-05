@@ -1,30 +1,13 @@
 Focus Diversity Phase Retrieval (and correction)
 ==================================================
 
-The FDPR2 commands are part of the `magpyx <https://github.com/magao-x/magpyx>`_ Python package. 
-
-camsci1 config with ch4-875, stage at fpm
-center on core, ROI 369 x 369
-close shutter, take new darks for this ROI
-
-::
-
-    fdpr2_close_loop fdpr2_dmncpc_camsci1_CH4
-
-should achieve Strehl ≥0.95 after enough iterations
-dm_save_flat ncpc -d fdpr
-
-
-
-
------------------------
-
-Guide on running focus diversity phase retrieval (FDPR) on MagAO-X. Part of the `magpyx <https://github.com/magao-x/magpyx>`_ Python package.
-
-Description
-------------
-
 FDPR estimates the pupil-plane field from a set of measurements of defocused PSFs. This implementation is based on `Thurman et al. (2009) <https://doi.org/10.1364/JOSAA.26.000700>`_.
+
+.. warning::
+
+    The ``fdpr_`` commands documented here have been superseded by the ``fdpr2_`` commands. The only documentation for these so far is :ref:`here <_fdpr2>`.
+
+    The contents below are retained in case they are useful but this document should eventually be revamped.
 
 Setting up the instrument
 --------------------------

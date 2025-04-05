@@ -18,4 +18,16 @@ Glossary of terms
       essentially a block of computer memory and a way to coordinate updates with other
       processes in the system.
 
+   FDPR
+      Focus diversity phase retrieval
+
+   NCPA
+      Non-common-path aberration
+
+   NCPC
+      Non-common-path correction
+
+   ROI
+      Region-of-interest, a.k.a. subframe--when you read out a region of a detector instead of the whole thing
+
 If a term is missing here, it's up to you to figure out what it means and :doc:`document it<documenting>`!

@@ -111,4 +111,19 @@ Use the "Pupil Plane" directional buttons on the coronagraph alignment GUI to al
 
 Once the bump mask is aligned, remember to close the shutter on camsci1 and **take a new dark**.
 
-**Continue improving PSF quality with :doc:`../software/fdpr`**
+Focus Diversity Phase Retrieval (FDPR)
+--------------------------------------
+
+To further improve PSF quality, run focus diversity phase retrieval (FDPR) on camsci1 to derive a new non-common-path correction DM shape.
+
+There are multiple ways to configure the algorithm (see :doc:`../software/fdpr`), but we most commonly use the ``CH4-875`` filter in camsci1 to compute a correction applied to ``dmncpc``.
+
+1. Configure fwsci1 with the narrowband methane filter ``CH4-875``
+2. Place stagesci1 at preset ``fpm``
+3. Define a :term:`ROI` centered on the core of the PSF
+4. Adjust exposure times as needed to have plenty (25000--30000) of counts in the peak of the PSF
+5. Close the shutter and take new darks. (Then open the shutter.)
+6. Open a terminal on ICC
+7. ``export OPENBLAS_NUM_THREADS=1`` to avoid bogging down ICC with the process (TODO: make this automatic)
+8. Run the FDPR process with: ``fdpr2_close_loop fdpr2_dmncpc_camsci1_CH4``
+9. Save the flat with ``dm_save_flat ncpc -d fdpr``
