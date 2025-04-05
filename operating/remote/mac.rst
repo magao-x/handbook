@@ -146,7 +146,7 @@ The ``rtimv`` command looks just like it does on the instrument, except for the 
 Freeing GUIs from the virtual desktop
 -------------------------------------
 
-Since macOS and Linux both support X11, you can use the Linux GUIs from the virtual machine as if they were on your Mac. You will need XQuartz (https://www.xquartz.org/) installed.
+Since macOS and Linux both support X11, you can use the Linux GUIs from the virtual machine as if they were on your Mac. You will need `XQuartz <https://www.xquartz.org/>`_ installed.
 
 Above, you identified the host IP address for your VM. Using that, connect via ``ssh`` using the ``-Y`` option for "trusted X11 forwarding". Remember to specify the xvm key::
 
@@ -187,5 +187,5 @@ If you choose Option 2, connect to your virtual machine and open a terminal.
 
       bash provision.sh
 
-This will repeat the installation steps with updated versions of the various MagAO-X software packages. In some cases there will be 
+This will repeat the installation steps with updated versions of the various MagAO-X software packages. (In-place upgrades aren't always trivial, so there may be more manual steps to perform.)
 
