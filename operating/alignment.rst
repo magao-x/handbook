@@ -111,6 +111,8 @@ Use the "Pupil Plane" directional buttons on the coronagraph alignment GUI to al
 
 Once the bump mask is aligned, remember to close the shutter on camsci1 and **take a new dark**.
 
+.. _fdpr2:
+
 Focus Diversity Phase Retrieval (FDPR)
 --------------------------------------
 
