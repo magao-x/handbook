@@ -16,11 +16,11 @@ On each of ICC and RTC: Using an account with ``sudo`` access (in other words, n
 Total Shutdown (for packing, etc.)
 -----------------------------------
 
-After ICC and RTC are shutdown, you can power off the remaining items in the rack using ``pwrGUI``.  Note: you must do this **before** shutting down AOC.
+After ICC and RTC are shutdown (but **before** shutting down AOC) you can power off **almost** all of the remaining items in the rack using ``pwrGUI``. Do not shut down ``swinst`` yet, or you'll lose the ability to toggle power.
+
+As the last step, power off ``swinst``.
 
 AOC Shutdown
--------------
+------------
 
-Note: if AOC is shutdown, you will not have power control of the rack.  Only perform this step if that's ok with you.
-
-On AOC: Close up all the GUIs (hint: `killall rtimv` to close all the image viewers). Then ``xctrl shutdown --all`` in a terminal. Now, switching to an account with ``sudo`` access, issue ``sudo shutdown -h now`` to take the system down.
+On AOC: Close up all the GUIs (hint: ``killall rtimv`` to close all the image viewers). Then ``xctrl shutdown --all`` in a terminal. Now, switching to an account with ``sudo`` access, issue ``sudo shutdown -h now`` to take the system down.
