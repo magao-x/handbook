@@ -4,6 +4,13 @@ Alignment
 System Pupil Alignment
 -----------------------------------
 
+Decide on your beam splitter
+~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+
+All of the alignment takes place downstream of the ``stagebs`` science/WFS beamsplitter, so a change of beamsplitter will invalidate your alignment and require you to repeat these steps.
+
+Decide whether you're using H-alpha / IR or 65-35 first, and configure ``stagebs``.
+
 Tweeter Pupil Alignment (F-Test)
 ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
 
@@ -19,7 +26,7 @@ Prepare the system as in :doc:`daily_startup`, then configure:
 
 * **fwscind** to **pupil** (in camsci1Ctrl)
 
-* **fwsci1** to **z** (in almost all cases you should align in ``z`` for repeatability)
+* **fwsci1** to **z** (for 65-35) or **Ha-Cont** (for ha-ir)
 
 * configure **camsci1** so that you can see the pupil without saturating.
 
@@ -58,7 +65,7 @@ The following figure demonstrates what a good alignment looks like.
     :width: 500
     :align: center
 
-* Clear the J-test with the "clear test" button on the **Pupil Alignment GUI**
+* Clear the J-test with the "zero test" button on the **Pupil Alignment GUI**
 
 * Return ``stagesci1`` to the ``fpm`` position
 

@@ -83,7 +83,7 @@ If any of these are off, the instrument probably won't work.
 
 11. The cameras with temperature control will start cooling themselves down immediately on software startup, and should be cold by now. Check on them.
 
-**Now you can proceed to :doc:`alignment <alignment>`**
+**Now you can proceed to** :doc`alignment <./alignment>`
 
 .. |image1| image:: figures/moxa_dio_do.png
 .. |image2| image:: figures/moxa_dialog.png
