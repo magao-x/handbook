@@ -81,9 +81,9 @@ If any of these are off, the instrument probably won't work.
 
 10. At this point you should see a PSF image on `camtip`.   If you do not, use the system block diagram to troubleshoot. The most likely causes are that you forgot to power something on (the source?) or that `stagepickoff` is in the wrong position.
 
-11. At this point you will probably want to start cooling down the cameras that have temperature control, as well.
+11. The cameras with temperature control will start cooling themselves down immediately on software startup, and should be cold by now. Check on them.
 
-**Now you can proceed to :doc:`alignment`**
+**Now you can proceed to :doc:`alignment <alignment>`**
 
 .. |image1| image:: figures/moxa_dio_do.png
 .. |image2| image:: figures/moxa_dialog.png

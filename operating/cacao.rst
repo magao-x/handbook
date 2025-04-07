@@ -8,6 +8,10 @@ software installation and configuration is already complete.
 Terminal Interface Setup
 -------------------------
 
+.. note::
+
+   This procedure is documented once but used on both RTC and ICC with minor changes as noted.
+
 1. The basic interface to CACAO is through the terminal.  We normally set up a three-panel terminal.  Open a terminal on AOC,
    and first "split left/right".  Then in the left half, "split up/down".
 
