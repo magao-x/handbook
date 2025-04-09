@@ -157,13 +157,18 @@ Time synchronization
 
 Time synchronization depends on
 `chrony <https://chrony.tuxfamily.org/index.html>`__, configured at
-``/etc/chrony/chrony.conf`` (Ubuntu 18.04) or ``/etc/chrony.conf``
-(CentOS 7). Those files are updated by ``provision.sh`` according to the
+``/etc/chrony/chrony.conf`` (Debian/Ubuntu) or ``/etc/chrony.conf``
+(Red-Hat-like). Those files are updated by ``provision.sh`` according to the
 script in
 `setup/steps/configure_chrony.sh <https://github.com/magao-x/MagAOX/blob/master/setup/steps/configure_chrony.sh>`__.
 
-The ICC and RTC take their time from AOC, which is configured to allow
-NTP queries from anyone in the ``192.168.0.0/24`` subnet.
+The AOC and ICC take their time from RTC, which is configured to allow
+NTP queries from these addresses:
+
+* the ``192.168.0.0/24`` subnet
+* the ``200.28.147.0/24`` subnet (i.e. LCO telescopes LAN)
+* the ``10.8.10.0/24`` subnet (i.e. LCO-SCIENCE WiFi)
+* ``192.168.2.3`` (the IP of ICC as seen from RTC over the point-to-point direct link)
 
 AOC, in turn gets its time from a combination of
 
@@ -172,56 +177,88 @@ AOC, in turn gets its time from a combination of
 -  ``ntp1.lco.cl`` - Las Campanas NTP server (when at the telescope)
 -  ``ntp2.lco.cl`` - Backup Las Campanas NTP server (when at the
    telescope)
--  ``0.centos.pool.ntp.org`` — Alias for a pool of hosts that contribute
+-  ``0.rocky.pool.ntp.org`` — Alias for a pool of hosts that contribute
    to pool.ntp.org (whenever reachable)
-
+/
 Troubleshooting
 ~~~~~~~~~~~~~~~
 
-If you need to see how system time relates to network time on an
-instrument computer, run ``chronyc tracking``:
+The RTC (``exao2``) is the time source for the rest of the instrument. It, in turn, gets its time over the network. Inspect its time sources and offsets with ``chronyc sources``::
 
-::
-
-   $ chronyc tracking
-   Reference ID    : C0A8000A (exao1)
-   Stratum         : 3
-   Ref time (UTC)  : Fri Nov 15 00:42:34 2019
-   System time     : 0.000012438 seconds fast of NTP time
-   Last offset     : +0.000014364 seconds
-   RMS offset      : 0.000025598 seconds
-   Frequency       : 0.688 ppm fast
-   Residual freq   : +0.012 ppm
-   Skew            : 0.132 ppm
-   Root delay      : 0.000474306 seconds
-   Root dispersion : 0.000256627 seconds
-   Update interval : 130.4 seconds
+   [jlong@exao2 ~]$ chronyc tracking
+   Reference ID    : C81C933B (vicuna.lco.cl)
+   Stratum         : 2
+   Ref time (UTC)  : Wed Apr 09 01:38:13 2025
+   System time     : 0.000009261 seconds slow of NTP time
+   Last offset     : -0.000014544 seconds
+   RMS offset      : 0.000013495 seconds
+   Frequency       : 11.212 ppm slow
+   Residual freq   : -0.013 ppm
+   Skew            : 0.116 ppm
+   Root delay      : 0.000255977 seconds
+   Root dispersion : 0.001222735 seconds
+   Update interval : 64.4 seconds
    Leap status     : Normal
-
-To force a (potentially discontinuous) time sync,
-``sudo chronyc -a makestep``.
-
-To verify correct operation from RTC or ICC, use ``chronyc sources``:
-
-::
-
-   $ chronyc sources
-   210 Number of sources = 1
+   [jlong@exao2 ~]$ chronyc sources
    MS Name/IP address         Stratum Poll Reach LastRx Last sample
    ===============================================================================
-   ^* exao1                         2   6   377    25   +379ns[+1194ns] +/-   14ms
+   ^? lbtntp.as.arizona.edu         0  10     0     -     +0ns[   +0ns] +/-    0ns
+   ^+ alpaca.lco.cl                 1   6   377    50  -5031ns[-3877ns] +/- 1276us
+   ^* vicuna.lco.cl                 1   6   377    20   +144ns[+1087ns] +/- 1352us
+   ^- any.time.nl                   2   7   377    78  +3336us[+3337us] +/-   71ms
+   ^- time.cloudflare.com           3   9   377   423   -430us[ -429us] +/-   68ms
+   ^- slot.inf.utfsm.cl             2   9   377   281   +371us[ +357us] +/-   55ms
+   ^- time.cloudflare.com           3   9   377   332   -372us[ -382us] +/-   68ms
+   [jlong@exao2 ~]$ chronyc sourcestats
+   Name/IP Address            NP  NR  Span  Frequency  Freq Skew  Offset  Std Dev
+   ==============================================================================
+   lbtntp.as.arizona.edu       0   0     0     +0.000   2000.000     +0ns  4000ms
+   alpaca.lco.cl               7   4   583     -0.013      0.112  +5592ns  8661ns
+   vicuna.lco.cl               7   4   389     +0.023      0.159  -5860ns  6630ns
+   any.time.nl                10   3  1164     +0.007      0.221  +3369us    59us
+   time.cloudflare.com        17  12   73m     -0.070      0.046   -533us    59us
+   slot.inf.utfsm.cl           9   4   68m     -0.069      0.149   +361us   103us
+   time.cloudflare.com        22  13   75m     -0.051      0.032   -409us    46us
 
-If ``exao1`` is shown with a ``?`` in the second column or ``0`` in the
+Alternatively, you can compare one of the instrument computers to the RTC::
+
+   exao3# chronyc tracking
+   Reference ID    : C0A80202 (rtc-from-icc)
+   Stratum         : 3
+   Ref time (UTC)  : Wed Apr 09 01:42:37 2025
+   System time     : 0.000000138 seconds fast of NTP time
+   Last offset     : +0.000000387 seconds
+   RMS offset      : 0.000001489 seconds
+   Frequency       : 4.327 ppm slow
+   Residual freq   : +0.023 ppm
+   Skew            : 2.187 ppm
+   Root delay      : 0.000305708 seconds
+   Root dispersion : 0.001010077 seconds
+   Update interval : 0.1 seconds
+   Leap status     : Normal
+
+   exao3# chronyc sources
+   MS Name/IP address         Stratum Poll Reach LastRx Last sample
+   ===============================================================================
+   ^* rtc-from-icc                  2  -4   377     0  -1178ns[-1152ns] +/- 1160us
+
+   exao3# chronyc sourcestats
+   Name/IP Address            NP  NR  Span  Frequency  Freq Skew  Offset  Std Dev
+   ==============================================================================
+   rtc-from-icc               49  22    12     -0.001      0.097     -2ns   712ns
+
+
+If the source is shown with a ``?`` in the second column or ``0`` in the
 ``Reach`` column, you may have firewalled traffic on the internal
-“instrument” interface. You can examine the configuration files in
-``/etc/sysconfig/network-scripts/ifcfg-*`` and ensure that the interface
-corresponding to ``instrument`` in ``nmtui``/``nmcli`` has
+“instrument” interface. You should ensure that the interface
+corresponding to ``instrument`` or ``instrument-10g`` in ``nmtui``/``nmcli`` has
 ``ZONE=trusted``.
 
-If it’s not any of that, consult the `chrony
-FAQ <https://chrony.tuxfamily.org/faq.html>`__.
+If it's not any of that, consult the `chrony FAQ <https://chrony.tuxfamily.org/faq.html>`__.
 
-To verify correct operation from the AOC end, ``sudo chronyc clients``:
+To force a (potentially discontinuous) time sync, ``sudo chronyc -a makestep``.
+
+To verify correct operation from the time source end, ``sudo chronyc clients``:
 
 ::
 
@@ -233,15 +270,15 @@ To verify correct operation from the AOC end, ``sudo chronyc clients``:
    exao2                          92      0   6   -    21       0      0   -     -
    exao3                          27      0   6   -    16       0      0   -     -
 
-If either exao2 or exao3 does not appear, ssh into them and verify
-``chronyd`` has started…
+If either exao1 or exao2 does not appear, ssh into them and verify
+``chronyd`` has started...
 
 ::
 
    $ systemctl is-active chronyd
    active
 
-…ensure ``exao1`` is reachable via that name…
+...and ensure ``exao2`` is reachable via that name…
 
 ::
 
@@ -250,5 +287,4 @@ If either exao2 or exao3 does not appear, ssh into them and verify
    64 bytes from exao1 (192.168.0.10): icmp_seq=1 ttl=64 time=0.196 ms
    ...
 
-…and finally, consult the `chrony
-FAQ <https://chrony.tuxfamily.org/faq.html>`__.
+...and finally, consult the `chrony FAQ <https://chrony.tuxfamily.org/faq.html>`__.
