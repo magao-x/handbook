@@ -108,6 +108,8 @@ At the end of this, the following things will still be on:
 - pdu3.fanaux
 - pdu3.fanmain
 - pdu3.instcool
+- usbdu0.rhtweeter
+- usbdu1.rhncpc
 
 **Note:** it is critical that you not shutdown instcool while compicc and/or comprtc are on!
 
