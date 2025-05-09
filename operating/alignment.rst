@@ -27,7 +27,7 @@ This procedure will align the pupils on `dmtweeter`, `dmncpc`, and `camwfs`. Thi
 Decide on your beam splitter
 ~~~~~~~~~~~~~~~~~~~~~~~~~~~~
 
-All of the alignment uses cameras downstream of the `stagebs` science/WFS beamsplitter, so a change of beamsplitter will invalidate your alignment and require you to repeat these steps.
+All of the alignment uses cameras downstream of the `stagebs` science/WFS beamsplitter, and changing beamsplitter causes shifts in both the pupil and focal plane.  Thus a change of beamsplitter will invalidate your alignment and require you to repeat these steps.
 
 Decide whether you're using H-alpha / IR or 65-35 first, and configure `stagebs`.
 
