@@ -10,6 +10,11 @@ Rules to follow:
 - do not power off instcool!
 - steps can be done in parrallel, so start warming up cameras, go on, then come back
 
+.. warning::
+       You must be monitoring the relative humidity for `dmtweeter` and `dmncpc` any time their power is on.
+
+.. warning::
+       `instCool` must be on while the computers are powered.
 
 Lunch Break
 -------------
@@ -21,8 +26,7 @@ shut off `dmtweeter` and `dmncpc`:
 - zero flat
 - zero all ch
 - release
-- power off
-
+- power off `dmtweeter` and `dmncpc`
 
 .. _minimal_shutdown:
 
@@ -30,90 +34,69 @@ shut off `dmtweeter` and `dmncpc`:
 Minimal shutdown
 ----------------
 
-This procedure can be used if you expect to startup in a few hours, right away the next day, etc.
+This procedure can be used if you expect to startup in a few hours. The main goal here is to shutoff "the expensive stuff".
 
-The main goal here is to shutoff "the expensive stuff".  (Specifically: dmtweeter, dmwoofer, dmncpc, camwfs, camsci1, camsci2, camlowfs, ttmmod, ttmpupil, ttmperi; more detailed instructions follow.)
+    - For each of `camsci1`, `camsci2`, `camwfs`, `camvisx`, but not `camflowfs` and `camllowfs`.
 
-Cameras
-~~~~~~~
+        - close the shutter
+        - warm up to 20C (use cameraGUI, change setpoint)
+        - wait for it to finish
+        - power off
 
-For each of camsci1 camsci2 camwfs, camvisx, but not camflowfs and camllowfs.
+    - **dmtweeter** and **dmncpc**
 
-- close the shutter
-- warm up to 20C (use cameraGUI, change setpoint)
-- wait for it to finish
-- power off
-- note: for camlowfs, power off under both pdu1 and usbdu0.
+        - open the loop if closed (holoop for tweeter, loloop for ncpc)
+        - press "loop zero"
+        - zero flat
+        - zero all ch
+        - release
+        - power off
 
-dmtweeter and dmncpc
-~~~~~~~~~~~~~~~~~~~~
+    - **dmwoofer**
 
-- open the loop if closed (holoop for tweeter, loloop for ncpc)
-- press "loop zero"
-- zero flat
-- zero all ch
-- release
-- power off
+        - turn off woofer offloading if on
+        - zero woofer offloading
+        - zero flat
+        - zero all ch
+        - release
+        - power off
 
-dmwoofer
-~~~~~~~~
+    - **ttmmod**
 
-- zero flat
-- zero all ch
-- release
-- power off
+        - if modulating, first press `set` in *Pupil Alignment GUI*
+        - press `rest`
+        - power off
 
-ttmmod
-~~~~~~
+    - **ttmpupil**
 
-- if modulating, first press set in Pupil Alignment GUI
-- press rest
-- power off in Power GUI
+        - press `rest` in *Pupil Alignment GUI*
+        - power off
 
-ttmpupil
-~~~~~~~~
+    - **ttmperi**
 
-- press rest in Pupil Alignment GUI
-- power off
+        - press rest in *Pupil Alignment GUI*
+        - power off
 
-ttmperi
-~~~~~~~
+    - Others
 
-- press rest in Pupil Alignment GUI
-- power off
+        - power off **camtip** and **camacq** (they are just heaters)
+        - power off **source**
+        - power off **tableair**
 
-Others
-~~~~~~
-
-- power off camtip (its just a heater)
-- power off source
-- power off tableair
-
-Remaining devices such as focus stages and filter wheels can be left on, which will make alignment easier next time.
+    - Remaining devices such as focus stages and filter wheels can be left on, which will make alignment easier next time.
 
 Standard Daily Shutdown
 -----------------------
 
-If MagAO-X will be unused for a longer period of time (say a weekend), we typically shut down everything but computers, networking and cooling.
+If MagAO-X will be unused for a longer period of time (overnight or a weekend), we typically shut down everything but computers, networking and cooling.
 
-At the end of this, the following things will still be on:
+  - Follow the steps in :ref:`minimal_shutdown` above.
+  -  Everything on the *user* tab of `pwrGUI` should be off. Items can be shutdown in any order.  Occassional errors in the logs during shutdown may occur.
+  -  Everything on the *ninja* tab of `pwrGUI` should be on (with the possible exception of `camflowfs` and `camllowfs`)
 
-- pdu0.compicc
-- pdu0.comprtc
-- pdu0.dcpwr
-- pdu0.swinst
-- pdu2.camflowfs
-- pdu2.camllowfs
-- pdu3.blower
-- pdu3.fanaux
-- pdu3.fanmain
-- pdu3.instcool
-- usbdu0.rhtweeter
-- usbdu1.rhncpc
+.. warning::
+       Do not power off `instCool`.
 
-**Note:** it is critical that you not shutdown instcool while compicc and/or comprtc are on!
 
-Follow the steps in :ref:`minimal_shutdown` above.
 
-Everything else (except the items listed above) can be shutdown in any order.  Occassional errors in the logs during shutdown may occur.
 

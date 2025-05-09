@@ -48,21 +48,22 @@ System Powerup
       [xsup@exao1 ~]$ pwrGUI &
       # window should pop open with switches
 
-3. The following devices should be powered up, and never powered off
+3. The following devices on the *ninja* tab of `pwrGUI` should be powered up, and never powered off
    (unless you know what you're doing):
 
-   -  swinst -- should already be on
-   -  instcool -- have someone watching for flow (and leaks) before toggling!
-   -  dcpwr
-   -  blower
-   -  fanmain
-   -  fanaux
+   -  pdu0.dcpwr
+   -  pdu3.blower
+   -  pdu3.rackfans
+   -  pdu3.instcool
+   -  usbdu0.rhtweeter
+   -  usbdu1.rhncpc
+
 
 4. RTC Power-On
 
    #.  **CRITICAL** ensure that instcool is powered on to provide
        liquid cooling to the RTC.
-   #.  using the pwrGUI, power on ``comprtc``
+   #.  using the `pwrGUI` *ninja* tab, power on ``pdu0.comprtc``
    #.  open firefox, and navigate to ``192.168.0.170`` (or use the "Moxa DIO" bookmark)
    #.  login (if required, password provided to those who need it)
    #.  in the left menu, select ``I/O Setting -> DO Channels`` |image1|
@@ -78,9 +79,7 @@ System Powerup
 
    #.  **CRITICAL** ensure that instcool is powered on to provide
        liquid cooling to the ICCC.
-   #.  using the pwrGUI, power on ``compicc``
-   #.  **IMPORTANT** wait at least 90 sec to allow the motherboard KVM module to
-       initialize
+   #.  using the 1pwrGUI` *ninja* tab, power on ``pdu0.compicc``
    #.  open firefox, and navigate to ``192.168.0.170`` (or use the "Moxa DIO" bookmark)
    #.  login (if required, password provided to those who need it)
    #.  in the left menu, select ``I/O Setting -> DO Channels`` |image1|
@@ -146,13 +145,13 @@ Software Startup
 GUI Setup
 ---------
 
-To setup the GUIs on exao1 (AOC) as user ``xsup``, run the command:
+- To setup the GUIs on exao1 (AOC) as user ``xsup``, run the command:
 
    ::
 
       [xsup@exao1 ~]$ magaox_guis.sh
 
-Some windows will need to be rearranged.  The DM displays should self-normalize.  If they do not, the following command should fix it:
+- Some windows will need to be rearranged.  The DM displays should self-normalize.  If they do not, the following command should fix it:
 
    ::
 
@@ -160,6 +159,15 @@ Some windows will need to be rearranged.  The DM displays should self-normalize.
 
 where you replace `tweeter` with either `woofer` or `ncpc` as necessary.
 
+- Set up a :doc:`cursesINDI <./software/guis/cursesINDI>` terminal.
+
+Preparing for Operations
+-------------------------
+
+You can now proceed to :doc:`daily_startup` to prepare the instrument for operation.
+
 
 .. |image1| image:: figures/moxa_dio_do.png
 .. |image2| image:: figures/moxa_dialog.png
+
+

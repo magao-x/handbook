@@ -1,6 +1,9 @@
 Alignment
 ===================================
 
+These procedures assume that you have completed the :doc:`startup` and :doc:`daily_startup`, have a PSF
+on `camtip`, and are modulating.
+
 System Pupil Alignment
 -----------------------------------
 
@@ -11,12 +14,72 @@ All of the alignment takes place downstream of the ``stagebs`` science/WFS beams
 
 Decide whether you're using H-alpha / IR or 65-35 first, and configure ``stagebs``.
 
+Pupil Alignment
+~~~~~~~~~~~~~~~~
+
+1. hit `t` in the `camtip` `rtimv` display to show the target cross
+
+2. use the keypad on Pupil Alignment GUI to **move woofer** so the PSF is on the cross
+
+3. check that camwfs EM gain is 1, then open shutter
+
+4. make sure synchro is on
+
+5. put `fwpm`` in flat
+
+6. put `camflowfs`` in `default` ROI, and press `t` to show the target cross on its display
+
+7. On *Pupil Alignment Gui* us the `pico sci-x` buttons to move the PSF left and right to center on the target
+
+ - If switching beamsplitters, use the drop-down box to select the new beamsplitter.
+ - Use the arrow buttons to make smaller moves
+ - The PSF should be centered on the target int he
+
+8. Next set woofer offloading to 2 modes
+
+9. Close the loop on tip/tilt only
+
+ - low gain is fine.  Multiplication Coefficient should be 1.0
+
+10. Now select `move TTM`` on lower left of pupil guide gui
+
+11. With the loop closed move up and down with the arrows to center on the target on `camflowfs` in y. Also clean up any remaining x with pico-sci-x.
+
+12. Keeping the loop closed, you can now start `Auto Alignment`
+
+ - Monitor the `camwfs` pupil position to ensure it does not run away
+ - Monitor "Pupil Tracking Loop" and "Actuator Alignment Loop" deltas.
+
+13. Once the loops have converged ("Pupil Tracking Loop" and "Actuator Alignment Loop" deltas less than 0.05 in the lab) stop the `Auto Alignment` loop.
+
+ - In the lab the `Pupil Tracking Loop` should turn off when you stop the `Auto Alignment` loop.
+ - On sky the `Pupil Tracking Loop` should remain on when you stop the `Auto Alignment` loop.
+
+14. Adjust flux on `camwfs` using `flipwfsf` and `fwtelsim`, and set `camwfs` emgain
+
+ - you may need to reset protection
+
+15. take a camwfs dark
+
+16. now close the loop, up to ~200 modes
+
+ - bring up t/t, then focus, then higher order modes block by block
+ - Once 10 modes are closed, increase Woofer Offloading to 10 modes
+
+17. Now repeat the `Auto Alignment` steps above with the loop closed
+
+18. Once the `Auto Alignment` has converged again, stop it.
+
+19. Now perform the J test (see below).  Once the J test is complete, you need to re-align the `camwfs` pupils using the camera lens by hand.  Do not run `Auto Alignment` at this step.
+
+20. You should now be able to close all modes.
+
 Tweeter Pupil Alignment (F-Test)
 ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
 
-To align the pupil on the tweeter, we perform the F-Test (which is actually an R).
+This does not need to be done if you have performed the `Auto Alignment`.
 
-Prepare the system as in :doc:`daily_startup`, then configure:
+To manually align the pupil on the tweeter, we perform the F-Test (which is actually an R).
 
 * **fwpupil** to **open** (in Coronagraph Alignment GUI)
 
@@ -26,7 +89,7 @@ Prepare the system as in :doc:`daily_startup`, then configure:
 
 * **fwscind** to **pupil** (in camsci1Ctrl)
 
-* **fwsci1** to **z** (for 65-35) or **Ha-Cont** (for ha-ir)
+* **fwsci1** to **z**
 
 * configure **camsci1** so that you can see the pupil without saturating.
 
@@ -69,32 +132,16 @@ The following figure demonstrates what a good alignment looks like.
 
 * Return ``stagesci1`` to the ``fpm`` position
 
-Pyramid Alignment
+Pyramid Pupil Alignment
 ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
 
-* In the Alignment GUI, Tip Alignment should show "move woofer" above the directional buttons. Use the directional buttons to try and get all four pyramid pupils uniformly illuminated.
+If you have performed the `Auto Alignment` this only needs to be done after performaing the J-test.
 
-* Using the directional buttons under the "Pupil Fitting" section to move the pupil images on camwfs until the "Avg:" x and y displacements are less than 0.1 pixel.
+* Using the directional buttons under the "Camera Lens" section to move the pupil images on camwfs until the "Avg:" x and y displacements are less than 0.05 pixels in the lab (0.1 pixels on-sky).
 
 .. warning::
 
     The "pupil tracking loop" is not used in lab mode, only on-sky.
-
-Close loop and refine pupil alignment
-~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
-
-If CACAO is not yet started, consult the :doc:`CACAO startup guide <cacao>`.
-
-In the ``holoop`` control GUI:
-
-1. zero all gains
-2. set global gain to 1
-3. apply a small nonzero gain to tip and tilt
-4. close the loop
-
-Close a number of tweeter modes > number of offloaded modes, then turn on t2w offload in the offloading GUI.
-
-Work your way up the mode blocks in the loop control GUI. As you close more modes, return to the directional buttons under the "Pupil Fitting" section of the Alignment GUI and try to keep the displacements under 0.1 pixel.
 
 Coronagraph Alignment
 ---------------------
@@ -103,7 +150,7 @@ From the **camsci1** gui, set
 
     * **fwscind** to **pupil**
     * **stagesci1** to **telsim**
-    
+
 With the camsci1 shutter **open**, take a new dark. This will serve as the reference for alignment.
 
 In the coronagraph alignment GUI: set **fwpupil** to **bump-mask**.
@@ -125,7 +172,7 @@ Focus Diversity Phase Retrieval (FDPR)
 
 To further improve PSF quality, run focus diversity phase retrieval (FDPR) on camsci1 to derive a new non-common-path correction DM shape.
 
-There are multiple ways to configure the algorithm (see :doc:`../software/fdpr`), but we most commonly use the ``CH4-875`` filter in camsci1 to compute a correction applied to ``dmncpc``.
+There are multiple ways to configure the algorithm (see :doc:`./software/utils/fdpr`), but we most commonly use the ``CH4-875`` filter in camsci1 to compute a correction applied to ``dmncpc``.
 
 1. Configure fwsci1 with the narrowband methane filter ``CH4-875``
 2. Place stagesci1 at preset ``fpm``
