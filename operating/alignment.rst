@@ -21,7 +21,7 @@ This procedure will align the pupils on `dmtweeter`, `dmncpc`, and `camwfs`. Thi
 
     - However, **on-sky** we use the position of the `camwfs` pupils to control `ttmpupil` to keep the system pupil aligned as the *K-mirror* rotates.  This only works under the assumption that the actuators are aligned to the pixels first.
 
-    - In **the lab** moving `ttmpupil` to fix `camwfs` pixel positions mis-registers the actuators w.r.t. the `camwfs` pixels. So the *Pupil Tracking Loop* must NOT be used in lab mode.
+    - In **the lab** moving `ttmpupil` to fix `camwfs` pupil positions mis-registers the actuators w.r.t. the `camwfs` pixels. So the *Pupil Tracking Loop* must NOT be used in lab mode.
 
 
 Decide on your beam splitter
@@ -63,9 +63,9 @@ This is the main pupil alignment procedure which should be followed after starti
 
     #. On *Pupil Alignment Gui* use the `pico sci-x` buttons to move the PSF left and right to center on the target
 
-        - If switching beamsplitters,
+        - See above warning regarding using the drop-down selection for changing beamsplitters.
 
-        - Use the arrow buttons to make smaller moves
+        - Use the arrow buttons to move, changing the scale for finer control
 
         - The PSF should be centered on the target in the `camflowfs` display
 
