@@ -81,8 +81,7 @@ generally be the instrument state on a daily basis.
 
 8. Now on the Alignment GUI:
 
-   - ``set`` the pyramid modulator under "Modulaion"
-   - click ``modulate``
+   - ``set`` the pyramid modulator under "Modulation"
    - ``set`` TTM Pupil
    - ``set`` TTM Peri
 
@@ -97,7 +96,11 @@ generally be the instrument state on a daily basis.
     - take a dark
     - open the shutter
 
-11. Begin modulating: enter the correct frequency and radius (e.g. 2000 Hz, 3 lambda / D) for `camwfs` FPS and hit enter (Note that your newly entered values won't appear until modulation begins.)
+11. Begin modulating: 
+
+    - enter the correct frequency and radius (e.g. 2000 Hz, 3 lambda / D) for `camwfs` FPS and hit enter (Note that your newly entered values won't appear until modulation begins.)
+    - click `Modulate`
+    - the status should change to `CONFIGURING`.  Wait for it to say `MODULATING`.
 
 12. The cameras with temperature control will start cooling themselves down immediately on software startup, and should be cold by now. Check on them.
 
