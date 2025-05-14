@@ -1,0 +1,10 @@
+[project]
+name = "magao-x-handbook"
+version = "0.1.0"
+description = "MagAO-X handbook environment placeholder"
+readme = "README.rst"
+requires-python = ">=3.11"
+dependencies = [
+    "sphinx>=7.2.6,<8",
+    "sphinx-rtd-theme>=2.0.0,<3",
+]
