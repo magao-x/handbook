@@ -169,8 +169,8 @@ slide the bar from right to left.
 
 **Troubleshooting tips**:
 
-1. Sometimes nothing shows up in ``pwrGUI``. Exit the window and enter ``xctrl restart`` to
-   reboot the tmux sessions. Running ``pwrGUI`` should be back to normal.
+1. Sometimes nothing shows up in **pwrGUI**. Exit the window and enter ``xctrl restart`` to
+   reboot the tmux sessions. Running **pwrGUI** should be back to normal.
    
 2. Sometimes only one row shows up (either ``pdu`` or ``usb``). Here, we have to go on ``TIC`` to 
    investigate. This will be a very simplified explanation from :doc:`../operating/software/utils/xctrl` section, which contains more details on other troubleshooting instances. 
@@ -207,7 +207,7 @@ section.
 
 There is a little bit of preparation work to do before running ``rtimv``.
 
-1. Power on the cameras you want to use in ``pwrGUI``.
+1. Power on the cameras you want to use in **pwrGUI**.
 
 2. Initialize the ``milkzmqClient`` so ``rtimv`` can see them. You can do this with::
 
@@ -273,7 +273,7 @@ There is a little bit of preparation work to do before running ``rtimv``.
 
 **Troubleshooting tips**:
 
-1. Check that ``<camera-name>`` is powered on in ``pwrGUI``.
+1. Check that ``<camera-name>`` is powered on in **pwrGUI**.
 
 2. Check that INDI recognizes the camera. If the ``<camera-name>.fsm`` property in ``cursesINDI``
    says ``NODEVICE``, then it is not being detected. Try checking the USB connection.
@@ -364,7 +364,7 @@ dmCtrlGUI
 ^^^^^^^^^
 DM Control GUI. Controls the 1K DM. Apply flats, clear channels, release DM.
 
-**IMPORTANT**: Before powering the DM in ``pwrGUI`` and operating ``dmCtrlGUI``, you must verify the
+**IMPORTANT**: Before powering the DM in **pwrGUI** and operating ``dmCtrlGUI``, you must verify the
 1K DM humidity is below 15%. See :ref:`humidity_check` for instructions on checking the humidity.
 
 To operate, use: ::
@@ -381,11 +381,11 @@ This will open a GUI window.
 3. Click on ``set_flat`` to load the flat.
 
 4. When you are done using the 1K DM, please click on ``zero flat`` then  ``release`` before powering it
-   down in ``pwrGUI``.
+   down in **pwrGUI**.
    
 **Troubleshooting tips**:
 
-Sometimes the GUI claims the DM is off, despite it being powered on in ``pwrGUI``. Here's some steps to take to investigate:
+Sometimes the GUI claims the DM is off, despite it being powered on in **pwrGUI**. Here's some steps to take to investigate:
 
 1. **Verify that the power is working.** Go on ``cursesINDI`` and type ``pdu0.`` to the search portion.
    Scroll down until you find ``dmkilo`` in the second column. Check that the ``state`` and ``target`` bits are ``On`` in 

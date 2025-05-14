@@ -37,10 +37,10 @@ System Powerup
 
 2. You should have power control now. AOC talks over the instrument
    internal LAN to network-controlled power strips (PDUs), which you can
-   control over INDI via several different interfaces: ``sup``,
-   ``cursesINDI``, or ``pwrGUI``.
+   control over INDI via several different interfaces: **sup**,
+   **cursesINDI**, or **pwrGUI**.
 
-   Since you're sitting at AOC, it's simplest to open ``pwrGUI``. You
+   Since you're sitting at AOC, it's simplest to open **pwrGUI**. You
    should see switches appear.
 
    ::
@@ -48,48 +48,56 @@ System Powerup
       [xsup@exao1 ~]$ pwrGUI &
       # window should pop open with switches
 
-3. The following devices on the *ninja* tab of `pwrGUI` should be powered up, and never powered off
+3. The following devices on the *ninja* tab of **pwrGUI** should be powered up, and *never* powered off
    (unless you know what you're doing):
 
-   -  pdu0.dcpwr
-   -  pdu3.blower
-   -  pdu3.rackfans
-   -  pdu3.instcool
-   -  usbdu0.rhtweeter
-   -  usbdu1.rhncpc
+   -  ``pdu0.dcpwr``
+   -  ``pdu3.blower``
+   -  ``pdu3.rackfans``
+   -  ``pdu3.instCool``
+   -  ``usbdu0.rhtweeter``
+   -  ``usbdu1.rhncpc``
 
+   The ``camflowfs`` and ``camllowfs`` power should also be turned **on** (at least long enough to follow the ICC Power-On steps below).
 
 4. RTC Power-On
 
-   #.  **CRITICAL** ensure that instcool is powered on to provide
-       liquid cooling to the RTC.
-   #.  using the `pwrGUI` *ninja* tab, power on ``pdu0.comprtc``
-   #.  open firefox, and navigate to ``192.168.0.170`` (or use the "Moxa DIO" bookmark)
-   #.  login (if required, password provided to those who need it)
-   #.  in the left menu, select ``I/O Setting -> DO Channels`` |image1|
-   #.  in the main frame, click on ``RTC-PWR``, which will open a new
-       window: |image2|
-   #.  Under [1. Current Setting], ensure that ``Pulse Output`` is
+   #.  **Critical:** Ensure that ``instCool`` is powered on to provide liquid cooling to the RTC.
+   #.  Using the **pwrGUI** *ninja* tab, power on ``pdu0.comprtc``
+   #.  Using Firefox on AOC, navigate to http://192.168.0.170/ (or use the "Moxa DIO" bookmark)
+   #.  Log in (if required); password provided to those who need it
+   #.  In the left menu, select :menuselection:`I/O Setting --> DO Channels` |image1|
+   #.  In the main frame, click on :guilabel:`RTC-PWR`, which will open a new window: |image2|
+   #.  Under :guilabel:`1. Current Setting`, ensure that :guilabel:`Pulse Output` is
        selected, and check the box under Pulse Start. Then press the
-       ``Submit`` button at the bottom. This remotely presses the ATX
+       :guilabel:`Submit` button at the bottom. This remotely presses the ATX
        power button on the RTC.
-   #.  Wait for it to come up, and you can ssh in. (You should not need to babysit it over the KVM.)
+   #.  Wait for RTC to come up, and verify that you can ssh in
+
+.. note::
+
+   If connecting from off-site, you can set up a tunnel to the Moxa DIO device by running::
+
+         ssh -L8787:192.168.0.170:80 YOURUSERNAME@exao1.magao-x.org
+
+   (substituting your MagAO-X username appropriately). The interface is then available at http://localhost:8787/
 
 5. ICC Power-On
 
-   #.  **CRITICAL** ensure that instcool is powered on to provide
-       liquid cooling to the ICCC.
-   #.  using the 1pwrGUI` *ninja* tab, power on ``pdu0.compicc``
-   #.  open firefox, and navigate to ``192.168.0.170`` (or use the "Moxa DIO" bookmark)
-   #.  login (if required, password provided to those who need it)
-   #.  in the left menu, select ``I/O Setting -> DO Channels`` |image1|
-   #.  in the main frame, click on ``ICC-PWR``, which will open a new
-       window: |image2|
-   #.  Under [1. Current Setting], ensure that ``Pulse Output`` is
+   #.  **Critical:** Ensure that ``instCool`` is powered on to provide liquid cooling to the ICC.
+   #.  Using the **pwrGUI** *ninja* tab, power on ``pdu0.compicc``
+   #.  Using Firefox on AOC, navigate to http://192.168.0.170/ (or use the "Moxa DIO" bookmark)
+   #.  Log in (if required); password provided to those who need it
+   #.  In the left menu, select :menuselection:`I/O Setting --> DO Channels`
+   #.  In the main frame, click on :guilabel:`ICC-PWR`, which will open a new
+       window similar to the one for RTC-PWR.
+   #.  Under :guilabel:`1. Current Setting`, ensure that :guilabel:`Pulse Output` is
        selected, and check the box under Pulse Start. Then press the
-       ``Submit`` button at the bottom. This remotely presses the ATX
-       power button on the RTC.
-   #.  Wait for it to come up, and you can ssh in. (You should not need to babysit it over the KVM.)
+       :guilabel:`Submit` button at the bottom. This remotely presses the ATX
+       power button on the ICC.
+   #.  Wait for it to come up, and verify you can ssh in
+   #.  Ensure the LOWFS camera driver loads by running ``sudo modprobe pvcam_pcie`` (we plan to automate this eventually, but it's always safe to do again)
+   #. **Optional:** If you don't plan to use the LOWFS cameras any time soon, you can power them back off. See :ref:`missing_lowfs` for hot-plugging instructions if you need to power them on later.
 
 Software Startup
 ----------------

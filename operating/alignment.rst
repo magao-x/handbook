@@ -1,8 +1,8 @@
 Alignment
 ===================================
 
-These procedures assume that you have completed the :doc:`startup` and :doc:`daily_startup`, have a PSF
-on `camtip`, and are modulating.
+These procedures assume that you have completed the :doc:`startup` and :doc:`daily_startup`. In other words, CACAO is configured, you have a PSF
+on `camtip`, and you are modulating.
 
 System Pupil Alignment
 -----------------------------------
@@ -46,28 +46,38 @@ This is the main pupil alignment procedure which should be followed after starti
 
     #. put `fwfpm` in flat
 
-    #. put `camflowfs` in `default` ROI, and press `t` to show the target cross on its display.
+    #. If using ``camflowfs``:
 
-    #. Open the `camflowfs` shutter. If you do not see a PSF on `camflowfs`:
+        #. put ``camflowfs`` in :guilabel:`default` ROI, and press :kbd:`t` to show the target cross on its display.
 
-        - If you have already completed the alignment successfully, but are now switching beamsplitters: use the drop-down box to select the new beamsplitter.
+        #. Open the ``camflowfs`` shutter. If you do not see a PSF on ``camflowfs``:
 
-        .. warning::
-            do NOT use the drop-down unless you are sure that you need to.  This is a relative move equivalent to hitting the arrow keys many times. It is not an absolute move to a setpoint. Do not use this to troubleshoot!
+            - If you have already completed the alignment successfully, but are now switching beamsplitters: use the drop-down box to select the new beamsplitter.
 
-        - `camsci1` has a wider FOV.  Make sure `fwscind` is not in `pupil`, move `fwfpm` to `open`, then use `camsci1` to find the spot.
+            .. warning::
+                Do **not** use the drop-down unless you are sure that you need to.  This is a relative move equivalent to hitting the arrow keys many times. It is not an absolute move to a setpoint. Do not use this to troubleshoot!
 
-        - If you can see it on `camsci`, use `pico sci-x` to move the spot to roughly centered on `camsci1`, then return to `camflowfs`.
+            - ``camsci1`` has a wider FOV.  Make sure `fwscind` is not in `pupil`, move `fwfpm` to `open`, then use `camsci1` to find the spot.
 
-        - If you do not see the spot on either `camflowfs` or `camsci1` then something is wrong.  Check all filter wheel and stage positions, ensure shutters are responding and open.
+            - If you can see it on `camsci`, use `pico sci-x` to move the spot to roughly centered on `camsci1`, then return to `camflowfs`.
 
-    #. On *Pupil Alignment Gui* use the `pico sci-x` buttons to move the PSF left and right to center on the target
+            - If you do not see the spot on either `camflowfs` or `camsci1` then something is wrong.  Check all filter wheel and stage positions, ensure shutters are responding and open.
 
-        - See above warning regarding using the drop-down selection for changing beamsplitters.
+        #. On *Pupil Alignment Gui* use the `pico sci-x` buttons to move the PSF left and right to center on the target
 
-        - Use the arrow buttons to move, changing the scale for finer control
+            - See above warning regarding using the drop-down selection for changing beamsplitters.
 
-        - The PSF should be centered on the target in the `camflowfs` display
+            - Use the arrow buttons to move, changing the scale for finer control
+
+            - The PSF should be centered on the target in the `camflowfs` display
+
+    #. If not using ``camflowfs`` (i.e. using ``camsci1`` to align):
+
+        #. Set ``camsci1`` to the :guilabel:`full` ROI
+        #. Take a dark and then open the ``camsci1`` shutter
+        #. Ensure ``fwscind`` is not in ``pupil``, move ``fwfpm`` to ``open``, then find the spot in the ``camsci1`` image
+        #. If you cannot see a PSF, something is wrong upstream. Check upstream filters and stage positions, shutters, etc.
+        #. On *Pupil Alignment Gui* use the `pico sci-x` buttons to approximately center the PSF on ``camsci1``
 
     #. Next set woofer offloading to 2 modes
 
@@ -75,24 +85,27 @@ This is the main pupil alignment procedure which should be followed after starti
 
         - low gain is fine.  Multiplication Coefficient should be 1.0
 
-    #. Now select `move TTM` on lower left of *Pupil Guide Gui*
 
-    #. With the loop closed:
+    #. If using ``camflowfs``:
 
-        - move up and down with the arrows to center on the target on `camflowfs` in y.
-        - also clean up any remaining x alignment with `pico sci-x`.
+        #. Now select :guilabel:`move ttm` on lower left of *Pupil Guide Gui*
 
-    #. Keeping the loop closed, you can now start `Auto Alignment`
+        #. With the loop closed:
+
+            - move up and down with the arrows to center on the target on `camflowfs` in y.
+            - also clean up any remaining x alignment with `pico sci-x`.
+
+    #. Keeping the loop closed, you can now start :guilabel:`Auto Alignment` of the ``ttmpupil`` and ``cameralensx``/``cameralensy`` devices
 
         - Monitor the `camwfs` pupil position to ensure it does not run away
 
         - Monitor "Pupil Tracking Loop" and "Actuator Alignment Loop" deltas.
 
-    #. Once the loops have converged ("Pupil Tracking Loop" and "Actuator Alignment Loop" deltas less than 0.05 in the lab) stop the `Auto Alignment` loop.
+    #. Once the loops have converged ("Pupil Tracking Loop" and "Actuator Alignment Loop" deltas less than 0.05 in the lab) stop the :guilabel:`Auto Alignment` loop.
 
-        - In the lab the `Pupil Tracking Loop` should turn off when you stop the `Auto Alignment` loop.
+        - In the lab the `Pupil Tracking Loop` should turn off when you stop the :guilabel:`Auto Alignment` loop.
 
-        - On sky the `Pupil Tracking Loop` should remain on when you stop the `Auto Alignment` loop.
+        - On sky the `Pupil Tracking Loop` should remain on when you stop the :guilabel:`Auto Alignment` loop.
 
     #. Adjust flux on `camwfs` using `flipwfsf` and `fwtelsim`, and set `camwfs` EM gain.
 
@@ -106,20 +119,20 @@ This is the main pupil alignment procedure which should be followed after starti
 
         - Once 10 modes are closed, increase Woofer Offloading to 10 modes
 
-    #. Now repeat the `Auto Alignment` steps above with the loop closed
+    #. Now repeat the :guilabel:`Auto Alignment` steps above with the loop closed
 
-    #. Once the `Auto Alignment` has converged again, stop it.
+    #. Once the :guilabel:`Auto Alignment` has converged again, stop it.
 
-    #. Now perform the J test (see below).  Once the J test is complete, you need to re-align the `camwfs` pupils using the camera lens by hand.  Do not run `Auto Alignment` at this step.
+    #. Now perform the :ref:`J-test <jtest>` (below).  Once the J-test is complete, you need to re-align the `camwfs` pupils using the camera lens by hand.  **Do not** run :guilabel:`Auto Alignment` at this step.
 
     #. You should now be able to close all modes.
 
-        - once all modes are closed, you may need to adjust camera lens position. do not use `Auto Alignment` for this
+        - Once all modes are closed, you may need to adjust camera lens position with the directional buttons on the Alignment GUI. Do not use :guilabel:`Auto Alignment` for this.
 
 Tweeter Pupil Alignment (F-Test)
 ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
 
-This does not need to be done if you have performed the `Auto Alignment`, however it is usually good to check it to make sure the automatic loop has converged properly.
+This does not need to be done if you have performed the :guilabel:`Auto Alignment`, however it is usually good to check it to make sure the automatic loop has converged properly.
 
 .. note::
     If you modify the F-Test by actuating `ttmpupil`, you will need to re-do both the J-Test and the `camwfs` pupil alignments.
@@ -140,6 +153,8 @@ To manually align the pupil on the tweeter, we perform the F-Test (which is now 
 
 * Move **stagesci1** to preset **fpm**.
 
+* If necessary, use the "Loop Zero" buttons to remove any leftover AO corrections.
+
 Now put the test pattern on the tweeter with **Pupil Alignment GUI** for dmtweeter.  Press the **set test** under **Tweeter**
 
 Next, use the "TTM Pupil" section to align the pupil on the tweeter using the arrow keypad.
@@ -149,8 +164,16 @@ The following figure demonstrates what a good alignment looks like.
     :width: 500
     :align: center
 
-
 When done, use the Tweeter **zero test** button on the Alignment GUI.
+
+Decide on your beam splitter
+~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+
+The J-test and later alignment takes place downstream of the ``stagebs`` science/WFS beamsplitter, so a change of beamsplitter will invalidate your alignment and require you to repeat those steps.
+
+Decide whether you're using H-alpha / IR or 65-35 first, and configure ``stagebs``.
+
+.. _jtest:
 
 NCPC Pupil Alignment (J-Test)
 ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
@@ -161,17 +184,17 @@ To align the pupil on `dmncpc`, we perform the J-Test.
      `ttmperi` moves the pupil on the lower bench, including on `camwfs`.  This means performing the J-Test in closed-loop can cause instability. You will need to manually adjust pupil position on `camwfs` with the *camera lens*.
 
 .. note::
-     The F-Test (above) also changes the J-Test. The J-Test should only be performed after the F-Test (or `Auto Alignment`) is complete.
+     The F-Test (above) also changes the J-Test. The J-Test should only be performed after the F-Test (or :guilabel:`Auto Alignment`) is complete.
 
 The system should be configured for the F-test above. Next,
 
-* Move **stagesci1** to preset **jtest**.
+* Move **stagesci1** to preset **jtest-telsim**.
 
 * Put the test pattern on the `dmncpc`` with the "Set Test" button next to "NCPC" on the **Pupil Alignment GUI**.
 
 * Press the **set test** under **NCPC**
 
-Next, use the "TTM Peri" section to align the pupil on the tweeter using the arrow keypad.
+Next, use the arrow buttons below :guilabel:`TTM Peri` to align the pupil on the NCPC DM.
 The following figure demonstrates what a good alignment looks like.
 
 .. image::j-test_align.png
@@ -183,12 +206,14 @@ The following figure demonstrates what a good alignment looks like.
 
 * Return `stagesci1` to the `fpm` position
 
-Pyramid Pupil Alignment
-~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+Post-J-test Pyramid Pupil Alignment
+^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
 
-If you have performed the `Auto Alignment` this only needs to be done after performing the J-test.
+If you have performed the :guilabel:`Auto Alignment` this only needs to be done after performing the J-test.
 
-* Using the directional buttons under the "Camera Lens" section to move the pupil images on camwfs until the "Avg:" x and y displacements are less than 0.05 pixels in the lab (0.1 pixels on-sky).
+* Check the offsets under :guilabel:`Pupil Tracking Loop` in the **Pupil Alignment GUI**
+
+* Using the directional buttons under the "Camera Lens" section to move the pupil images on camwfs until the x and y displacements are less than 0.05 pixels in the lab (0.1 pixels on-sky).
 
 .. warning::
 
@@ -203,7 +228,7 @@ Bump-Mask Alignment
 From the **camsci1** gui, set
 
     * **fwscind** to **pupil**
-    * **stagesci1** to **telsim**
+    * **stagesci1** to **jtest-telsim**
 
 With the camsci1 shutter **open**, take a new dark. This will serve as the reference for alignment.
 
@@ -217,7 +242,9 @@ Use the "Pupil Plane" directional buttons on the coronagraph alignment GUI to al
    :width: 500
    :align: center
 
-Once the bump mask is aligned, remember to close the shutter on camsci1 and **take a new dark**.
+Once the bump mask is aligned, change **fwscind** back to whatever you had before switching to pupil imaging mode.
+
+Remember to close the shutter on camsci1 and **take a new dark**.
 
 .. _fdpr2:
 

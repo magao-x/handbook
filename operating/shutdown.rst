@@ -18,7 +18,7 @@ ICC and RTC Shutdown
 Total Shutdown (for packing, etc.)
 -----------------------------------
 
-    - After ICC and RTC are shutdown (but **before** shutting down AOC) you can power off **almost** all of the remaining items in the rack using ``pwrGUI``. Do not shut down ``swinst`` yet, or you'll lose the ability to toggle power.
+    - After ICC and RTC are shutdown (but **before** shutting down AOC) you can power off **almost** all of the remaining items in the rack using **pwrGUI**. Do not shut down ``swinst`` yet, or you'll lose the ability to toggle power.
 
     - As the last step, power off ``swinst``.
 

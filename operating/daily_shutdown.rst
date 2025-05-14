@@ -7,7 +7,7 @@ Rules to follow:
 
 - do not power off a DM unless it has been released
 - do not power off a temperature-controlled camera unless its temp is 20C or higher
-- do not power off instcool!
+- do not power off instCool!
 - steps can be done in parrallel, so start warming up cameras, go on, then come back
 
 .. warning::
@@ -91,8 +91,8 @@ Standard Daily Shutdown
 If MagAO-X will be unused for a longer period of time (overnight or a weekend), we typically shut down everything but computers, networking and cooling.
 
   - Follow the steps in :ref:`minimal_shutdown` above.
-  -  Everything on the *user* tab of `pwrGUI` should be off. Items can be shutdown in any order.  Occassional errors in the logs during shutdown may occur.
-  -  Everything on the *ninja* tab of `pwrGUI` should be on (with the possible exception of `camflowfs` and `camllowfs`)
+  -  Everything on the *user* tab of **pwrGUI** should be off. Items can be shutdown in any order.  Occassional errors in the logs during shutdown may occur.
+  -  Everything on the *ninja* tab of **pwrGUI** should be on (with the possible exception of `camflowfs` and `camllowfs`)
 
 .. warning::
        Do not power off `instCool`.

@@ -30,18 +30,18 @@ generally be the instrument state on a daily basis.
 .. note::
      This must include a display of the log stream that you are able to see at all times.
 
-3. On the `pwrGUI` *ninja* tab, verify the following items are on:
+3. On the **pwrGUI** *ninja* tab, verify the following items are on:
 
    -  pdu3.blower
    -  pdu3.rackfans
-   -  pdu3.instcool
+   -  pdu3.instCool
    -  usbdu0.rhtweeter
    -  usbdu1.rhncpc
 
 .. warning::
     If any of these indicate off, stop and investigate.  These are safety issues and you should not go on.
 
-4.  On the `pwrGUI` *ninja* tab, verify that the following items are on:
+4.  On the **pwrGUI** *ninja* tab, verify that the following items are on:
 
    -  pdu0.dcpwr
    -  pdu0.compicc
@@ -51,15 +51,15 @@ generally be the instrument state on a daily basis.
     If any of these are off, the instrument probably won't work.
 
 .. warning::
-       You must be monitoring the relative humidity for `dmtweeter` and `dmncpc` any time their power is on.
+       You must be monitoring the relative humidity for ``dmtweeter`` and ``dmncpc`` any time their power is on.
 
-5. Use the ``pwrGUI`` to power up the MagAO-X components
+5. Use the **pwrGUI** to power up the MagAO-X components
 
-   - Verify that humidity for both `rhtweeter` and `rhncpc` are below 15%.
+   - Verify that humidity for both ``rhtweeter`` and ``rhncpc`` are below 15%.
 
    - On the user tab power everything on.
         - camvisx and stageff can be left off if not needed
-        - If you are using GMT HCAT, all devices on `pduhcat` can be powered on (you won't see this at LCO)
+        - If you are using GMT HCAT, all devices on ``pduhcat`` can be powered on (you won't see this at LCO)
 
    - If you plan to use either ``camflowfs`` or ``camllowfs``, check their power in the *ninja* tab.  If they are not powered up:
             - begin with both cameras powered off
@@ -81,34 +81,45 @@ generally be the instrument state on a daily basis.
 
 8. Now on the Alignment GUI:
 
-   - ``set`` the pyramid modulator under "Modulation"
-   - ``set`` TTM Pupil
-   - ``set`` TTM Peri
+   - :guilabel:`set` the pyramid modulator under "Modulaion"
+   - :guilabel:`set` TTM Pupil
+   - :guilabel:`set` TTM Peri
 
-9. At this point you should see a reasonable but aberrated PSF image on `camtip`.   If you do not, use the system block diagram to troubleshoot. The most likely causes are that you forgot to power something on (the source?) or that `stagepickoff` is in the wrong position.
+9. **Optional, but recommended** Set the toggles on ``sysMonRTC.set_latency.toggle`` and ``sysMonICC.set_latency.toggle`` to "On" using cursesINDI.
+
+10. At this point you should see a PSF image on ``camtip``, probably with a fair amount of aberration.
 
 
-10. Setup camwfs using the On the `camwfsCtrl` GUI:
+   .. figure:: figures/camtip_psf_initial.png
+      :width: 300px
+      :alt: Aberrated camtip PSF
 
-    - set the FPS to your desired loop speed
+      An AO system would clean that right up.
+
+   - If you do not see anything, use the system block diagram to troubleshoot. The most likely causes are that you forgot to power something on (the source?) or that ``stagepickoff`` is in the wrong position.
+
+11. Setup camwfs using the ``camwfsCtrl`` GUI:
+
+    - set the FPS to the desired loop speed (for the ``default`` calibration, 2000 Hz)
     - toggle ``synchro`` to "on"
     - close the shutter
     - take a dark
     - open the shutter
 
-11. Begin modulating: 
+12. On the Alignment GUI, under "Modulation":
 
-    - enter the correct frequency and radius (e.g. 2000 Hz, 3 lambda / D) for `camwfs` FPS and hit enter (Note that your newly entered values won't appear until modulation begins.)
-    - click `Modulate`
-    - the status should change to `CONFIGURING`.  Wait for it to say `MODULATING`.
+   - input the :guilabel:`Frequency [Hz]` (for the ``default`` calibration, that is 2000 Hz) and hit :kbd:`enter`
+   - input the **Radius [l/D]** (for ``default``, 3 lambda/D) and hit enter
+   - **Note that your newly entered values won't appear until modulation begins.**
+   - click :guilabel:`Modulate`
+   - the status text should change to ``CONFIGURING``.  Wait for it to say ``MODULATING``.
+   - confirm that the PSF on ``camtip`` has become a donut
 
-12. The cameras with temperature control will start cooling themselves down immediately on software startup, and should be cold by now. Check on them.
+13. The cameras with temperature control will start cooling themselves down immediately on software startup, and should be cold by now. Check on them.
 
-13. **Optional, but recommended** Set the toggles on ``sysMonRTC.set_latency.toggle`` and ``sysMonICC.set_latency.toggle`` to "On".
+14. **Optional, but recommended** Set the toggles on ``sysMonRTC.set_latency.toggle`` and ``sysMonICC.set_latency.toggle`` to "On".
 
-14. Setup CACAO for closing the HO loop as in :doc:`cacao`
+15. Setup CACAO for closing the high-order loop as in :doc:`cacao`
 
-15. Now align the system as in :doc:`alignment <./alignment>`
+16. Now align the system as in :doc:`alignment <./alignment>`
 
-.. |image1| image:: figures/moxa_dio_do.png
-.. |image2| image:: figures/moxa_dialog.png

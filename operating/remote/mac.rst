@@ -27,7 +27,7 @@ Once the machine is booted, you will have a Linux (KDE) desktop set up akin to a
 
 .. image:: utm_booted.png
 
-Using the "pause" button in the toolbar will suspend the VM.
+In the future, if you want to stop the VM (e.g. to save power) the "pause" button in the toolbar will suspend the VM without losing its state.
 
 Install an SSH key
 ------------------
@@ -83,10 +83,8 @@ Using ``exit``, return to your host shell prompt::
 
 Now you can copy your key into place. Let's assume you have an Ed25519 key saved in ``~/.ssh/id_ed25519``. From the host machine::
 
-   $ scp -i ./xvm_key ~/.ssh/id_ed25519 xsup@REPLACE_WITH_IP_ADDRESS:.ssh/
+   $ scp -i ./xvm_key ~/.ssh/id_ed25519 ~/.ssh/id_ed25519.pub xsup@REPLACE_WITH_IP_ADDRESS:.ssh/
    id_ed25519                                   100%  411   531.6KB/s   00:00
-
-   $ scp -i ./xvm_key ~/.ssh/id_ed25519.pub xsup@REPLACE_WITH_IP_ADDRESS:.ssh/
    id_ed25519.pub                               100%  100   129.2KB/s   00:00
 
 Configure your SSH username
@@ -95,15 +93,13 @@ Configure your SSH username
 The default contents of ``~/.ssh/config`` inside the VM are::
 
    Host aoc exao1
-      HostName exao1.magao-x.org
+       HostName exao1.magao-x.org
    Host rtc exao2
-      HostName rtc
-   ProxyJump aoc
-      Host icc exao3
-   HostName icc
-      ProxyJump aoc
+       HostName exao2.magao-x.org
+   Host icc exao3
+       HostName exao3.magao-x.org
    Host *
-      User YOURMAGAOXUSERNAME
+       User YOURMAGAOXUSERNAME
 
 Edit this file in your favorite editor. As you might guess, ``YOURMAGAOXUSERNAME`` must be replaced with your MagAO-X username (the one used to log in to exao1/2/3).
 
@@ -111,6 +107,10 @@ Next, within the VM, test that you can connect to exao1/AOC::
 
    [xsup@xvm ~]$ ssh aoc
    [YOURMAGAOXUSERNAME@exao1]$ exit
+
+.. note::
+
+   Your host computer must have :doc:`../../compute/vpn` access set up for the VM to be able to reach MagAO-X. If you can't run ``ping exao1.magao-x.org`` without errors on your host computer, that indicates your VPN is not set up or not running.
 
 Connect tunnels
 ---------------

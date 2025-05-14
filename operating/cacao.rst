@@ -61,6 +61,10 @@ To start the GUI for loop control for the high-order loop on AOC:
 
   .. image:: figures/holoop.png
 
+.. note::
+
+   If you do not see all the mode block sliders, the calibration hasn't been applied yet. See the following sections for how to do that.
+
 And for the LOWFS loop:
 
   ::
@@ -100,6 +104,7 @@ High-order Loop
 
     [xsup@rtc tweeter-vispyr-rootdir]$ cacao-calib-apply default
 
+**At this point, if you aren't using the low-order loop, you can continue with** :doc:`alignment`
 
 Low-order T/T Loop
 -------------------
@@ -208,12 +213,8 @@ If the loop is *still* not behaving:
 
 2. Verify in `cacao-fpsctrl-TUI` (the right hand CACAO terminal) that:
 
-   - `wfs2cmodeval-2.option.MODENORM=OFF`
-   - `acquWFS-2.comp.WFSrefsub=ON`
-   - `acquWFS-2.comp.****=OFF` (all other things but WFSrefsub off)
+   - ``wfs2cmodeval-2.option.MODENORM=OFF``
+   - ``acquWFS-2.comp.WFSrefsub=ON``
+   - All **other** things under ``acquWFS-2`` (other than ``WFSrefsub``) are off
 
-3. Re-run steps 2,3,and 4 under "Low Order T/T Loop" above.  Note especially that you need to run step 4 if you run step 3.
-
-
-
-
+3. Re-run steps 2, 3, and 4 under "Low Order T/T Loop" above.  Note especially that you need to run step 4 if you run step 3.

@@ -19,6 +19,8 @@
 
 project = 'MagAO-X Instrument Handbook'
 from datetime import date
+from docutils import nodes
+from docutils.parsers.rst import roles
 this_year = str(date.today().year)
 copyright = f'{this_year}, Extreme Wavefront Control Lab, The University of Arizona'
 author = 'XWCL'
@@ -103,3 +105,14 @@ latex_elements = {
 
 # Add Matomo analytics
 html_js_files = ['stats.js']
+
+def property_role(name, rawtext, text, lineno, inliner, options={}, content=[]):
+    node = nodes.literal(text, text)
+    return [node], []
+
+def device_role(name, rawtext, text, lineno, inliner, options={}, content=[]):
+    node = nodes.strong(text, text)
+    return [node], []
+
+roles.register_local_role('prop', property_role)
+roles.register_local_role('dev', device_role)

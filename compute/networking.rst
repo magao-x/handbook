@@ -179,7 +179,7 @@ AOC, in turn gets its time from a combination of
    telescope)
 -  ``0.rocky.pool.ntp.org`` — Alias for a pool of hosts that contribute
    to pool.ntp.org (whenever reachable)
-/
+
 Troubleshooting
 ~~~~~~~~~~~~~~~
 

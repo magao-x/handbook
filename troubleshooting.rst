@@ -7,7 +7,7 @@ Troubleshooting
    :scale: 33%
 
 
-Figuring out what exactly isn’t working
+Figuring out what exactly isn't working
 ---------------------------------------
 
 To narrow down the failing component, use ``xctrl status`` to see if any
@@ -45,6 +45,67 @@ relaunch once you’ve corrected whatever error was preventing startup.
 
 Addressing specific issues
 --------------------------
+
+.. _missing_lowfs:
+
+Missing ``camflows`` or ``camllowfs``
+~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+
+When booting ICC, ensure that ``camflowfs`` and ``camllowfs`` are already powered on. Otherwise, you will have to reboot ICC to successfully connect.
+
+Things to try:
+
+Hotplugging
+^^^^^^^^^^^
+
+   1. begin with both cameras powered off
+   2. on exao3/ICC: ``xctrl shutdown camflowfs camllowfs``
+   3. power on both cameras
+   4. as a non-xsup user, on exao3/ICC, run ``sudo /opt/pvcam/drivers/in-kernel/pcie/hotplug_pcie.sh``
+   5. verify the number of "active cameras" it reports, and that none say ``no name found, rescan or PC reboot needed``
+   6. on exao3/ICC: ``xctrl startup camflowfs camllowfs``
+
+Outcome 1: successful hotplugging
+"""""""""""""""""""""""""""""""""
+
+The ``camflowfs.fsm`` / ``camllowfs.fsm`` property will change to ``OPERATING`` and images will start to appear.
+
+Outcome 2: unsuccessful hotplugging
+"""""""""""""""""""""""""""""""""""
+
+When hotplugging is unsuccessful, you will see output like the below that includes ``no name found, rescan or PC reboot needed``.
+
+::
+
+   $ sudo /opt/pvcam/drivers/in-kernel/pcie/hotplug_pcie.sh
+   Detected 1 supported card(s)
+   0000:41:00.0 - upstream port (Dolphin PXH832 card [10b5:8733])
+      0000:42:09.0 - downstream port
+         No camera found
+      0000:42:08.0 - downstream port
+         No camera found
+
+   Found 0 active camera(s)
+   cat: /sys/module/pvcam_pcie/refcnt: No such file or directory
+
+   Performing hot-reset of downstream ports...
+   0000:42:08.0
+   0000:42:09.0
+   Removing active cameras...
+   Rescanning downstream ports...
+   0000:42:08.0
+   0000:42:09.0
+
+   Detected 1 supported card(s)
+   0000:41:00.0 - upstream port (Dolphin PXH832 card [10b5:8733])
+      0000:42:09.0 - downstream port
+         0000:44:00.0 - camera rev. 8 (no name found, rescan or PC reboot needed)
+      0000:42:08.0 - downstream port
+         0000:43:00.0 - camera rev. 8 (no name found, rescan or PC reboot needed)
+
+   Found 2 active camera(s)
+
+*This section TODO*
 
 Shared memory image problems with “No space left on device” errors
 ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
@@ -115,7 +176,7 @@ the bus`` errors). Sometimes running ``nvidia-smi`` fails with ``Unable to deter
    following the procedure above:
 
    1. If you can, perform steps 1.1 and 1.2 above to bring the system down in an orderly fashion.
-   2. Power down ``pdu0.comprtc`` or ``pdu.compicc`` (e.g. with ``pwrGUI``)
+   2. Power down ``pdu0.comprtc`` or ``pdu.compicc`` (e.g. with **pwrGUI**)
    3. Wait at least 10 seconds.
    4. Now perform all of the ICC or RTC Power-On steps from the :doc:`System Power On <operating/startup>` procedure.
 
@@ -423,7 +484,7 @@ or similar, try these things:
 
    - Most USB devices are connected to the main 16-port USB hub.  This can be remotely power cycled to reboot it.
      
-     - Power off `dcpwr` from the pdu using `pwrGUI`.  Wait a couple seconds, and power it back on.
+     - Power off `dcpwr` from the pdu using **pwrGUI**.  Wait a couple seconds, and power it back on.
      - This will cause all of the USB devices to get new addresses/tty numbers, so the software will have to be 
        restarted.It's probably easiest at this point to use `xctrl restart all` on ICC instead of restarting them 
        one-by-one.
