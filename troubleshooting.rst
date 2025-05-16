@@ -326,7 +326,7 @@ EDT Framegrabber Problems (camwfs)
 
 The EDT PCIe framegrabber occassionally stops responding. The main
 symptom of this is no data from ``camwfs``, and no response on the
-serial over camera link. 
+serial over camera link.
 
 If ``camwfs`` stops responding on serial (evident in logs, probably frame corruption), first
 shutdown the controlling application.
@@ -354,7 +354,7 @@ This will reset the kernel module and restore operation. Now return to ``xsup`` 
 controlling application:
 
 .. code-block:: bash
-   
+
    $ exit
    $ xctrl startup camwfs #<-change if a different camera
 
@@ -371,6 +371,38 @@ If ``camsci1`` and/or ``camsci2`` stop responding, first attempt to restart the 
 4. Re-start both control processes.
 5. Power up both cameras
 
+rtimv not updating
+~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+If `rtimv` is not showing images:
+
+    #. If remote, check that you have opened the right tunnel.  Usually to port 9000 on AOC.
+    #. Check that the camera is actually updating.  You can use:
+
+        .. code-block:: bash
+
+            [icc/rtc]$ milk-shmimmon camname
+
+        on the computer which hosts the camera. If not, try restarting the camera control software and then take camera specific troubleshooting steps.
+    #. Check that the `mzmqServer` process on the computer which hosts the camera is alive
+    #. Check that the `mzmqClient` process for the computer which hosts the camera is alive on AOC
+    #. Check that frames are arriving on AOC with:
+
+        .. code-block:: bash
+
+            aoc$ milk-shmimmon camname
+
+    #. If remote, check that `mzmqServerAOC` is alive on AOC
+    #. If you are using the `-Z` option with rtimv (milkzmq direct), try:
+
+        a. Start a `milkzmqClient` instance:
+
+           .. code-block:: bash
+
+            $ milkzmqClient -p 9000 localhost camname #assumes you have the tunnel open
+
+         it will tell you if it begins receiving images and you will see a file show up in `/milk/shm`.
+
+        b. Next try using `milk-shmimmon camname` or `rtimv camname`.
 
 
 Killing INDI zombies
@@ -419,7 +451,7 @@ Difficulties with NVIDIA proprietary drivers
 Computer Fails to Boot
 ~~~~~~~~~~~~~~~~~~~~~~
 
-There may be several reasons for this.  
+There may be several reasons for this.
 
 Examples with known fixes:
 ^^^^^^^^^^^^^^^^^^^^^^^^^^
@@ -427,7 +459,7 @@ Examples with known fixes:
 - Startup screen frozen at "initalizing" and Q-Code A9
 
   - This probably means that the BIOS has lost its setup, and is trying to use a GPU for video display
-  - Shutdown and fully power down. 
+  - Shutdown and fully power down.
   - If you have a new mobo CR2032 battery, replace it now
   - Remove GPUs (i.e. by disconnecting the PCIe expansion cable from the host card on the mobo).
   - Install the VGA cable on the mobo (see manual for location)
@@ -455,16 +487,16 @@ or similar, try these things:
    As of 2024A we are seeing occasional near-total scrambling of USB communications at LCO, probably due to grounding
    problems.  If many, essentially all, USB devices appear to be having problems skip to step 3.
 
-1. Power cycle the problem device. 
+1. Power cycle the problem device.
 
    - Note that not all USB devices have power control.  In this case skip to step 2.
-   - Be sure to power cycle both main power and the USB power if necessary 
+   - Be sure to power cycle both main power and the USB power if necessary
 
 2. If power cycling the device did not fix it (or it doesn't have power control), next restart the software controller.
    This may be necessary after power-cycling if the USB device was re-enumerated on the motherboard.
 
    - Use `xctrl restart xxxx` where xxxx is the name of the device
-   - watch the logs to see if the device is "found in udev" 
+   - watch the logs to see if the device is "found in udev"
 
 3. If the above steps do not work, the USB hub associated with the device may need to be reset.
 
@@ -483,10 +515,10 @@ or similar, try these things:
      Follow the procedure for doing so.
 
    - Most USB devices are connected to the main 16-port USB hub.  This can be remotely power cycled to reboot it.
-     
+
      - Power off `dcpwr` from the pdu using **pwrGUI**.  Wait a couple seconds, and power it back on.
-     - This will cause all of the USB devices to get new addresses/tty numbers, so the software will have to be 
-       restarted.It's probably easiest at this point to use `xctrl restart all` on ICC instead of restarting them 
+     - This will cause all of the USB devices to get new addresses/tty numbers, so the software will have to be
+       restarted.It's probably easiest at this point to use `xctrl restart all` on ICC instead of restarting them
        one-by-one.
 
 
