@@ -415,21 +415,33 @@ orphans (i.e. reparented to PID 1 (init)). This will prevent
 killed. (There will be output in logdump suggesting you
 ``kill the zombies``.)
 
-``xctrl`` includes a built-in zombie hunter, and should do this for you.
-Should you still be plagued by zombies, the manual version follows.
-
-The following shell command will kill them:
+Often using `xctrl` to restart the INDI server will fail due to the zombies. You can restart the INDI server efficiently by
+going to the tmux session for it:
 
 .. code-block:: bash
 
-   $ kill $(ps -elf | awk '{if ($5 == 1){print $4" "$5" "$15}}' | grep MagAOX/drivers | awk '{print $1}')
+    $ tmux a -t isRTC
 
-To check if any remain use
+where you change `isRTC` to the correct process name, such as `isAOC` or `isICC`.  You need to be `xsup`.  If the INDI server is down
+you will see error messages followed by a prompt.  The following script will kill the zombies:
 
 .. code-block:: bash
 
-   $ ps -elf | awk '{if ($5 == 1){print $4" "$5" "$15}}' | grep MagAOX/drivers
+    $ killIndiZombies
 
+Now you can up-arrow to find the INDI server command.  It should be:
+
+.. code-block:: bash
+
+    $ /opt/MagAOX/bin/xindiserver -n isRTC
+
+Hit enter to startup the server.  Once it is running you exit the tmux session with `ctrl-b` then `d`.  Now you can test the INDI server is running with
+
+.. code-block:: bash
+
+    $ getINDI
+
+which should return all the INDI properties on that machine.
 
 Difficulties with NVIDIA proprietary drivers
 ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~

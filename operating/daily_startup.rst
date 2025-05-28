@@ -22,6 +22,8 @@ generally be the instrument state on a daily basis.
       # verify processes are all green/running
       [xsup@exao2 ~]$ exit
 
+  A useful further check is to run `getINDI` on each machine to verify that INDI server is communicating.
+
 .. note::
      All software on all machines should be up and running with good INDI communications. If it is not you can not begin to power up because you won't be able to observe what happens.
 
@@ -97,6 +99,7 @@ generally be the instrument state on a daily basis.
       An AO system would clean that right up.
 
    - If you do not see anything, use the system block diagram to troubleshoot. The most likely causes are that you forgot to power something on (the source?) or that ``stagepickoff`` is in the wrong position.
+     Another possibility is that `flipwfsf` is `in`, but `fwtelsim` is in `VisOpen` which blocks IR light.
 
 11. Setup camwfs using the ``camwfsCtrl`` GUI:
 

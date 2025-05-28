@@ -12,6 +12,10 @@ Terminal Interface Setup
 
    This procedure is documented once but used on both RTC and ICC with minor changes as noted.
 
+.. note::
+
+   You will need to run the `cacao-calib-apply` command after restarting the WFS camera (for any loop), even if the rest of this setup is already done.
+
 1. The basic interface to CACAO is through the terminal.  We normally set up a three-panel terminal.  Open a terminal on AOC,
    and first "split left/right".  Then in the left half, "split up/down".
 
@@ -180,7 +184,7 @@ If the loop isn't working or is behaving erratically, for instance you close the
 
    - camflowfs-fit.deltaPixThresh [pixels]
 
-   This regularizes magnitude of the Tip/Tilt commands sent to the NCPC DM via CACAO. E.g., for a value of 2 pixels, if the pixel            coordinates for the center-of-light is more than 2 pixels away from the max value pixel coordinates on camflowfs (or camllowfs), no 
+   This regularizes magnitude of the Tip/Tilt commands sent to the NCPC DM via CACAO. E.g., for a value of 2 pixels, if the pixel            coordinates for the center-of-light is more than 2 pixels away from the max value pixel coordinates on camflowfs (or camllowfs), no
    command will be sent. This is useful for, e.g., a hot pixel in a corner of the current ROI.
 
    - camflowfs-fit.sigmaMaxThreshDown and camflowfs-fit.sigmaMaxThreshDown
