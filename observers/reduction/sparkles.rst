@@ -11,12 +11,12 @@ Steps to consider when recording data with artificial speckles
 
     #. You will be limited by SNR in the unsats, so make sure you take enough data to beat down the noise.
     #. For use as a photometric and PSF reference, it is best if the sats and unsats have the same jitter so that they
-       have the same Strehl ratio.  Since the unsats are likely taken at a higher framerate (to stay unsat!)
+       have the same Strehl ratio.  Since the unsats are likely taken at a higher framerate (to stay unsaturated!)
        consider coadding without registration to the same exposure time as the sats.
 
         .. warning::
 
-            Unsolved problem (as of June 2025): when we run the `F/LLOWFS`` loop to control jitter in the coronagraph, the sats will
+            Unsolved problem (as of June 2025): when we run the `F/LLOWFS` loop to control jitter in the coronagraph, the sats will
             have lower jitter than the sats (which can't have the fast jitter loop).  This shouldn't make a significant difference
             for image registration, but for PSF photometry it could have a large effect.  Below we describe an in-development procedure
             for correction for this problem.
