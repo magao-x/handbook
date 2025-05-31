@@ -6,6 +6,6 @@ Information For Observers
 
    usepolicy
    planning
-   reduction
    datapolicy
    data_access
+   reduction/index
