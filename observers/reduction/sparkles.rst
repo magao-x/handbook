@@ -26,7 +26,8 @@ Steps to consider when recording data with artificial speckles
     #. For sparkles, try to optimize amplitude (i.e. brightness) so they are both visible in unsats in a reasonable amount of time
        but do not overwhelm the sats.
     #. For sparkles with the coronagraph, consider taking `unsats` with the sparkles both on and off to allow subtracting the Airy
-       pattern and diffraction spike structure.  When the sparkles are at 45 degrees they land on the spikes.
+       pattern and diffraction spike structure.  For example, when the sparkles are at 45 degrees they land on the spikes which
+       are not present in a coronagraphic image, resulting in differences in the speckle background which could bias the cross-correlation.
     #. Consider taking unsats frequently during a long observation.  Due to WFS camera drifts and general alignment drifts
        the PSF changes over time, as do conditions and resulting AO performance.  The speckles themselves could also
        change shape due to ADC problems. Anecodotally, Strehl ratio is always lowest
