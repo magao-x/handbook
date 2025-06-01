@@ -2,7 +2,9 @@ Artificial Speckles (a.k.a. "Sparkles")
 =======================================
 
 Tips and tricks for using artificial speckles, both the static DM surface speckles and the dynamic ones created
-using DM probes (which we call "sparkles").
+using DM probes (which we call "sparkles").  The key to achieving good results is to record and reduce both the
+saturated/occulted images (hereafter "sats") and the
+unsaturated/unocculted images (hereafter "unsats") in exactly the same way.
 
 Recording Data
 ---------------
@@ -16,17 +18,18 @@ Steps to consider when recording data with artificial speckles
 
         .. warning::
 
-            Unsolved problem (as of June 2025): when we run the `F/LLOWFS` loop to control jitter in the coronagraph, the sats will
-            have lower jitter than the sats (which can't have the fast jitter loop).  This shouldn't make a significant difference
+            Unsolved problem (as of June 2025): when we run the `LOWFS` loop to control jitter in the coronagraph, the sats will
+            have lower jitter than the unsats (which can't have the fast jitter loop).  This shouldn't make a significant difference
             for image registration, but for PSF photometry it could have a large effect.  Below we describe an in-development procedure
-            for correction for this problem.
+            to correct for this problem.
 
     #. For sparkles, try to optimize amplitude (i.e. brightness) so they are both visible in unsats in a reasonable amount of time
        but do not overwhelm the sats.
-    #. For sparkles with the coronagraph, consider taking unsats with the sparkles both on and off to allow subtracting the Airy
+    #. For sparkles with the coronagraph, consider taking `unsats` with the sparkles both on and off to allow subtracting the Airy
        pattern and diffraction spike structure.  When the sparkles are at 45 degrees they land on the spikes.
     #. Consider taking unsats frequently during a long observation.  Due to WFS camera drifts and general alignment drifts
-       the PSF changes over time, as do conditions and resulting AO performance.  Anecodotally, Strehl ratio is always lowest
+       the PSF changes over time, as do conditions and resulting AO performance.  The speckles themselves could also
+       change shape due to ADC problems. Anecodotally, Strehl ratio is always lowest
        at the end of an observation.
 
 
@@ -34,8 +37,7 @@ Image Registration
 -----------------------------
 
 The artificial speckles can be used to register images when the central star is saturated or occulted by a coronagraph.
-The key to achieving good registration is to record and reduce both the saturated/occulted (hereafter "sats") and the
-unsaturated/unocculted (hereafter "unsats") images exactly the same way.
+
 
 The following recipe has been shown to give good results:
 
@@ -44,7 +46,7 @@ The following recipe has been shown to give good results:
         We use the unsats to establish the reference image, which has the star precisely centered on our desired
         pixel (i.e. the center of rotation for ADI).
 
-        #. Perform a precise registration and centering of the unsats using a fit to the core of the PSF.
+        a. Perform a precise registration and centering of the unsats using a fit to the core of the PSF.
            (see above for discussion of matching jitter). A Gaussian is probably fine
            but make sure you tune the fit so it is not biased by the Airy rings, etc.  An Airy pattern fit may be
            more robust.
@@ -56,15 +58,28 @@ The following recipe has been shown to give good results:
            other structure in the image.  The mask should be small, but be large enough to go to ~0 in the RPS images at the
            edges of the mask and to account for jitter and drifts in the `sat` speckle locations.  For the highly elongated
            DM speckles this should be made out of ellipses.
+
+            .. figure:: ./figures/regref_example.png
+                :alt: images illustrating the construction of a masked reference
+
+                From left to right: the registered mean-combined unsat image, aligned to the center pixel;
+                after radial profile subtraction; the mask to isolate the "sparkles"; a zoomed-in image showing
+                masked sparkles.  The right-most image is the reference for cross-correlation.
+
         #. Construct a 2D `Tukey window <https://en.wikipedia.org/wiki/Window_function#Tukey_windown/>`_ based on the mask, using
            a low alpha so the actual speckle flux is not attenuated.  This is needed to deal with the discontinuity caused by
            normalization (discussed below).
 
            - Logan Pearce found that convolving an elliptical-mask image with a circular 2D Tukey window will produce the desired elliptical 2D Tukey window.
 
+            .. figure:: ./figures/sparkle_windows.png
+                :alt: images illustrating the 2D Tukey window
+
+                Left: a circular Tukey window.  Right: an elliptical Tukey window constructed by convolution.
+
     #. sats
 
-       #. Coarsely determine the location of the star in pixels (i.e. just mouse over it).  You can either shift to your
+       a. Coarsely determine the location of the star in pixels (i.e. just mouse over it).  You can either shift to your
           desired image center or record the pixel coordinate.
        #. Subtract a radial profile from each image.  Make sure the radial profile is centered under the star (~1 pixel
           precision should be ok here).
@@ -77,7 +92,7 @@ The following recipe has been shown to give good results:
 
        We can now use cross-correlation to register each of the sats to the reference image.  Perform the following steps (order matters)
 
-       #. Apply the unsat-mask to the average unsat (the reference)
+       a. Apply the unsat-mask to the average RPS-unsat (the reference)
        #. Normalize the result by subtracting the mean and dividing by the variance.
           These operations should be performed only over the masked pixels (i.e. don't include all the 0 pixels).
           Note that this will create a discontinuity at the edge of the mask, necessitating windowing.
@@ -91,7 +106,7 @@ The following recipe has been shown to give good results:
            To obtain sub-pixel precision you have several options:
 
               - Use the correlation theorem with small discrete FTs or with FFTs, and use a peak finding algorithm (e.g. Gaussian fit or center of light).  This only kinda works.
-              - Zero-pad the images.  This is brutal.  If you want 0.1 pixel resolution you need a 10:1 zero pad.  Don't even try.
+              - Zero-pad the images before applying the correlation theorem.  This is brutal.  If you want 0.1 pixel resolution you need a 10:1 zero pad.  Don't even try.
               - Use a Matrix Fourier Transform. See `this code <https://image-registration.readthedocs.io/en/latest/_modules/image_registration/register_images.html#register_images/>`_ for an example.
                 (note: the chi-squared error estimation available in that package does not seem to be useful for these purposes)
 

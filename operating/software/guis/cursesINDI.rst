@@ -3,6 +3,9 @@ cursesINDI
 
 The instrument interface of first and last resort.
 
+.. figure:: ./figures/realCursesINDI.png
+   :alt: the real MagAO-X GUI is explained
+
 The ``cursesINDI`` tool is available on all MagAO-X computers (including
 VMs and the test bed) and enables viewing and manipulation of the
 instrument settings via low-level properties and the INDI protocol. It
