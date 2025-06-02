@@ -44,10 +44,10 @@ This is the main pupil alignment procedure which should be followed after starti
 
     #. Continue using **move woofer** to get roughly even illumination of the pupils.  This can include adjusting focus.
 
-    #. put `fwfpm` in flat
-
     #. If using ``camflowfs``:
 
+        i. put `fwfpm` in `knifemask`
+        
         #. put ``camflowfs`` in :guilabel:`default` ROI, and press :kbd:`t` to show the target cross on its display.
 
         #. Open the ``camflowfs`` shutter. If you do not see a PSF on ``camflowfs``:
@@ -73,7 +73,7 @@ This is the main pupil alignment procedure which should be followed after starti
 
     #. If not using ``camflowfs`` (i.e. using ``camsci1`` to align):
 
-        #. Set ``camsci1`` to the :guilabel:`full` ROI
+        i. Set ``camsci1`` to the :guilabel:`full` ROI
         #. Take a dark and then open the ``camsci1`` shutter
         #. Ensure ``fwscind`` is not in ``pupil``, move ``fwfpm`` to ``open``, then find the spot in the ``camsci1`` image
         #. If you cannot see a PSF, something is wrong upstream. Check upstream filters and stage positions, shutters, etc.
@@ -85,10 +85,9 @@ This is the main pupil alignment procedure which should be followed after starti
 
         - low gain is fine.  Multiplication Coefficient should be 1.0
 
-
     #. If using ``camflowfs``:
 
-        #. Now select :guilabel:`move ttm` on lower left of *Pupil Guide Gui*
+        i. Now select :guilabel:`move ttm` on lower left of *Pupil Guide Gui*
 
         #. With the loop closed:
 
