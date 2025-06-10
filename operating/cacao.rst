@@ -5,6 +5,33 @@ MagAO-X uses the "Compute and Control for Adaptive Optics" software package.
 This document describes how to start up CACAO on MagAO-X and use it for normal operations.  It assumes that
 software installation and configuration is already complete.
 
+.. _cacao-startup:
+
+When starting after a fresh reboot
+----------------------------------
+
+The :doc:`startup` guide includes these steps, but they are repeated here for clarity.
+
+1. Open a terminal on AOC and ssh to the RTC or ICC computer as user `xsup`.
+
+   ::
+
+     [xsup@aoc ~]$ ssh rtc
+
+   or
+
+   ::
+
+     [xsup@aoc ~]$ ssh icc
+
+   .. note::
+
+      You can also connect as yourself and use ``xsupify`` to become ``xsup``.
+
+2. Run ``/opt/MagAOX/cacao/startup``
+
+3. A lot of output will be generated.  This is normal.
+
 Terminal Interface Setup
 -------------------------
 

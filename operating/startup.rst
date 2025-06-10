@@ -113,7 +113,7 @@ Software Startup
          [xsup@exao2 ~]$ cd /opt/MagAOX/cacao
          [xsup@exao2 cacao]$ bash ./startup
 
-   -  Use ``milk-fpsCTRL`` to verify that both ``dmch2disp-00`` and ``dmch2disp-01`` are running:
+   -  Use ``milk-fpsCTRL`` to verify that both ``dmch2disp-00`` and ``dmch2disp-01`` are running
 
    -  Now start MagAO-X
 
@@ -132,7 +132,7 @@ Software Startup
          [xsup@exao3 ~]$ cd /opt/MagAOX/cacao
          [xsup@exao3 cacao]$ bash ./startup
 
-   -  Use ``milk-fpsCTRL`` to verify that ``dmch2disp-02`` is running:
+   -  Use ``milk-fpsCTRL`` to verify that ``dmch2disp-02`` is running
 
    -  Now start MagAO-X
 

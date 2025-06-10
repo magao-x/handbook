@@ -185,7 +185,7 @@ To align the pupil on `dmncpc`, we perform the J-Test.
 .. note::
      The F-Test (above) also changes the J-Test. The J-Test should only be performed after the F-Test (or :guilabel:`Auto Alignment`) is complete.
 
-The system should be configured for the F-test above. Next,
+The system should be configured for the F-test above (in particular, check that ``fwscind`` is in ``pupil``). Next,
 
 * Move **stagesci1** to preset **jtest-telsim**.
 
