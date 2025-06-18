@@ -198,7 +198,7 @@ The system should be configured for the F-test above (in particular, check that 
 Next, use the arrow buttons below :guilabel:`TTM Peri` to align the pupil on the NCPC DM.
 The following figure demonstrates what a good alignment looks like.
 
-.. image::j-test_align.png
+.. image:: figures/j-test_align.png
 
     :width: 500
     :align: center
