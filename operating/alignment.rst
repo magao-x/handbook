@@ -98,6 +98,8 @@ This is the main pupil alignment procedure which should be followed after starti
 
         - Monitor the `camwfs` pupil position to ensure it does not run away
 
+            - If they do run away, :guilabel:`Stop` the auto alignment. You may need to use :guilabel:`Loop Zero` on the loop control GUI and the :guilabel:`Zero` button on the Offloading Ctrl GUI to remove spurious tip-tilt corrections.
+
         - Monitor "Pupil Tracking Loop" and "Actuator Alignment Loop" deltas.
 
     #. Once the loops have converged ("Pupil Tracking Loop" and "Actuator Alignment Loop" deltas less than 0.05 in the lab) stop the :guilabel:`Auto Alignment` loop.

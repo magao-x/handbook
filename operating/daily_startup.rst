@@ -59,8 +59,13 @@ generally be the instrument state on a daily basis.
 
    - Verify that humidity for both ``rhtweeter`` and ``rhncpc`` are below 15%.
 
+      .. note::
+
+         The most foolproof way to get the latest measurements is running ``getINDI rhtweeter rhncpc`` on AOC. They are also reported on the data dashboard and as an overlay on the rtimv DM viewers.
+
    - On the user tab power everything on.
-        - camvisx and stageff can be left off if not needed
+        - ``camvisx`` and ``stageff`` can be left off if not needed
+        - ``camacq`` and ``flipacq`` are only used on-sky
         - If you are using GMT HCAT, all devices on ``pduhcat`` can be powered on (you won't see this at LCO)
 
    - If you plan to use either ``camflowfs`` or ``camllowfs``, check their power in the *ninja* tab.  If they are not powered up:
@@ -83,7 +88,7 @@ generally be the instrument state on a daily basis.
 
 8. Now on the Alignment GUI:
 
-   - :guilabel:`set` the pyramid modulator under "Modulaion"
+   - :guilabel:`set` the pyramid modulator under "Modulation"
    - :guilabel:`set` TTM Pupil
    - :guilabel:`set` TTM Peri
 
