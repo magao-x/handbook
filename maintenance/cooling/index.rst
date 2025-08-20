@@ -17,4 +17,5 @@ Procedures and guidelines for maintenance of MagAO-X liquid cooling systems.
    :maxdepth: 1
 
    filter_cleaning
+   system_backflush
 
