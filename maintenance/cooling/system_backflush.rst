@@ -34,7 +34,7 @@ Procedure
 4. Remove the large cover plate on the input side of the electronics rack
 (opposite to MagAO-X) to expose the cooler control panel.
 
-   .. image:: cooling/figures/cpu_gpu_cooling.jpeg
+   .. image:: figures/cpu_gpu_cooling.jpeg
 
    *View after removing the large input side cover plate*
 
@@ -46,7 +46,7 @@ Procedure
 7. Locate the hoses connected to each device to be backflushed. The GPUs are plumbed in series, so they must be backflushed
    one-by-one to avoid pushing large masses into the restrictive heat exchangers on each GPU.
 
-   .. image:: cooling/figures/inside_rack_hoses.jpeg
+   .. image:: figures/inside_rack_hoses.jpeg
 
    *Example ICC GPU hose loop looking inside the rack from the front.*
 
@@ -57,14 +57,14 @@ Procedure
 8. Disconnect the two coolant hoses to one device and use the backflush jigs to reverse the flow of coolant
    to that specific device.
 
-.. image:: cooling/figures/backflush_jigs_og.jpeg
+.. image:: figures/backflush_jigs_og.jpeg
 
 *The jigs are composed of a male<->male and female<->female configuration for flow reversal.*
 
 9. Power on :dev:`instCool` with the rocker switch and let the coolant flow for ~2 minutes. Make notes on the flow rate with
    time. Remove the jigs and reconnect the rack coolant hoses to restore the nominal configuration.
 
-.. image:: cooling/figures/instCool_display.jpg
+.. image:: figures/instCool_display.jpg
 
 *Flow rate should improve after a minute or so of backflushing.*
 
