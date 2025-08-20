@@ -17,7 +17,8 @@ Procedure
 
 1. Required Tools
 
-   - 2x backflush jigs
+   - 2x CPU backflush jigs
+   - 2x GPU backflush jigs (smaller hose diam.)
    - paper towels
    - large flathead screwdriver (rack panel removal)
 
@@ -48,7 +49,7 @@ Procedure
 
    .. image:: figures/inside_rack_hoses.jpeg
 
-   *Example ICC GPU hose loop looking inside the rack from the front.*
+   *Example ICC CPU hose loop looking inside the rack from the front.*
 
   .. warning::
      The quick-disconnects are well-engineered and normally leak-proof, but protect the instrument computers with
@@ -61,8 +62,13 @@ Procedure
 
 *The jigs are composed of a male<->male and female<->female configuration for flow reversal.*
 
+.. image:: figures/backflush_jigs_new.jpeg
+
+*The GPU hoses have a smaller diameter, so they require the jigs that feature a step down in connector size.*
+
 9. Power on :dev:`instCool` with the rocker switch and let the coolant flow for ~2 minutes. Make notes on the flow rate with
-   time. Remove the jigs and reconnect the rack coolant hoses to restore the nominal configuration.
+   time. Power *OFF* :dev:`instCool`to lower cooling system pressure. 
+   Remove the jigs and reconnect the rack coolant hoses to restore the nominal configuration. 
 
 .. image:: figures/instCool_display.jpg
 
