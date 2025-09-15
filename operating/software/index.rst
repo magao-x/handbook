@@ -1,4 +1,4 @@
-MagAO-X Software
+Operating MagAO-X Software
 ===================================
 
 .. toctree::
@@ -8,4 +8,4 @@ MagAO-X Software
    apps/index
    utils/index
    dashboard
-   python_indi_device
+
