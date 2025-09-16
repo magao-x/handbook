@@ -1,7 +1,6 @@
 name: Build Instrument Handbook
 on:
-  push:
-    branches: [main]
+  - push
 jobs:
   build-and-deploy:
     runs-on: ubuntu-latest
@@ -17,6 +16,7 @@ jobs:
           make html
           ls _build/html/_static/handling/
       - name: Add SSH key
+        if: github.ref_name == 'main'
         env:
             SSH_AUTH_SOCK: /tmp/ssh_agent.sock
         run: |
@@ -27,6 +27,7 @@ jobs:
             ssh-agent -a $SSH_AUTH_SOCK > /dev/null
             ssh-add /home/runner/.ssh/github_actions
       - name: Sync to magao-x.org
+        if: github.ref_name == 'main'
         env:
             SSH_AUTH_SOCK: /tmp/ssh_agent.sock
         run: |
