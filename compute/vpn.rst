@@ -17,8 +17,13 @@ The first time you connect your computer to the MagAO-X VPN, you will need to re
     a. **Linux**: In a terminal, run ``sudo tailscale up --hostname=YOURHOSTNAMEHERE --login-server=https://inst.magao-x.org/ --force-reauth``. (If you don't know / care what your hostname is, you can leave off the whole ``--hostname=YOURHOSTNAMEHERE`` segment.)
 
     b. **macOS (terminal)**: Use Tailscale's login command to add your profile: ``tailscale login --login-server https://inst.magao-x.org``
-    c. **macOS (GUI)**: 
-    
+
+       .. note::
+
+          If you get messages like ``Error: CLI credentials are not available BadResponse`` you may need to run ``tailscale configure sysext activate`` and approve the network extension in System Settings first.
+
+    c. **macOS (GUI)**:
+
         1. Hold the alt/option key and click the Tailscale icon in the menu, go down to the "Debug" menu
         2. Under "Custom Login Server", select "Add Account..."
         3. Enter the address of the headscale instance  "https://inst.magao-x.org" and press "Add Account"
