@@ -4,9 +4,9 @@ Running MagAO-X from macOS
 Obtaining a copy of the MagAO-X software and virtual machine
 ------------------------------------------------------------
 
-The MagAO-X setup scripts in https://github.com/joseph-long/magao-x-setup/ are used to generate a virtual machine image on a regular schedule. Get the latest built image from the repository's "Actions" tab.
+The MagAO-X setup scripts in https://github.com/magao-x/magao-x-setup/ are used to generate a virtual machine image on a regular schedule. Get the latest built image from the repository's "Actions" tab.
 
-   1. Go to the `list of successful build-vm runs <https://github.com/joseph-long/magao-x-setup/actions/workflows/build-vm.yml?query=is%3Asuccess>`_
+   1. Go to the `list of successful build-vm runs <https://github.com/magao-x/magao-x-setup/actions/workflows/build-vm.yml?query=is%3Asuccess>`_
    2. Click on the most recent build (i.e. the first one in the list)
    3. Scroll down to the "Artifacts"
    4. Choose the ``utm_bundle_aarch64`` artifact
