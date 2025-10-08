@@ -105,4 +105,29 @@ code and your user name is `jrmales`, you would create this branch as follows:
 Pull Requests and Moving to dev
 -------------------------------------
 
+Once you have your new feature in a state that it can be merged into the `dev` branch, you can open a pull request (PR).  To get started
+on github.com select your branch.  If you will see a dropdown button that says "Contribute".  Press the down arrow and you will see
+"Open a pull request".  The following figure illustrates this:
 
+.. image:: pull_request_start.png
+    :width: 500
+    :align: center
+
+Note the banner above that says "... had recent pushes ..." with a "Compare and pull request". If you have recently pushed to your branch
+this offers an alternate way to start a PR.
+
+After you press the "Open a pull request" you will see the following:
+
+.. image:: pull_request_open.png
+    :width: 500
+    :align: center
+
+The image shows a button that says "Draft pull request".  You can start a draft if you want to analyze your changes and start
+a discussion about them, but aren't ready to merge.  Otherwise select "Create pull request".
+
+Now you will need to wait for various checks to complete.  The most important one is whether there are any conflicts to resolve
+before merging.
+
+You should also consider requesting a review from someone.  If you have changed code outside of a app that you are the primary
+developer of, i.e. in `libMagAOX` or an app you are not the primary developer of, add Jared as a reviewer.  It it concerns python or
+the provisioning system add Joseph as a reviewer.
