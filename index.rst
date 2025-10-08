@@ -11,6 +11,7 @@ Table of contents
 
     observers/index
     operating/index
+    software/index
     testbed/index
     maintenance/index
     troubleshooting
@@ -18,8 +19,4 @@ Table of contents
     compute/index
     appendices/index
 
-Resources
-=========
 
-* `API Reference Manual <https://magao-x.org/docs/MagAOX/>`_
-* `magao-x/MagAOX <https://github.com/magao-x/MagAOX>`_ on GitHub
