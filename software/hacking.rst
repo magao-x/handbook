@@ -90,17 +90,22 @@ code and your user name is `jrmales`, you would create this branch as follows:
     6. Install your new software. Let's assume you are editing a single application, say `magicCtrl`.
        When you have changes you are ready to test:
 
-    ::
+       ::
 
-        [jrmales@exao2 MagAOX]$ cd apps/magicCtrl
-        [jrmales@exao2 magicCtrl]$ sudo make install
+          [jrmales@exao2 MagAOX]$ cd apps/magicCtrl
+          [jrmales@exao2 magicCtrl]$ sudo make install
 
        Now your new code is installed on the actual instrument.  By installing from the `apps/magicCtrl` subfolder you have minimized
        the amount of software disturbed.
 
     7. Test your new software.
 
-    8. Once you have completed development and testing, you must prepare a pull request on github.com.
+    8. If your new project isn't complete yet, and you are going to stop working on it for a while,
+       you should  go to `/opt/MagAOX/source/MagAOX/apps/magicCtrl` and reinstall the current
+       version of the app (in this case `magicCtrl`).
+
+    9. Once you have completed development and testing and ready to make your new feature part of MagAO-X for good,
+       you must prepare a pull request on github.com.
 
 Pull Requests and Moving to dev
 -------------------------------------
@@ -128,6 +133,6 @@ a discussion about them, but aren't ready to merge.  Otherwise select "Create pu
 Now you will need to wait for various checks to complete.  The most important one is whether there are any conflicts to resolve
 before merging.
 
-You should also consider requesting a review from someone.  If you have changed code outside of a app that you are the primary
+You should also consider requesting a review from someone.  If you have changed code outside of the app that you are the primary
 developer of, i.e. in `libMagAOX` or an app you are not the primary developer of, add Jared as a reviewer.  It it concerns python or
 the provisioning system add Joseph as a reviewer.
