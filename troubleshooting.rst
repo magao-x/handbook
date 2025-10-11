@@ -371,6 +371,21 @@ If ``camsci1`` and/or ``camsci2`` stop responding, first attempt to restart the 
 4. Re-start both control processes.
 5. Power up both cameras
 
+Camsci1/2 not cooling
+~~~~~~~~~~~~~~~~~~~~~~~~
+
+If ``camsci1`` and/or ``camsci2`` stop cooling, with possible symptom that the camera stays at 25C and reports
+"UNLOCKED", or that temperature control reports "FAULT" or  "UNKNOWN", check the following things:
+
+1. Turn power off for both cameras (warming to 20 C if you can), and shut down the software with `xctrl shutdown camsci1 camsci2`
+2. Verify all cables are securely connected, including at the power supply, at the rack and instrument feed-throughs, and the cable between rack and instrument, and on the camera
+3. Power up both cameras and restart the software.  Wait until the cameras are connected and check the status of temperature control.
+4. If not fixed, check the power supply fuses per the procedure stored on Box under "manuals/Princeton Instruments EMCCD"
+5. If still not fixed, contact Teledyne for assistance.
+
+.. warning::
+    These cameras are export controlled items and can not be removed from MagAO-X except by US Persons under controlled circumstances.  Do not remove them and attempt to return them to the USA without approval.
+
 rtimv not updating
 ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
 If `rtimv` is not showing images:
