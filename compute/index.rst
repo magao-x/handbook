@@ -9,6 +9,7 @@ The MagAO-X computing system.
    python
    database
    administration
+   user_auth
    networking
    data_storage_management
    computer_setup/computer_setup

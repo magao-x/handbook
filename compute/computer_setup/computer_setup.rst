@@ -222,6 +222,14 @@ Users
 -  Set ``root`` password, choose to ``Lock root account`` so it cannot be used to log in
 -  Create ``xdev`` user account (full name "MagAO-X Developer", but xdev to friends) for use after reboot. Use the usual password. **Check "Make this user administrator".**
 
+.. warning::
+
+   The ``xdev`` (UID 1000) and ``xsup`` (UID 1001) accounts are special, because their IDs are kept in sync **manually** across instrument computers rather than using centralized authentication.
+
+   This gives us a backup option if we can no longer authenticate users over the internet.
+
+   **Do not start creating user accounts until after you have set up LDAP authentication (see :doc:`../user_auth`).**
+
 After OS installation
 ---------------------
 
@@ -377,8 +385,8 @@ with the options ``noauto,x-systemd.automount``.
 Setup ssh
 ---------
 
--  Install a key for at least one user in their ``.ssh`` folder, and
-   make sure they can log in with it without requiring a password.
+-  For setup, you should add your public key to the ``/home/xdev/.ssh/authorized_keys`` file, and
+   make sure you can log in (as ``xdev``) with it without requiring a password.
 
 -  Now configure ``sshd`` to require key-based authentication. Do this by creating a file with ``sudo vim /etc/ssh/sshd_config.d/disable_password.conf``::
 
@@ -439,7 +447,7 @@ goes wrong, so make sure it’s working!**
 
 8.  Disconnect all monitors from the NVIDIA card
 
-9.  Connect a monitor to the VGA port from the motherboard’s onboard
+9.  Connect a monitor to the VGA port from the motherboard's onboard
     graphics
 
 10. Reboot to a text-mode prompt
@@ -477,9 +485,9 @@ goes wrong, so make sure it’s working!**
 Perform (mostly) automated provisioning
 ---------------------------------------
 
-Log in via ``ssh`` as a normal user with ``sudo`` access.
+Log in via ``ssh`` as ``xdev``.
 
-1. Clone `magao-x/MagAOX <https://github.com/magao-x/MagAOX>`__ into
+1. Clone `magao-x/magao-x-setup <https://github.com/magao-x/magao-x-setup>`__ into
    your home directory (**not** into ``/opt/MagAOX``, yet)
 
    ::
@@ -487,9 +495,9 @@ Log in via ``ssh`` as a normal user with ``sudo`` access.
       $ cd
       $ git clone https://github.com/magao-x/MagAOX.git
 
-2. Switch to the ``setup`` subdirectory in the MagAOX directory you
-   cloned (in this example: ``~/MagAOX/setup``) to perform
-   pre-provisioning steps (i.e. steps requiring a reboot to take effect)
+2. Switch to the ``magao-x-setup`` directory you just
+   cloned (i.e. ``cd ~/magao-x-setup``) to perform
+   pre-provisioning steps (i.e. steps requiring a reboot to take effect)
 
    ::
 
@@ -500,11 +508,10 @@ Log in via ``ssh`` as a normal user with ``sudo`` access.
    groups. Because this step adds whoever ran it to ``magaox-dev``, you
    will have to **log out and back in**.
 
-   On ICC and RTC, this step also installs the CentOS realtime kernel
-   and updates the kernel command line for ALPAO compatibility reasons.
+   On ICC and RTC, this step updates the kernel command line for ALPAO compatibility reasons.
    It also adds settings to disable the open-source ``nouveau`` drivers
-   for the NVIDIA card. This is so that the CUDA install proceeds
-   without errors. You must reboot before continuing.
+   for the NVIDIA card. (This is so that the CUDA install proceeds
+   without errors.) You must reboot before continuing.
 
 3. Reboot, verify groups
 
@@ -513,9 +520,9 @@ Log in via ``ssh`` as a normal user with ``sudo`` access.
       $ sudo reboot
       [log in again]
       $ groups
-      yourname magaox-dev ...
+      xdev magaox-dev ...
 
-4. *(optional)* Install ``tmux`` for convenience
+4. Install ``tmux`` for convenience
 
    ``tmux`` allows you to preserve a running session across ssh
    disconnection and reconnection. (Ten second tutorial: Running
@@ -527,7 +534,7 @@ Log in via ``ssh`` as a normal user with ``sudo`` access.
 
       $ sudo yum install -y tmux
 
-   (It’s used by the system, so it’ll get installed anyway, but you
+   (It's used by the system, so it'll get installed anyway, but you
    might want it when you run the install.)
 
    To start a new session for the installation:
@@ -553,11 +560,11 @@ Log in via ``ssh`` as a normal user with ``sudo`` access.
    This bundle includes software for the Andor, ALPAO, and Boston
    Micromachines hardware.
 
-6. Run the provisioning script as a normal user
+6. Run the provisioning script as ``xdev``
 
    ::
 
-      $ cd ~/MagAOX/setup
+      $ cd //MagAOX/setup
       $ bash ./provision.sh
 
    If you installed and invoked ``tmux`` in the previous step, this
@@ -626,3 +633,7 @@ Verify bootloader installation / RAID correctness
 -  Ensure boot proceeds without dropping to recovery prompt
 -  Replace all data drives, boot with everything in place
 
+Next steps
+----------
+
+**Continue with setting up :doc:`../user_auth`**
