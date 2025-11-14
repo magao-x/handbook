@@ -17,7 +17,8 @@ Enrolling a new computer
 3. Follow the instructions at `xwcl/hush-hush <https://github.com/xwcl/hush-hush>`_ to add a new key to ``.sops.yaml`` (from a computer that's already enrolled)
 4. Update the ciphertexts (e.g. ``sops updatekeys common.yaml``)
 5. Make (or symlink) a script in ``deploy-local.d`` with the hostname of the new computer
-5. Deploy
+6. Deploy
+7. Set up SSSD to enable user authentication against LDAP (use ``install_sssd.sh`` from `magao-x/magao-x-setup <https://github.com/magao-x/magao-x-setup/blob/main/steps/install_sssd.sh>`_)
 
 Adding a new user
 -----------------
