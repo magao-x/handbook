@@ -58,7 +58,7 @@ Procedure
 8. Disconnect both gpu and cpu coolant hoses, then connect each device hose individually and check the flow rate for each. Note if the flow rate is bouncing around, take the maximum.
 
 9. Disconnect the two coolant hoses to one device and use the backflush jigs to reverse the flow of coolant
-   to that specific device.
+   to that specific device. Proceed with caution when backflushing the gpu and make sure you are connecting to the same gpu, or you will not get flow.
 
 .. image:: figures/backflush_jigs_og.jpeg
 
