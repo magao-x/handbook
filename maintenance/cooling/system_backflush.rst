@@ -55,7 +55,9 @@ Procedure
      The quick-disconnects are well-engineered and normally leak-proof, but protect the instrument computers with
      paper towels under the hoses for good measure.
 
-8. Disconnect the two coolant hoses to one device and use the backflush jigs to reverse the flow of coolant
+8. Disconnect both gpu and cpu coolant hoses, then connect each device hose individually and check the flow rate for each. Note if the flow rate is bouncing around, take the maximum.
+
+9. Disconnect the two coolant hoses to one device and use the backflush jigs to reverse the flow of coolant
    to that specific device.
 
 .. image:: figures/backflush_jigs_og.jpeg
@@ -66,7 +68,7 @@ Procedure
 
 *The GPU hoses have a smaller diameter, so they require the jigs that feature a step down in connector size.*
 
-9. Power on :dev:`instCool` with the rocker switch and let the coolant flow for ~2 minutes. Make notes on the flow rate with
+10. Power on :dev:`instCool` with the rocker switch and let the coolant flow for ~2 minutes. Make notes on the flow rate with
    time. Power *OFF* :dev:`instCool`to lower cooling system pressure. 
    Remove the jigs and reconnect the rack coolant hoses to restore the nominal configuration. 
 
@@ -74,11 +76,11 @@ Procedure
 
 *Flow rate should improve after a minute or so of backflushing.*
 
-10. Repeat steps 8 and 9 for each device that needs backflushing.
+11. Repeat steps 9 and 10 for each device that needs backflushing.
 
-11. After backflushing, double check each hose connection for leaks when instCool is *ON*.
+12. After backflushing, double check each hose connection for leaks when instCool is *ON*.
 
-12. The filter basket needs to be cleaned after the backflushing procedure as per the guide.
+13. The filter basket needs to be cleaned after the backflushing procedure as per the guide.
 
 .. toctree::
    :maxdepth: 1
@@ -87,7 +89,7 @@ Procedure
 
 *The filter -will- be clogged after backflushing, ensure that it's clean before returning to normal ops.*
 
-12. Finish up by reinstalling the input-side cover plate on the electronics rack and reconnecting the coolant hoses at the MagAO-X inlet.
+14. Finish up by reinstalling the input-side cover plate on the electronics rack and reconnecting the coolant hoses at the MagAO-X inlet.
 
 Leak Check
 ----------
