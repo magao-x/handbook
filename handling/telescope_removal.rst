@@ -8,6 +8,25 @@ Estimated Time to Complete: 2 hours
 
 This document can be downloaded as a PDF: :static:`Removing MagAO-X from the Telescope <handling/telescope_removal.pdf>`
 
+Advanced Preparations
+---------------------
+
+Approximately 1 week before the removal date, communicate with the LCO staff to arrange for the following:
+
+  - Flatbed truck
+
+  - crane scale  (> 2000 lbs)
+
+  - come-along
+
+  - 4 ratchet straps
+
+  - Clay jib crane at 3 hairs speed
+
+If planning to set up for remote operations in the cleanroom, also requ
+
+  - N2 bottle with regulator and quick-disconnect fitting in the cleanroom
+
 Initial Conditions
 ------------------
 
@@ -24,7 +43,7 @@ Shutdown
 
    - Ensure that ``stagepickoff`` is in the ``tel`` position.
    - Place the k-mirror at 180 degrees.
-   - Select the Ha-narrow and 875 filter on fwsci1 and the Ha-narrow filter on fwsci2
+   - Select the 875 filter on fwsci1 and the Ha-narrow filter on fwsci2
    - turn off power for all devices on MagAO-X following the regular shutdown procedure.
    - turn off all devices on ``usbdu0`` and ``usbdu0`` in the advanced tab of ``pwrGUI``
    - use the ``shutdown -h now`` command to halt both RTC and ICC
@@ -78,7 +97,7 @@ Rig Onto Cart
 -  Attach the lifting wire-harness to each side of the cart
 
 -  Attach the load spreader with straight extensions to the crane,
-   using a crane scale
+   using a crane scale (note this must be the heavy scale (>2000lbs))
 
    .. image:: figures/load_spreader_attach.jpg
 

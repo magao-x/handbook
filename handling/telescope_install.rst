@@ -8,6 +8,23 @@ Estimated Time to Complete: 5 hours
 
 This document can be downloaded as a PDF: :static:`Installing MagAO-X on the Telescope <handling/telescope_install.pdf>`
 
+Advanced Preparations
+----------------------
+
+At least 1 week before the removal date, communicate with the LCO staff to arrange for the following:
+
+  - Flatbed truck
+
+  - crane scale (> 2000 lbs)
+
+  - come-along
+
+  - 4 ratchet straps
+
+  - Clay jib crane at 3 hairs speed
+
+  - N2 bottle with regulator and quick-disconnect fitting on the platform
+
 Initial Conditions
 ------------------
 
@@ -96,11 +113,10 @@ Rig Onto Cart
 
 -  Ensure that the 8 large bolts on the cart are snug but not tight
 
-
 -  Attach the lifting wire-harness to each side of the cart.  The hooks should point outward.
 
 -  Attach the load spreader with straight extensions to the crane,
-   using a crane scale
+   using a crane scale (note this must be the heavy scale (>2000lbs))
 
    .. image:: figures/load_spreader_attach.jpg
 

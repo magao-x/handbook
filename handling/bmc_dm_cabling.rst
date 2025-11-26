@@ -1,6 +1,8 @@
 MEMS DM Cabling
 =================================================================
 
+.. _bmc_dm_cabling:
+
 Instructions for cabling and de-cabling the BMC MEMS deformable mirrors in MagAO-X.
 
 Use gloves, hairnets, masks, and gowns in addition to the precautions below while handling the deformable mirror cables.
