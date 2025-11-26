@@ -1,4 +1,4 @@
-Maintenance of the MagAO-X instrument
+Maintenance
 ======================================
 
 Procedures and guidelines for maintenance of MagAO-X systems.
@@ -7,4 +7,5 @@ Procedures and guidelines for maintenance of MagAO-X systems.
    :maxdepth: 2
 
    cooling/index
-   
+   electronics/index
+
