@@ -19,7 +19,8 @@ Preparations
 -  If operating, shut down MagAO-X.
 
    - Make sure to leave stages/wheels in positions that are safe for transportation
-   - Complete procedure in the :ref:`telescope removal procedure <tel_remove_shutdown>`
+
+       - See complete procedure in the :ref:`telescope removal procedure <tel_remove_shutdown>`
 
 -  Prepare Legs for Move
 
@@ -42,8 +43,9 @@ Preparations
 
 -  Instrument
 
+   -  remove polarimeter
+   -  install window cover
    -  Remove eyepiece
-   -  Place freezer baggie over top periscope mirror so it does not fall on pyramid
    -  Turn off blower, and remove hose
    -  Tape over any exposed holes (from cables, etc)
    -  Secure any loose cables
@@ -57,13 +59,13 @@ Preparations
    -  Partially assemble cart, leaving one long side off
    -  Store cart out of the way so table can roll into unpacking area
 
--  Dome 
+-  Dome
 
    -  The NASE platform shoud be clear and ready for MagAO-X installation
-   -  The dome jib crane should be set to "3 hairs" speed 
+   -  The dome jib crane should be set to "3 hairs" speed
 
 -  XKID
- 
+
    -  If XKID is pre-cooling on the platform:
 
       -  move the electronics to the dome floor
@@ -79,7 +81,7 @@ Rig Onto Cart
 -  Roll the instrument out of the cleanroom
 
    **NOTE:** At least 4 people required, 2 to push, 2 to hold the
-   cleanroom sides open
+   cleanroom sides open.  Additional people are recommended to help guide.
 
    **CAUTION:** only push on the legs, not the table itself
 
@@ -117,7 +119,7 @@ Rig Onto Cart
 
    *Lifting harnesses attached with shackle extensions*
 
--  Position a person at each corner of the cart
+-  Position a person to hold each of the cart handles
 
    **CAUTION:** Do not allow the cart to bump the legs or the table
    uncontrolled
@@ -129,13 +131,19 @@ Rig Onto Cart
 
    *The cart being lifted to the bottom of the table.  Note the direction of the hooks.*
 
--  Install the 4 bolts. Loosen bolts
+-  Install the 4 outboard bolts. Loosen bolts
    on the cart as needed.
 
 -  Once the cart is bolted to the table bottom, while **320 lbs** is
    still on the crane, tighten all cart bolts. Do not over-tighten, make
    1/4 turn after the washers are no longer free. This is to avoid
    excessive stress on the table.
+
+-  Reposition the load spreader center to the instrument + cart
+   position marked on it.
+
+**CAUTION:** be sure that the load spreader does not hit the cart when
+   being repositioned.
 
 -  Install the triangle stabilizing ropes between the crane hook and
    the lifting fixture IAW the below figure. Tighten, but do not cause
@@ -146,16 +154,10 @@ Rig Onto Cart
    *The triangle stabilizing ropes should be tight, but not become the
    lifting point for the load.*
 
-   **CAUTION:** be sure that the load spread does not hit the cart when
-   being repositioned.
-
--  Reposition the load spreader center to the instrument + cart
-   position marked on it.
-
 -  Ensure that there is room to move the legs out from under the
    table, opening the garage door into the cleanroom if necessary.
 
--  Position a person at each corner of the cart to stabilize it during
+-  Position a person at each of the cart handles to stabilize it during
    the lift.
 
 -  Position two people to remove the legs from under the table
@@ -288,7 +290,7 @@ Install MagAO-X On The Platform
 -  While keeping the instrument level, very slowly lower it into
    position using the alignment pins.
 
--  If one side touches first platters will move and repeat last few steps until platters are centered and pins are centered 
+-  If one side touches first platters will move and repeat last few steps until platters are centered and pins are centered
 
 -  Once on the legs, unload the crane to the cart weight of **320
    lbs** and re-position the load spreader for the cart

@@ -23,11 +23,12 @@ Shutdown
 -  Power down all of MagAO-X
 
    - Ensure that ``stagepickoff`` is in the ``tel`` position.
-   - Place the k-mirror at 0 degrees.
-   - Select the Ha-narrow and CH4-875 filters on fwsci1/2
+   - Place the k-mirror at 180 degrees.
+   - Select the Ha-narrow and 875 filter on fwsci1 and the Ha-narrow filter on fwsci2
    - turn off power for all devices on MagAO-X following the regular shutdown procedure.
+   - turn off all devices on ``usbdu0`` and ``usbdu0`` in the advanced tab of ``pwrGUI``
    - use the ``shutdown -h now`` command to halt both RTC and ICC
-   - once the computers are off, turn off all things in the rack.
+   - once the computers are off, power off any remaining items.
 
 -  Remove blower hose and cover the hole.
 
@@ -44,6 +45,7 @@ Shutdown
 
 -  Instrument
 
+   -  remove polarimeter
    -  Install window cover
    -  Remove eyepiece
    -  Remove bumpers and pusher hardware
@@ -118,7 +120,7 @@ Rig Onto Cart
 -  Reposition the load spreader center to the instrument + cart
    position marked on it.
 
--  Install the triangle stabilizing ropes between the crane hook and 
+-  Install the triangle stabilizing ropes between the crane hook and
    the lifting fixture in accordance with the below figure. Tighten, but do not cause
    them to pick the load.
 

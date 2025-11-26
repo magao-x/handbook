@@ -20,7 +20,7 @@ Configuring
 
       [exao3 ~]$ sudo screen /dev/ttyUSBX 115200
 
-    Note that screen does not echo, so when typing you will not see any responses.
+    Note that screen does not echo, so when typing you will not see what you type.
 
 4.  To enumerate the devices in the chain
 
