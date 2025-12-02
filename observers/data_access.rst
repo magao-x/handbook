@@ -3,7 +3,7 @@ Accessing data as a guest observer
 
 MagAO-X (but not all visiting instruments) record data in a compressed format. Standard FITS-formatted data with full headers is produced during observations, becoming available within a few minutes of the start of the observation. This document explains how to access it.
 
-**Extremely short version, for those who just need a refresher:** ``rsync -e ssh -rtz --progress guestobs@exao1.lco.cl:/data/obs/vizzy@xwcl.science/ ./my_obs/``
+**Extremely short version, for those who just need a refresher:** ``rsync -e ssh -rtz --progress guestobs@exao1.lco.cl:/home/guestobs/obs/202XX/vizzy@xwcl.science/ ./my_obs/`` replace ``202XX`` with the relevant observing semester (e.g. 2025B) and ``vizzy@xwcl.science`` with your account email.
 
 Observation data are exported to the Adaptive optics Operator Computer, aka AOC or ``exao1``. Note that ``exao1`` is part of the instrument, and ships back and forth to Chile for observing runs. That means two things:
 
@@ -79,16 +79,16 @@ Now you can do ``ssh exao1-lco`` and that extra step will be taken care of. Impo
 Browsing the data
 -----------------
 
-Your data are rooted in ``/data/obs/$SEMESTER/$EMAIL/``. So, for example, ``/data/obs/2024A/jrmales@arizona.edu/`` will contain::
+Your data are rooted in ``/home/guestobs/obs/$SEMESTER/$EMAIL/``. So, for example, ``/home/guestobs/obs/2025B/jrmales@arizona.edu/`` will contain::
 
-    [guestobs@exao1] $ ls /data/obs/2024A/jrmales@arizona.edu/
-    2024-02-07_004357_vib_all_loops_off
-    2024-02-07_004444_vib_all_loops_off
+    [guestobs@exao1] $ ls /home/guestobs/obs/2025B/jrmales@arizona.edu/
+    2025-11-18_210906_jared_test_28
+    2025-11-28_041811_Trapezium_astro
     [... and so on ...]
 
 One folder is created for every observation interval (i.e. toggle of the "recording" switch). Within those folders, there is a folder for each science camera that was actively recording (usually just camsci1 and camsci2)::
 
-    [guestobs@exao1] $ ls /data/obs/2024A/jrmales@arizona.edu/2024-02-07_004444_vib_all_loops_off/
+    [guestobs@exao1] $ ls /home/guestobs/obs/2025B/jrmales@arizona.edu/2025-11-28_041811_Trapezium_astro
     camsci1
     camsci2
     [... and so on ...]
@@ -100,10 +100,10 @@ You can use your favorite tool to browse, but we recommend ``rsync`` to handle t
 Downloading science data
 ------------------------
 
-You can use ``rsync`` to get your images out. Here's an example to download/update images from semester 2024A for the observer ``vizzy@xwcl.science``, skipping those you already have::
+You can use ``rsync`` to get your images out. Here's an example to download/update images from semester 2025B for the observer ``vizzy@xwcl.science``, skipping those you already have::
 
     $ rsync -rtz -e ssh --progress \
-        guestobs@exao1.lco.cl:/data/obs/2024A/vizzy@xwcl.science/ \
+        guestobs@exao1.lco.cl:/home/guestobs/obs/2025B/vizzy@xwcl.science/ \
         ./my_magao-x_obs/
 
     receiving file list ... done
@@ -122,13 +122,13 @@ The ``-z`` option compresses the files in transit. **If you're on-site where Mag
 
 Re-running this command will only sync changed files (assuming the file modification times are accurate/unchanged). During an observation, new frames will be processed in chunks as they are written, so you may want to re-run this command periodically.
 
-The paths are constructed as follows: ``/data/obs/<semester>/<observer email>/<datestamp>_<object>_<purpose>/<device>/``.
+The paths are constructed as follows: ``/home/guestobs/obs/<semester>/<observer email>/<datestamp>_<object>_<purpose>/<device>/``.
 
-So, for example, here's mock output of ``tree /data/obs/ -L 3``::
+So, for example, here's mock output of ``tree /home/guestobs/obs/ -L 3``::
 
-    /data/obs/
-    ├── 2024A
-    │   ├── aweinberger@carnegiescience.edu
-    │   │   ├── 2024-03-20_002551_HD12345_smlyot_zi
-    │   │   ├── 2024-03-20_012527_HD12345_smlyot_zi
+    /home/guestobs/obs/
+    ├── 2025A
+    │   ├── jlong@flatironinstitute.org
+    │   │   ├── 2025-06-04_180658_lab0306_camwfs_camsci_telem_probes
+    │   │   ├── 2025-06-04_180928_lab0306_camwfs_camsci_telem_probes
     [...]
