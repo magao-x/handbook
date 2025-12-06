@@ -223,8 +223,20 @@ If you have performed the :guilabel:`Auto Alignment` this only needs to be done 
 Focal Plane and Coronagraph Alignment
 -------------------------------------
 
-Bump-Mask Alignment
-~~~~~~~~~~~~~~~~~~~
+Automated Bump Mask and Lyot Stop Alignment
+~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+Put ``fwscind`` into **pupil** mode. Then, from the **Coronagraph Alignment GUI**, change **fwpupil** to **bump-mask**. Make sure that ``camsci1`` is in the :guilabel:`full` ROI and that ``stagesci1`` is at position 54.5.
+
+Then, in **cursesINDI**, navigate to **pupilCorAlign** and toggle **pupilCorAlign.state.centroid** ON. A pattern should appear on ``dmncpc``. Then, toggle **pupilCorAlign.state.fwpupil** ON. You should see the properties **fwpupil.dx** and **fwpupil.dy** start to change. Wait for these numbers to converge to a magnitude less than about 0.2, then toggle **pupilCorAlign.state.idle** ON to stop the process. The bump mask should now be aligned.
+
+.. note::
+    The pattern on ``dmncpc`` sometimes freezes, and the app stops working. To fix this, go to a terminal on ``icc`` and, as ``xsup``, do         ``xctrl restart pupilCorAlign``, and that should fix things. You do **not** have to redo the centroid step after the restart.
+
+Now, use the **Coronagraph Alignment GUI** to put ``fwlyot`` into your desired Lyot stop, usually **LyotLg1**. Toggle **pupilCorAlign.state.fwlyot** to ON and watch the values under **fwlyot.dx** and **fwlyot.dy**. Once they converge to a magnitude <0.2, toggle **pupilCorAlign.state.idle** ON to stop the process. The Lyot stop should now be aligned. 
+
+
+Manual Bump-Mask Alignment
+~~~~~~~~~~~~~~~~~~~~~~~~~~
 
 From the **camsci1** gui, set
 
