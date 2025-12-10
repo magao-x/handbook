@@ -32,7 +32,7 @@ The flat-field screen is installed on the secondary truss, and deploys in front 
     - Walk out into the dome and verify it is in.
     - Once it is in, select the lamp by pressing its button.  We normally use ``Qh`` for maximum flux, but ``Ne`` is pretty.
     - Set up MagAO-X and take data as above.
-    - When you are one, turn off the lamp and retract the screen.
+    - When you are done, turn off the lamp and retract the screen.
     - The mirror covers will be closed by the day crew.  Go to bed.
 
 
