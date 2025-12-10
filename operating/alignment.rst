@@ -262,7 +262,7 @@ Remember to close the shutter on camsci1 and **take a new dark**.
 .. _fdpr2:
 
 Focus Diversity Phase Retrieval (FDPR)
-~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+------------------------------------------
 
 To further improve PSF quality, run focus diversity phase retrieval (FDPR) on camsci1 to derive a new non-common-path correction DM shape.
 
