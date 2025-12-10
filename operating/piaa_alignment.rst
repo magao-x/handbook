@@ -1,5 +1,5 @@
 PIAACMC Alignment
-===================================
+--------------------------
 This alignment procedure assumes you have already completely aligned the system and that FDPR has been run. If that is not the case, please return to the standard alignment page.
 
 PIAA alignment has three major components, and will be aligned in these steps:
@@ -10,9 +10,10 @@ PIAA alignment has three major components, and will be aligned in these steps:
     #. **Inverse PIAA lenses**
 
 Bump mask & Forward PIAA Lenses
------------------------------------
+~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
 The first set of PIAA optics are the forward lenses. It is recommended that you use the ``pupilCorAlign`` to align the bump mask before you introduce the first set of PIAA lenses. To align the bump mask, see "Automated Bump Mask and Lyot Stop Alignment".
 With the bump mask in, you are ready to align the forward PIAA lenses.
+
     - Stay in the pupil position on fwscind
     - Set the stagesci1 to 54.5 for best focus
     - Move `stagepiaa` to position 71.85
@@ -39,7 +40,7 @@ With the bump mask in, you are ready to align the forward PIAA lenses.
     The best position for stagepiaa has been seen to drift between MagAO-X setups. Double check this position between installs.
 
 PIAACMC - aligning the coronagraph mask
------------------------------------
+~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
 Once you are satisfied with your alignment of the first set of lenses, you are ready to introduce the complex focal plane mask. There are multiple prints on the substrate, and you will need to find the correct one.
     - Select `cmc2` on fwfpm
     - Make sure camsci EMgain is set to 1
@@ -48,8 +49,8 @@ Once you are satisfied with your alignment of the first set of lenses, you are r
         - the top row are tests
         - the second row are good z' masks
         - the third and fourth rows don't work well
-    - Find the spot on the second tilted row, third spot from the left, numbered in figure. 
-    - The spot should look centered on the PSF as shown below. See figure. 
+    - Find the spot on the second tilted row, third spot from the left, numbered in figure.
+    - The spot should look centered on the PSF as shown below. See figure.
         - adjust ND as needed to see this properly
 
 .. figure:: figures/PIAA_masks_finder.png
@@ -63,7 +64,7 @@ Once you are satisfied with your alignment of the first set of lenses, you are r
     :align: center
 
 Lyot stop & Inverse PIAA Lenses
------------------------------------
+~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
 Note that the addition of PIAA lenses means `pupilCorAlign` will no longer work as intended. The Lyot stop needs to aligned by hand, thankfully it is more forgiving than the bump mask.
     - Take a dark with the shutter open
     - Insert `RLyotPIAA` using the `fwpupil`
@@ -71,7 +72,7 @@ Note that the addition of PIAA lenses means `pupilCorAlign` will no longer work 
 Next, we add in the inverse PIAA lenses.
     - Take the inverse PIAA stage to position 61.4
     - In the pupil position:
-        - Again, look for symmetry. This position should be good enough but fine alignment could be needed. 
+        - Again, look for symmetry. This position should be good enough but fine alignment could be needed.
         - For alignment, move with the ``iPIAA`` control, which moves the lenses together
         - Check to see that the iPIAA lenses have a centered distortion, see figure.
     - In the focal plane:

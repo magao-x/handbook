@@ -21,6 +21,7 @@ Viewing camera output and DM input (really, any shared memory image) uses
    daily_startup
    cacao
    alignment
+   taking_flats
    daily_shutdown
    shutdown
    software/index

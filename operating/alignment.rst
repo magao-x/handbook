@@ -47,7 +47,7 @@ This is the main pupil alignment procedure which should be followed after starti
     #. If using ``camflowfs``:
 
         i. put `fwfpm` in `knifemask`
-        
+
         #. put ``camflowfs`` in :guilabel:`default` ROI, and press :kbd:`t` to show the target cross on its display.
 
         #. Open the ``camflowfs`` shutter. If you do not see a PSF on ``camflowfs``:
@@ -232,7 +232,7 @@ Then, in **cursesINDI**, navigate to **pupilCorAlign** and toggle **pupilCorAlig
 .. note::
     The pattern on ``dmncpc`` sometimes freezes, and the app stops working. To fix this, go to a terminal on ``icc`` and, as ``xsup``, do         ``xctrl restart pupilCorAlign``, and that should fix things. You do **not** have to redo the centroid step after the restart.
 
-Now, use the **Coronagraph Alignment GUI** to put ``fwlyot`` into your desired Lyot stop, usually **LyotLg1**. Toggle **pupilCorAlign.state.fwlyot** to ON and watch the values under **fwlyot.dx** and **fwlyot.dy**. Once they converge to a magnitude <0.2, toggle **pupilCorAlign.state.idle** ON to stop the process. The Lyot stop should now be aligned. 
+Now, use the **Coronagraph Alignment GUI** to put ``fwlyot`` into your desired Lyot stop, usually **LyotLg1**. Toggle **pupilCorAlign.state.fwlyot** to ON and watch the values under **fwlyot.dx** and **fwlyot.dy**. Once they converge to a magnitude <0.2, toggle **pupilCorAlign.state.idle** ON to stop the process. The Lyot stop should now be aligned.
 
 
 Manual Bump-Mask Alignment
@@ -278,3 +278,5 @@ There are multiple ways to configure the algorithm (see :doc:`./software/utils/f
     #. Run the FDPR process with: `fdpr2_close_loop fdpr2_dmncpc_camsci1_CH4`
     #. Save the flat with `dm_save_flat ncpc -d fdpr`
     #. On `dmncpc` zero all channels, then select the new flat in the drop down and apply it.
+
+.. include:: piaa_alignment.rst
