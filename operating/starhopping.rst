@@ -20,7 +20,9 @@ On the first observation of the first target:
     - The TO will mark the center of the image (in the central obcuration) with the green box.
     - Now slew to the next target and follow the following steps for subsequent switches.
 
-On subsequent targets:
+Switching Targets
+-----------------------------
+On subsequent switches:
 
     - Give the TO at least 30 seconds notice that you are about to switch and identify the new target in the catalog.  The TO will prepare to slew.
     - When ready, stop saving, open the HO and LO loop, and ask the TO to move.  These should be simultaneous -- you can tell the TO it's time when you start opening the loop rather than after it's open.
