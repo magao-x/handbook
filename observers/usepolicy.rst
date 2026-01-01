@@ -62,7 +62,7 @@ Currently, our team's key astronomy science project is the MagAO-X H-alpha Proto
 survey of nearby young stars to look for planetary mass companions using the H-alpha accretion signature.  Collaborations within the context of this survey are welcome, contact Laird Close (lclose@arizona.edu) to discuss.
 
 This project is one of the key performance drivers of the first phase of MagAO-X, and one of our main motivations for developing this instrument.  As such, many of the well-known targets are reserved as part of this survey.  Below is the current list of reserved targets, which will be updated periodically as we revise selection criteria,
-and before the proposal cycle for planned runs.  (The below list is currently only for 2020B).
+and before the proposal cycle for planned runs.
 
 .. list-table:: Reserved Targets
    :header-rows: 1
@@ -195,7 +195,7 @@ and before the proposal cycle for planned runs.  (The below list is currently on
      - -41:23:53.0
    * - HD 135244B
      - 15:15:48.43
-     - -37:09:16.0   
+     - -37:09:16.0
    * - GQ Lup
      - 15:49:12.10
      - -35:39:05.05

@@ -9,3 +9,4 @@ Information For Observers
    datapolicy
    data_access
    reduction/index
+   geninfo
