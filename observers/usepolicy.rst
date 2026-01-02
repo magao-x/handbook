@@ -31,6 +31,7 @@ prior to your institution's deadline:
 - A complete list of researchers outside the MagAO-X team collaborating on the project.
 - An abstract providing basic scientific and technical information about the project.
 - List of targets, with RA and Dec.
+- Maximum seeing and backup plan (see below).
 
 A full proposal is preferred.  This information will be used by the MagAO-X team to assess technical feasibility, and ensure that there are no conflicts between various
 users of MagAO-X.  This latter need is crucial given the limited telescope time available and the relatively small number of targets
@@ -58,7 +59,7 @@ planning for the masks would be needed. We have successfully switched in the mid
 
 The H-alpha Proto-Planet Survey
 ==================================
-Currently, our team's key astronomy science project is the MagAO-X H-alpha Protoplanet Survey, MaXProtoPlanetS.  Lead by Co-PI Laird Close, this is a
+Currently, our team's key astronomy science project is the MagAO-X H-alpha Protoplanet Survey, MaXProtoPlanetS.  Led by Co-PI Laird Close, this is a
 survey of nearby young stars to look for planetary mass companions using the H-alpha accretion signature.  Collaborations within the context of this survey are welcome, contact Laird Close (lclose@arizona.edu) to discuss.
 
 This project is one of the key performance drivers of the first phase of MagAO-X, and one of our main motivations for developing this instrument.  As such, many of the well-known targets are reserved as part of this survey.  Below is the current list of reserved targets, which will be updated periodically as we revise selection criteria,
@@ -226,12 +227,12 @@ We encourage proposals to observe H-alpha targets not on our list, e.g. new prop
 
 Nearby Bright Stars
 ==================================
-The ultimate science goals for MagAO-X involve very high contrast observations of nearby stars.  Some obvious examples include alpha Cen A&B, Proxima, eps Eri, tau Ceti, Ross 128, GJ 876, and Sirius.  This list is not exhaustive.  You should assume that any stars within ~10 pc aand brighter than ~10th mag are reserved for the MagAO-X team.  However, this will depend on the science goals of your observation so please discuss interest in such targets with Jared Males (jrmales@arizona.edu).
+The ultimate science goals for MagAO-X involve very high contrast observations of nearby stars.  Some obvious examples include alpha Cen A&B, Proxima, eps Eri, tau Ceti, Ross 128, GJ 876, and Sirius.  This list is not exhaustive.  You should assume that any stars within ~10 pc and brighter than ~10th mag are reserved for the MagAO-X team.  However, this will depend on the science goals of your observation so please discuss interest in such targets with Jared Males (jrmales@arizona.edu).
 
 
 Laboratory Experiments
 ============================
-MagAO-X is often set up in the eXtreme Wavefront Control Laboratory (XWCL) at Steward Observatory, where it is available for conducting experiments and demonstrations. It is also often available at LCO when not on the telesscope for remote operations. We welcome such efforts, and will work to support them.  This includes providing remote access to the instrument when appropriate. Please contact Jared Males (jrmales@arizona.edu) to discuss.
+When not on the telescope MagAO-X is often set up in the clean room at LCO or in the eXtreme Wavefront Control Laboratory (XWCL) at Steward Observatory.  Beginning in March, 2026, MagAO-X will also spend significant time on the Clay Nasmyth West platform where it may be available during the day.   During these periods it is available for conducting experiments and demonstrations in "lab mode". We welcome such efforts, and will work to support them.  This includes providing remote access to the instrument when appropriate. Please contact Jared Males (jrmales@arizona.edu) to discuss.
 
 Publications based on lab experiments will folow the same co-author agreement described in Collaborations above.
 
