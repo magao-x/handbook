@@ -8,4 +8,5 @@ Operating MagAO-X Software
    apps/index
    utils/index
    dashboard
+   obslog_guide
 
