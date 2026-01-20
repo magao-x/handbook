@@ -126,11 +126,14 @@ ________________________________________
 Common Mistakes:
 ================
 
-Mistake: Refreshing to get updates
-Fix: Use live mode
+* Mistake: Refreshing to get updates
 
-Mistake: Interpreting repeated start markers as real restarts
-Fix: Usually a backend issue in ‘observation_log.py’ or ‘active_observing.py’
+    Fix: Use live mode
 
-Mistake: No telemetry is being displayed in the table or telemetry stopped updating
-Fix: Stop / Start observation. If the table does not refresh and continue with new telemetry, dbIngest may need to be restarted.
+* Mistake: Interpreting repeated start markers as real restarts
+
+    Fix: Usually a backend issue in ‘observation_log.py’ or ‘active_observing.py’
+
+* Mistake: No telemetry is being displayed in the table or telemetry stopped updating
+
+    Fix: Stop / Start observation. If the table does not refresh and continue with new telemetry, dbIngest may need to be restarted.
