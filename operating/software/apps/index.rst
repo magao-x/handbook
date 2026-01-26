@@ -7,6 +7,7 @@ Applications
     overview
     cameras
     dms
-    motion
+    filters
+    zaber
     network
     power

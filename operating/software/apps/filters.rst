@@ -1,7 +1,7 @@
-Stages and filter wheels
+Filter wheels
 ========================
 
-Stages and filter wheels are controlled by apps derived from the
+Filter wheels are controlled by apps derived from the
 `stdMotionStage <https://github.com/magao-x/MagAOX/blob/master/libMagAOX/app/dev/stdMotionStage.hpp>`__
 implementation, meaning they share some common properties and options.
 
