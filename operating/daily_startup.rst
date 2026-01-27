@@ -84,17 +84,24 @@ generally be the instrument state on a daily basis.
 
     This will move `stagepickoff` to the lab position and ensure the ADCs and K-mirror are in the correct position.
 
-7. Set the flat on the ``dmwoofer``, ``dmtweeter``, and ``dmncpc``.
+7. Home the zaber stages:
 
-8. Now on the Alignment GUI:
+   - On the ninja tab of ``pwrGUI`` power-on ``pdu2.stagezaber`` and ``usbdu1.stagezaber``
+   - In ``cursesINDI`` toggle the ``zaberLowLevel.home_all.request`` switch 
+   - Wait for all stages to be in state ``READY`` (this does NOT include stageff or the polarimetry stage)
+   - Power-off ``pdu2.stagezaber`` and ``usbdu1.stagezaber``
+
+8. Set the flat on the ``dmwoofer``, ``dmtweeter``, and ``dmncpc``.
+
+9. Now on the Alignment GUI:
 
    - :guilabel:`set` the pyramid modulator under "Modulation"
    - :guilabel:`set` TTM Pupil
    - :guilabel:`set` TTM Peri
 
-9. **Optional, but recommended** Set the toggles on ``sysMonRTC.set_latency.toggle`` and ``sysMonICC.set_latency.toggle`` to "On" using cursesINDI.
+10. **Optional, but recommended** Set the toggles on ``sysMonRTC.set_latency.toggle`` and ``sysMonICC.set_latency.toggle`` to "On" using cursesINDI.
 
-10. At this point you should see a PSF image on ``camtip``, probably with a fair amount of aberration.
+11. At this point you should see a PSF image on ``camtip``, probably with a fair amount of aberration.
 
 
    .. figure:: figures/camtip_psf_initial.png
@@ -106,7 +113,7 @@ generally be the instrument state on a daily basis.
    - If you do not see anything, use the system block diagram to troubleshoot. The most likely causes are that you forgot to power something on (the source?) or that ``stagepickoff`` is in the wrong position.
      Another possibility is that `flipwfsf` is `in`, but `fwtelsim` is in `VisOpen` which blocks IR light.
 
-11. Setup camwfs using the ``camwfsCtrl`` GUI:
+12. Setup camwfs using the ``camwfsCtrl`` GUI:
 
     - set the FPS to the desired loop speed (for the ``default`` calibration, 2000 Hz)
     - toggle ``synchro`` to "on"
@@ -114,7 +121,7 @@ generally be the instrument state on a daily basis.
     - take a dark
     - open the shutter
 
-12. On the Alignment GUI, under "Modulation":
+13. On the Alignment GUI, under "Modulation":
 
    - input the :guilabel:`Frequency [Hz]` (for the ``default`` calibration, that is 2000 Hz) and hit :kbd:`enter`
    - input the **Radius [l/D]** (for ``default``, 3 lambda/D) and hit enter
@@ -123,11 +130,11 @@ generally be the instrument state on a daily basis.
    - the status text should change to ``CONFIGURING``.  Wait for it to say ``MODULATING``.
    - confirm that the PSF on ``camtip`` has become a donut
 
-13. The cameras with temperature control will start cooling themselves down immediately on software startup, and should be cold by now. Check on them.
+14. The cameras with temperature control will start cooling themselves down immediately on software startup, and should be cold by now. Check on them.
 
-14. **Optional, but recommended** Set the toggles on ``sysMonRTC.set_latency.toggle`` and ``sysMonICC.set_latency.toggle`` to "On".
+15. **Optional, but recommended** Set the toggles on ``sysMonRTC.set_latency.toggle`` and ``sysMonICC.set_latency.toggle`` to "On".
 
-15. Setup CACAO for closing the high-order loop as in :doc:`cacao`
+16. Setup CACAO for closing the high-order loop as in :doc:`cacao`
 
-16. Now align the system as in :doc:`alignment <./alignment>`
+17. Now align the system as in :doc:`alignment <./alignment>`
 
