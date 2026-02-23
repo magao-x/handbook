@@ -84,19 +84,18 @@ This process is what the ``sops`` command automates.
 SOPS can use your SSH key pair. If you have a key called ``~/.ssh/id_ed25519`` with public key ``~/.ssh/id_ed25519.pub``, you'll want to copy the **public** part and send it to one of the existing administrators.
 
 That will look like this::
+
     ssh-ed25519 AAAAC3NzaC1lZDI1NTE5AAAAIOumkkhMI1bIO3Pzkm8lW9Pwz+68G7fbXU1/Ho3X+LA0 josephlong@kestrel
 
-*Steps to be done by an existing administrator:*
+**Steps to be done by an existing administrator:**
 
 1. In `.sops.yaml <https://github.com/xwcl/hush-hush/blob/main/.sops.yaml>`_ there is a ``keys:`` block. By convention, administrator keys are named ``admin-<username>-<provenance>``. (So, for my key above, that would be ``admin-jlong-kestrel`` because the key was generated on the machine ``kestrel``.)
 
-2. Add the key, noting the ``-`` to make it a list item and the ``&`` prefix::
+2. Add the key, noting the ``-`` to make it a list item and the ``&`` prefix. (Any extra comment text like the ``josephlong@kestrel`` at the end of my ``id_ed25519.pub`` above is optional, but ignored if present.) ::
 
-        keys:
-        - &admin-jlong-kestrel ssh-ed25519 AAAAC3NzaC1lZDI1NTE5AAAAIOumkkhMI1bIO3Pzkm8lW9Pwz+68G7fbXU1/Ho3X+LA0
-        # ... rest of file omitted ...
-
-    (Any extra comment text like the ``josephlong@kestrel`` at the end of my ``id_ed25519.pub`` above is optional, but ignored if present.)
+    keys:
+    - &admin-jlong-kestrel ssh-ed25519 AAAAC3NzaC1lZDI1NTE5AAAAIOumkkhMI1bIO3Pzkm8lW9Pwz+68G7fbXU1/Ho3X+LA0
+    # ... rest of file omitted ...
 
 3. Next, add a reference to the key (i.e. ``*`` prefixed name) to any ``key_groups`` they should be able to access. For example::
 
@@ -121,18 +120,20 @@ Updating secrets repository to add a server
 
 3. Regenerate the ciphertexts using the newly added key with ``./updatekeys-all.sh``.
 
-4. Make (or symlink) a script in ``deploy-local.d/`` with the hostname of the new computer. (e.g. ``ln -s ./rocky_ldap_certs.sh ./exao10.sh`` from inside ``./deploy-local.d``)
-
-5. Commit and push your changes to GitHub.
+4. Commit and push your changes to GitHub.
 
 Enrolling a new computer
 ^^^^^^^^^^^^^^^^^^^^^^^^
 
 After the secret files have been updated, you still need to deploy them to the new computer.
 
-1. Make (or symlink) a script in ``deploy-local.d`` with the hostname of the new computer
+1. Make (or symlink) a script in ``deploy-local.d`` with the hostname of the new computer (e.g. ``ln -s ./rocky_ldap_certs.sh ./exao10.sh`` from inside ``./deploy-local.d``)
 
 2. Install SSSD on the new computer to enable user authentication against LDAP (for Rocky or Fedora, use ``install_sssd.sh`` from `magao-x/magao-x-setup <https://github.com/magao-x/magao-x-setup/blob/main/steps/install_sssd.sh>`_)
 
 3. Deploy to the new computer from your own with ``bash deploy.sh my-host-name`` (replacing ``my-host-name`` with an SSH-able hostname or alias to the server)
+
+4. Add the new computer's hostname to the list in ``deploy-all.sh``.
+
+5. Commit and push your changes to GitHub.
 
