@@ -115,16 +115,15 @@ That will look like this::
 Updating secrets repository to add a server
 ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
 
-The computer must be configured for SSH, with a host key in (most likely) ``/etc/ssh/ssh_host_ed25519_key.pub``. Copy the host key and proceed as above, except that it should be named ``server-<hostname>`` (instead of ``admin-``).
+1. The computer must be configured for SSH, with a host key in (most likely) ``/etc/ssh/ssh_host_ed25519_key.pub``. Copy the host key and proceed as above, except that it should be named ``server-<hostname>`` (instead of ``admin-``).
 
-Add the host to the minimal set of secrets. (At least the group under ``secrets/common/``, though, for network login to work.)
+2. Add the host to the minimal set of secrets. (At least the group under ``secrets/common/``, though, for network login to work.)
 
-Regenerate the ciphertexts using the newly added key with ``./updatekeys-all.sh``.
+3. Regenerate the ciphertexts using the newly added key with ``./updatekeys-all.sh``.
 
-Make (or symlink) a script in ``deploy-local.d/`` with the hostname of the new computer. (e.g. ``ln -s ./rocky_ldap_certs.sh ./exao10.sh`` from inside ``./deploy-local.d``)
+4. Make (or symlink) a script in ``deploy-local.d/`` with the hostname of the new computer. (e.g. ``ln -s ./rocky_ldap_certs.sh ./exao10.sh`` from inside ``./deploy-local.d``)
 
 5. Commit and push your changes to GitHub.
-
 
 Enrolling a new computer
 ^^^^^^^^^^^^^^^^^^^^^^^^
@@ -132,6 +131,8 @@ Enrolling a new computer
 After the secret files have been updated, you still need to deploy them to the new computer.
 
 1. Make (or symlink) a script in ``deploy-local.d`` with the hostname of the new computer
+
 2. Install SSSD on the new computer to enable user authentication against LDAP (for Rocky or Fedora, use ``install_sssd.sh`` from `magao-x/magao-x-setup <https://github.com/magao-x/magao-x-setup/blob/main/steps/install_sssd.sh>`_)
-3. Deploy to the new computer from your own with ``deploy.sh``
+
+3. Deploy to the new computer from your own with ``bash deploy.sh my-host-name`` (replacing ``my-host-name`` with an SSH-able hostname or alias to the server)
 
