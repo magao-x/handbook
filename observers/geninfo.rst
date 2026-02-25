@@ -7,8 +7,8 @@ Acknowledgements
 If your paper includes data obtained using MagAO-X (whether on-sky or in the lab) please include the following acknowledgements:
 
     We are very grateful for support from the NSF MRI Award #1625441. The Phase II upgrade
-    program is made possible by the generous support of the Heising-Simons Foundation.  The
-    development of CACAO is supported by NSF Award #2410616.
+    program is made possible by the generous support of the Heising-Simons Foundation.  MagAO-X uses
+    the CACAO software package, which is supported by NSF Award #2410616.
 
 For papers that include on-sky data, please follow `these guidelines <https://carnegiescience.edu/instrumentation/our-telescopes/magellan/magellan-attribution>`_ :
 
