@@ -1,7 +1,7 @@
 Data export and archiving
 =========================
 
-.. figure:: ./figures/data_storage.svg
+.. figure:: figures/magao-x_data_storage.drawio.png
    :alt: Schematic representation of the connections between our computers and which data live where
 
    Schematic representation of the connections between our computers and which data live where
@@ -88,7 +88,7 @@ If you already know which ``.xrif`` files you need, you should use ``xrif2fits``
 
    lookyloo -c camsci1 -c camwfs -t betaPic -p -s 2025B
 
-If you're on ``exao1``, and it's 2025B (or close enough), this command will just work and create a folder with the correct structure in whatever directory you ran it from.
+If you're on ``exao1``, and it's still the 2025B semester (or close enough), this command will "just work" and create a folder tree with the correct structure in whatever directory you ran it from.
 
 After older data have been moved, you will need to supply ``--data-root`` (``-X`` for short) arguments for all the places relevant files may be found. See the next section.
 
