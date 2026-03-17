@@ -68,7 +68,7 @@ your credentials to be remembered.
 
 5. Create (or retrieve from your password manager) a GitHub Personal
    Access Token. If you don’t have one, log in to GitHub and visit
-   https://github.com/settings/tokens.
+   https://github.com/settings/tokens. Make sure this is a classic token.
 
 6. Attempt to push, and enter/paste your username and **personal access
    token as password**:
