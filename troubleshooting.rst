@@ -367,7 +367,18 @@ If ``camsci1`` and/or ``camsci2`` stop responding, first attempt to restart the 
 
 1. Turn power off for both cameras.  Note that you will not be able to verify detector temperature but this can not be avoided.
 2. Stop both ``camsci`` control processes.  Either use xctrl or go to the tmux session and use ctrl-c.
-3. In a terminal on ICC, go to ``/opt/MagAOX/source/MagAOX/apps/picamCtrl`` and run the script ``cleanPI.sh`` as root.  This removes lock files.
+3. In a terminal on ICC, go to ``/opt/MagAOX/source/MagAOX/apps/picamCtrl`` and run the script ``cleanPI.sh`` as root (not with sudo):  
+
+   .. code-block:: bash
+
+     [xsup@exao3 ~]$ su user   #switch from xsup to your user account
+     [user@exao3 xsup]$ cd /opt/MagAOX/source/MagAOX/apps/picamCtrl
+     [user@exao3 picamCtrl]$ sudo su
+     [user@exao3 picamCtrl]$ bash ./cleanPI.sh
+     [user@exao3 picamCtrl]$ exit 
+
+   This removes lock files.
+
 4. Re-start both control processes.
 5. Power up both cameras
 
