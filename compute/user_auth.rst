@@ -53,7 +53,6 @@ Any users who have previously logged in will be able to log in with their cached
 
 Users whose accounts are removed **may still be able to access the servers** until their credentials expire from that server's cache. To expire all cache entries immediately, use ``sss_cache -E``.
 
-
 Giving people and computers access to secrets
 ---------------------------------------------
 
@@ -111,6 +110,8 @@ That will look like this::
 
 5. Commit and push your changes to GitHub.
 
+.. _add_a_server:
+
 Updating secrets repository to add a server
 ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
 
@@ -137,3 +138,15 @@ After the secret files have been updated, you still need to deploy them to the n
 
 5. Commit and push your changes to GitHub.
 
+.. _new_computer_setup:
+
+New computer setup
+------------------
+
+When you have just finished the mostly-automated provisioning, you have a computer with two user accounts: ``xdev`` and ``xsup``. To enable login with MagAO-X accounts, you will need to:
+
+1. Get the newly-generated public key from ``/etc/ssh/ssh_host_ed25519_key.pub`` and follow :ref:`add_a_server`
+2. Run the ``install_sssd.sh`` script from https://github.com/magao-x/magao-x-setup/blob/main/steps/install_sssd.sh
+3. Open up a root terminal (``sudo -i``) and keep it around in case something breaks in the next step
+4. Add the necessary symlink to ``hush-hush/deploy-local.d/`` and run ``deploy.sh xdev@$NEW_COMPUTER_HOSTNAME``
+5. Verify you can now log in with your MagAO-X account and the appropriate groups are applied and SSH authorized keys are accepted

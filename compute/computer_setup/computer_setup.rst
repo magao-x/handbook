@@ -14,70 +14,12 @@ Once the hardware has been connected up, setup proceeds as follows.
 
 **Important note about reinstalls vs. fresh installs:** At this point in the project, we are unlikely to have a completely fresh set of hardware and drives to set up. The below instructions were written under the assumption of a fresh install, so take care not to perform destructive actions like repartitioning on drives with data you want to **keep**. See :doc:`migration` for examples of what those data might be.
 
-BIOS
-----
-
-For a new main board, the BIOS should be updated to the latest version.
-This is necessary to ensure that the USB ports behave properly, as well
-as to ensure that the iKVM module works.
-
-The following settings should also be changed within the BIOS setup menu (reboot, then press F1 when prompted to enter).
-
-For all of AOC/ICC/RTC
-~~~~~~~~~~~~~~~~~~~~~~
-
-::
-
-   Boot
-   |
-    -- Network Device BBS Priorities -- set all to "disabled"
-    -- Hard Drive BBS Priorities -- set "disabled" for all non-boot SSDs
-
-   Advanced
-   |
-    -- ACPI Settings
-      |
-       -- Enable Hibernation [Disabled]
-       -- ACPI Suspend State [Suspend Disabled]
-    -- APM
-      |
-       -- Restore AC Power Loss [Power OFF]
-
-(Note that the BIOS likes to reshuffle boot order when drives appear and
-disappear in testing or RAID swapping. Disabling non-boot drives ensures
-it doesn’t accidentally try to boot from them.)
-
-For ICC/RTC
-~~~~~~~~~~~
-
-::
-
-   AI Tweaker
-   |
-    -- Spread Spectrum [Disabled] {This is critical for allowing PCIe expanion to work}
-
-   Advanced
-   |
-    -- PCI Subsystem Settings
-      |
-        -- Above 4G Decoding [Enabled] {This is critical for allowing PCIe expansion to work}
-
-   IntelRCSetup
-   |
-    --Processor Configuration
-      |
-      -- DCU Mode [32KB 8Way Without ECC] {This is default, ECC not needed for new-style target and host cards}
-   |
-    --Miscellaneous Configuration
-      |
-      -- Active Video [Onboard Device] {Prevents sending video to a GPU}
-
 OS Installation
 ---------------
 
-The computers in MagAO-X run Rocky Linux 9.
+The computers in MagAO-X run Rocky Linux or Fedora (KDE edition).
 
-**Workstations:** If you are installing a workstation, go to https://rockylinux.org/alternative-images and download the appropriate KDE ISO (x86_64, version 9). (**Note:** As of July 27, 2023, when you get to the installer desktop there is a message about the KDE Connect daemon crashing immediately after boot. It can be safely ignored.)
+**Workstations:** If you are installing a workstation, go to https://fedoraproject.org/kde/download/ and download the live ISO for Intel/AMD systems, which includes the installer.
 
 **Rack computers:** If you are installing one of the rack computers, go to https://rockylinux.org/download and download the appropriate minimal ISO (x86_64, version 9).
 
@@ -97,7 +39,7 @@ In the box at lower left, fill in the machine name (i.e. ``exao1`` for AOC, ``ex
 Date & Time
 ~~~~~~~~~~~
 
--  Timezone: America/Phoenix
+-  Timezone: Etc/UTC
 
 Partitions
 ~~~~~~~~~~
@@ -114,104 +56,8 @@ See :doc:`migration` if you're migrating to a new OS or new drives because you'l
 
 -  On the data drives (should be 3 or more identical drives):
 
-   -  All space as ``/data`` - RAID 5
-
-Detailed steps
-^^^^^^^^^^^^^^
-
--  *If this is a reinstall:*
-
-   -  Click on the arrow next to “CentOS Linux…” to expand the list of
-      existing partitions.
-   -  Click one to select and click the ``-`` button at the bottom of
-      the list
-   -  Check the box saying
-      ``Delete all filesystems which are only used by CentOS Linux ...``
-      and confirm
-
--  Choose partitioning scheme = Standard Partition in drop down menu
--  Then press ``+`` button:
-
-   -  Mount Point: ``/boot``
-   -  Desired Capacity: ``1 GiB``
-   -  Now press ``Modify``
-
-      -  Select the 2x 500 GB O/S drives (Ctrl-click)
-      -  Press select
-
-   -  Device Type: ``RAID - RAID 1``
-   -  File System: ``XFS``
-
--  Press ``Update Settings``
--  Then press ``+`` button:
-
-   -  Mount Point: swap
-   -  Desired Capacity: 16 GiB
-   -  Now press ``Modify``
-
-      -  Select the 2 500 GB O/S drives (Ctrl-click)
-      -  Press select
-
-   -  Device Type: ``RAID - RAID 1``
-   -  File System: ``XFS``
-   -  Press ``Update Settings``
-
--  Then press ``+`` button:
-
-   -  Mount Point: ``/``
-   -  Desired Capacity: **blank**
-   -  Now press ``Modify``
-
-      -  Select the 2x 500 GB O/S drives (Ctrl-click)
-      -  Press select
-
-   -  Device Type: ``RAID - RAID 1``
-   -  File System: ``XFS``
-   -  Change Desired Capacity to **blank** (again)
-   -  Press Update Settings
-
-      -  should be using all available space for ``/``
-
--  Then press ``+`` button:
-
-   -  Mount Point: ``/data``
-   -  Desired Capacity: **blank**
-   -  Now press ``Modify``
-
-      -  Ctrl-click to select all the data drives (>500GB)
-      -  Press select
-
-   -  Device Type: ``RAID - RAID 5``
-   -  File System: ``XFS``
-   -  Change Desired Capacity to **blank** (again)
-   -  Press Update Settings
-
-      -  Should now have the full capacity for RAID 5 (N-1)
-
-If you are prompted for a location to install the UEFI boot loader, you
-have somehow booted in UEFI mode instead of Legacy Boot / BIOS mode.
-(This has been observed booting from a liveUSB, despite UEFI boot being
-disabled in BIOS, but it goes away after reordering boot options in the
-BIOS interface and attempting to boot again.)
-
-Software
-~~~~~~~~
-
-**ICC/RTC:**
-
-From the list on the Left:
-
--  Select “Minimal install”
-
-**AOC:**
-
-From the list on the Left:
-
--  Select “KDE Plasma Workspaces”
-
-From the list on the right:
-
--  Select “Development Tools”
+   -  All space as ``/data`` - RAID 5 **only ICC/RTC**
+   -  All space as ``/home`` - RAID 5 **only AOC**
 
 Begin the installation
 ~~~~~~~~~~~~~~~~~~~~~~
@@ -254,11 +100,11 @@ takes some time for the initial synchronization of the drives. (Like,
 Configure network interface naming
 ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
 
-SystemD, udev, and Dell have conspired to implement something called
+SystemD and udev have conspired to implement something called
 “predictable network interface names” that could more accurately be
 called “unpredictable network interface names”.
 
-**Rocky 9.2:**
+**Rocky 9 and Fedora 42:**
 
 The old way seems to have gone, but there are now ""`SystemD Link Files <https://access.redhat.com/documentation/en-us/red_hat_enterprise_linux/9/html/configuring_and_managing_networking/consistent-network-interface-device-naming_configuring-and-managing-networking#assigning-additional-names-to-network-interface-using-systemd-link-files_consistent-network-interface-device-naming>`_"?
 
@@ -373,20 +219,11 @@ You should also trust the `tailscale0` interface in the firewall::
 
    sudo firewall-cmd --zone trusted --add-interface tailscale0 && sudo firewall-cmd --zone trusted --add-interface tailscale0 --permanent
 
-Configure ``/data`` array options
----------------------------------
-
-We should be able to boot with zero of the drives in the ``/data`` array
-without systemd dropping to a recovery prompt.
-
-Edit ``/etc/fstab``, and on the line for ``/data`` replace ``defaults``
-with the options ``noauto,x-systemd.automount``.
-
 Setup ssh
 ---------
 
 -  For setup, you should add your public key to the ``/home/xdev/.ssh/authorized_keys`` file, and
-   make sure you can log in (as ``xdev``) with it without requiring a password.
+   make sure you can log in (as ``xdev``) without being prompted for a password.
 
 -  Now configure ``sshd`` to require key-based authentication. Do this by creating a file with ``sudo vim /etc/ssh/sshd_config.d/disable_password.conf``::
 
@@ -394,8 +231,17 @@ Setup ssh
 
 -  And finally, reload the sshd ``systemctl reload sshd``
 
-Setup network attached storage (NAS)
-------------------------------------
+Configure ``/data`` array options (RTC and ICC only)
+----------------------------------------------------
+
+We should be able to boot with zero of the drives in the ``/data`` array
+without systemd dropping to a recovery prompt.
+
+Edit ``/etc/fstab``, and on the line for ``/data`` replace ``defaults``
+with the options ``noauto,x-systemd.automount``.
+
+Setup network attached storage (NAS) (optional)
+-----------------------------------------------
 
 Follow the steps in :doc:`../nas` to create the ``/srv/nas`` mount.
 
@@ -408,7 +254,7 @@ monitors will work right. **You’ll want ``ssh`` access in case anything
 goes wrong, so make sure it’s working!**
 
 0.  Before starting, make sure everything’s up to date:
-    ``yum update -y``
+    ``dnf update -y``
 
 1.  Download CUDA 10.1 from
     https://developer.nvidia.com/compute/cuda/10.1/Prod/local_installers/cuda_10.1.168_418.67_linux.run
@@ -417,7 +263,7 @@ goes wrong, so make sure it’s working!**
     and take note of where it is saved
 
 2.  Install prerequisites:
-    ``sudo yum install -y kernel-devel kernel-headers``
+    ``sudo dnf install -y kernel-devel kernel-headers``
 
 3.  As root, edit the line in ``/etc/default/grub`` that reads
 
@@ -475,10 +321,10 @@ goes wrong, so make sure it’s working!**
 
 18. Once everything’s working satisfactorily, we want to lock the kernel
     version (so that we don’t end up accidentally removing graphical
-    boot capabilities with a ``yum update -y``):
+    boot capabilities with a ``dnf update -y``):
 
-    1. ``sudo yum install -y yum-versionlock``
-    2. ``sudo yum versionlock kernel kernel-headers kernel-devel``
+    1. ``sudo dnf install -y dnf-versionlock``
+    2. ``sudo dnf versionlock kernel kernel-headers kernel-devel``
 
 .. _automated_provisioning:
 
@@ -493,7 +339,7 @@ Log in via ``ssh`` as ``xdev``.
    ::
 
       $ cd
-      $ git clone https://github.com/magao-x/MagAOX.git
+      $ git clone https://github.com/magao-x/magao-x-setup.git
 
 2. Switch to the ``magao-x-setup`` directory you just
    cloned (i.e. ``cd ~/magao-x-setup``) to perform
@@ -501,7 +347,7 @@ Log in via ``ssh`` as ``xdev``.
 
    ::
 
-      $ cd ~/MagAOX/setup
+      $ cd ~/magao-x-setup/
       $ ./pre_provision.sh
 
    This sets up an ``xsup`` user and the ``magaox`` and ``magaox-dev``
@@ -532,7 +378,7 @@ Log in via ``ssh`` as ``xdev``.
 
    ::
 
-      $ sudo yum install -y tmux
+      $ sudo dnf install -y tmux
 
    (It's used by the system, so it'll get installed anyway, but you
    might want it when you run the install.)
@@ -564,7 +410,7 @@ Log in via ``ssh`` as ``xdev``.
 
    ::
 
-      $ cd //MagAOX/setup
+      $ cd /opt/MagAOX/source/MagAOX/setup
       $ bash ./provision.sh
 
    If you installed and invoked ``tmux`` in the previous step, this
@@ -636,4 +482,4 @@ Verify bootloader installation / RAID correctness
 Next steps
 ----------
 
-**Continue with setting up :doc:`../user_auth`**
+**Continue with setting up :ref:`new_computer_setup`**
