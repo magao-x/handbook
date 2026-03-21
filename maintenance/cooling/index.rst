@@ -18,4 +18,5 @@ Procedures and guidelines for maintenance of MagAO-X liquid cooling systems.
 
    filter_cleaning
    system_backflush
+   measuring_glycol_freezing_point
 
