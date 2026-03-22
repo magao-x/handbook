@@ -7,6 +7,7 @@ The MagAO-X software system.
    :maxdepth: 1
 
    hacking
+   agents
    python_indi_device
 
 Links
