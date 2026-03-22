@@ -7,7 +7,7 @@ You are encouraged to use AI to help you write code.  However, you are still res
 
 Standard Workflow
 ----------------------
-You must still follow the standard workflow using feature branches, testing from your home directory, and pull-request to get reviewed before merging.
+You must still follow the :doc:`standard workflow<hacking>` using feature branches, testing from your home directory, and pull-request to get reviewed before merging.
 
 AGENTS.md
 ---------------------------
@@ -36,5 +36,5 @@ Blast Radius -- Follow the Rules
 ----------------------------------------
 It is incredibly easy to "change all the things", or "fix all the bugs", with AI.  AI agents are always willing to work, and often ask
 to go further if they recognize more problems.  Try to avoid this.  We consider it good engineering practice to make small focused
-changes and test them, and slowly expand.  This is why it is crucial to follow the development guidelines and our git-branch-PR workflow
+changes and test them, and slowly expand.  This is why it is crucial to follow the :doc:`development guidelines<hacking>` and our git-branch-PR workflow
 so that we can maintain some semblance of traceability and recoverability.
