@@ -479,6 +479,19 @@ Verify bootloader installation / RAID correctness
 -  Ensure boot proceeds without dropping to recovery prompt
 -  Replace all data drives, boot with everything in place
 
+Enable all sensors
+~~~~~~~~~~~~~~~~~~
+
+To make sure all temperature, fan, and voltage sensors are being reported to `lm_sensors`, you must scan the motherboard to install the necessary drivers. This is accomplished with
+
+.. code-block:: bash
+   $ sudo sensors-detect
+
+Afterwards, check the sensors readout shows voltanges, temperatures, and fan RPMs with
+
+.. code-block:: bash
+   $ sensors
+
 Next steps
 ----------
 
