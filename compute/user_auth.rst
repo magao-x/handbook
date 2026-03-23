@@ -17,9 +17,16 @@ accounts.xwcl.science
 
 Powered by LLDAP ("lightweight LDAP", where the L stands for "lightweight" already).
 
-Users can only reset their passwords.
-
 The admin interface lets you add / remove users, add / remove groups, update passwords, and enroll new SSH keys for users (if you are a member of the ``ldap_admin`` LDAP group).
+
+Password reset
+~~~~~~~~~~~~~~
+
+Users can reset their own passwords using https://accounts.xwcl.science/. However, if they have previously logged in to an instrument computer, you may need to clear the credentials cache so the new password takes effect. On Rocky/Fedora hosts that looks like this::
+
+    $ sudo sssctl cache-expire -u USERNAME
+
+replacing ``USERNAME`` with the user whose login info you need to refresh.
 
 Adding a new user account
 ~~~~~~~~~~~~~~~~~~~~~~~~~
