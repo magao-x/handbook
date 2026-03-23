@@ -46,9 +46,6 @@ This is the main pupil alignment procedure which should be followed after starti
 
     #. If using ``camflowfs``:
 
-        .. warning::
-                As of 25B alignment, current reccomendation is to align with ``camsci1`` instead. The default ROI on ``camflowfs`` is incorrect.
-
         i. put `fwfpm` in `knifemask`
 
         #. put ``camflowfs`` in :guilabel:`default` ROI, and press :kbd:`t` to show the target cross on its display.
@@ -107,7 +104,7 @@ This is the main pupil alignment procedure which should be followed after starti
 
         .. note:: Many operators have found moving to 10 modes makes this initial auto align easier. Turn off offloading while running Auto Alignment, if things look particularly off.
 
-        .. warning:: If you don't see the alignment pokes in the camwfs frames, stop Auto Alignment immediately. This is likely because dmtweeter has died, and is not sending signals. Your pupils will run away. 
+        .. warning:: If you don't see the alignment pokes in the camwfs frames, stop Auto Alignment immediately. This is likely because dmtweeter has died, and is not sending signals. Your pupils will run away. Other things to check: you have a good dark on camwfs, you have hit reconfigure on camwfs, your initial F test looks ok. 
 
     #. Once the loops have converged ("Pupil Tracking Loop" and "Actuator Alignment Loop" deltas less than 0.05 in the lab) stop the :guilabel:`Auto Alignment` loop.
 
