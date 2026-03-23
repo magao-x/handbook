@@ -24,11 +24,44 @@ The admin interface lets you add / remove users, add / remove groups, update pas
 Adding a new user account
 ~~~~~~~~~~~~~~~~~~~~~~~~~
 
-Log in to https://accounts.xwcl.science/ and click the "Create a user" button. You will need to assign them an available numeric UID (in the ``Uidnumber:`` field), which will probably involve looking at existing user accounts. The primary group for everyone should be ``magaox`` (gid: 2000).
+Log in to https://accounts.xwcl.science/ and click the "Create a user" button. 
+
+You will need to assign them an available numeric UID (in the ``Uidnumber:`` field), which will probably involve looking at existing user accounts.
+
+Fortunately, the ``list_xwcl_users`` script will tell you which UIDs are in use::
+    
+    root@exao1:~# list_xwcl_users
+                 uid   uidNumber   gidNumber
+               admin
+        srv_authelia
+         srv_grafana
+     srv_linux_login
+               jlong  2000        2002
+             jrmales  2001        2002
+          kvangorkom  2002        2001
+           syhaffert  2003        2001
+               mmars  2004        2001
+             perez01  2005        2000
+                eden  2006        2001
+           jliberman  2007        2001
+            rlandman  2008        2001
+           twitchell  2009        2001
+     parkertjohnson1  2010        2001
+            etonucci  2011        2000
+              jkueny  2012        2000
+            tsnedden  2013        2000
+          mileslucas  2014        2001
+              ataras  2015        2000
+         loganpearce  2016        2000
+             rharris  2017        2000
+    
+The primary group for new accounts should be ``magaox`` (gid: 2000). 
 
 Go to the "Groups" tab. Normal users should be added to the ``magaox`` group, and builders can be added to ``magaox-dev`` (allows deploying software changes) and ``jupyterhub`` (allows using the provided Python notebook server).
 
-TODO automate identifying the next unused uid, updating ``add_a_user``/``add_a_developer`` scripts.
+.. warning::
+
+    There are ``add_a_user`` and ``add_a_developer`` scripts in ``magao-x-setup`` but they should **only** be used when you specifically need a local account on **only that computer**. If you ever want to make it a cross-computer account, you will need to re-number all the files the user owns.
 
 SOPS (hush-hush)
 ^^^^^^^^^^^^^^^^
