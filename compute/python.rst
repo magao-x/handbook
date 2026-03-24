@@ -96,7 +96,7 @@ and RTC and run the following steps:
 
    git clone https://github.com/magao-x/magao-x-setup/
    cd magao-x-setup
-   conda env update -f conda_envs/xpy3_13.yml
+   sudo mamba env update -f conda_envs/xpy3_13.yml
 
 (Or, if you made the change another one of the machines, just run the above
 steps on the two **other** ones.)
