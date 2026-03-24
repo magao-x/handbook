@@ -60,6 +60,17 @@ configure as follows:
    -  ``sudo nmcli con modify camsci1 connection.zone trusted``
    -  ``sudo nmcli con modify camsci2 connection.zone trusted``
 
+On-site at LCO, we're behind the LCO firewall and should allow inbound traffic:
+
+-  ``exao1``, ``exao2``, and ``exao3``
+
+   -  ``sudo nmcli con modify lco-telescope connection.zone trusted``
+
+.. warning::
+
+   The ``ua-www`` connection is **not** trusted, because "anyone on the Steward Observatory
+   network" is a much larger set than "anyone on the LCO staff network".
+
 The instrument VPN is exposed as the interface ``tailscale0``
 and also needs to be marked trusted. However, this is done
 with ``firewall-cmd``::
