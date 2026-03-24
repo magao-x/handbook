@@ -60,6 +60,12 @@ configure as follows:
    -  ``sudo nmcli con modify camsci1 connection.zone trusted``
    -  ``sudo nmcli con modify camsci2 connection.zone trusted``
 
+The instrument VPN is exposed as the interface ``tailscale0``
+and also needs to be marked trusted. However, this is done
+with ``firewall-cmd``::
+
+   firewall-cmd --zone=trusted --add-interface=tailscale0 --permanent
+
 Network Connections
 -------------------
 
