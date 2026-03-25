@@ -488,7 +488,31 @@ This is accomplished with::
 
    $ sudo sensors-detect
 
-Afterwards, check the sensors readout shows voltanges, temperatures, and fan RPMs with::
+Hit enter to accept defaults (``YES`` for low risk, ``NO`` for NVIDIA i2c and others)
+when prompted. At the end, you'll get output like this::
+
+   Do you want to overwrite /etc/sysconfig/lm_sensors? (YES/no):
+   To load everything that is needed, add this to one of the system
+   initialization scripts (e.g. /etc/rc.d/rc.local):
+
+   #----cut here----
+   # Chip drivers
+   modprobe nct6775
+   /usr/bin/sensors -s
+   #----cut here----
+
+   You really should try these commands right now to make sure everything
+   is working properly. Monitoring programs won't work until the needed
+   modules are loaded.
+
+Well, ``/etc/rc.d/rc.local`` doesn't exist on our Linux versions. If there are
+any ``modprobe`` lines in the output, you can add the module names
+to ``/etc/modules-load.d`` like this::
+
+   echo nct6775 | sudo tee /etc/modules-load.d/nct6775.conf
+
+And load the module on the running system with (as it suggests) ``modprobe nct6775``.
+Afterwards, check the sensors readout shows voltages, temperatures, and fan RPMs with::
 
    $ sensors
 
