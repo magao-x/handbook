@@ -36,9 +36,7 @@ The first time you connect your computer to the MagAO-X VPN, you will need to re
 
         https://inst.magao-x.org/register/nodekey:...
 
-    (Or, the link might be opened for you automatically on macOS or Windows.)
-
-5. After loading the page, it will contain a command like ``headscale nodes register --user USERNAME --key nodekey:...``. Copy the entire line and send it to an admin (e.g. by Slack direct message). For reference, ``--user`` is the name of the private network, ``xnet`` in this case.
+5. After loading the page, it will contain a command like ``headscale nodes register --user USERNAME --key nodekey:...``. Copy the entire line and send it to an admin (e.g. by Slack direct message).
 
 6. Once they confirm your machine has been registered, you will have network access to the MagAO-X computers over a virtual private network.
 
@@ -48,7 +46,7 @@ Making use of the VPN
 You will now be able to ssh to the name ``exao1`` or ``exao0`` without a fully-qualified domain (i.e. ``exao1.as.arizona.edu`` or ``exao1.lco.cl``). This name will remain stable even when the instrument is moved. You'll see that it is actually an automatically-generated fully-qualified domain under ``xnet.magao-x.org`` if you ping it::
 
     % ping exao1
-    PING exao1.xnet.magao-x.org (100.64.0.4): 56 data bytes
+    PING exao1.vpn.magao-x.org (100.64.0.4): 56 data bytes
 
 The domains exao1.magao-x.org, exao2.magao-x.org, and exao3.magao-x.org point to the VPN (private) IP addresses. As long as you have the VPN running, you can use them to access lab resources.
 
