@@ -193,7 +193,7 @@ To align the pupil on `dmncpc`, we perform the J-Test.
 
 The system should be configured for the F-test above (in particular, check that ``fwscind`` is in ``pupil``). Next,
 
-* Move **stagesci1** to preset **jtest-telsim**.
+* Move **stagesci1** to preset **test**.
 
 * Put the test pattern on the `dmncpc`` with the "Set Test" button next to "NCPC" on the **Pupil Alignment GUI**.
 
