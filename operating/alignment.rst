@@ -268,19 +268,48 @@ Remember to close the shutter on camsci1 and **take a new dark**.
 Focus Diversity Phase Retrieval (FDPR)
 ------------------------------------------
 
-To further improve PSF quality, run focus diversity phase retrieval (FDPR) on camsci1 to derive a new non-common-path correction DM shape.
+To further improve PSF quality, run focus diversity phase retrieval (FDPR) on to derive a new non-common-path correction DM shape. When setting up in labmode before observations, it is important to match the state of the instrument during FDPR to the state that the instrument will be in on-sky. This includes:
 
-There are multiple ways to configure the algorithm (see :doc:`./software/utils/fdpr`), but we most commonly use the `CH4-875` filter in camsci1 to compute a correction applied to `dmncpc`.
+    - use `flipwfsf` and/or the ND filters on `fwtelsim` to simulate a target of similar magnitude to the one you will be observing. In             **cursesINDI**, you can navigate to `strehl` to see the estimated magnitude of the "star" you have created.
 
-    #. Configure fwsci1 with the narrow-band methane filter `CH4-875`
-    #. Place stagesci1 at preset `fpm`
-    #. Define a :term:`ROI` centered on the core of the PSF of size 369x369
-    #. Adjust exposure times as needed to have plenty (25000--30000) of counts in the peak of the PSF
-    #. Close the shutter and take new darks. (Then open the shutter.)
-    #. Open a terminal on ICC
-    #. `export OPENBLAS_NUM_THREADS=1` to avoid bogging down ICC with the process (TODO: make this automatic)
-    #. Run the FDPR process with: `fdpr2_close_loop fdpr2_dmncpc_camsci1_CH4`
-    #. Save the flat with `dm_save_flat ncpc -d fdpr`
-    #. On `dmncpc` zero all channels, then select the new flat in the drop down and apply it.
+        - note: if your target is very faint, FDPR won't be able to produce a good result. If you see this behavior, you will have to simulate a brighter target.
+
+    - determine whether you will perform FDPR in CH4 or Halpha. The default is to use CH4 unless you are doing Halpha observations.
+
+        - If you choose CH4, you will use `camsci1` for FDPR.
+
+        - If you choose Halpha, you will use `camsci2` for FDPR.
+
+    - Make sure the instrument is in the correct WFS beamsplitter and science beamsplitter configuration for your observation. Then, move `stagesci1` or `stagesci2` to the correct focus position for those settings, as well as for the coronagraph you plan on using.
+
+Once you have confirmed the instrument is in the right state for FDPR, run the algorithm by doing the following:
+
+    #. Configure the filter wheel with the correct filter:
+
+        - If using `camsci1`, set `fwsci1` with the narrow-band methane filter `CH4-875`
+
+        - If using `camsci2`, set `fwsci2` to preset `Halpha` (**not** `Halpha-narrow`)
+
+    #. Define a **ROI** centered on the core of the PSF
+
+        - for `camsci1`, the ROI should be 369x369
+
+        - for `camsci2`, the ROI should be 256x256
+
+    #. Adjust `fwscind` and exposure time as needed to have plenty (25000--40000) of counts in the peak of the PSF.
+
+    #. Close the shutter and take new darks. Then open the shutter.
+
+    #. Open a terminal on ICC and run the FDPR process.
+
+        - for `camsci1`: `fdpr2_close_loop fdpr2_dmncpc_camsci1_CH4`
+
+        - for `camsci2`: `fdpr2_close_loop fdpr2_dmncpc_camsci2_Ha`
+
+    #. On the lab source, the final strehl ratio should be close to 0.94. If the strehl is not quite there yet, you can run the process multiple times to improve it.
+
+    #. Once the strehl is satisfactory, save the flat with `dm_save_flat ncpc -d fdpr`. 
+
+    #. On the `dmncpc` control GUI, zero all channels. Then, select the new flat from the drop-down menu and apply it.
 
 .. include:: piaa_alignment.rst
