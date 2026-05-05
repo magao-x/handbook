@@ -79,33 +79,35 @@ This is the main pupil alignment procedure which should be followed after starti
 
     #. take a camwfs dark and then re-close the loop.
 
-    #. The following step is optional but often serves as a good additional check to ensure that the Auto Alignment loop has converged properly:
-        i. If using ``camflowfs``:
+    #. If using ``camflowfs``:
 
-            #. put `fwfpm` in `knifemask`
-    
-            #. put ``camflowfs`` in :guilabel:`default` ROI, and press :kbd:`t` to show the target cross on its display.
-    
-            #. Open the ``camflowfs`` shutter. If you do not see a PSF on ``camflowfs``:
-    
-                - If you have already completed the alignment successfully, but are now switching beamsplitters: use the drop-down box to select the new beamsplitter.
-    
-                .. warning::
-                    Do **not** use the drop-down unless you are sure that you need to.  This is a relative move equivalent to hitting the arrow keys many times. It is not an absolute move to a setpoint. Do not use this to troubleshoot!
-    
-                - ``camsci1`` has a wider FOV.  Make sure `fwscind` is not in `pupil`, move `fwfpm` to `open`, then use `camsci1` to find the spot.
-    
-                - If you can see it on `camsci`, use `pico sci-x` to move the spot to roughly centered on `camsci1`, then return to `camflowfs`.
-    
-                - If you do not see the spot on either `camflowfs` or `camsci1` then something is wrong.  Check all filter wheel and stage positions, ensure shutters are responding and open.
-    
-            #. On *Pupil Alignment Gui* use the `pico sci-x` buttons to move the PSF left and right to center on the target
-    
-                - See above warning regarding using the drop-down selection for changing beamsplitters.
-    
-                - Use the arrow buttons to move, changing the scale for finer control
-    
-                - The PSF should be centered on the target in the `camflowfs` display
+        i. put `fwfpm` in `knifemask`
+
+        #. put ``camflowfs`` in :guilabel:`default` ROI, and press :kbd:`t` to show the target cross on its display.
+
+        #. Open the ``camflowfs`` shutter. If you do not see a PSF on ``camflowfs``:
+
+            - If you have already completed the alignment successfully, but are now switching beamsplitters: use the drop-down box to select the new beamsplitter.
+
+            .. warning::
+                Do **not** use the drop-down unless you are sure that you need to.  This is a relative move equivalent to hitting the arrow keys many times. It is not an absolute move to a setpoint. Do not use this to troubleshoot!
+
+            - ``camsci1`` has a wider FOV.  Make sure `fwscind` is not in `pupil`, move `fwfpm` to `open`, then use `camsci1` to find the spot.
+
+            - If you can see it on `camsci`, use `pico sci-x` to move the spot to roughly centered on `camsci1`, then return to `camflowfs`.
+
+            - If you do not see the spot on either `camflowfs` or `camsci1` then something is wrong.  Check all filter wheel and stage positions, ensure shutters are responding and open.
+
+        #. On *Pupil Alignment Gui* use the `pico sci-x` buttons to move the PSF left and right to center on the target
+
+            - See above warning regarding using the drop-down selection for changing beamsplitters.
+
+            - Use the arrow buttons to move, changing the scale for finer control
+
+            - The PSF should be centered on the target along x in the `camflowfs` display
+
+        # Then, select the ``modttm`` option in the "Tip Alignment" section of the *Pupil Alignment GUI*
+            - Use the arrow buttons under ``modttm`` to move the PSF up and down such that the PSF is centered along y
 
     #. If not using ``camflowfs`` (i.e. using ``camsci1`` to align):
 
