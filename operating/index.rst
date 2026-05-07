@@ -21,6 +21,7 @@ Viewing camera output and DM input (really, any shared memory image) uses
    daily_startup
    cacao
    alignment
+   autofocus
    starhopping
    polarimetry
    taking_flats
