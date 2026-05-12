@@ -67,23 +67,59 @@ For data analysis, the following FITS headers are provided--
 Dual rotating quarter-wave plate compensator (DQWP)
 ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
 
+The DQWP is used to arbitrarily reorient the eigenpolarizations of the instrument. In other words, it will ensure that horizontal and vertically polarized light remains horizontal or vertically polarized when measured. The main usage for the DQWP is to compensate for cross-talk between polarization states induced by the k-mirror image rotator.
+
+.. important::
+
+    Inserting or removing the QWP shifts both the PSF and the pupil. There is no auto-alignment for this configuration, so a :ref:`J-test <jtest>` must be performed **every time** the QWP is inserted or removed, and the ``camwfs`` pupils must be re-aligned by hand with the camera lens.
+
+Before any QWP transition, configure ``camsci1`` for alignment work:
+
+* ``camsci1`` ROI to ``full``
+* ``stagesci1`` to focus, then to ``test`` for the J-test
+
+Inserting the QWP
+^^^^^^^^^^^^^^^^^
+
+#. Open the AO loop (``holoop``).
+#. In ``cursesINDI``, toggle ``stageqwplin`` to ``in``.
+#. From the **Pupil Alignment GUI**, **move woofer** to bring the PSF back onto the target cross.
+#. Adjust ``holoop`` gains to tip and tilt only and close the loop. Start increasing gains on higher order blocks up to block 5 (or fewer if the loop diverges).
+#. Manually move the pupils on ``camwfs`` with the **camera lens**. Target x and y displacements <0.01.
+#. Adjust ``holoop`` gains to include all blocks.
+#. Perform the :ref:`J-test <jtest>`.
+
+    .. warning::
+        Do **not** use :guilabel:`Auto Alignment` here--there is no autoalignment after a QWP transition. If tip/tilt is large enough, you may close the loop while still nudging the camera lens.
+
+
+Removing the QWP
+^^^^^^^^^^^^^^^^
+
+#. Open the AO loop (``holoop``).
+#. In ``cursesINDI``, toggle ``stageqwplin`` to ``out``.
+#. From the **Pupil Alignment GUI**, **move woofer** to bring the PSF back onto the target cross.
+#. Adjust ``holoop`` gains to tip and tilt only and close the loop. Start increasing gains on higher order blocks up to block 5 (or fewer if the loop diverges).
+#. Manually move the pupils on ``camwfs`` with the **camera lens**. Target x and y displacements <0.01.
+#. Adjust ``holoop`` gains to include all blocks.
+#. Perform the :ref:`J-test <jtest>`.
+
 
 Operation
 ---------
 
-1. Make sure the PBS is selected in ``stagescibs``
-2. Make sure both science cameras are in the same filter, ``r``, ``i``, or ``z``.
-3. (Optional) Insert the DQWP
-    a. Make sure AO loops are open since we will occult the beam
-    b. ``stageqwplin`` to preset ``in``
-    c. (TODO; code doesn't exist yet) ``qwptrack`` start tracking
-4. Ensure the science cameras are synchronized via the ``synchro`` property
-5. Insert the HWP
-    a. Make sure ``stagezaber`` power is on and ``stagepollin`` USB is on in the ninja tab of ``pwrGui``
-    b. Move ``stagepollin`` to preset ``in``
-    c. Turn ``stagezaber`` power off and ``stagepollin`` USB off
-6. Prepare the HWP
-    a. Make sure ``stagepolrot`` power and USB are on in ``pwrGui``
+#. Make sure the PBS is selected in ``stagescibs``
+#. Make sure both science cameras are in the same filter, ``r``, ``i``, or ``z``.
+#. (Optional) Insert the DQWP following the `Inserting the QWP`_ procedure above. Note that the J-test must be redone after inserting, since there is no auto-alignment for the QWP-in configuration.
+
+    #. (TODO; code doesn't exist yet) ``qwptrack`` start tracking
+#. Ensure the science cameras are synchronized via the ``synchro`` property
+#. Insert the HWP
+    #. Make sure ``stagezaber`` power is on and ``stagepollin`` USB is on in the ninja tab of ``pwrGui``
+    #. Move ``stagepollin`` to preset ``in``
+    #. Turn ``stagezaber`` power off and ``stagepollin`` USB off
+#. Prepare the HWP
+    #. Make sure ``stagepolrot`` power and USB are on in ``pwrGui``
 
 At this point, all optics are ready for polarimetry. Polarimetry is run via the ``hwpSequencer`` app or inside the ``hwpSequencerGUI``.
 
