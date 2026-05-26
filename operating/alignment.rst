@@ -44,80 +44,80 @@ This is the main pupil alignment procedure which should be followed after starti
 .. warning::
     If you do not see a ``loopcnt`` process appear or the numbers next to ``loopcnt`` are not increasing, stop and ask Jared (TODO: come up with troubleshooting solution for this step).
 
-    #. Now close the HOloop on the first 24 modes and set wooder offloading to 4 modes.
+#. Now close the HOloop on the first 24 modes and set wooder offloading to 4 modes.
 
-    #. Keeping the loop closed, you can now start :guilabel:`Auto Alignment` of the ``ttmpupil`` and ``cameralensx``/``cameralensy`` devices
-    
-        - Monitor the `camwfs` pupil position to ensure it does not run away, this will happen immediately and aggressively. 
-    
-            - If they do run away, :guilabel:`Stop` the auto alignment. You may need to use :guilabel:`Loop Zero` on the loop control GUI and the :guilabel:`Zero` button on the Offloading Ctrl GUI to remove spurious tip-tilt corrections.
-    
-        - Monitor "Pupil Tracking Loop" and "Actuator Alignment Loop" deltas.
-    
-    
-            .. warning:: If you don't see the alignment pokes in the camwfs frames, stop Auto Alignment immediately. This is likely because dmtweeter has died, and is not sending signals. Your pupils will run away. Other things to check: you have a good dark on camwfs, you have hit reconfigure on camwfs, your initial F test looks ok.
+#. Keeping the loop closed, you can now start :guilabel:`Auto Alignment` of the ``ttmpupil`` and ``cameralensx``/``cameralensy`` devices
 
-    #. After the loop deltas have begun decreasing, close on 288 modes and set offloading to 10 modes.
-    #. Once the loops have converged ("Pupil Tracking Loop" and "Actuator Alignment Loop" deltas less than 0.05 in the lab), ypu can turn off woofer-offloading.
-    #. With Auto Alignment still running, you can perform the :ref:`J-test <jtest>` (below).
+    - Monitor the `camwfs` pupil position to ensure it does not run away, this will happen immediately and aggressively. 
 
-    #. Once the loops have converged ("Pupil Tracking Loop" and "Actuator Alignment Loop" deltas less than 0.05 in the lab) stop the :guilabel:`Auto Alignment` loop.
+        - If they do run away, :guilabel:`Stop` the auto alignment. You may need to use :guilabel:`Loop Zero` on the loop control GUI and the :guilabel:`Zero` button on the Offloading Ctrl GUI to remove spurious tip-tilt corrections.
 
-        - In the lab the `Pupil Tracking Loop` should turn off when you stop the :guilabel:`Auto Alignment` loop.
+    - Monitor "Pupil Tracking Loop" and "Actuator Alignment Loop" deltas.
 
-        - On sky the `Pupil Tracking Loop` should remain on when you stop the :guilabel:`Auto Alignment` loop.
 
-    #. Now, close the loop on the rest of the modes.
+        .. warning:: If you don't see the alignment pokes in the camwfs frames, stop Auto Alignment immediately. This is likely because dmtweeter has died, and is not sending signals. Your pupils will run away. Other things to check: you have a good dark on camwfs, you have hit reconfigure on camwfs, your initial F test looks ok.
 
-    #. You may now turn on the Auto Alignment loop again. This should re-align the Pyramid pupils post-J-test.
+#. After the loop deltas have begun decreasing, close on 288 modes and set offloading to 10 modes.
+#. Once the loops have converged ("Pupil Tracking Loop" and "Actuator Alignment Loop" deltas less than 0.05 in the lab), ypu can turn off woofer-offloading.
+#. With Auto Alignment still running, you can perform the :ref:`J-test <jtest>` (below).
 
-    #.  Now, open the loop and increase the flux on `camwfs`:
-        - Put in `flipwfsf`
-        - Adjust `fwtelsim` and `camwfs` EM gain as needed to achieve at least 1-2000 counts on `camwfs`.
+#. Once the loops have converged ("Pupil Tracking Loop" and "Actuator Alignment Loop" deltas less than 0.05 in the lab) stop the :guilabel:`Auto Alignment` loop.
 
-        - you may need to reset protection
+    - In the lab the `Pupil Tracking Loop` should turn off when you stop the :guilabel:`Auto Alignment` loop.
 
-    #. take a camwfs dark and then re-close the loop.
+    - On sky the `Pupil Tracking Loop` should remain on when you stop the :guilabel:`Auto Alignment` loop.
 
-    #. If using ``camflowfs``:
+#. Now, close the loop on the rest of the modes.
 
-        i. put `fwfpm` in `knifemask`
+#. You may now turn on the Auto Alignment loop again. This should re-align the Pyramid pupils post-J-test.
 
-        #. put ``camflowfs`` in :guilabel:`default` ROI, and press :kbd:`t` to show the target cross on its display.
+#.  Now, open the loop and increase the flux on `camwfs`:
+    - Put in `flipwfsf`
+    - Adjust `fwtelsim` and `camwfs` EM gain as needed to achieve at least 1-2000 counts on `camwfs`.
 
-        #. Open the ``camflowfs`` shutter. If you do not see a PSF on ``camflowfs``:
+    - you may need to reset protection
 
-            - If you have already completed the alignment successfully, but are now switching beamsplitters: use the drop-down box to select the new beamsplitter.
+#. take a camwfs dark and then re-close the loop.
 
-            .. warning::
-                Do **not** use the drop-down unless you are sure that you need to.  This is a relative move equivalent to hitting the arrow keys many times. It is not an absolute move to a setpoint. Do not use this to troubleshoot!
+#. If using ``camflowfs``:
 
-            - ``camsci1`` has a wider FOV.  Make sure `fwscind` is not in `pupil`, move `fwfpm` to `open`, then use `camsci1` to find the spot.
+    i. put `fwfpm` in `knifemask`
 
-            - If you can see it on `camsci`, use `pico sci-x` to move the spot to roughly centered on `camsci1`, then return to `camflowfs`.
+    #. put ``camflowfs`` in :guilabel:`default` ROI, and press :kbd:`t` to show the target cross on its display.
 
-            - If you do not see the spot on either `camflowfs` or `camsci1` then something is wrong.  Check all filter wheel and stage positions, ensure shutters are responding and open.
+    #. Open the ``camflowfs`` shutter. If you do not see a PSF on ``camflowfs``:
 
-        #. On *Pupil Alignment Gui* use the `pico sci-x` buttons to move the PSF left and right to center on the target
+        - If you have already completed the alignment successfully, but are now switching beamsplitters: use the drop-down box to select the new beamsplitter.
 
-            - See above warning regarding using the drop-down selection for changing beamsplitters.
+        .. warning::
+            Do **not** use the drop-down unless you are sure that you need to.  This is a relative move equivalent to hitting the arrow keys many times. It is not an absolute move to a setpoint. Do not use this to troubleshoot!
 
-            - Use the arrow buttons to move, changing the scale for finer control
+        - ``camsci1`` has a wider FOV.  Make sure `fwscind` is not in `pupil`, move `fwfpm` to `open`, then use `camsci1` to find the spot.
 
-            - The PSF should be centered on the target along x in the `camflowfs` display
+        - If you can see it on `camsci`, use `pico sci-x` to move the spot to roughly centered on `camsci1`, then return to `camflowfs`.
 
-        # Then, select the ``modttm`` option in the "Tip Alignment" section of the *Pupil Alignment GUI*
-            - Use the arrow buttons under ``modttm`` to move the PSF up and down such that the PSF is centered along y
+        - If you do not see the spot on either `camflowfs` or `camsci1` then something is wrong.  Check all filter wheel and stage positions, ensure shutters are responding and open.
 
-    #. If not using ``camflowfs`` (i.e. using ``camsci1`` to align):
+    #. On *Pupil Alignment Gui* use the `pico sci-x` buttons to move the PSF left and right to center on the target
 
-        i. Set ``camsci1`` to the :guilabel:`full` ROI
-        #. Take a dark and then open the ``camsci1`` shutter
-        #. Ensure ``fwscind`` is not in ``pupil``, move ``fwfpm`` to ``open``, then find the spot in the ``camsci1`` image
-        #. If you cannot see a PSF, something is wrong upstream. Check upstream filters and stage positions, shutters, etc.
-        #. On *Pupil Alignment Gui* use the `pico sci-x` buttons to approximately center the PSF on ``camsci1``
+        - See above warning regarding using the drop-down selection for changing beamsplitters.
 
-    #. You may now proceed to :ref:`FDPR <FDPR>` (below).
+        - Use the arrow buttons to move, changing the scale for finer control
+
+        - The PSF should be centered on the target along x in the `camflowfs` display
+
+    # Then, select the ``modttm`` option in the "Tip Alignment" section of the *Pupil Alignment GUI*
+        - Use the arrow buttons under ``modttm`` to move the PSF up and down such that the PSF is centered along y
+
+#. If not using ``camflowfs`` (i.e. using ``camsci1`` to align):
+
+    i. Set ``camsci1`` to the :guilabel:`full` ROI
+    #. Take a dark and then open the ``camsci1`` shutter
+    #. Ensure ``fwscind`` is not in ``pupil``, move ``fwfpm`` to ``open``, then find the spot in the ``camsci1`` image
+    #. If you cannot see a PSF, something is wrong upstream. Check upstream filters and stage positions, shutters, etc.
+    #. On *Pupil Alignment Gui* use the `pico sci-x` buttons to approximately center the PSF on ``camsci1``
+
+#. You may now proceed to :ref:`FDPR <FDPR>` (below).
 
 
 Tweeter Pupil Alignment (F-Test)
