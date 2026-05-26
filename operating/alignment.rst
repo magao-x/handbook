@@ -39,10 +39,10 @@ This is the main pupil alignment procedure which should be followed after starti
     #. Put ``camsci1`` into `pupil`. You will likely observe that the pupil is not round.
     #. Move `ttmpupil` until the pupil on ``camsci1`` appears round.
     #. Now test to make sure that the HOloop is working properly by setting the HOloop gains to 0 and closing the loop.
-        - You should see a process appear in the CACAO `milk-procCTRL` window, titled ``loopcnt``. Ensure that the numbers next to ``loopcnt`` are increasing.
+        - You should see a process appear in the CACAO `milk-procCTRL` window, titled ``mvalC2dm-1``. Ensure that the numbers under ``loopcnt`` (to the right of ``mvalC2dm-1``) are increasing.
 
 .. warning::
-    If you do not see a ``loopcnt`` process appear or the numbers next to ``loopcnt`` are not increasing, stop and ask Jared (TODO: come up with troubleshooting solution for this step).
+    If you do not see a ``mvalC2dm-1`` process appear or the numbers next to ``loopcnt`` are not increasing, stop and ask Jared (TODO: come up with troubleshooting solution for this step).
 
 #. Now close the HOloop on the first 24 modes and set wooder offloading to 4 modes.
 
