@@ -1,7 +1,7 @@
 CACAO Setup
 ===================================
 
-MagAO-X uses the "Compute and Control for Adaptive Optics" software package.
+MagAO-X uses the "Compute and Control for Adaptive Optics" software package, also known as CACAO.
 This document describes how to start up CACAO on MagAO-X and use it for normal operations.  It assumes that
 software installation and configuration is already complete.
 
@@ -10,27 +10,7 @@ software installation and configuration is already complete.
 When starting after a fresh reboot
 ----------------------------------
 
-The :doc:`startup` guide includes these steps, but they are repeated here for clarity.
-
-1. Open a terminal on AOC and ssh to the RTC or ICC computer as user `xsup`.
-
-   ::
-
-     [xsup@aoc ~]$ ssh rtc
-
-   or
-
-   ::
-
-     [xsup@aoc ~]$ ssh icc
-
-   .. note::
-
-      You can also connect as yourself and use ``xsupify`` to become ``xsup``.
-
-2. Run ``/opt/MagAOX/cacao/startup``
-
-3. A lot of output will be generated.  This is normal.
+Some things are only done once per boot. Refer back to :ref:`cacao_cold_startup` for instructions if this computer is freshly rebooted.
 
 Terminal Interface Setup
 -------------------------
@@ -41,7 +21,7 @@ Terminal Interface Setup
 
 .. note::
 
-   You will need to run the `cacao-calib-apply` command after restarting the WFS camera (for any loop), even if the rest of this setup is already done.
+   You will need to run the ``cacao-calib-apply`` command after restarting the WFS camera (for any loop), even if the rest of this setup is already done.
 
 1. The basic interface to CACAO is through the terminal.  We normally set up a three-panel terminal.  Open a terminal on AOC,
    and first "split left/right".  Then in the left half, "split up/down".

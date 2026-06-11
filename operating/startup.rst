@@ -99,56 +99,52 @@ System Powerup
    #.  Ensure the LOWFS camera driver loads by running ``sudo modprobe pvcam_pcie`` (we plan to automate this eventually, but it's always safe to do again)
    #. **Optional:** If you don't plan to use the LOWFS cameras any time soon, you can power them back off. See :ref:`missing_lowfs` for hot-plugging instructions if you need to power them on later.
 
-Software Startup
-----------------
 
-1. RTC
+.. _cacao_cold_startup:
 
-   -  ssh to RTC with ``ssh rtc``
+Fresh reboot CACAO startup
+------------------------
 
-   -  First start cacao processes. This is done with a startup script in the cacao directory:
+RTC (exao2)
+~~~~~~~~~~~
 
-      ::
+Connect to RTC as xsup (i.e. ``ssh rtc`` if you're logged in as ``xsup`` at the operator workstation).
 
-         [xsup@exao2 ~]$ cd /opt/MagAOX/cacao
-         [xsup@exao2 cacao]$ bash ./startup
+Start the CACAO processes::
 
-   -  Use ``milk-fpsCTRL`` to verify that both ``dmch2disp-00`` and ``dmch2disp-01`` are running
+   [xsup@exao2] $ cacao-startup
 
-   -  Now start MagAO-X
+Success looks like ``SCRIPT /usr/local/milk/bin/cacao-setup  Success`` after many screenfuls of text.
 
-      ::
+Use ``milk-fpsCTRL`` to verify that both ``dmch2disp-00`` and ``dmch2disp-01`` are running.
+The second column of numbers (color-coded red or green) indicate the number of errors. If red (i.e. > 0 errors),
+the processes won't start and the errors should be examined.
 
-         [xsup@exao2 ~]$ xctrl startup
+ICC (exao3)
+~~~~~~~~~~~
 
-   -  Use ``xctrl status`` to verify that processes have started.
+Connect to RTC as xsup (i.e. ``ssh rtc`` if you're logged in as ``xsup`` at the operator workstation).
 
-2. ICC
+Start the CACAO processes::
 
-   -  First start cacao processes. This is done with a startup script in the cacao directory:
+   [xsup@exao2] $ cacao-startup
 
-      ::
+Success looks like ``SCRIPT /usr/local/milk/bin/cacao-setup  Success`` after many screenfuls of text.
 
-         [xsup@exao3 ~]$ cd /opt/MagAOX/cacao
-         [xsup@exao3 cacao]$ bash ./startup
+Use ``milk-fpsCTRL`` on ICC to verify that ``dmch2disp-02`` is running.
 
-   -  Use ``milk-fpsCTRL`` to verify that ``dmch2disp-02`` is running
+Fresh reboot MagAO-X startup
+----------------------------
 
-   -  Now start MagAO-X
+You already started MagAO-X software on AOC (exao1) to control power, but the hardware control processes on RTC (exao2) and ICC (exao3) have to be started.
 
-      ::
+Connect to RTC as xsup (i.e. ``ssh rtc`` from the operator workstation) and run ``xctrl startup``.
 
-         [xsup@exao3 ~]$ xctrl startup
+After it completes, use ``xctrl status`` to verify that processes have started (i.e. are ``running`` and not ``dead``).
 
-   -  Use ``xctrl status`` to verify that processes have started.
+Repeat these steps on ICC (``ssh icc``, ``xctrl startup``, ``xctrl status``).
 
-3. It is possible that MagAO-X software startup will not complete
-   correctly, and/or need to be re-done. Symptoms include not seeing
-   either RTC or ICC (or both) processes in INDI on AOC, or crashed
-   xindiserver processes (isICC or isRTC). The cause is elusive. The fix
-   is to shutdown and restart MagAO-X software (``xctrl shutdown --all``) on
-   each machine – possibly also on AOC. You do not need to shutdown the
-   cacao processes.
+Investigate any processes that failed to start by using ``logdump -n 1 {name}`` to see the log and/or ``tmux a -t {name}`` to connect to their tmux session.
 
 GUI Setup
 ---------
@@ -177,5 +173,3 @@ You can now proceed to :doc:`daily_startup` to prepare the instrument for operat
 
 .. |image1| image:: figures/moxa_dio_do.png
 .. |image2| image:: figures/moxa_dialog.png
-
-
