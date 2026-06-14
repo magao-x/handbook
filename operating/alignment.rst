@@ -2,14 +2,14 @@ Alignment
 ===================================
 
 These procedures assume that you have completed the :doc:`startup` and :doc:`daily_startup`. In other words, CACAO is configured, you have a PSF
-on `camtip`, and you are modulating.
+on ``camtip``, and you are modulating.
 
 System Pupil Alignment
 -----------------------------------
 
-This procedure will align the pupils on `dmtweeter`, `dmncpc`, and `camwfs`. Things to remember:
+This procedure will align the pupils on ``dmtweeter``, ``dmncpc``, and ``camwfs``. Things to remember:
 
-    - `ttmpupil` is used to align the system pupil on `dmtweeter`.  We use the actuators on `dmtweeter` as the reference (the F-Test).
+    - ``ttmpupil`` is used to align the system pupil on ``dmtweeter``.  We use the actuators on ``dmtweeter`` as the reference (the F-Test).
 
     - `ttmpupil` moves the image of M1 in every pupil-plane inside MagAO-X, including `dmwoofer`, `dmtweeter`, on the modulator, `camwfs`, `fwpupil` (and the very nearby `dmncpc`), `fwlyot`, and as reimaged on `camsci1`.
 
@@ -48,22 +48,20 @@ This is the main pupil alignment procedure which should be followed after starti
 
 #. Keeping the loop closed, you can now start :guilabel:`Auto Alignment` of the ``ttmpupil`` and ``cameralensx``/``cameralensy`` devices
 
-    - Monitor the `camwfs` pupil position to ensure it does not run away, this will happen immediately and aggressively. 
+    - Before you click :guilabel:`Start`, make sure you are monitoring the ``camwfs`` pupil position (and the ``camwfs`` viewer) to ensure it does not run away. This will happen immediately and aggressively.
 
         - If they do run away, :guilabel:`Stop` the auto alignment. You may need to use :guilabel:`Loop Zero` on the loop control GUI and the :guilabel:`Zero` button on the Offloading Ctrl GUI to remove spurious tip-tilt corrections.
 
     - Monitor "Pupil Tracking Loop" and "Actuator Alignment Loop" deltas.
 
-
-        .. warning:: If you don't see the alignment pokes in the camwfs frames, stop Auto Alignment immediately. This is likely because dmtweeter has died, and is not sending signals. Your pupils will run away. Other things to check: you have a good dark on camwfs, you have hit reconfigure on camwfs, your initial F test looks ok.
+        .. warning:: If you don't see the alignment pokes in the camwfs frames, **stop** Auto Alignment immediately. This is likely because the ``dmtweeter`` app has died, and is not sending signals. Your pupils will run away. Other things to check: Do you have a good dark on ``camwfs``? Does ``camwfs`` need to be reconfigured? Does the F-test look ok?
 
 #. After the loop deltas have begun decreasing, close on 288 modes and set offloading to 10 modes.
-#. Once the loops have converged ("Pupil Tracking Loop" and "Actuator Alignment Loop" deltas less than 0.05 in the lab), ypu can turn off woofer-offloading.
-#. With Auto Alignment still running, you can perform the :ref:`J-test <jtest>` (below).
-
+#. Once the loops have converged ("Pupil Tracking Loop" and "Actuator Alignment Loop" deltas less than 0.05 in the lab), you can turn off woofer-offloading.
+#. With Auto Alignment still running, align the beam on the NCPC DM using the :ref:`J-test <jtest>`and ``ttmperi``  (details below).
 #. Once the loops have converged ("Pupil Tracking Loop" and "Actuator Alignment Loop" deltas less than 0.05 in the lab) stop the :guilabel:`Auto Alignment` loop.
 
-    - In the lab the `Pupil Tracking Loop` should turn off when you stop the :guilabel:`Auto Alignment` loop.
+    - In the lab the :guilabel:`Pupil Tracking Loop` should turn off when you stop the :guilabel:`Auto Alignment` loop.
 
     - On sky the `Pupil Tracking Loop` should remain on when you stop the :guilabel:`Auto Alignment` loop.
 
@@ -126,7 +124,7 @@ Tweeter Pupil Alignment (F-Test)
 This does not need to be done if you have performed the :guilabel:`Auto Alignment`, however it is usually good to check it to make sure the automatic loop has converged properly.
 
 .. note::
-    If you modify the F-Test by actuating `ttmpupil`, you will need to re-do both the J-Test and the `camwfs` pupil alignments.
+    If you modify the F-Test by actuating ``ttmpupil``, you will need to re-do both the J-Test and the ``camwfs`` pupil alignments.
 
 To manually align the pupil on the tweeter, we perform the F-Test (which is now actually an R).
 
@@ -172,24 +170,27 @@ NCPC Pupil Alignment (J-Test)
 To align the pupil on `dmncpc`, we perform the J-Test.
 
 .. note::
-     `ttmperi` moves the pupil on the lower bench, including on `camwfs`.  This means performing the J-Test in closed-loop can cause instability. You will need to manually adjust pupil position on `camwfs` with the *camera lens*.
+    ``ttmperi`` moves the pupil on the lower bench, including on ``camwfs``.
+    This means adjusting the position on dmncpc with the AO loop closed can cause instability, even though dmncpc itself is downstream.
 
 .. note::
-     The F-Test (above) also changes the J-Test. The J-Test should only be performed after the F-Test (or :guilabel:`Auto Alignment`) is complete.
+    If aligning manually, follow the steps in :ref:`f_test` F-Test (above) first, as this changes the position downstream.
+    The J-Test should only be performed after the F-Test is complete.
 
-The system should be configured for the F-test above (in particular, check that ``fwscind`` is in ``pupil``). Next,
+The system should be configured for the F-test above (in particular, check that ``fwscind`` is in ``pupil``). After completing the steps above,
+:guilabel:`Auto Alignment` should be active and converged. Keep it active while you do this stage of the alignment.
+
+Next,
 
 * Move **stagesci1** to preset **test**.
 
-* Put the test pattern on the `dmncpc`` with the "Set Test" button next to "NCPC" on the **Pupil Alignment GUI**.
-
-* Press the **set test** under **NCPC**
+* Put the test pattern on the ``dmncpcq`` with the :guilabel:`Set Test` button next to "NCPC" on the **Pupil Alignment GUI**.
 
 Next, use the arrow buttons below :guilabel:`TTM Peri` to align the pupil on the NCPC DM.
 
 After each move, wait a second or so for the Auto Alignment deltas to catch up.
 
-.. warning:: As you are moving 'TTM Peri', monitor the CH1 [V] values just above the arrow buttons. If CH1 [V] reaches 150, then you have run out of range on TTM Peri. You will then need to offset the NCPC modal basis depending on the instrument's internal temperature. You can offset the basis by running either ``shiftncpc warm`` or ``shiftncpc cold`` on ``exao5``. Then, re-initialize ``dmncpc`` and re-set the flat. Now, verify that the numbers below CH1 [V] decrease when you click the "down" arrow button. 
+.. warning:: As you are moving 'TTM Peri', monitor the CH1 [V] values just above the arrow buttons. If CH1 [V] reaches 150, then you have run out of range on TTM Peri. You will then need to offset the NCPC modal basis depending on the instrument's internal temperature. You can offset the basis by running either ``shiftncpc warm`` or ``shiftncpc cold`` on ``exao5``. Then, re-initialize ``dmncpc`` and re-set the flat. Now, verify that the numbers below CH1 [V] decrease when you click the "down" arrow button.
 
 The following figure demonstrates what a good alignment looks like.
 
@@ -202,12 +203,11 @@ Once you are satisfied with the J-test alignment
 
 * Clear the J-test with the "zero test" button on the **Pupil Alignment GUI**
 
-* Return `stagesci1` to the `fpm` position
+* Return ``stagesci1`` to the ``fpm`` position
 
 * Stop Auto Align and set offloading to 0 modes.
 
 .. _fdpr2:
-
 
 Focus Diversity Phase Retrieval (FDPR)
 ------------------------------------------

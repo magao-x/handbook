@@ -87,9 +87,10 @@ generally be the instrument state on a daily basis.
 7. Home the zaber stages:
 
    - On the ninja tab of ``pwrGUI`` power-on ``pdu2.stagezaber`` and ``usbdu1.stagezaber``
-   - In ``cursesINDI`` toggle the ``zaberLowLevel.home_all.request`` switch 
+   - In ``cursesINDI`` toggle the ``zaberLowLevel.home_all.request`` switch
+   - Turn on ``usbdu1.stagepollin`` in the ninja tab, then use ``cursesINDI`` toggle the ``zaberLowLevelBinary.home_all.request`` switch
    - Wait for all stages to be in state ``READY`` (this does NOT include stageff or the polarimetry stage)
-   - Power-off ``pdu2.stagezaber`` and ``usbdu1.stagezaber``
+   - On the ninja tab, power off ``pdu2.stagezaber``, ``usbdu1.stagezaber`` and ``usbdu1.stagepollin`` *(You can leave them on if you're going to use them in a second for alignment.)*
 
 8. Set the flat on the ``dmwoofer``, ``dmtweeter``, and ``dmncpc``.
 
@@ -137,4 +138,3 @@ generally be the instrument state on a daily basis.
 16. Setup CACAO for closing the high-order loop as in :doc:`cacao`
 
 17. Now align the system as in :doc:`alignment <./alignment>`
-

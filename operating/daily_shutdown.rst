@@ -92,11 +92,7 @@ If MagAO-X will be unused for a longer period of time (overnight or a weekend), 
 
   - Follow the steps in :ref:`minimal_shutdown` above.
   -  Everything on the *user* tab of **pwrGUI** should be off. Items can be shutdown in any order.  Occassional errors in the logs during shutdown may occur.
-  -  Everything on the *ninja* tab of **pwrGUI** should be on (with the possible exception of `camflowfs` and `camllowfs`)
+  -  Everything on the *ninja* tab of **pwrGUI** should be on (with the possible exceptions of ``camflowfs``/``camllowfs`` and the Zaber stage controllers``stagezaber`` and ``stagepollin``)
 
 .. warning::
-       Do not power off `instCool`.
-
-
-
-
+       Never power off ``instCool``.
