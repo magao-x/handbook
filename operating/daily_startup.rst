@@ -111,8 +111,12 @@ generally be the instrument state on a daily basis.
 
       An AO system would clean that right up.
 
-   - If you do not see anything, use the system block diagram to troubleshoot. The most likely causes are that you forgot to power something on (the source?) or that ``stagepickoff`` is in the wrong position.
-     Another possibility is that `flipwfsf` is `in`, but `fwtelsim` is in `VisOpen` which blocks IR light.
+   - If you do not see anything, use the :doc:`system block diagram <block_diagram>` to troubleshoot. Consider:
+
+     - Is the source powered on? Does the power GUI look like everything you need is on?
+     - Did you run ``xlabmode``? Is ``stagepickoff`` in the correct position (``lab``)?
+     - Is ``flipwfsf`` in the beam? It may cut out so much light that ``camtip`` appears dark.
+     - Is ``fwtelsim`` in ``VisOpen`` and a visible-light-blocking element in the beam? The ``ha-ir`` beamsplitter or ``flipwfsf`` filter could block the beam upstream of ``fliptip``.
 
 12. Setup camwfs using the ``camwfsCtrl`` GUI:
 
