@@ -77,7 +77,7 @@ You will need Python 3.5 or newer (with ``pip``) and a recent version of
    `Anaconda <https://www.anaconda.com/distribution/>`__ is a popular
    installer.)
 
-   Note: on Ubuntu 24 you can instead run this command:
+   Note: on Ubuntu 24/26 you can instead run this command:
 
    .. code-block:: bash 
 
