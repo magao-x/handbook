@@ -24,17 +24,28 @@ For the full description of all of the features of ``rtimv`` see the its `User G
 ROIs
 ------
 
-Regions of Interest (ROIs) can be set for many of the cameras used in MagAO-X.  The ``roiGUI`` can be started with the command
+Regions of Interest (ROIs) can be set for many of the cameras used in MagAO-X.  The ``roiGUI`` can be opened from the 
+``cameraGUI`` control panel for the camera, or can be started with the command
 ::
 
       $ roiGUI camtip
       
-where ``camtip`` can be changed to the name of the camera device desired.
+where ``camtip`` can be changed to the name of the camera device desired.  
 
 |image1|
 
-The text entry blocks allow you to change the target parameters of the ROI.  When a target value is changed, the purple ROI box in rtimv (see above) will update automatically to show you which region of the camera is selected.  Note that you have to hit enter, or tab or click to another box, for the new value to load.
+The text entry blocks allow you to change the target parameters of the ROI.  
+When a target value is changed, the purple ROI box in rtimv (see above) will update automatically to 
+show you which region of the camera is selected.  Note that you have to hit enter, or tab or click to another box, 
+for the new value to load.
 
+The "Relative to current ROI" check-box below the X and Y Center fields changes the coordinate system of the center targets.  If 
+checked, then the center coordinates are entered in the **Target** fields relative to the current ROI.  This means they match 
+the rtimv display coordinates.  If it is not checked, then the coordinates are relative to the full frame of the camera.  Note that 
+the **Current** fields are always w.r.t. the full frame.  The binning, width, and height are not affected by the check box.  
+
+roiGUI Buttons
+~~~~~~~~~~~~~~~~~~~
 The button functions are:
 
 1. **reset**: resets the target values to the current values. This does not change the camera settings.
@@ -53,7 +64,14 @@ The button functions are:
 
 8. **default**: sets the camera to the configured default ROI.  This **changes the camera settings.** 
 
+Changing ROI in rtimv
+~~~~~~~~~~~~~~~~~~~~~~~~~~~
 
+``rtimv`` allows you to change the ROI by interacting with the maroon box.  It is movable and stretchable.  If it is not visible,
+press `shift+r` (a.k.a. `R`) to make it appear.  You can then adjust its position and size.  Once it is in the position you want
+press `alt+r` to apply it.  This first checks your input with the camera, and if the camera requires a change the box will update
+but the ROI will not move.  Press `alt+r` again to apply the updated position.  If the camera accepts the original it will 
+apply the first time.  In either case an informational message is displayed by `rtimv`.
 
 
 .. |image1| image:: figures/roiGUI.png
