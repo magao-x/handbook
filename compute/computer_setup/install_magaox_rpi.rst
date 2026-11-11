@@ -72,6 +72,11 @@ Troubleshooting Common Provsioning Errors
     * Download the .tar file and put it in "cd /opt/MagAOX/vendor"
     * Re-run "bash provision.sh" in "~/MagAOX/setup" 
 
+2. fatal error: lgpio.h: No such file or directory
+    * In "~/source/MagAOX", run "sudo apt update"
+    * Then run "sudo apt install -y liblgpio-dev"
+    * Check it was installed with "find /usr /usr/local -name lgpio.h 2>/dev/null". This should return /usr/include/lgpio.h if successful
+
 Installing mxlib
 ~~~~~~~~~~~~~~~~
 To have MagAO-X on the Rpi, you will also need to install mxlib. This can be done in the 'source' folder where you already installed MagAO-X. Below are the commands to do this:
