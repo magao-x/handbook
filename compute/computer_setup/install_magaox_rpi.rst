@@ -72,6 +72,17 @@ Troubleshooting Common Provsioning Errors
     * Download the .tar file and put it in "cd /opt/MagAOX/vendor"
     * Re-run "bash provision.sh" in "~/MagAOX/setup" 
 
+Installing mxlib
+~~~~~~~~~~~~~~~~
+To have MagAO-X on the Rpi, you will also need to install mxlib. This can be done in the 'source' folder where you already installed MagAO-X. Below are the commands to do this:
+1. cd ~/source/
+2. git clone https://github.com/jaredmales/mxlib.git
+3. cd mxlib/
+4. mkdir _build
+5. cd _build/
+6. cmake ..
+7. make
+
 Setting up SSH
 ~~~~~~~~~~~~~~
 
