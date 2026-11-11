@@ -62,8 +62,8 @@ Install MagAO-X
 7. Now you need to logout and login again. This means exit and run "reboot" in terminal. 
 8. Open a new terminal, go to the setup directory and run "bash provision.sh". This should run for ~30 minutes. 
 
-Troubleshooting Common Provsioning Errors
------------------------------------------
+Troubleshooting Common Provsioning and Make Errors
+--------------------------------------------------
 
 1. Error: "curl: (56) Recv failure: Connection reset by peer"
     * You can run "bash -x provision.sh" to see exactly what script caused the error
@@ -77,7 +77,14 @@ Troubleshooting Common Provsioning Errors
     * Temporary fix is to do "export MAGAOX_ROLE=ACC***"
     * Permenant fix is to do "sudo nano /etc/profile.d/magaox_role.sh" then add the line "export MAGAOX_ROLE=ACC***". This will set your role to ACC*** automatically on future reboots.o
 
-2. fatal error: lgpio.h: No such file or directory
+3. mzmqClient.hpp:196:17: error: request for member 'store' in 'milkzmq::milkzmqClient::m_timeToDie', which is of non-class type 'bool'
+    * run the following commands:
+    * cd /opt/MagAOX/source/milkzmq
+    * git pull
+    * make -B
+    * sudo make install
+
+4. fatal error: lgpio.h: No such file or directory
     * In "~/source/MagAOX", run "sudo apt update"
     * Then run "sudo apt install -y liblgpio-dev"
     * Check it was installed with "find /usr /usr/local -name lgpio.h 2>/dev/null". This should return /usr/include/lgpio.h if successful
