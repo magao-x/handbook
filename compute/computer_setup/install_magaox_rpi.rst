@@ -82,6 +82,7 @@ To have MagAO-X on the Rpi, you will also need to install mxlib. This can be don
 5. cd _build/
 6. cmake ..
 7. make
+8. sudo make install
 
 Setting up SSH
 ~~~~~~~~~~~~~~
