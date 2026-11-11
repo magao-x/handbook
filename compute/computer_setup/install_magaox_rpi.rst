@@ -72,6 +72,11 @@ Troubleshooting Common Provsioning Errors
     * Download the .tar file and put it in "cd /opt/MagAOX/vendor"
     * Re-run "bash provision.sh" in "~/MagAOX/setup" 
 
+2. fatal error: rtimv/rtimvInterfaces.hpp: No such file or directory
+    * Your MAGAOX_ROLE is likely 'workstation'. You need to have a role starting with ACC so that the Makefile recognizes it as an accelerometer Rpi and doesn't install rtimv. 
+    * Temporary fix is to do "export MAGAOX_ROLE=ACC***"
+    * Permenant fix is to do "sudo nano /etc/profile.d/magaox_role.sh" then add the line "export MAGAOX_ROLE=ACC***". This will set your role to ACC*** automatically on future reboots.o
+
 2. fatal error: lgpio.h: No such file or directory
     * In "~/source/MagAOX", run "sudo apt update"
     * Then run "sudo apt install -y liblgpio-dev"
