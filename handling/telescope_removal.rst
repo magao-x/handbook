@@ -45,7 +45,7 @@ Shutdown
 
       - ``stagepickoff`` is in ``tel`` preset
       - ``stagek`` is in ``transport`` preset
-      - ``fwsci1`` is in ``CH4`` preset
+      - ``fwsci1`` is in ``CH4-875`` preset
       - ``fwsci2`` is in ``Ha-narrow`` preset
       - ``stagepollin`` is in ``transport`` preset
 
