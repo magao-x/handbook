@@ -25,7 +25,7 @@ Approximately 1 week before the removal date, communicate with the LCO staff to 
 
 If planning to set up for remote operations in the cleanroom, also requ
 
-  - N2 bottle with regulator and quick-disconnect fitting in the cleanroom
+  - N\ :sub:`2` bottle with regulator and quick-disconnect fitting in the cleanroom
 
 Initial Conditions
 ------------------
@@ -41,16 +41,20 @@ Shutdown
 
 -  Power down all of MagAO-X
 
-   - Ensure that ``stagepickoff`` is in the ``tel`` position.
-   - Place the k-mirror at 180 degrees.
-   - Select the 875 filter on fwsci1 and the Ha-narrow filter on fwsci2
-   - turn off power for all devices on MagAO-X following the regular shutdown procedure.
-   - turn off all devices on ``usbdu0`` and ``usbdu0`` in the advanced tab of ``pwrGUI``
-   - use the ``shutdown -h now`` command to halt both RTC and ICC
-   - once the computers are off, power off any remaining items.
+   - Run ``xtransportmode`` to automatically move the following stages:
+
+      - ``stagepickoff`` is in ``tel`` preset
+      - ``stagek`` is in ``transport`` preset
+      - ``fwsci1`` is in ``CH4`` preset
+      - ``fwsci2`` is in ``Ha-narrow`` preset
+      - ``stagepollin`` is in ``transport`` preset
+
+   - Turn off power for all devices on MagAO-X following the regular shutdown procedure.
+   - Turn off all devices on ``usbdu0`` and ``usbdu1`` in the advanced tab of ``pwrGUI``
+   - Use the ``shutdown -h now`` command to halt both RTC and ICC
+   - Once the computers are off, power off any remaining items.
 
 -  Remove blower hose and cover the hole.
-
 -  Remove all cables
 
    -  See :ref:`detailed procedure <bmc_dm_cabling>` for removing MEMS DM cables
@@ -64,7 +68,18 @@ Shutdown
 
 -  Instrument
 
-   -  remove polarimeter
+   -  Remove polarimeter and place into hard case
+
+      - ``stagepolrot`` cables should be unplugged from the stage
+      - There are separate baggies for the mounting screws and for extra screws
+      
+      .. figure:: figures/polarimeter_case.jpeg
+         :width: 80%
+         :align: center
+
+         *MagAO-X polarimeter in the hard case.*
+
+
    -  Install window cover
    -  Remove eyepiece
    -  Remove bumpers and pusher hardware
@@ -79,6 +94,7 @@ Shutdown
 
    -  Verify all cart hardware is in-hand
    -  Verify two wire harnesses are in-hand
+
 
 Rig Onto Cart
 -------------
