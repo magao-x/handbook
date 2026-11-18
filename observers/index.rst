@@ -6,6 +6,7 @@ Information For Observers
 
    usepolicy
    planning
+   catalogs
    datapolicy
    data_access
    reduction/index
