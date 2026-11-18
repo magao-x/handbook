@@ -1,7 +1,7 @@
 Preparing an Observing Catalog
 ==============================
 
-In order to observe at LCO you need to prepare your targets in a catalog file. This file is a simple tab-delimited file with target information. The full description can be found at the `LCO website <http://lco.cl/technical-documentation/observing-catalogs-format>`_. To make it simple, there is an online app that lets you build up a target list using SIMBAD queries and then produces a catalog file (https://magellan-tcs-cat.streamlit.app/). 
+In order to observe at LCO you need to prepare your targets in a catalog file. This file is a simple tab-delimited file with target information. The full description can be found at the `LCO website <http://lco.cl/technical-documentation/observing-catalogs-format>`_. To make it simple, there is an online app that lets you build up a target list using SIMBAD queries and then produces a catalog file (https://magellan-tcs-cat.streamlit.app/). If that app isn't working (e.g., if the Strasbourg SIMBAD website is down), you can use the mirror website: https://magellen-tcs-cat-mirror.streamlit.app/. 
 
 AO Bright Star Catalog
 ----------------------
