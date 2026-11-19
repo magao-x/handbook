@@ -6,7 +6,7 @@ In order to observe at LCO you need to prepare your targets in a catalog file. T
 AO Bright Star Catalog
 ----------------------
 
-A catalog file can be produced for the MagAO-X AO bright star catalog from this url: https://ao-stars.streamlit.app/. Note that the exported cat file leaves spaces in the "Name" field, which is invalid and needs to be changed manually.
+A catalog file can be produced for the MagAO-X AO bright star catalog from this url: https://ao-stars.streamlit.app/.
 
 Uploading your Catalog to Guanaco
 ---------------------------------
