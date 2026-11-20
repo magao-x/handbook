@@ -331,6 +331,26 @@ Install MagAO-X On The Platform
 See detailed alignment procedure :download:`Aligning MagAO-X to the Telescope <../appendices/aligning_magao-x_to_the_scope.pdf>`
 
 
+- Remove the window cover from the entrance of the instrument
+
+- Install the polarimeter
+
+   - Mount the frame onto the instrument enclosure with the four bolts
+   - Plug the data and power cables back into ``stagepolrot``
+   - Use **pink** zip ties for cable management on the back panel and the corner of the instrument
+
+.. container:: figure align-center
+
+   |pol1| |pol2|
+   *Installing the polarimeter with pink zip ties for cable management on the back and side of the enclosure*
+
+.. |pol1| image:: figures/polarimeter_install1.jpeg
+   :width: 45%
+
+.. |pol2| image:: figures/polarimeter_install2.jpeg
+   :width: 45%
+
+
 Transport Electronics
 ---------------------
 
