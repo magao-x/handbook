@@ -24,68 +24,73 @@ This procedure will align the pupils on ``dmtweeter``, ``dmncpc``, and ``camwfs`
     - In **the lab** moving `ttmpupil` to fix `camwfs` pupil positions mis-registers the actuators w.r.t. the `camwfs` pixels. So the *Pupil Tracking Loop* must NOT be used in lab mode.
 
 
-Decide on your beam splitter
+Alignment
 ~~~~~~~~~~~~~~~~~~~~~~~~~~~~
 
 All of the alignment uses cameras downstream of the `stagebs` science/WFS beamsplitter, and changing beamsplitter causes shifts in both the pupil and focal plane.  Thus a change of beamsplitter will invalidate your alignment and require you to repeat these steps.
 
-Decide whether you're using H-alpha / IR or 65-35 first, and configure `stagebs`.
 
-Pupil Alignment
-~~~~~~~~~~~~~~~~
+#. Decide whether you're using H-alpha / IR or 65-35 first, and configure `stagebs`.
 
-This is the main pupil alignment procedure which should be followed after starting up, or after switching beam splitters.  The individual F-Test, J-Test, and `camwfs` alignments are performed when needed as part of this, and are described below.
+#. Set modwfs ch1/ch2 voltages:
 
-    #. Put ``camsci1`` into `pupil`. You will likely observe that the pupil is not round.
-    #. Move `ttmpupil` until the pupil on ``camsci1`` appears round.
-    #. Now test to make sure that the HOloop is working properly by setting the HOloop gains to 0 and closing the loop.
+   - stagebs in 65-35: ch1 = 2V, ch2 = 6V
+   - stagebs in ha-ir: ch1 = 2.5V, ch2 = 7.5V
+
+#. Use "move woofer" on pupilGuideGUI to align on tip and focus 
+
+#. Now test to make sure that the HOloop is working properly by setting the HOloop gains to 0 and closing the loop.
+
         - You should see a process appear in the CACAO `milk-procCTRL` window, titled ``mvalC2dm-1``. Ensure that the numbers under ``loopcnt`` (to the right of ``mvalC2dm-1``) are increasing.
 
 .. warning::
     If you do not see a ``mvalC2dm-1`` process appear or the numbers next to ``loopcnt`` are not increasing, stop and ask Jared (TODO: come up with troubleshooting solution for this step).
 
-#. Now close the HOloop on the first 24 modes and set wooder offloading to 4 modes.
+#. Close the loop on the first 24 modes, with offloading on for 20 modes or less.
 
-#. Keeping the loop closed, you can now start :guilabel:`Auto Alignment` of the ``ttmpupil`` and ``cameralensx``/``cameralensy`` devices
+   - if it's unstable lower the modes to 10 or even 3, adjusting the offloading number of modes so that it's always equal or less.
 
-    - Before you click :guilabel:`Start`, make sure you are monitoring the ``camwfs`` pupil position (and the ``camwfs`` viewer) to ensure it does not run away. This will happen immediately and aggressively.
+#. "zero all" on woofer modes slider GUI.
 
-        - If they do run away, :guilabel:`Stop` the auto alignment. You may need to use :guilabel:`Loop Zero` on the loop control GUI and the :guilabel:`Zero` button on the Offloading Ctrl GUI to remove spurious tip-tilt corrections.
+#. While watching camwfs, start auto-alignment and allow it to converge. 
 
-    - Monitor "Pupil Tracking Loop" and "Actuator Alignment Loop" deltas.
+  - if it stops itself with an error in the log:
 
-        .. warning:: If you don't see the alignment pokes in the camwfs frames, **stop** Auto Alignment immediately. This is likely because the ``dmtweeter`` app has died, and is not sending signals. Your pupils will run away. Other things to check: Do you have a good dark on ``camwfs``? Does ``camwfs`` need to be reconfigured? Does the F-test look ok?
+     - verify that you see the pokes on camwfs (ok to try again).  If not the tweeter is not responding.
+     - if you do see pokes reconfigure camwfs and try again
+     - if it still does not work ask for help.
 
-#. After the loop deltas have begun decreasing, close on 288 modes and set offloading to 10 modes.
-#. Once the loops have converged ("Pupil Tracking Loop" and "Actuator Alignment Loop" deltas less than 0.05 in the lab), you can turn off woofer-offloading.
-#. With Auto Alignment still running, align the beam on the NCPC DM using the :ref:`J-test <jtest>`and ``ttmperi``  (details below).
-#. Once the loops have converged ("Pupil Tracking Loop" and "Actuator Alignment Loop" deltas less than 0.05 in the lab) stop the :guilabel:`Auto Alignment` loop.
+  - you do not need to increase number of HO modes in this step
 
-    - In the lab the :guilabel:`Pupil Tracking Loop` should turn off when you stop the :guilabel:`Auto Alignment` loop.
+#. Set up camflowfs
 
-    - On sky the `Pupil Tracking Loop` should remain on when you stop the :guilabel:`Auto Alignment` loop.
+    - fwpfm=knifemask
+    - stagelosel=fpm
+    - stageflowfs=fpm
+    - fwlowfs=z 
+    - default ROI
+    - target cross on.
+    - camflowfs_avg to at least 2 seconds
 
-#. Now, close the loop on the rest of the modes.
+#. Once the auto-alignment has converged stop it.
 
-#. You may now turn on the Auto Alignment loop again. This should re-align the Pyramid pupils post-J-test.
+#. Open the loop.
 
-#.  Now, open the loop and increase the flux on `camwfs`:
-    - Put in `flipwfsf`
-    - Adjust `fwtelsim` and `camwfs` EM gain as needed to achieve at least 1-2000 counts on `camwfs`.
+#. Place stageff in "align" position
 
-    - you may need to reset protection
+#. Run simulated turbulence (in cacao for now)
 
-#. take a camwfs dark and then re-close the loop.
+    - adjust camflowfs exposure time to be unsaturated
 
-#. If using ``camflowfs``:
+.. image:: figures/camflowfS_alignment_target.png
+    :width: 500
+    :align: center
 
-    i. put `fwfpm` in `knifemask`
+#. move picoscix until corner of alignment target spider is on target cross in x-direction as in the above picture.
 
-    #. put ``camflowfs`` in :guilabel:`default` ROI, and press :kbd:`t` to show the target cross on its display.
-
-    #. Open the ``camflowfs`` shutter. If you do not see a PSF on ``camflowfs``:
-
-        - If you have already completed the alignment successfully, but are now switching beamsplitters: use the drop-down box to select the new beamsplitter.
+	- y doesn't matter
+	- use camflowfs_avg
+    - If you have already completed the alignment successfully, but are now switching beamsplitters: use the drop-down box to select the new beamsplitter.
 
         .. warning::
             Do **not** use the drop-down unless you are sure that you need to.  This is a relative move equivalent to hitting the arrow keys many times. It is not an absolute move to a setpoint. Do not use this to troubleshoot!
@@ -96,7 +101,7 @@ This is the main pupil alignment procedure which should be followed after starti
 
         - If you do not see the spot on either `camflowfs` or `camsci1` then something is wrong.  Check all filter wheel and stage positions, ensure shutters are responding and open.
 
-    #. On *Pupil Alignment Gui* use the `pico sci-x` buttons to move the PSF left and right to center on the target
+    -. On *Pupil Alignment Gui* use the `pico sci-x` buttons to move the PSF left and right to center on the target
 
         - See above warning regarding using the drop-down selection for changing beamsplitters.
 
@@ -104,22 +109,49 @@ This is the main pupil alignment procedure which should be followed after starti
 
         - The PSF should be centered on the target along x in the `camflowfs` display
 
-    # Then, select the ``modttm`` option in the "Tip Alignment" section of the *Pupil Alignment GUI*
-        - Use the arrow buttons under ``modttm`` to move the PSF up and down such that the PSF is centered along y
+#. stop turbulence
 
-#. If not using ``camflowfs`` (i.e. using ``camsci1`` to align):
+#. stageff to out
+	
+#. close the loop with offloading on
+	
+#. Then, select the ``modttm`` option in the "Tip Alignment" section of the *Pupil Alignment GUI*
 
-    i. Set ``camsci1`` to the :guilabel:`full` ROI
-    #. Take a dark and then open the ``camsci1`` shutter
-    #. Ensure ``fwscind`` is not in ``pupil``, move ``fwfpm`` to ``open``, then find the spot in the ``camsci1`` image
-    #. If you cannot see a PSF, something is wrong upstream. Check upstream filters and stage positions, shutters, etc.
-    #. On *Pupil Alignment Gui* use the `pico sci-x` buttons to approximately center the PSF on ``camsci1``
+   - Use the arrow buttons under ``modttm`` to move the PSF such that the PSF is centered on the cross
+   - ensure that you don't go below 1 V or above 9 V.
 
-#. You may now proceed to :ref:`FDPR <FDPR>` (below).
+#. re-start auto-alignment
+
+#. After the loop deltas have begun decreasing, close on 288 modes and set offloading to 10 modes.
+#. Once the loops have converged ("Pupil Tracking Loop" and "Actuator Alignment Loop" deltas less than 0.05 in the lab), you can turn off woofer-offloading.
+
+#. Once the loops have converged ("Pupil Tracking Loop" and "Actuator Alignment Loop" deltas less than 0.05 in the lab) stop the :guilabel:`Auto Alignment` loop.
+
+    - In the lab the :guilabel:`Pupil Tracking Loop` should turn off when you stop the :guilabel:`Auto Alignment` loop.
+    - On sky the `Pupil Tracking Loop` should remain on when you stop the :guilabel:`Auto Alignment` loop.
+
+#. Now, close the loop on the rest of the modes.
+
+#. Open the loop.
+
+#. With Auto Alignment still running, align the beam on the NCPC DM using the :ref:`J-test <jtest>`and ``ttmperi``  (details below).
+
+#. re-align the camwfs pupils using the camera lens x/y buttons.  Do NOT run auto-alignment again.
+
+#.  Now, open the loop and increase the flux on `camwfs`:
+
+    - Put in `flipwfsf`
+    - Adjust `fwtelsim` and `camwfs` EM gain as needed to achieve at least 1-2000 counts on `camwfs`.
+    - you may need to reset protection
+
+#. take a camwfs dark and then re-close the loop.
+
+#. Conduct :ref:`FDPR <FDPR>` in the focal positions of interest and save the ncpc flats.
 
 
-Tweeter Pupil Alignment (F-Test)
-~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+
+Manual Tweeter Pupil Alignment (F-Test)
+~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
 
 This does not need to be done if you have performed the :guilabel:`Auto Alignment`, however it is usually good to check it to make sure the automatic loop has converged properly.
 
