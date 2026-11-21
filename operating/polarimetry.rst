@@ -177,7 +177,7 @@ For data analysis, the following FITS headers are provided--
 
 .. code-block:: bash
 
-    QWPTRACK QWP1 SET ANGLE / [deg] The fast-axis angle of QWP1
-    QWPTRACK QWP2 SET ANGLE / [deg] The fast-axis angle of QWP2
+    QWPTRACK QWP1 ANGLE / [deg] The fast-axis angle of QWP1
+    QWPTRACK QWP2 ANGLE / [deg] The fast-axis angle of QWP2
     QWPTRACK TRACKING / [int] 0 if QWP pol. tracking is off, 1 if tracking is on
 
