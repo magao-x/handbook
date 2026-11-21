@@ -65,15 +65,8 @@ generally be the instrument state on a daily basis.
 
    - On the user tab power everything on.
         - ``camvisx`` and ``stageff`` can be left off if not needed
-        - ``camacq`` and ``flipacq`` are only used on-sky
-        - If you are using GMT HCAT, all devices on ``pduhcat`` can be powered on (you won't see this at LCO)
-
-   - If you plan to use either ``camflowfs`` or ``camllowfs``, check their power in the *ninja* tab.  If they are not powered up:
-            - begin with both cameras powered off
-            - on exao3/ICC: ``xctrl shutdown camflowfs camllowfs``
-            - power on one or both cameras
-            - as a non-xsup user, on exao3/ICC, run ``sudo /opt/pvcam/drivers/in-kernel/pcie/hotplug_pcie.sh``, verify the number of "active cameras" it reports
-            - on exao3/ICC: ``xctrl startup camflowfs camllowfs``
+        - ``camacq`` and ``flipacq`` are normally only used on-sky
+        - polarimetry components are optional (``stagepolrot``, ``stageqwprot``)
 
 6. Once power up is complete, switch to lab mode by running the `xlabmode` script as `xsup` on `aoc`:
 
@@ -86,11 +79,10 @@ generally be the instrument state on a daily basis.
 
 7. Home the zaber stages:
 
-   - On the ninja tab of ``pwrGUI`` power-on ``pdu2.stagezaber`` and ``usbdu1.stagezaber``
-   - In ``cursesINDI`` toggle the ``zaberLowLevel.home_all.request`` switch
-   - Turn on ``usbdu1.stagepollin`` in the ninja tab, then use ``cursesINDI`` toggle the ``zaberLowLevelBinary.home_all.request`` switch
-   - Wait for all stages to be in state ``READY`` (this does NOT include stageff or the polarimetry stage)
-   - On the ninja tab, power off ``pdu2.stagezaber``, ``usbdu1.stagezaber`` and ``usbdu1.stagepollin`` *(You can leave them on if you're going to use them in a second for alignment.)*
+   - On the ninja tab of ``pwrGUI`` power-on ``vpdu0.stagezaber``
+   - On AOC, run the script ``xhomezabers``
+   - Wait for all stages to be in state ``READY`` (this does NOT include the polarimetry stage)
+   - On the ninja tab, power off ``vpdu0.stagezaber`` *(You can leave them on if you're going to use them in a second for alignment.)*
 
 8. Set the flat on the ``dmwoofer``, ``dmtweeter``, and ``dmncpc``.
 

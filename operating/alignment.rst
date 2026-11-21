@@ -27,128 +27,147 @@ This procedure will align the pupils on ``dmtweeter``, ``dmncpc``, and ``camwfs`
 Alignment
 ~~~~~~~~~~~~~~~~~~~~~~~~~~~~
 
-All of the alignment uses cameras downstream of the `stagebs` science/WFS beamsplitter, and changing beamsplitter causes shifts in both the pupil and focal plane.  Thus a change of beamsplitter will invalidate your alignment and require you to repeat these steps.
+All of the alignment uses cameras downstream of the ``stagebs`` science/WFS beamsplitter, and changing beamsplitter causes shifts in both the pupil and focal plane.  Thus a change of beamsplitter will invalidate your alignment and require you to repeat these steps.
 
 
-#. Decide whether you're using H-alpha / IR or 65-35 first, and configure `stagebs`.
+#. Decide whether you're using H-alpha / IR or 65-35 first, and configure ```stagebs```.
 
-#. Set modwfs ch1/ch2 voltages:
+#. Setup modwfs ch1/ch2 voltages:
 
-   - stagebs in 65-35: ch1 = 2V, ch2 = 6V
-   - stagebs in ha-ir: ch1 = 2.5V, ch2 = 7.5V
+   a. 2000 Hz and 3 lambda/D modulation
+
+   b. stagebs in 65-35: ch1 = 2V, ch2 = 6V
+
+   c. stagebs in ha-ir: ch1 = 2.5V, ch2 = 7.5V
 
 #. Use "move woofer" on pupilGuideGUI to align on tip and focus 
 
 #. Now test to make sure that the HOloop is working properly by setting the HOloop gains to 0 and closing the loop.
 
-        - You should see a process appear in the CACAO `milk-procCTRL` window, titled ``mvalC2dm-1``. Ensure that the numbers under ``loopcnt`` (to the right of ``mvalC2dm-1``) are increasing.
+     a. You should see a process appear in the CACAO ``milk-procCTRL`` window, titled ``mvalC2dm-1``. Ensure that the numbers under ``loopcnt`` (to the right of ``mvalC2dm-1``) are increasing.
 
-.. warning::
-    If you do not see a ``mvalC2dm-1`` process appear or the numbers next to ``loopcnt`` are not increasing, stop and ask Jared (TODO: come up with troubleshooting solution for this step).
+     .. warning::
+         If you do not see a ``mvalC2dm-1`` process appear or the numbers next to ``loopcnt`` are not increasing, stop and ask Jared (TODO: come up with troubleshooting solution for this step).
 
 #. Close the loop on the first 24 modes, with offloading on for 20 modes or less.
 
-   - if it's unstable lower the modes to 10 or even 3, adjusting the offloading number of modes so that it's always equal or less.
+   a. if it's unstable lower the modes to 10 or even 3, adjusting the offloading number of modes so that it's always equal or less.
 
 #. "zero all" on woofer modes slider GUI.
 
 #. While watching camwfs, start auto-alignment and allow it to converge. 
 
-  - if it stops itself with an error in the log:
+  a. if it stops itself with an error in the log:
 
-     - verify that you see the pokes on camwfs (ok to try again).  If not the tweeter is not responding.
-     - if you do see pokes reconfigure camwfs and try again
-     - if it still does not work ask for help.
+     i. verify that you see the pokes on camwfs (ok to try again).  If not the tweeter is not responding.
+     ii. if you do see pokes reconfigure camwfs and try again
+     iii. if it still does not work ask for help.
 
-  - you do not need to increase number of HO modes in this step
+  b. you do not need to increase number of HO modes in this step
+
+  c. go on to the next step while alignment is running
 
 #. Set up camflowfs
 
-    - fwpfm=knifemask
-    - stagelosel=fpm
-    - stageflowfs=fpm
-    - fwlowfs=z 
-    - default ROI
-    - target cross on.
-    - camflowfs_avg to at least 2 seconds
+    a. fwpfm=knifemask
+    b. stagelosel=fpm
+    c. stageflowfs=fpm
+    d. fwlowfs=z 
+    e. default ROI
+    f. target cross on.
+    g. camflowfs_avg to at least 2 seconds
 
 #. Once the auto-alignment has converged stop it.
+  
+  a. at this step rough alignment (0.1 pixels) is fine
 
-#. Open the loop.
+#. Open the loop and turn offloading of
 
-#. Place stageff in "align" position
+#. Place ``stageff`` in "align" position
+   
+   a. in INDI toggle ``stageff.presetName.align``
 
 #. Run simulated turbulence (in cacao for now)
 
-    - adjust camflowfs exposure time to be unsaturated
+    a. adjust camflowfs exposure time so it is saturated (~100 FPS)
 
-.. image:: figures/camflowfS_alignment_target.png
-    :width: 500
-    :align: center
+    .. image:: figures/camflowfS_alignment_target.png
+       :width: 500
+       :align: center
 
 #. move picoscix until corner of alignment target spider is on target cross in x-direction as in the above picture.
 
-	- y doesn't matter
-	- use camflowfs_avg
-    - If you have already completed the alignment successfully, but are now switching beamsplitters: use the drop-down box to select the new beamsplitter.
+	a. y doesn't matter
 
-        .. warning::
+	b. use camflowfs_avg
+
+    c. If you have already completed the alignment successfully, but are now switching beamsplitters: use the drop-down box to select the new beamsplitter.
+
+    .. warning::
+
             Do **not** use the drop-down unless you are sure that you need to.  This is a relative move equivalent to hitting the arrow keys many times. It is not an absolute move to a setpoint. Do not use this to troubleshoot!
 
-        - ``camsci1`` has a wider FOV.  Make sure `fwscind` is not in `pupil`, move `fwfpm` to `open`, then use `camsci1` to find the spot.
+    d. If you do not see it on ``camflowfs`` after using the drop-down:
 
-        - If you can see it on `camsci`, use `pico sci-x` to move the spot to roughly centered on `camsci1`, then return to `camflowfs`.
+            1. ``camsci1`` has a wider FOV.  Make sure `fwscind` is not in `pupil`, move `fwfpm` to `open`, then use `camsci1` to find the spot.
 
-        - If you do not see the spot on either `camflowfs` or `camsci1` then something is wrong.  Check all filter wheel and stage positions, ensure shutters are responding and open.
+            2. If you can see it on `camsci`, use `pico sci-x` to move the spot to roughly centered on `camsci1`, then return to `camflowfs`.
 
-    -. On *Pupil Alignment Gui* use the `pico sci-x` buttons to move the PSF left and right to center on the target
+            3. If you do not see the spot on either `camflowfs` or `camsci1` then something is wrong.  Check all filter wheel and stage positions, ensure shutters are responding and open.
 
-        - See above warning regarding using the drop-down selection for changing beamsplitters.
+    e. On *Pupil Alignment Gui* use the `pico sci-x` buttons to move the PSF left and right to center on the target
 
-        - Use the arrow buttons to move, changing the scale for finer control
+        1. See above warning regarding using the drop-down selection for changing beamsplitters.
 
-        - The PSF should be centered on the target along x in the `camflowfs` display
+        2. Use the arrow buttons to move, changing the scale for finer control
 
-#. stop turbulence
+        3. The PSF should be centered on the target along x in the `camflowfs` display
+
+#. stop turbulence and zero
 
 #. stageff to out
+
+   a. in INDI toggle stageff.presetName.out
 	
 #. close the loop with offloading on
 	
-#. Then, select the ``modttm`` option in the "Tip Alignment" section of the *Pupil Alignment GUI*
+#. Then, select the ``move ttm`` option in the "Tip Alignment" section of the *Pupil Alignment GUI*
 
-   - Use the arrow buttons under ``modttm`` to move the PSF such that the PSF is centered on the cross
-   - ensure that you don't go below 1 V or above 9 V.
+   a. adjust ``camflowfs`` exposre
+   b. Use the arrow buttons under ``modttm`` to move the PSF such that the PSF is centered on the cross
+   c. ensure that you don't go below 1 V or above 9 V under Modulation.
 
-#. re-start auto-alignment
+#. re-start auto-alignment.  
 
-#. After the loop deltas have begun decreasing, close on 288 modes and set offloading to 10 modes.
-#. Once the loops have converged ("Pupil Tracking Loop" and "Actuator Alignment Loop" deltas less than 0.05 in the lab), you can turn off woofer-offloading.
+#. After the loop deltas have begun decreasing, close on all modes and set offloading to 20 modes.
 
 #. Once the loops have converged ("Pupil Tracking Loop" and "Actuator Alignment Loop" deltas less than 0.05 in the lab) stop the :guilabel:`Auto Alignment` loop.
 
-    - In the lab the :guilabel:`Pupil Tracking Loop` should turn off when you stop the :guilabel:`Auto Alignment` loop.
-    - On sky the `Pupil Tracking Loop` should remain on when you stop the :guilabel:`Auto Alignment` loop.
-
-#. Now, close the loop on the rest of the modes.
+    a. In the lab the :guilabel:`Pupil Tracking Loop` should turn off when you stop the :guilabel:`Auto Alignment` loop.
+    b. On sky the `Pupil Tracking Loop` should remain on when you stop the :guilabel:`Auto Alignment` loop.
 
 #. Open the loop.
 
-#. With Auto Alignment still running, align the beam on the NCPC DM using the :ref:`J-test <jtest>`and ``ttmperi``  (details below).
+#. Move ``fwpm`` to open.
+
+#. Align the beam on the NCPC DM using the :ref:`J-test <j-test>` and ``ttmperi``  (details below).
 
 #. re-align the camwfs pupils using the camera lens x/y buttons.  Do NOT run auto-alignment again.
 
-#.  Now, open the loop and increase the flux on `camwfs`:
+#. Now configure ``camwfs``:
 
-    - Put in `flipwfsf`
-    - Adjust `fwtelsim` and `camwfs` EM gain as needed to achieve at least 1-2000 counts on `camwfs`.
-    - you may need to reset protection
+    a. Put in `flipwfsf`
+    b. Adjust `fwtelsim` and `camwfs` EM gain as needed to achieve at least 1-2000 counts on `camwfs`.
+    c. you may need to reset protection
 
 #. take a camwfs dark and then re-close the loop.
 
 #. Conduct :ref:`FDPR <FDPR>` in the focal positions of interest and save the ncpc flats.
 
 
+
+
+.. _f_test:
 
 Manual Tweeter Pupil Alignment (F-Test)
 ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
@@ -187,14 +206,7 @@ The following figure demonstrates what a good alignment looks like.
 
 When done, use the Tweeter **zero test** button on the Alignment GUI.
 
-Decide on your beam splitter
-~~~~~~~~~~~~~~~~~~~~~~~~~~~~
-
-The J-test and later alignment takes place downstream of the ``stagebs`` science/WFS beamsplitter, so a change of beamsplitter will invalidate your alignment and require you to repeat those steps.
-
-Decide whether you're using H-alpha / IR or 65-35 first, and configure ``stagebs``.
-
-.. _jtest:
+.. _j-test:
 
 NCPC Pupil Alignment (J-Test)
 ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
@@ -239,7 +251,7 @@ Once you are satisfied with the J-test alignment
 
 * Stop Auto Align and set offloading to 0 modes.
 
-.. _fdpr2:
+.. _fdpr:
 
 Focus Diversity Phase Retrieval (FDPR)
 ------------------------------------------
