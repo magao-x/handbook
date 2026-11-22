@@ -57,15 +57,15 @@ All of the alignment uses cameras downstream of the ``stagebs`` science/WFS beam
 
 #. While watching camwfs, start auto-alignment and allow it to converge. 
 
-  a. if it stops itself with an error in the log:
+   a. if it stops itself with an error in the log:
 
-     i. verify that you see the pokes on camwfs (ok to try again).  If not the tweeter is not responding.
-     ii. if you do see pokes reconfigure camwfs and try again
-     iii. if it still does not work ask for help.
+      i. verify that you see the pokes on camwfs (ok to try again).  If not the tweeter is not responding.
+      ii. if you do see pokes reconfigure camwfs and try again
+      iii. if it still does not work ask for help.
 
-  b. you do not need to increase number of HO modes in this step
+   b. you do not need to increase number of HO modes in this step
 
-  c. go on to the next step while alignment is running
+   c. go on to the next step while alignment is running
 
 #. Set up camflowfs
 
@@ -73,19 +73,23 @@ All of the alignment uses cameras downstream of the ``stagebs`` science/WFS beam
     b. stagelosel=fpm
     c. stageflowfs=fpm
     d. fwlowfs=z 
-    e. default ROI
+    e. ROI: 
+
+       - For 65-35 use default 
+       - For ha-ir set the ROI center to 1214,1427
+    
     f. target cross on.
     g. camflowfs_avg to at least 2 seconds
 
 #. Once the auto-alignment has converged stop it.
   
-  a. at this step rough alignment (0.1 pixels) is fine
+    a. at this step rough alignment (0.1 pixels) is fine
 
-#. Open the loop and turn offloading of
+#. Open the loop and turn offloading off
 
-#. Place ``stageff`` in "align" position
+#. Place ``stageff`` in "align" position for the beamsplitter
    
-   a. in INDI toggle ``stageff.presetName.align``
+    a. in INDI toggle ``stageff.presetName.align-65-35`` or ``stageff.presetName.align-hair``
 
 #. Run simulated turbulence (in cacao for now)
 
