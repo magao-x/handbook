@@ -115,8 +115,6 @@ High-order Loop
 
     [xsup@rtc tweeter-vispyr-rootdir]$ cacao-calib-apply default
 
-For switching between the CACAO and neural network reconstructors or using predictive control, see :doc:`nn_reconstructor`.
-
 **At this point, if you aren't using the low-order loop, you can continue with** :doc:`alignment`
 
 Low-order T/T Loop
