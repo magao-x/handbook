@@ -22,6 +22,7 @@ Viewing camera output and DM input (really, any shared memory image) uses
    cacao
    alignment
    autofocus
+   nn_reconstructor
    starhopping
    polarimetry
    taking_flats
