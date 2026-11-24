@@ -11,7 +11,8 @@ This document can be downloaded as a PDF: :static:`Installing MagAO-X on the Tel
 Advanced Preparations
 ----------------------
 
-At least 1 week before the removal date, communicate with the LCO staff to arrange for the following:
+At least 1 week before the removal date, communicate with the LCO staff to arrange for the following (see
+example email in Appendix):
 
   - Flatbed truck
 
@@ -101,7 +102,41 @@ Rig Onto Cart
    cleanroom sides open.  Additional people are recommended to help guide.
 
    **CAUTION:** only push on the legs, not the table itself
+Hi All,
 
+We are installing MagAO-X on Clay on Tuesday the 17th.  
+
+Procedure: https://magao-x.org/docs/handbook/handling/telescope_install.html
+
+We would like to move MagAO-X to the summit on the afternoon of the 16th.  This saves us time the morning of the install and will help us be ready at sunset.
+
+We need the flatbed truck on the 16th at 1430, and on the 17th.
+
+Here is the schedule we propose:
+
+Nov 15th, 1700: procedure review in the ASB Library
+
+Nov 16th, 1430: 
+-- Rig MagAO-X onto cart in the cleanroom.
+-- transport MagAO-X to summit on flatbed, store in Aux or dome overnight
+-- transport air legs to summit on flatbed, store in Aux or dome overnight
+
+Nov 17th, 0830:
+-- remove Mike 
+-- move MagAO-X to platform and crane onto legs.  commence alignment.
+-- transport MagAO-X electronics to summit on flatbed or pickup.
+
+Additional reminders about things we need:
+-- crane scale (> 2000 lbs)
+-- come-along
+-- 4 ratchet straps 
+-- summit pentalift at slow speed
+-- Clay jib crane at 3 hairs speed
+-- N2 bottle with regulator and quick-disconnect fitting on platform
+
+This is a switch from NASW to NASE, so we will likely need some help with network configuration.  This will include our network cable to the accelerometers on the top-end.
+
+Please let us know if you see any issues with our plan.
 -  Continue rolling the instrument through the garage door into the
    unpacking area
 
@@ -158,8 +193,7 @@ Rig Onto Cart
 -  Reposition the load spreader center to the instrument + cart
    position marked on it.
 
-**CAUTION:** be sure that the load spreader does not hit the cart when
-   being repositioned.
+**CAUTION:** be sure that the load spreader does not hit the cart when being repositioned.
 
 -  Install the triangle stabilizing ropes between the crane hook and
    the lifting fixture IAW the below figure. Tighten, but do not cause
@@ -177,6 +211,8 @@ Rig Onto Cart
    the lift.
 
 -  Position two people to remove the legs from under the table
+
+**CAUTION:** position at least two people to watch that the cart does not snag on the legs.
 
 -  Begin SLOWLY lifting the table off the legs. Once table is fully supported by the crane, the scale will read around 2000 lbs (as of March 2024).
 
@@ -424,3 +460,52 @@ Cable the 2K
 See MagAO-X PSR Document :download:`2.2 Deformable Mirrors <../appendices/psr/2_2_Deformable_Mirrors.pdf>`
 
 -  Check actuator functionality, following `this notebook on the RTC <https://github.com/magao-x/magpyx/blob/master/notebooks/connection_doctor_example.ipynb>`_
+
+Appendix
+-------------
+
+Email to send 1 week in advance
+~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+
+This is an example email to send at least 1 week in advance of the day of installation.  
+Be sure to change the dates.
+
+.. code-block:: text
+
+     Hi All,
+     
+     We are installing MagAO-X on Clay on Tuesday the 17th.  
+     
+     Procedure: https://magao-x.org/docs/handbook/handling/telescope_install.html
+     
+     We would like to move MagAO-X to the summit on the afternoon of the 16th.  This saves us time 
+     the morning of the install and will help us be ready at sunset.
+     
+     We need the flatbed truck on the 16th at 1430, and on the 17th.
+     
+     Here is the schedule we propose:
+     
+     Nov 15th, 1700: procedure review in the ASB Library
+     
+     Nov 16th, 1430: 
+     -- Rig MagAO-X onto cart in the cleanroom.
+     -- transport MagAO-X to summit on flatbed, store in Aux or dome overnight
+     -- transport air legs to summit on flatbed, store in Aux or dome overnight
+     
+     Nov 17th, 0830:
+     -- remove Mike 
+     -- move MagAO-X to platform and crane onto legs.  commence alignment.
+     -- transport MagAO-X electronics to summit on flatbed or pickup.
+     
+     Additional reminders about things we need:
+     -- crane scale (> 2000 lbs)
+     -- come-along
+     -- 4 ratchet straps 
+     -- summit pentalift at slow speed
+     -- Clay jib crane at 3 hairs speed
+     -- N2 bottle with regulator and quick-disconnect fitting on platform
+     
+     This is a switch from NASW to NASE, so we will likely need some help with network configuration.  
+     This will include our network cable to the accelerometers on the top-end.
+     
+     Please let us know if you see any issues with our plan.

@@ -270,3 +270,35 @@ Remove AOC from Control Room
 -  remove monitors and pack
 
 -  move AOC and COC to cleanroom.
+
+Appendix
+------------
+
+Email to send 1 week in advance
+~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+
+This is an example email to send at least 1 week in advance of the day of removal  
+Be sure to change the dates.
+
+.. code-block:: text
+
+      Hi All,
+      
+      We are removing MagAO-X from Clay on the morning of Thursday, 11 Dec.  
+      
+      Here is the procedure: https://magao-x.org/docs/handbook/handling/telescope_removal.html.  
+      
+      Let's plan to have a procedure review at 5 pm on Wednesday, 10 Dec, in the ASB.
+      
+      2nd shift will begin de-cabling and preparing to rig it onto the cart as soon as we stop observing that morning.   
+      
+      We would like to take it straight to the cleanroom and rig it back on to the legs.
+            
+      We'll need:
+      — Clay jib crane at 3 hairs speed
+      — flatbed truck
+      — crane scale (> 2000 lbs)
+      — come along
+      — 4 ratchet straps
+      — N2 bottle with regulator and quick-disconnect in the cleanroom.
+      
