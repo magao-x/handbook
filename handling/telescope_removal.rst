@@ -68,27 +68,10 @@ Shutdown
 
 -  Instrument
 
-   -  Remove polarimeter and place into hard case
-
-      - ``stagepolrot`` cables should be unplugged from the stage
-      - There are separate baggies for the mounting screws and for extra screws
-      
-      .. figure:: figures/polarimeter_case.jpeg
-         :width: 80%
-         :align: center
-
-         *MagAO-X polarimeter in the hard case.*
-
-
-   -  Install window cover
    -  Remove eyepiece
    -  Remove bumpers and pusher hardware
    -  Remove air connection
    -  Remove the PEPS II
-   -  Tape over any exposed holes (from cables, etc)
-   -  Secure any loose cables
-   -  Shrink wrap the instrument
-   -  Install solar blanket over shrink wrap
 
 -  Cart and Rigging
 
@@ -101,9 +84,24 @@ Rig Onto Cart
 
 -  Lower table legs onto the casters by turning the 16 leveling bolts,
    and remove the metal pads
-
 -  Roll the instrument away from the telescope
+-  Remove polarimeter and place into hard case
 
+   - ``stagepolrot`` cables should be unplugged from the stage
+   - There are separate baggies for the mounting screws and for extra screws
+   
+   .. figure:: figures/polarimeter_case.jpeg
+      :width: 80%
+      :align: center
+
+      *MagAO-X polarimeter in the hard case.*
+
+
+-  Install window cover
+-  Tape over any exposed holes (from cables, etc)
+-  Secure any loose cables
+-  Shrink wrap the instrument
+-  Install solar blanket over shrink wrap
 -  Assemble the cart around the instrument
 
    -  **CAUTION:** be careful to not bump the legs with the cart
