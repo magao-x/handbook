@@ -37,8 +37,10 @@ all five columns:
 -  element name (see conventions below)
 -  value
 
-By default, you’re in “search” mode. Start typing a device name and
-cursesINDI will scroll the list to bring that device into view.
+By default, typing in the device column searches for a matching row
+without hiding other rows. Use the arrow keys to move between rows and
+columns.
+
 Right-arrow over to the value column, and the ``search:`` prompt will
 change to ``(e)dit this number``. Hit the ``e`` key and you’ll be
 prompted to ``set devname.propname.element=``. Type in your new value,
@@ -52,6 +54,36 @@ edit them if so.
 selected as ``set devname.propname.element = <value>``. Text and numbers
 are displayed as transmitted by INDI. Switches use ``|O|`` for off and
 ``|X|`` for on.
+
+Search and navigation
+---------------------
+
+Search is case-insensitive and supports fuzzy matching within each field
+of ``device.property.element``. For example, ``cwfs.exp.cur`` matches
+``camwfs.exposure.current``. Periods separate fields; an empty field is a
+wildcard, so ``.exposure`` searches properties on any device. Exact matches
+rank first, and query fields of four or more characters tolerate one typo.
+
+- ``Ctrl+L`` clears the query, exits filtering, and focuses search without
+  changing the selected row until you type.
+- ``Ctrl+F`` filters the table to matching rows, with the best matches first.
+  Entering filter mode clears the search query; pressing it again preserves
+  the current filter for editing.
+- While typing, ``Ctrl+Backspace`` deletes back to the previous period:
+  ``camwfs.exposure.current`` becomes ``camwfs.exposure.``, then ``camwfs.``,
+  then empty. This uses the terminal's ``Ctrl+H`` code, so ``Ctrl+H`` also
+  works; a terminal with a different mapping may need configuration.
+
+``Ctrl+V`` toggles optional VI navigation, which is off by default. When
+on, the header shows ``VI on`` and ``cursesVINDI`` with ``VI`` highlighted.
+Use ``h/j/k/l`` to move left/down/up/right, prefix a movement with a count
+(e.g. ``12j`` moves down 12 rows), or use ``Ctrl+U`` / ``Ctrl+D`` to move
+up/down half the visible table height. Movements stop at the table edges.
+Use ``Ctrl+L`` or ``Ctrl+F`` to type a query in VI mode; ``Enter`` returns
+to navigation without clearing the query or filter.
+
+The normal table sorts by device, property, then element. The selected
+element stays selected when other properties are added or removed.
 
 Property meta info
 ------------------
